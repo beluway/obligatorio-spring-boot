@@ -15,9 +15,7 @@ public class ControladorHome {
     public String index(@ModelAttribute usuarios usuario) {
       
 
-        //ACA SE CARGA LA LISTA DE OFERTAS (SIN EL BOTON POSTULAR SI EL POSTULANTE NO ESTÁ LOGUEADO)
-        //CUANDP EL POSTULANTE SE LOGUEA, APARECE EL BOTON EN CADA OFERTA PARA POSTULARSE
-
+    
         return "home/index";
     }    
 
