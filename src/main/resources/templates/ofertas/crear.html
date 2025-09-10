@@ -1,12 +1,104 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"> 
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <meta charset="UTF-8" />
+    <title>Formulario Oferta Laboral</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: #fff;
+            width: 520px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            animation: fadeIn 0.7s ease-in-out;
+        }
+        .card h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: 500;
+            color: #555;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background: #4e73df;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #2e59d9;
+        }
+        #volver{
+            display: block;
+            text-align: center;
+            padding: 5%;
+        }
+        #volver:hover{
+            transform: scale(1.2);
+        }
+    </style>
 </head>
 <body>
-      
+<div class="card">
+    <h2>Registrar Nueva Oferta Laboral</h2>
+    <form action="#" method="post">
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" placeholder="Ej: Desarrollador Frontend" required>
 
+        <label for="fecha_cierre">Fecha de cierre</label>
+        <input type="date" id="fecha_cierre" name="fecha_cierre" required>
+        
+        <label for="area">Área</label>
+        <select id="area" name="area" required>
+            <option value="">-- Selecciona un área --</option>
+            <option value="TI">Tecnología</option>
+            <option value="RRHH">Recursos Humanos</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Ventas">Ventas</option>
+            <option value="Administración">Administración</option>
+        </select>
+
+        <label for="descripcion">Descripción detallada</label>
+        <textarea id="descripcion" name="descripcion" placeholder="Describe las tareas, requisitos y condiciones..." required></textarea>
+
+        <label for="vacantes">Cantidad de puestos vacantes</label>
+        <input type="number" id="vacantes" name="vacantes" min="1" placeholder="Ej: 3" required>
+
+        <button type="submit">Publicar Oferta</button>
+
+        <a href="listado.html" id="volver">Volver</a>
+    </form>
+</div>
 </body>
 </html>
