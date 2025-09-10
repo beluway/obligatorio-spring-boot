@@ -27,15 +27,19 @@ public class ControladorHome {
      @GetMapping("/login")
     public String index(@ModelAttribute usuarios usuario) {
       
-        return "login/login";
+        return "home/login";
     }    
 
-    @PostMapping("/index")
+    @PostMapping("/login")
     public String index(@ModelAttribute @Validated usuarios usuario, Model modelo, BindingResult resultado) {
        
 
         //ACA SE REDIRIGE DEPENDIENDO DEL TIPO DE USUARIO QUE SE LOGUEA
         return "login/index";
+        return "clientes/home";
+        return "consultores/main";
+        return "ofertas/main";
+        return "postulantes/main";
     }
 
 }
