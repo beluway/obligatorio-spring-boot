@@ -14,7 +14,7 @@ public class ControladorClientes {
     @GetMapping("/main")
     public String clienteCrear(@ModelAttribute clientes cliente)
     {
-    
+        
         return "clientes/main";        
     }
 
@@ -29,7 +29,7 @@ public class ControladorClientes {
 
     @PostMapping("/crear")
     public String clienteCrear (@ModelAttribute @Validated clientes cliente, Model modelo, BindingResult resultado) 
-    {           
+    {               
         return "clientes/crear";
     }
 
