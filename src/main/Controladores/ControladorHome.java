@@ -36,7 +36,7 @@ public class ControladorHome {
 
         //ACA SE REDIRIGE DEPENDIENDO DEL TIPO DE USUARIO QUE SE LOGUEA
         return "login/index";
-        return "clientes/home";
+        return "clientes/main";
         return "consultores/main";
         return "ofertas/main";
         return "postulantes/main";
