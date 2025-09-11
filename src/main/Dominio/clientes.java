@@ -2,22 +2,23 @@ import java.util.ArrayList;
 import java.util.List;
 import com.bios.edu.uy.obligatorio2025.*;
 
-import io.micrometer.common.lang.NonNull;
+import jakarta.validation.constraints.*;
 
 
 public class clientes extends usuarios {
     
 
 
-    @NonNull
+    @NotNull
     private long rut;
 
-    @NonNull
+    @NotNull
     private String nombre;
 
+    @Optional
     private String url;
 
-    @NonNull
+    @NotNull
     private ArrayList<ofertas> listaOfertas;
 
 

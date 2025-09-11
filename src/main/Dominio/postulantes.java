@@ -3,7 +3,7 @@ import javax.imageio;
 import javax.imageio.ImageIO;
 import java.io.File;
 import com.bios.edu.uy.obligatorio2025.*;
-
+import jakarta.validation.constraints.*;
 
 //VER SI ESTE PAQUETE SIRVE PARA SUBIR ARCHIVOS
 import org.apache.commons.File;
@@ -11,23 +11,23 @@ import org.apache.commons.File;
 
 public class postulantes extends usuarios{
     
-    @NonNull
+       @NotNull
     private long cedula;
 
-    @NonNull
+      @NotNull
     private String Primernombre,primerApellido,segundoApellido;
 
     private String segundoNombre;
 
-    @NonNull
+      @NotNull
     private Date fechanacimiento;
 
-    @NonNull
+      @NotNull
     private String departamento;
 
 
     //ESTA ES UNA OPCION, OTRA OPCION ES TENER ESTA LISTA EN UNA ENTIDAD "POSTULACIONES"
-    @NonNull
+      @NotNull
     private ArrayList<ofertas> listaOfertas;
 
     //VER SI ESTO FUNCIONA COMO IMAGEN
@@ -35,7 +35,7 @@ public class postulantes extends usuarios{
 
 
     //VER SI ESTO SIRVE PARA PDF
-    @NonNull
+      @NotNull
     private File pdf;
 
 

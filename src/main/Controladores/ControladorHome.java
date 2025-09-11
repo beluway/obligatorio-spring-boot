@@ -19,7 +19,7 @@ public class ControladorHome {
     }    
 
     @PostMapping("/index")
-    public String index(@ModelAttribute @Validated usuarios usuario, Model modelo, BindingResult resultado) {
+    public String index(@ModelAttribute @Valid usuarios usuario, Model modelo, BindingResult resultado) {
        
         modelo.getAttribute("usu",usuario.getUsuario);
         
@@ -37,7 +37,7 @@ public class ControladorHome {
     }    
 
     @PostMapping("/login")
-    public String index(@ModelAttribute @Validated usuarios usuario, Model modelo, BindingResult resultado) {
+    public String index(@ModelAttribute @Valid usuarios usuario, Model modelo, BindingResult resultado) {
        
       
         // SE BUSCA SI EXISTE EN LA CAPA USUARIO CON LOS DATOS PASADOS

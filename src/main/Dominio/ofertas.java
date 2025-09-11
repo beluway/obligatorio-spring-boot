@@ -1,3 +1,5 @@
+import org.springframework.beans.factory.annotation.Value;
+
 import io.micrometer.common.lang.NonNull;
 import jakarta.validation.constraints.*;
 
@@ -5,17 +7,17 @@ public class ofertas {
     
     private int id;
 
-    @NonNull
+    @NotNull
     @PastOrPresent
     private Date fechaPublicacion, fechaCierre;
 
-    @NonNull
+    @NotNull
     private String area;
 
-    @NonNull
+    @NotNull
     private String descripcion;
 
-    @NonNull
+    @NotNull
     private int cantidadVacantes;
 
     public int getId() {

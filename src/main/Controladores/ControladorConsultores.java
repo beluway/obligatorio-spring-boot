@@ -28,7 +28,7 @@ public class ControladorConsultores {
     }
 
     @PostMapping("/crear")
-    public String consultorCrear (@ModelAttribute @Validated consultores consultor, Model modelo, BindingResult resultado) 
+    public String consultorCrear (@ModelAttribute @Valid consultores consultor, Model modelo, BindingResult resultado) 
     {           
         return "consultores/crear";
     }
@@ -43,7 +43,7 @@ public class ControladorConsultores {
     }
 
     @PostMapping("/eliminar")
-    public String consultorEliminar(@ModelAttribute @Validated consultores consultor, Model modelo, BindingResult resultado)  {
+    public String consultorEliminar(@ModelAttribute @Valid consultores consultor, Model modelo, BindingResult resultado)  {
               
         return "consultores/eliminar";
     }
@@ -57,7 +57,7 @@ public class ControladorConsultores {
     }
     
     @PostMapping("/modificar")
-    public String consultorModificar(@ModelAttribute @Validated consultores consultor, Model modelo, BindingResult resultado) {
+    public String consultorModificar(@ModelAttribute @Valid consultores consultor, Model modelo, BindingResult resultado) {
        
         return "consultores/modificar";
     }

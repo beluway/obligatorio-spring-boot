@@ -18,7 +18,7 @@ public class ControladorPostulaciones {
 
 
     @PostMapping("/crear")
-    public String clienteCrear (@ModelAttribute @Validated postulaciones postulacion, Model modelo, BindingResult resultado) 
+    public String clienteCrear (@ModelAttribute @Valid postulaciones postulacion, Model modelo, BindingResult resultado) 
     {           
         return "postulaciones/crear";
     }
@@ -32,7 +32,7 @@ public class ControladorPostulaciones {
 
 
     @PostMapping("/eliminar")
-    public String clienteCrear (@ModelAttribute @Validated postulaciones postulacion, Model modelo, BindingResult resultado) 
+    public String clienteCrear (@ModelAttribute @Valid postulaciones postulacion, Model modelo, BindingResult resultado) 
     {           
         return "postulaciones/eliminar";
     }

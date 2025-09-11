@@ -1,14 +1,14 @@
 import com.bios.edu.uy.obligatorio2025.*;
 
-import io.micrometer.common.lang.NonNull;
+import jakarta.validation.constraints.*;
 
 public class postulaciones {
     
 
-    @NonNull
+     @NotNull
     private ArrayList<ofertas> listaOfertas;
 
-    @NonNull
+     @NotNull
     private postulantes p;
 
 }

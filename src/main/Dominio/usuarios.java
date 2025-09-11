@@ -1,11 +1,11 @@
-import io.micrometer.common.lang.NonNull;
+import jakarta.validation.constraints.*;
 
 public abstract class usuarios {
     
-    @NonNull
+    @NotNull
     private String usuario;
 
-    @NonNull
+    @NotNull
     private String clave;
 
     
