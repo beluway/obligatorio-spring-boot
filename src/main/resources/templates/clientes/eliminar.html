@@ -1,12 +1,122 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"> 
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Eliminar Cliente</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: #fff;
+            width: 520px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            animation: fadeIn 0.7s ease-in-out;
+        }
+        .card h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: 500;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #eee;
+        }
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            margin-top: 12px;
+            border-radius: 6px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            margin-top: 12px;
+            border-radius: 6px;
+        }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background: #4e73df;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #2e59d9;
+        }
+        #volver {
+            display: block;
+            text-align: center;
+            padding: 5%;
+            color: #4e73df;
+            text-decoration: none;
+        }
+        #volver:hover {
+            transform: scale(1.2);
+        }
+    </style>
 </head>
 <body>
-      
+    <div class="card">
+        <h2>Eliminar Cliente</h2>
 
+        <form th:action="@{/clientes/{id}/eliminar(id=${cliente.id})}" method="post">
+            
+
+                <label>Nombre:</label>
+                <input type="text" th:value="${cliente.nombre}" />
+
+                <label>RUT:</label>
+                <input type="text" th:value="${cliente.rut}" />
+
+                <label>Sitio Web:</label>
+                <input type="text" th:value="${cliente.urlSitioWeb}" />
+
+                <label>Estado:</label>
+                <input type="text" th:value="${cliente.activo ? 'Activo' : 'Inactivo'}" />
+
+                <label>N° Ofertas Publicadas:</label>
+                <input type="text" th:value="${cliente.ofertas.size()}" />
+            
+
+            <div th:if="${cliente.ofertas.size() > 0}" class="alert-warning">
+                ⚠️ Si este cliente tiene ofertas publicadas. Se realizará una <strong>baja lógica</strong>.
+            </div>
+            <div th:if="${cliente.ofertas.size() == 0}" class="alert-success">
+                ✅ Se eliminará definitivamente del sistema.
+            </div>
+
+            <button type="submit">Confirmar Eliminación</button>
+        </form>
+
+        <a th:href="@{/clientes}" id="volver">← Volver al listado</a>
+    </div>
 </body>
 </html>

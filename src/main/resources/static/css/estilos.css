@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"> 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario Registro Cliente</title>
-     <style>
-        body {
+body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
             display: flex;
@@ -68,27 +61,3 @@
         #volver:hover{
             transform: scale(1.2);
         }
-    </style>
-</head>
-<body>
-  <div class="card">
-    <h2>Registrar Nuevo Cliente</h2>
-    <!-- Cambia la URL en th:action al endpoint de tu controlador -->
-    <form th:action="@{/clientes/registrar}" method="post">
-        
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Empresa Bios" required>
-        
-        <label for="rut">RUT</label>
-        <input type="text" id="rut" name="rut" placeholder="214567890012" required>
-        
-        <label for="sitioWeb">Sitio web</label>
-        <input type="url" id="sitioWeb" name="sitioWeb" placeholder="https://www.ejemplo.com">
-
-        <button type="submit">Registrar Cliente</button>
-
-        <a th:href="@{/clientes/listado}" id="volver">Volver</a>
-    </form>
-</div>
-</body>
-</html>
