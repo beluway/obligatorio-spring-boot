@@ -11,18 +11,18 @@ import org.apache.commons.File;
 
 public class postulantes extends usuarios{
     
-       @NotNull
+    @NotNull(message = "Ingrese la cedula")
     private long cedula;
 
-      @NotNull
+    @NotNull
     private String Primernombre,primerApellido,segundoApellido;
 
     private String segundoNombre;
 
-      @NotNull
+    @NotNull (message = "Seleccione la fecha de nacimiento")
     private Date fechanacimiento;
 
-      @NotNull
+    @NotNull (message = "Seleccione el departamento")
     private String departamento;
 
 
@@ -35,7 +35,7 @@ public class postulantes extends usuarios{
 
 
     //VER SI ESTO SIRVE PARA PDF
-      @NotNull
+    @NotNull
     private File pdf;
 
 

@@ -11,13 +11,13 @@ public class ofertas {
     @PastOrPresent
     private Date fechaPublicacion, fechaCierre;
 
-    @NotNull
+    @NotNull(message = "seleccione el area")
     private String area;
 
-    @NotNull
+    @NotNull(message = "Ingrese una descripción")
     private String descripcion;
 
-    @NotNull
+    @NotNull(message = "Ingrese la cantidad de puestos vacantes")
     private int cantidadVacantes;
 
     public int getId() {
