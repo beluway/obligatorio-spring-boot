@@ -9,10 +9,10 @@ public class clientes extends usuarios {
     
 
 
-    @NotNull
+    @NotNull(message = "Ingrese el RUT.")
     private long rut;
 
-    @NotNull
+    @NotNull(message = "Ingrese el nombre.")
     private String nombre;
 
     @Optional
