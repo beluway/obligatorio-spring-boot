@@ -14,7 +14,6 @@ public class ControladorHome {
     @GetMapping("/index")
     public String index(@ModelAttribute usuarios usuario) {
       
-
     
         return "home/index";
     }    
@@ -31,7 +30,7 @@ public class ControladorHome {
     }
     
 
-     @GetMapping("/login")
+    @GetMapping("/login")
     public String index(@ModelAttribute usuarios usuario) {
       
         return "home/login";

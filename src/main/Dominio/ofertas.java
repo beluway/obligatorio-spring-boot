@@ -1,10 +1,12 @@
 import io.micrometer.common.lang.NonNull;
+import jakarta.validation.constraints.*;
 
 public class ofertas {
     
     private int id;
 
     @NonNull
+    @PastOrPresent
     private Date fechaPublicacion, fechaCierre;
 
     @NonNull
