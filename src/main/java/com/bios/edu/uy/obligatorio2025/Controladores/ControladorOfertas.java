@@ -71,4 +71,12 @@ public class ControladorOfertas {
         return "ofertas/ver";
     }   
 
+
+      @GetMapping("/listas")    
+    public String clientesVer() {
+       
+
+        return "ofertas/listado";
+    } 
+
 }

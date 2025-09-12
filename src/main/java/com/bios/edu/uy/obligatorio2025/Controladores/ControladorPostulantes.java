@@ -23,7 +23,7 @@ public class ControladorPostulantes {
     public String clienteCrear(@ModelAttribute postulantes postulantes)
     {
     
-        return "ofertas/crear";
+        return "postulantes/crear";
         
     }
 
