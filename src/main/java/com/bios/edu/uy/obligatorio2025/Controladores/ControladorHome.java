@@ -68,12 +68,12 @@ public class ControladorHome {
             }
             else if(usuario instanceof clientes)
             {
-                return "ofertas/main";
+                return "clientes/main";
             }
            
             else if(usuario instanceof postulantes)
             {
-                return "ofertas/main";
+                return "postulantes/main";
             }
 
    
