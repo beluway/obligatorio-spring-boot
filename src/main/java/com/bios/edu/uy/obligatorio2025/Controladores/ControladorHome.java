@@ -43,9 +43,7 @@ HttpSession sessionUsuario;
         //BUSCAR USUARIO ................controladorClientes
 
         if(usu!=null)
-        {   
-           
-        
+        {       
             return "redirect:/home/login";
         }
        

@@ -4,65 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado Clientes</title>
-    <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-    }
-    .card {
-        background: #fff;
-        width: 850px;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        animation: fadeIn 0.7s ease-in-out;
-    }
-    .card h2 {
-        margin-bottom: 20px;
-        text-align: center;
-        color: #333;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-    }
-    th, td {
-        text-align: left;
-        padding: 12px;
-        border-bottom: 1px solid #ddd;
-    }
-    th {
-        background-color: #4e73df;
-        color: white;
-    }
-    tr:hover {
-        background-color: #f1f1f1;
-    }
-    .btn {
-        display: inline-block;
-        padding: 6px 12px;
-        background-color: #4e73df;
-        color: white;
-        border-radius: 6px;
-        font-size: 14px;
-        text-decoration: none;
-        transition: background 0.3s ease;
-        margin-right: 5px;
-    }
-    .btn:hover {
-        background-color: #2e59d9;
-    }
-    @keyframes fadeIn {
-        from {opacity: 0; transform: translateY(-10px);}
-        to {opacity: 1; transform: translateY(0);}
-    }
-</style>
+   <link rel="stylesheet" th:href="@{/css/listas.css}">
 </head>
 <body>
       
@@ -86,6 +28,7 @@
                 <td>               
                     <a href="modificar.html" class="btn">Editar</a>
                     <a href="eliminar.html?id=CL001" class="btn">Eliminar</a>
+                    
                 </td>
             </tr>
             <tr>

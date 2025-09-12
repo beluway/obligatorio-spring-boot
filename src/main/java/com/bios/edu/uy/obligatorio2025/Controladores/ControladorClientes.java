@@ -71,4 +71,12 @@ public class ControladorClientes {
     }   
 
 
+     @GetMapping("/lista")    
+    public String clientesVer() {
+       
+
+        return "clientes/lista";
+    } 
+
+
 }
