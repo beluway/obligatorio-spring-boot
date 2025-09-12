@@ -19,14 +19,17 @@ public class ControladorHome {
     }    
 
     @PostMapping("/index")
-    public String index(@ModelAttribute @Valid usuarios usuario, Model modelo, BindingResult resultado) {
+    public String index(@ModelAttribute @Valid usuarios usuario ,Model modelo, BindingResult resultado) {
        
         modelo.getAttribute("usu",usuario.getUsuario);
         
 
         //ACA VA EL ACCESO A LA CAPA DE DATOS DE USUARIO
-        
+        //SI EXISTE EL USUARIO TE MANDA PARA LA OTRA PAGINA
         return "home/login";
+
+        //SI NO EXISTE EL USUARIO
+
     }
     
 
@@ -50,19 +53,27 @@ public class ControladorHome {
             {
                 return "consultores/main";
             }
+
             else if(usuario instanceof clientes)
             {
-                return "ofertas/main";
+                return "clientes/main";
             }
            
             else if(usuario instanceof postulantes)
             {
-                return "ofertas/main";
+                return "postulantes/main";
             }
         }
       
       
-        return "postulantes/main";
+       /*
+       return "postulantes/main";
+       sdgfBFH 
+       jajajaj mira vos .....
+       
+       
+       */ 
+
     }
 
 }
