@@ -1,8 +1,12 @@
-import jakarta.validation.constraints.*;
+package com.bios.edu.uy.obligatorio2025.Dominio;
 
-public abstract class usuarios {
+
+
+import jakarta.validation.constraints.NotNull;
+
+public class usuarios {
     
-    @NotNull
+     @NotNull
     private String usuario;
 
     @NotNull
@@ -35,6 +39,6 @@ public abstract class usuarios {
     }
 
 
-    
+
 
 }

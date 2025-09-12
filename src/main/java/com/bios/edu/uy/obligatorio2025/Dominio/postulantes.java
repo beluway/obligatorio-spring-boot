@@ -1,17 +1,22 @@
+package com.bios.edu.uy.obligatorio2025.Dominio;
+
 import io.micrometer.common.lang.NonNull;
-import javax.imageio;
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.sql.Date;
+
 import com.bios.edu.uy.obligatorio2025.*;
 import jakarta.validation.constraints.*;
 
-//VER SI ESTE PAQUETE SIRVE PARA SUBIR ARCHIVOS
-import org.apache.commons.File;
+import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
+import jakarta.validation.constraints.NotNull;
 
 public class postulantes extends usuarios{
     
-    @NotNull(message = "Ingrese la cedula")
+ @NotNull(message = "Ingrese la cedula")
     private long cedula;
 
     @NotNull
@@ -140,9 +145,12 @@ public class postulantes extends usuarios{
 
 
 
-
-    public postulantes(long cedula, String primernombre, String primerApellido, String segundoApellido,
-            String segundoNombre, Date fechanacimiento, String departamento, ImageIO imagen, java.io.File pdf) {
+    public postulantes(String usuario, String clave, @NotNull(message = "Ingrese la cedula") long cedula,
+            @NotNull String primernombre, @NotNull String primerApellido, @NotNull String segundoApellido,
+            String segundoNombre, @NotNull(message = "Seleccione la fecha de nacimiento") Date fechanacimiento,
+            @NotNull(message = "Seleccione el departamento") String departamento,
+            @NotNull ArrayList<ofertas> listaOfertas, ImageIO imagen, @NotNull File pdf) {
+        super(usuario, clave);
         this.cedula = cedula;
         Primernombre = primernombre;
         this.primerApellido = primerApellido;
@@ -150,10 +158,10 @@ public class postulantes extends usuarios{
         this.segundoNombre = segundoNombre;
         this.fechanacimiento = fechanacimiento;
         this.departamento = departamento;
+        this.listaOfertas = listaOfertas;
         this.imagen = imagen;
         this.pdf = pdf;
     }
-
 
 
     //VER COMO MOSTRAR LA IMAGEN Y EL PDF EN EL toString()
@@ -166,5 +174,4 @@ public class postulantes extends usuarios{
 
 
 
-    
 }

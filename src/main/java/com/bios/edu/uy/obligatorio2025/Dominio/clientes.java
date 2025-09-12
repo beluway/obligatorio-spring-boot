@@ -1,10 +1,12 @@
+package com.bios.edu.uy.obligatorio2025.Dominio;
 import java.util.ArrayList;
-import java.util.List;
-import com.bios.edu.uy.obligatorio2025.*;
-
-import jakarta.validation.constraints.*;
 
 
+
+import jakarta.validation.constraints.NotNull;
+
+
+    
 public class clientes extends usuarios {
     
 
@@ -15,7 +17,7 @@ public class clientes extends usuarios {
     @NotNull(message = "Ingrese el nombre.")
     private String nombre;
 
-    @Optional
+    
     private String url;
 
     @NotNull
@@ -51,18 +53,17 @@ public class clientes extends usuarios {
     }
       
 
-    public clientes(long rut, String nombre, String url, ArrayList<ofertas> listaOfertas) {
+  
+
+    public clientes(String usuario, String clave, @NotNull(message = "Ingrese el RUT.") long rut,
+            @NotNull(message = "Ingrese el nombre.") String nombre, String url,
+            @NotNull ArrayList<ofertas> listaOfertas) {
+        super(usuario, clave);
         this.rut = rut;
         this.nombre = nombre;
         this.url = url;
         this.listaOfertas = listaOfertas;
     }
-
-
-     public clientes() {
-       
-    }
-
     @Override
     public String toString() {
         return "clientes [rut=" + rut + ", nombre=" + nombre +", url= " +url +"]";
@@ -70,6 +71,6 @@ public class clientes extends usuarios {
 
 
 
- 
+
 
 }

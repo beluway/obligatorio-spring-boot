@@ -1,11 +1,13 @@
-import org.springframework.beans.factory.annotation.Value;
+package com.bios.edu.uy.obligatorio2025.Dominio;
 
-import io.micrometer.common.lang.NonNull;
+import java.sql.Date;
+
+import org.springframework.beans.factory.annotation.Value;
 import jakarta.validation.constraints.*;
 
 public class ofertas {
     
-    private int id;
+ private int id;
 
     @NotNull
     @PastOrPresent
@@ -77,7 +79,6 @@ public class ofertas {
         this.descripcion = descripcion;
         this.cantidadVacantes = cantidadVacantes;
     }
-    
 
 
 }

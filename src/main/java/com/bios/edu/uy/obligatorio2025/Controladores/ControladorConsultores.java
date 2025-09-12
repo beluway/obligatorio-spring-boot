@@ -1,9 +1,20 @@
+package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.bios.edu.uy.obligatorio2025.*;
+import com.bios.edu.uy.obligatorio2025.Dominio.consultores;
+
+import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
 
 
 @Controller
@@ -11,8 +22,9 @@ import com.bios.edu.uy.obligatorio2025.*;
 public class ControladorConsultores {
  
 
+
   @GetMapping("/main")
-    public String consultorCrear(@ModelAttribute consultores consultor)
+    public String consultorCrear()
     {
     
         return "consultores/main";
@@ -26,6 +38,8 @@ public class ControladorConsultores {
         return "consultores/crear";
         
     }
+
+ 
 
     @PostMapping("/crear")
     public String consultorCrear (@ModelAttribute @Valid consultores consultor, Model modelo, BindingResult resultado) 
