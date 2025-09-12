@@ -1,9 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jms.JmsProperties.Listener.Session;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,47 +13,43 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.usuarios;
-import com.bios.edu.uy.obligatorio2025.Servicios.IServicioUsuarioSession;
-import com.bios.edu.uy.obligatorio2025.Dominio.consultores;
-import com.bios.edu.uy.obligatorio2025.Dominio.clientes;
-import com.bios.edu.uy.obligatorio2025.Dominio.postulantes;
+import com.bios.edu.uy.obligatorio2025.Dominio.*;
+
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.WebApplicationContext;
-
 
 
 @Controller
 @RequestMapping("/home")
 public class ControladorHome {
+   
+
+HttpSession sessionUsuario;
 
 
 
     @Autowired
     @Qualifier("servicioUsuarioSession")
 
-    private IServicioUsuarioSession usuarioSession;
 
     @GetMapping("/index") 
-    public String index(Model modelo, HttpSession session) {
+    public String index() {
       
     
-        usuarios usu=null;  // = aca va el metodo del servicio para validar usuarios
-    
+        clientes usu=null;  // = aca va el metodo del servicio para la existencia usuarios
+        //BUSCAR USUARIO ................controladorClientes
+
         if(usu!=null)
         {   
-            session.setAttribute("usuarioLogueado", usu);           
-
-            return  "home/login";
-        }
-        else{
-             return "home/index";
+           
+        
+            return "redirect:/home/login";
         }
        
+        return "home/index";       
     }    
 
  
@@ -73,7 +67,7 @@ public class ControladorHome {
     
 
     @GetMapping("/login")
-    public String index(@ModelAttribute usuarios usuario, HttpSession session) {
+    public String login(HttpSession session) {
       
         //EL USUARIO YA ESTA LOGUEADO (EXISTE EN LA SESION) ??
         if(session.getAttribute("usuarioLogueado")==null)    
@@ -85,6 +79,7 @@ public class ControladorHome {
         //SE QUEDA EN EL LOGIN (PARA INGRESAR LA CONTRASEÑA)
          return "home/login";
     }    
+
 
     @PostMapping("/login")
     public String login(@ModelAttribute @Valid usuarios usuario, Model modelo, BindingResult resultado) {
@@ -109,7 +104,8 @@ public class ControladorHome {
                 return "postulantes/main";
             }
 
-   
+            //SI SE ENCONTRÓ EL USUARIO COMPLETO (USU + PASS)
+            sessionUsuario.setAttribute("usuarioLogueado", usuario);        
       
       
         return "postulantes/main";

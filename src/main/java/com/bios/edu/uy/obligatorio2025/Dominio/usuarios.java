@@ -4,7 +4,7 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import jakarta.validation.constraints.NotNull;
 
-public class usuarios {
+public abstract class usuarios {
     
      @NotNull
     private String usuario;
@@ -32,6 +32,12 @@ public class usuarios {
         this.usuario = usuario;
         this.clave = clave;
     }
+
+
+ public usuarios() {
+       
+    }
+
 
     @Override
     public String toString() {

@@ -6,18 +6,16 @@
     <title> BIENVENIDO </title>
 </head>
 <body>
+
+    INDEX
       
-    <!--  ACA SE CARGA LA LISTA DE OFERTAS (SIN EL BOTON POSTULAR SI EL POSTULANTE NO ESTÁ LOGUEADO)
-        CUANDO EL POSTULANTE SE LOGUEA, APARECE EL BOTON EN CADA OFERTA PARA POSTULARSE
-    -->
 
-
-
-    <form th:action="@{/home/index}" method="post" th:object="${usuario}">
+    
+<form th:action="@{/home/index}" method="post" th:object="${usuario}">
 
         <div>
-            <label for="usuario">Usuario</label>
-
+           <label for="usuario">Usuario</label>
+           
             <input type="text" th:field="*{usuario}">
         </div>
 
@@ -26,6 +24,20 @@
         </div>
 
     </form>
+
+
+
+    <!--  ACA SE CARGA LA LISTA DE OFERTAS (SIN EL BOTON POSTULAR SI EL POSTULANTE NO ESTÁ LOGUEADO)
+        CUANDO EL POSTULANTE SE LOGUEA, APARECE EL BOTON EN CADA OFERTA PARA POSTULARSE
+
+
+    
+
+
+    -->
+
+
+
 
 </body>
 </html>
