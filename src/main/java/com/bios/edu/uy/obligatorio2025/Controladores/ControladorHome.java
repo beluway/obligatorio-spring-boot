@@ -1,4 +1,9 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.jms.JmsProperties.Listener.Session;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,13 +16,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.usuarios;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioUsuarioSession;
 import com.bios.edu.uy.obligatorio2025.Dominio.consultores;
 import com.bios.edu.uy.obligatorio2025.Dominio.clientes;
 import com.bios.edu.uy.obligatorio2025.Dominio.postulantes;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.WebApplicationContext;
 
 
 
@@ -26,11 +34,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ControladorHome {
 
 
-    @GetMapping("/index")
-    public String index() {
+
+    @Autowired
+    @Qualifier("servicioUsuarioSession")
+
+    private IServicioUsuarioSession usuarioSession;
+
+    @GetMapping("/index") 
+    public String index(Model modelo, HttpSession session) {
       
     
-        return "home/index";
+        usuarios usu=null;  // = aca va el metodo del servicio para validar usuarios
+    
+        if(usu!=null)
+        {   
+            session.setAttribute("usuarioLogueado", usu);           
+
+            return  "home/login";
+        }
+        else{
+             return "home/index";
+        }
+       
     }    
 
  
@@ -48,9 +73,17 @@ public class ControladorHome {
     
 
     @GetMapping("/login")
-    public String index(@ModelAttribute usuarios usuario) {
+    public String index(@ModelAttribute usuarios usuario, HttpSession session) {
       
-        return "home/login";
+        //EL USUARIO YA ESTA LOGUEADO (EXISTE EN LA SESION) ??
+        if(session.getAttribute("usuarioLogueado")==null)    
+        {   
+            //NO, REDIRIGE AL INDEX
+            return "redirect:/home/index";
+        }
+
+        //SE QUEDA EN EL LOGIN (PARA INGRESAR LA CONTRASEÑA)
+         return "redirec:/home/login";
     }    
 
     @PostMapping("/login")
