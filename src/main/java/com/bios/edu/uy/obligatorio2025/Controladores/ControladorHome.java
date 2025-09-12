@@ -83,7 +83,7 @@ public class ControladorHome {
         }
 
         //SE QUEDA EN EL LOGIN (PARA INGRESAR LA CONTRASEÑA)
-         return "redirec:/home/login";
+         return "home/login";
     }    
 
     @PostMapping("/login")
