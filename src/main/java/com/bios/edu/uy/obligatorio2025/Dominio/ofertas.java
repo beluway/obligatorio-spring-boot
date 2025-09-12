@@ -2,7 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.sql.Date;
 
-import org.springframework.beans.factory.annotation.Value;
+
 import jakarta.validation.constraints.*;
 
 public class ofertas {

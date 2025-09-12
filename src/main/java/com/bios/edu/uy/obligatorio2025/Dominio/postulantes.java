@@ -1,16 +1,11 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
-import io.micrometer.common.lang.NonNull;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.sql.Date;
 
-import com.bios.edu.uy.obligatorio2025.*;
-import jakarta.validation.constraints.*;
-
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 import jakarta.validation.constraints.NotNull;
 
