@@ -53,14 +53,24 @@ HttpSession sessionUsuario;
  
 
     @PostMapping("/index")
-    public String index(@ModelAttribute @Valid usuarios usuario, Model modelo, BindingResult resultado) {
+    public String index(String usu, Model modelo) {
        
-        modelo.getAttribute(usuario.getUsuario());
+
+        if(usu!="")
+        {
+            modelo.addAttribute("usu",usu);
         
 
-        //ACA VA EL ACCESO A LA CAPA DE DATOS DE USUARIO
-        
-        return "home/login";
+        //ACA VA EL ACCESO A LA CAPA DE DATOS DE USUARIO Y PREGUNTA SI EXISTE EL USUARIO         
+
+
+         return "home/login";
+        }
+        else
+        {
+            return "home/index";
+        }
+      
     }
     
 

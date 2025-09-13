@@ -11,12 +11,12 @@
       
 
     
-<form th:action="@{/home/index}" method="post" th:object="${usuario}">
+<form th:action="@{/home/index}" method="post">
 
         <div>
            <label for="usuario">Usuario</label>
            
-            <input type="text" th:field="*{usuario}">
+            <input type="text" name="usu">
         </div>
 
         <div>
@@ -25,7 +25,9 @@
 
     </form>
 
+<p text="ESTE ES EL NOMBRE QUE SE ESCRIBIÓ EN EL INPUT "></p>
 
+<p th:text="${usu}"></p>
 
     <!--  ACA SE CARGA LA LISTA DE OFERTAS (SIN EL BOTON POSTULAR SI EL POSTULANTE NO ESTÁ LOGUEADO)
         CUANDO EL POSTULANTE SE LOGUEA, APARECE EL BOTON EN CADA OFERTA PARA POSTULARSE
