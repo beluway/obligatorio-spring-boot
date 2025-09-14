@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.postulantes;
 
@@ -66,6 +67,24 @@ public class ControladorPostulantes {
     @GetMapping("/ver")    
     public String clientesVer(@ModelAttribute postulantes postulantes) {
        
+
+        return "postulantes/ver";
+    }   
+
+
+    
+    @PostMapping("/ver")    
+    public String clientesVer(@ModelAttribute postulantes postulantes, BindingResult resultado,  @RequestParam  String accion) {
+       
+        if("modificar".equals(accion))
+        {
+            //LLAMA A PERSISTENCIA MODIFICAR
+        }
+        
+        else if("eliminar".equals(accion))
+        {
+            //LLAMA A PERSISTENCIA ELIMINAR
+        }
 
         return "postulantes/ver";
     }   

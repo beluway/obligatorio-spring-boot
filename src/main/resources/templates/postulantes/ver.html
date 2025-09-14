@@ -8,7 +8,7 @@
 <body>
       
 <!--  <form th:action="@{/postulantes/modificar}" method="post" th:object="${postulante}"> -->
-    <form th:object="${postulante}" method="post">
+    <form th:object="${postulante}" method="post" th:object="${postulante}">
 
       <div>
            <label for="usuario">Usuario</label>
@@ -70,31 +70,18 @@
                 <li>TREINTA Y TRES</li>               
             </ul>
 
-        </div>
-
-
-        <!--ESTE BOTON MODIFICA-->
-        <div>
-            <form th:action="@{/postulantes/modificar}" method="post">
-
+        </div>   
+    
                     <div>
-                        <input type="submit" value="modificar" name="modificar">
+                           <!--ESTE BOTON MODIFICA-->
+                         <input type="submit" value="modificar" name="modificar">
+
+                            <!--ESTE BOTON ELIMINA-->
+                         <input type="submit" value="eliminar" name="eliminar">                        
+                                               
                     </div>
 
-            </form>
-
-        </div>
-
-        <!--ESTE BOTON ELIMINA-->
-        <div>
-            <form th:action="@{/postulantes/eliminar}" method="post">
-                <div>
-                    <input type="submit" value="eliminar" name="eliminar">
-                </div>
-            </form>
-        </div>
-
-   </form>
+    </form>            
 
 </body>
 </html>
