@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+      
+<!--  <form th:action="@{/postulantes/modificar}" method="post" th:object="${postulante}"> -->
+    <form th:object="${postulante}" method="post">
+
+      <div>
+           <label for="usuario">Usuario</label>
+           
+            <input type="text" th:field="*{usuario}" readonly>
+        </div>
+
+        <div>
+            <label for="primernombre">Primer Nombre</label>
+
+            <input type="text" th:field="*{primernombre}" readonly>
+        </div>
+
+        <div>
+            <label for="segundoNombre"> Segundo Nombre</label>
+
+            <input type="text" th:field="*{segundoNombre}" readonly>
+        </div>
+
+        <div>
+            <label for="primerApellido"> PRIMER APELLIDO </label>
+
+            <input type="text" th:field="*{primerApellido}" readonly>
+        </div>
+
+        <div>
+            <label for="segundoApellido"> SEGUNDO APELLIDO</label>
+
+            <input type="text" th:field="*{segundoApellido}" readonly>
+        </div>
+
+        <div>
+            <label for="fechanacimiento"> FECHA NACIMIENTO</label>
+
+            <input type="date" th:field="*{fechanacimiento}" readonly>
+        </div>
+
+        <div aria-readonly="true">
+            <label for="departamento" th:field="*{departamento}"> DEPARTAMENTO </label>
+         
+            <ul>
+                <li>ARTIGAS</li>
+                <li>CANELONES</li>
+                <li>COLONIA</li>
+                <li>DURAZNO</li>
+                <li>FLORES</li>
+                <li>FLORIDA</li>
+                <li>MALDONADO</li>
+                <li>MONTEVIDEO</li>
+                <li>LAVALLEJA</li>
+                <li>PAYSANDU</li>
+                <li>RIO NEGRO</li>
+                <li>RIVERA</li>
+                <li>ROCHA</li>
+                <li>SALTO</li>
+                <li>SAN JOSÉ</li>
+                <li>SORIANO</li>
+                <li>TACUAREMBÓ</li>
+                <li>TREINTA Y TRES</li>               
+            </ul>
+
+        </div>
+
+
+        <!--ESTE BOTON MODIFICA-->
+        <div>
+            <form th:action="@{/postulantes/modificar}" method="post">
+
+                    <div>
+                        <input type="submit" value="modificar" name="modificar">
+                    </div>
+
+            </form>
+
+        </div>
+
+        <!--ESTE BOTON ELIMINA-->
+        <div>
+            <form th:action="@{/postulantes/eliminar}" method="post">
+                <div>
+                    <input type="submit" value="eliminar" name="eliminar">
+                </div>
+            </form>
+        </div>
+
+   </form>
+
+</body>
+</html>
+

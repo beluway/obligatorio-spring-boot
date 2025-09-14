@@ -10,6 +10,77 @@
 </head>
 <body>
       
+<form th:action="@{/postulantes/modificar}" method="post" th:object="${postulante}">
+
+      <div>
+           <label for="usuario">Usuario</label>
+           
+            <input type="text" th:field="*{usuario}" readonly>
+        </div>
+
+        <div>
+            <label for="primernombre">Primer Nombre</label>
+
+            <input type="text" th:field="*{primernombre}">
+        </div>
+
+        <div>
+            <label for="segundoNombre"> Segundo Nombre</label>
+
+            <input type="text" th:field="*{segundoNombre}">
+        </div>
+
+        <div>
+            <label for="primerApellido"> PRIMER APELLIDO </label>
+
+            <input type="text" th:field="*{primerApellido}">
+        </div>
+
+        <div>
+            <label for="segundoApellido"> SEGUNDO APELLIDO</label>
+
+            <input type="text" th:field="*{segundoApellido}">
+        </div>
+
+        <div>
+            <label for="fechanacimiento"> FECHA NACIMIENTO</label>
+
+            <input type="date" th:field="*{fechanacimiento}">
+        </div>
+
+        <div>
+            <label for="departamento"> DEPARTAMENTO </label>
+
+            <ul>
+                <li>ARTIGAS</li>
+                <li>CANELONES</li>
+                <li>COLONIA</li>
+                <li>DURAZNO</li>
+                <li>FLORES</li>
+                <li>FLORIDA</li>
+                <li>MALDONADO</li>
+                <li>MONTEVIDEO</li>
+                <li>LAVALLEJA</li>
+                <li>PAYSANDU</li>
+                <li>RIO NEGRO</li>
+                <li>RIVERA</li>
+                <li>ROCHA</li>
+                <li>SALTO</li>
+                <li>SAN JOSÉ</li>
+                <li>SORIANO</li>
+                <li>TACUAREMBÓ</li>
+                <li>TREINTA Y TRES</li>               
+            </ul>
+
+        </div>
+
+        <div>
+            <input type="submit" value="crear">
+        </div>
+
+   </form>
+
+
 
 </body>
 </html>
