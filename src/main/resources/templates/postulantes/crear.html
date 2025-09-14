@@ -4,9 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
+
 </head>
 <body>
       
+<!--
+
+ public postulantes(String usuario, String clave, @NotNull(message = "Ingrese la cedula") long cedula,
+            @NotNull String primernombre, @NotNull String primerApellido, @NotNull String segundoApellido,
+            String segundoNombre, @NotNull(message = "Seleccione la fecha de nacimiento") Date fechanacimiento,
+            @NotNull(message = "Seleccione el departamento") String departamento,
+            @NotNull ArrayList<ofertas> listaOfertas, ImageIO imagen, @NotNull File pdf) {
+
+-->
+
+
+
+
+
+   <form th:action="@{/postulantes/crear}" method="post" th:object="${postulante}">
+
+      <div>
+           <label for="usuario">Usuario</label>
+           
+            <input type="text" th:field="*{usuario}">
+        </div>
+
+        <div>
+            <label for="primernombre">Primer Nombre</label>
+
+            <input type="text" th:field="*{primernombre}">
+        </div>
+
+        <div>
+            <label for="segundoNombre"> Segundo Nombre</label>
+
+            <input type="text" th:field="*{segundoNombre}">
+        </div>
+
+        <div>
+            <label for="primerApellido"> PRIMER APELLIDO </label>
+
+            <input type="text" th:field="*{primerApellido}">
+        </div>
+
+        <div>
+            <label for="segundoApellido"> SEGUNDO APELLIDO</label>
+
+            <input type="text" th:field="*{segundoApellido}">
+        </div>
+
+        <div>
+            <label for="fechanacimiento"> FECHA NACIMIENTO</label>
+
+            <input type="date" th:field="*{fechanacimiento}">
+        </div>
+
+        <div>
+            <label for="departamento"> DEPARTAMENTO </label>
+
+            <ul>
+                <li>ARTIGAS</li>
+                <li>CANELONES</li>
+                <li>COLONIA</li>
+                <li>DURAZNO</li>
+                <li>FLORES</li>
+                <li>FLORIDA</li>
+                <li>MALDONADO</li>
+                <li>MONTEVIDEO</li>
+                <li>LAVALLEJA</li>
+                <li>PAYSANDU</li>
+                <li>RIO NEGRO</li>
+                <li>RIVERA</li>
+                <li>ROCHA</li>
+                <li>SALTO</li>
+                <li>SAN JOSÉ</li>
+                <li>SORIANO</li>
+                <li>TACUAREMBÓ</li>
+                <li>TREINTA Y TRES</li>               
+            </ul>
+
+        </div>
+
+        <div>
+            <input type="submit" value="crear">
+        </div>
+
+
+
+   </form>
+
 
 </body>
 </html>

@@ -20,7 +20,7 @@ public class ControladorPostulantes {
     
       
     @GetMapping("/crear")
-    public String clienteCrear(@ModelAttribute postulantes postulantes)
+    public String clienteCrear(@ModelAttribute postulantes postulante)
     {
     
         return "postulantes/crear";
@@ -28,7 +28,7 @@ public class ControladorPostulantes {
     }
 
     @PostMapping("/crear")
-    public String clienteCrear (@ModelAttribute @Valid postulantes postulantes, Model modelo, BindingResult resultado) 
+    public String clienteCrear (@ModelAttribute @Valid postulantes postulante, Model modelo, BindingResult resultado) 
     {               
         return "postulantes/crear";
     }
@@ -36,28 +36,28 @@ public class ControladorPostulantes {
 
     @GetMapping("/eliminar")
 
-    public String clienteEliminar(@ModelAttribute postulantes postulantes) {
+    public String clienteEliminar(@ModelAttribute postulantes postulante) {
       
         return "postulantes/eliminar";
 
     }
 
     @PostMapping("/eliminar")
-    public String clienteEliminar(@ModelAttribute @Valid postulantes postulantes, Model modelo, BindingResult resultado)  {
+    public String clienteEliminar(@ModelAttribute @Valid postulantes postulante, Model modelo, BindingResult resultado)  {
               
         return "postulantes/eliminar";
     }
     
     
     @GetMapping("/modificar")
-    public String clienteModificar(@ModelAttribute postulantes postulantes) {
+    public String clienteModificar(@ModelAttribute postulantes postulante) {
       
         
         return "postulantes/modificar";
     }
     
     @PostMapping("/modificar")
-    public String clientesModificar(@ModelAttribute @Valid postulantes cliente, Model modelo, BindingResult resultado) {
+    public String clientesModificar(@ModelAttribute @Valid postulantes postulante, Model modelo, BindingResult resultado) {
        
         return "postulantes/modificar";
     }

@@ -3,71 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Formulario Oferta Laboral</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .card {
-            background: #fff;
-            width: 520px;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            animation: fadeIn 0.7s ease-in-out;
-        }
-        .card h2 {
-            margin-bottom: 20px;
-            text-align: center;
-            color: #333;
-        }
-        label {
-            display: block;
-            margin-top: 12px;
-            font-weight: 500;
-            color: #555;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-        textarea {
-            resize: vertical;
-            min-height: 90px;
-        }
-        button {
-            margin-top: 20px;
-            width: 100%;
-            padding: 12px;
-            background: #4e73df;
-            border: none;
-            color: #fff;
-            font-size: 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        button:hover {
-            background: #2e59d9;
-        }
-        #volver{
-            display: block;
-            text-align: center;
-            padding: 5%;
-        }
-        #volver:hover{
-            transform: scale(1.2);
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 <body>
 <div class="card">
