@@ -76,12 +76,14 @@ public class ControladorPostulantes {
     @PostMapping("/ver")    
     public String clientesVer(@ModelAttribute postulantes postulantes, BindingResult resultado,  @RequestParam  String accion) {
        
-        if("modificar".equals(accion))
+        if("btn_modificar".equals(accion))
         {
             //LLAMA A PERSISTENCIA MODIFICAR
+
+            return "redirect:/postulantes/modificar";
         }
         
-        else if("eliminar".equals(accion))
+        else if("btn_eliminar".equals(accion))
         {
             //LLAMA A PERSISTENCIA ELIMINAR
         }
