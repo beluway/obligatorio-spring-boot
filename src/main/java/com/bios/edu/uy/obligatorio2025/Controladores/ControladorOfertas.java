@@ -18,7 +18,6 @@ import jakarta.validation.Valid;
 @RequestMapping("/ofertas")
 public class ControladorOfertas {
     
-
     
     @GetMapping("/crear")
     public String clienteCrear(@ModelAttribute ofertas ofertas)
@@ -57,6 +56,7 @@ public class ControladorOfertas {
         return "ofertas/modificar";
     }
     
+
     @PostMapping("/modificar")
     public String clientesModificar(@ModelAttribute @Valid ofertas ofertas, Model modelo, BindingResult resultado) {
        

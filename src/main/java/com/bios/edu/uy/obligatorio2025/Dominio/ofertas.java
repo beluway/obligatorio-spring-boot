@@ -3,6 +3,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.clientes;
 
 import java.sql.Date;
 
+import jakarta.validation.constraints.NotNull;
 
 import jakarta.validation.constraints.*;
 

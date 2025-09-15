@@ -7,6 +7,8 @@ import java.sql.Date;
 
 import java.util.ArrayList;
 
+
+
 import jakarta.validation.constraints.NotNull;
 
 public class postulantes extends usuarios{

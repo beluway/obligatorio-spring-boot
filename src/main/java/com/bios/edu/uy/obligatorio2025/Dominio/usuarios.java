@@ -6,10 +6,10 @@ import jakarta.validation.constraints.NotNull;
 
 public abstract class usuarios {
     
-     @NotNull
+     @NotNull (message = "ingrese el usuario")
     private String usuario;
 
-    @NotNull
+    @NotNull (message =  "ingrese la clave")
     private String clave;
 
     

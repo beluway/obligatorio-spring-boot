@@ -2,10 +2,17 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.util.Date;
 
+import jakarta.validation.constraints.NotNull;
+
 public class postulaciones {
     
+    @NotNull
     private Date fechaPostulacion;
+
+    @NotNull
     private ofertas oferta;
+
+    @NotNull
     private postulantes postulante;
 
     public Date getFechaPostulacion() {
