@@ -85,6 +85,8 @@ public class ControladorPostulantes {
         
         else if("btn_eliminar".equals(accion))
         {
+                //ACA APARECE UN POP UP QUE PREGUNTA SI SE ELIMINA O NO
+
             //LLAMA A PERSISTENCIA ELIMINAR
         }
 

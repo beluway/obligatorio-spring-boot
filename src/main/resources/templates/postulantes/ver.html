@@ -8,7 +8,7 @@
 <body>
       
 <!--  <form th:action="@{/postulantes/modificar}" method="post" th:object="${postulante}"> -->
-    <form th:object="${postulante}" method="post" th:object="${postulante}">
+    <form th:object="${postulante}" method="post" th:object="${postulante}" onsubmit="return accionEliminar_Modificar(this)">
 
       <div>
            <label for="usuario">Usuario</label>
@@ -74,14 +74,39 @@
     
                     <div>
                            <!--ESTE BOTON MODIFICA-->
-                         <input type="submit" value="modificar" name="btn_modificar">
+                         <input type="submit" value="modificar" name="accionEnBoton">
 
                             <!--ESTE BOTON ELIMINA-->
-                         <input type="submit" value="eliminar" name="btn_eliminar">                        
+                         <input type="submit" value="eliminar" name="accionEnBoton">                        
                                                
                     </div>
 
     </form>            
+
+
+<script>
+    function accionEliminar_Modificar(formularioEliminar_Modificar_Postulante)
+    {   
+        //SE ENCUENTRA EL ELEMENTO BOTON EN EL FORMULARIO Y SI ES DE TIPO SUBMIT (ENVIO)
+        const accion = [...formularioEliminar_Modificar_Postulante.elements].find
+        
+        (botonParaAccion=>botonParaAccion.name==="accionEnBoton" 
+        && botonParaAccion ==='submit'
+        && document.activeElement ===botonParaAccion)?.value;
+
+        if (botonParaAccion ==='eliminar')
+            {
+                return confirm("SE ELIMINA EL POSTULANTE?");
+            }
+
+            return true;
+
+    }
+</script>
+
+
+
+
 
 </body>
 </html>

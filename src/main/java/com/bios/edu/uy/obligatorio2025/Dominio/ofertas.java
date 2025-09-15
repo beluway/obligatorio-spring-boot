@@ -1,4 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
+import com.bios.edu.uy.obligatorio2025.Dominio.clientes;
 
 import java.sql.Date;
 
@@ -13,8 +14,8 @@ public class ofertas {
     @PastOrPresent
     private Date fechaPublicacion, fechaCierre;
 
-    @NotNull(message = "seleccione el area")
-    private String area;
+    @NotNull(message = "seleccione el cliente")
+    private clientes cliente;
 
     @NotNull(message = "Ingrese una descripción")
     private String descripcion;
@@ -44,15 +45,7 @@ public class ofertas {
 
     public void setFechaCierre(Date fechaCierre) {
         this.fechaCierre = fechaCierre;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
+    } 
 
     public String getDescripcion() {
         return descripcion;
@@ -69,16 +62,40 @@ public class ofertas {
     public void setCantidadVacantes(int cantidadVacantes) {
         this.cantidadVacantes = cantidadVacantes;
     }
+  
 
-    public ofertas(int id, Date fechaPublicacion, Date fechaCierre, String area, String descripcion,
-            int cantidadVacantes) {
+    public clientes getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(clientes cliente) {
+        this.cliente = cliente;
+    }
+
+
+    public ofertas(int id, @NotNull @PastOrPresent Date fechaPublicacion, @NotNull @PastOrPresent Date fechaCierre,
+            @NotNull(message = "seleccione el cliente") clientes cliente,
+            @NotNull(message = "Ingrese una descripción") String descripcion,
+            @NotNull(message = "Ingrese la cantidad de puestos vacantes") int cantidadVacantes) {
         this.id = id;
         this.fechaPublicacion = fechaPublicacion;
         this.fechaCierre = fechaCierre;
-        this.area = area;
+        this.cliente = cliente;
         this.descripcion = descripcion;
         this.cantidadVacantes = cantidadVacantes;
     }
+
+
+    @Override
+    public String toString() {
+        return "ofertas [id=" + id + ", fechaPublicacion=" + fechaPublicacion + ", fechaCierre=" + fechaCierre
+                + ", cliente=" + cliente + ", descripcion=" + descripcion + ", cantidadVacantes=" + cantidadVacantes
+                + "]";
+    }
+
+
+    
+   
 
 
 }

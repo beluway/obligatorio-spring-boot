@@ -27,6 +27,7 @@ public class ControladorClientes {
         
     }
 
+    //ACA VA FLASH ATTRIBUTES Y REDIRECT 
     @PostMapping("/crear")
     public String clienteCrear (@ModelAttribute @Valid clientes cliente, Model modelo, BindingResult resultado) 
     {               
@@ -77,6 +78,17 @@ public class ControladorClientes {
 
         return "clientes/lista";
     } 
+
+
+
+//ESTE ATRIBUTO SE DIFUNDE A TODAS LAS VISTAS QUE PERTENECEN AL CONTROLADOR, 
+//ES UN ATRIBUTO GENERAL (COMO NOMBRE DE USUARIO LOGUEADO)
+    @ModelAttribute("tituloEjemplo")
+    public String cargarTituloEjemplo()
+    {
+        return "manejo de Errores";
+    }
+
 
 
 }
