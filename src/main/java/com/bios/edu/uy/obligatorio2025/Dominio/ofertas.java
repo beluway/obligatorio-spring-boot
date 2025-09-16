@@ -1,5 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
-import com.bios.edu.uy.obligatorio2025.Dominio.clientes;
+
 
 import java.sql.Date;
 

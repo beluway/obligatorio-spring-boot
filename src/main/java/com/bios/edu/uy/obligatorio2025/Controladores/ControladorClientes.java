@@ -31,7 +31,7 @@ public class ControladorClientes {
     @PostMapping("/crear")
     public String clienteCrear (@ModelAttribute @Valid clientes cliente, Model modelo, BindingResult resultado) 
     {               
-        return "clientes/crear";
+        return "redirect:/clientes/crear";
     }
 
 
@@ -46,7 +46,7 @@ public class ControladorClientes {
     @PostMapping("/eliminar")
     public String clienteEliminar(@ModelAttribute @Valid clientes cliente, Model modelo, BindingResult resultado)  {
               
-        return "clientes/eliminar";
+        return "redirect:/clientes/eliminar";
     }
     
     
@@ -60,7 +60,7 @@ public class ControladorClientes {
     @PostMapping("/modificar")
     public String clientesModificar(@ModelAttribute @Valid clientes cliente, Model modelo, BindingResult resultado) {
        
-        return "clientes/modificar";
+        return "redirect:/clientes/modificar";
     }
     
 
@@ -72,7 +72,7 @@ public class ControladorClientes {
     }   
 
 
-     @GetMapping("/lista")    
+    @GetMapping("/lista")    
     public String clientesVer() {
        
 

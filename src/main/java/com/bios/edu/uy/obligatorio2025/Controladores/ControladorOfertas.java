@@ -30,7 +30,7 @@ public class ControladorOfertas {
     @PostMapping("/crear")
     public String clienteCrear (@ModelAttribute @Valid ofertas ofertas, Model modelo, BindingResult resultado) 
     {               
-        return "ofertas/crear";
+        return "redirect:/ofertas/crear";
     }
 
 
@@ -45,7 +45,7 @@ public class ControladorOfertas {
     @PostMapping("/eliminar")
     public String clienteEliminar(@ModelAttribute @Valid ofertas ofertas, Model modelo, BindingResult resultado)  {
               
-        return "ofertas/eliminar";
+        return "redirect:/ofertas/eliminar";
     }
     
     
@@ -60,7 +60,7 @@ public class ControladorOfertas {
     @PostMapping("/modificar")
     public String clientesModificar(@ModelAttribute @Valid ofertas ofertas, Model modelo, BindingResult resultado) {
        
-        return "ofertas/modificar";
+        return "redirect:/ofertas/modificar";
     }
     
 

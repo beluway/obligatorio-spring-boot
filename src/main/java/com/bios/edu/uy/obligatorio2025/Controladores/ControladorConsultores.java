@@ -43,7 +43,7 @@ public class ControladorConsultores {
     @PostMapping("/crear")
     public String consultorCrear (@ModelAttribute @Valid consultores consultor, Model modelo, BindingResult resultado) 
     {           
-        return "consultores/crear";
+        return "redirect:/consultores/crear";
     }
 
 
@@ -58,7 +58,7 @@ public class ControladorConsultores {
     @PostMapping("/eliminar")
     public String consultorEliminar(@ModelAttribute @Valid consultores consultor, Model modelo, BindingResult resultado)  {
               
-        return "consultores/eliminar";
+        return "redirect:/consultores/eliminar";
     }
     
     
@@ -72,7 +72,7 @@ public class ControladorConsultores {
     @PostMapping("/modificar")
     public String consultorModificar(@ModelAttribute @Valid consultores consultor, Model modelo, BindingResult resultado) {
        
-        return "consultores/modificar";
+        return "redirect:/consultores/modificar";
     }
     
 

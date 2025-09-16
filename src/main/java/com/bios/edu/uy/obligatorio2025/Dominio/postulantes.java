@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotNull;
 public class postulantes extends usuarios{
     
  @NotNull(message = "Ingrese la cedula")
-    private long cedula;
+    private Long cedula;
 
     @NotNull
     private String Primernombre,primerApellido,segundoApellido;
@@ -41,12 +41,12 @@ public class postulantes extends usuarios{
     private File pdf;
 
 
-    public long getCedula() {
+    public Long getCedula() {
         return cedula;
     }
 
 
-    public void setCedula(long cedula) {
+    public void setCedula(Long cedula) {
         this.cedula = cedula;
     }
 
@@ -142,7 +142,7 @@ public class postulantes extends usuarios{
 
 
 
-    public postulantes(String usuario, String clave, @NotNull(message = "Ingrese la cedula") long cedula,
+    public postulantes(String usuario, String clave, @NotNull(message = "Ingrese la cedula") Long cedula,
             @NotNull String primernombre, @NotNull String primerApellido, @NotNull String segundoApellido,
             String segundoNombre, @NotNull(message = "Seleccione la fecha de nacimiento") Date fechanacimiento,
             @NotNull(message = "Seleccione el departamento") String departamento,
