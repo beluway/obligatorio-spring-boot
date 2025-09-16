@@ -3,8 +3,6 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.sql.Date;
 
-import jakarta.validation.constraints.NotNull;
-
 import jakarta.validation.constraints.*;
 
 public class ofertas {
@@ -20,6 +18,10 @@ public class ofertas {
 
     @NotNull(message = "Ingrese una descripción")
     private String descripcion;
+  
+
+    @NotNull(message = "Ingrese el título")
+    private String titulo;
 
     @NotNull(message = "Ingrese la cantidad de puestos vacantes")
     private int cantidadVacantes;
@@ -73,26 +75,37 @@ public class ofertas {
         this.cliente = cliente;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
     public ofertas(int id, @NotNull @PastOrPresent Date fechaPublicacion, @NotNull @PastOrPresent Date fechaCierre,
             @NotNull(message = "seleccione el cliente") clientes cliente,
             @NotNull(message = "Ingrese una descripción") String descripcion,
+            @NotNull(message = "Ingrese el título") String titulo,
             @NotNull(message = "Ingrese la cantidad de puestos vacantes") int cantidadVacantes) {
         this.id = id;
         this.fechaPublicacion = fechaPublicacion;
         this.fechaCierre = fechaCierre;
         this.cliente = cliente;
         this.descripcion = descripcion;
+        this.titulo = titulo;
         this.cantidadVacantes = cantidadVacantes;
     }
-
 
     @Override
     public String toString() {
         return "ofertas [id=" + id + ", fechaPublicacion=" + fechaPublicacion + ", fechaCierre=" + fechaCierre
-                + ", cliente=" + cliente + ", descripcion=" + descripcion + ", cantidadVacantes=" + cantidadVacantes
-                + "]";
+                + ", cliente=" + cliente + ", descripcion=" + descripcion + ", titulo=" + titulo + ", cantidadVacantes="
+                + cantidadVacantes + "]";
     }
+
+
+    
 
 
     

@@ -7,7 +7,10 @@
 </head>
 <body>
 <div class="card">
-    <h2>Registrar Nueva Oferta Laboral</h2>
+
+<!--
+    
+<h2>Registrar Nueva Oferta Laboral</h2>
     <form action="#" method="post">
         <label for="titulo">Título</label>
         <input type="text" id="titulo" name="titulo" placeholder="Ej: Desarrollador Frontend" required>
@@ -35,6 +38,46 @@
 
         <a href="listado.html" id="volver">Volver</a>
     </form>
+
+-->
+
+    
+    <form th:action="@{/ofertas/crear}" method="post" th:object="${ofertas}">
+
+        <div>
+             <label for="usuario">Usuario</label>           
+            <input type="text" th:field="*{usuario}">
+
+        </div>
+           <label for="titulo"> Título </label>
+           <input type="text" th:filed="*{titulo}">
+        <div>
+
+        </div>
+            <label for="descripcion"> Descripción </label>
+          <!-- 
+              <input type="text" th:field="*{descripcion}" multiple>  
+          -->
+            <textarea rows="5" cols="50" th:field="*{descripcion}"></textarea>
+        <div>
+            <label for="fechaCierre">Fecha Cierre</label>
+            <input type="date" th:field="*{fechaCierre}">
+        </div>
+
+        <div>
+            <label for="cantidadVacantes"> Cantidad Vacantes</label>
+            <input type="number" th:field="*{cantidadVacantes}">
+        </div>
+
+
+
+        <div>
+            <input type="submit" value="crear">
+        </div>
+
+    </form>
+
+
 </div>
 </body>
 </html>

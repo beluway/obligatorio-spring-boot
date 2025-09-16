@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.ui.Model ;
 import com.bios.edu.uy.obligatorio2025.Dominio.ofertas;
 
-import ch.qos.logback.core.model.Model;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
@@ -18,18 +18,24 @@ import jakarta.validation.Valid;
 @RequestMapping("/ofertas")
 public class ControladorOfertas {
     
+
+
     
     @GetMapping("/crear")
-    public String clienteCrear(@ModelAttribute ofertas ofertas)
+    public String clienteCrear(@ModelAttribute ofertas ofertas, HttpSession sesion, Model modelo)
     {
-    
+         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));   
+
         return "ofertas/crear";
         
     }
 
     @PostMapping("/crear")
-    public String clienteCrear (@ModelAttribute @Valid ofertas ofertas, Model modelo, BindingResult resultado) 
+    public String clienteCrear (@ModelAttribute @Valid ofertas ofertas, Model modelo, BindingResult resultado, HttpSession sesion) 
     {               
+        //SE TRAE EL USUARIO LOGUEADO DESDE LA SESION
+        sesion.getAttribute("usuarioLogueado");
+        
         return "redirect:/ofertas/crear";
     }
 

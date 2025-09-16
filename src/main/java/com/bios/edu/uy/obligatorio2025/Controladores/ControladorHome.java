@@ -88,7 +88,7 @@ HttpSession sessionUsuario;
 
 
     @PostMapping("/login")
-    public String login(@ModelAttribute @Valid usuarios usuario, Model modelo, BindingResult resultado) {
+    public String login(@ModelAttribute @Valid usuarios usuario, Model modelo, BindingResult resultado, HttpSession sesion) {
        
       
         // SE BUSCA SI EXISTE EN LA CAPA USUARIO CON LOS DATOS PASADOS
@@ -96,23 +96,29 @@ HttpSession sessionUsuario;
         //SI EXISTE EL USUARIO, SE PREGUNTA DE QUE TIPO ES. 
             //DEPENDIENDO EL TIPO SE REDIRIGE A LA PÁGINA QUE LE TOQUE
 
-            if( usuario instanceof consultores)    
+            if(usuario!=null)
             {
-                return "consultores/main";
-            }
-            else if(usuario instanceof clientes)
-            {
-                return "clientes/main";
-            }
-           
-            else if(usuario instanceof postulantes)
-            {
-                return "postulantes/main";
-            }
+
+                if( usuario instanceof consultores)    
+                {
+                    return "consultores/main";
+                }
+                else if(usuario instanceof clientes)
+                {
+                    return "clientes/main";
+                }
+            
+                else if(usuario instanceof postulantes)
+                {
+                    return "postulantes/main";
+                }
 
             //SI SE ENCONTRÓ EL USUARIO COMPLETO (USU + PASS)
-            sessionUsuario.setAttribute("usuarioLogueado", usuario);        
+            sessionUsuario.setAttribute("usuarioLogueado", usuario);     
       
+            }
+
+           
       
         return "redirect:/postulantes/main";
     }
