@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.postulantes;
+import org.springframework.ui.Model;
 
-import ch.qos.logback.core.model.Model;
 import jakarta.validation.Valid;
 
 
@@ -101,5 +101,17 @@ public class ControladorPostulantes {
 
         return "postulantes/ver";
     }   
+
+    @GetMapping("/lista")
+    public String listaPostulantes(Model modelo) {
+       
+        //SE SACA LA LISTA DE POSTULANTES DE LA BD 
+        modelo.addAttribute("listaPostulantes", modelo);
+
+
+        return "postulantes/lista";
+
+    }
+    
 
 }

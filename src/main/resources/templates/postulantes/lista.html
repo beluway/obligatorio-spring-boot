@@ -6,7 +6,20 @@
     <title> LISTA POSTULANTES </title>
 </head>
 <body>
-        
+       
+       
 
+        <tr>
+            <th>Cédula</th><th>Primer Nombre</th><th>Primer Apellido</th><th>Fecha Nacimiento</th><th>e</th>
+        </tr>
+
+        <tr th:each="p, ei : ${listaPostulantes}" th:style="${ei.odd}?'background-color: crimson;'">
+
+            <td th:text="${p.cedula}"></td>
+            <td th:text="${p.primernombre}"></td>
+            <td th:text="${p.primerApellido}"></td>
+            <td th:text="${p.fechanacimiento}"></td>
+        
+        </tr>    
 </body>
 </html>
