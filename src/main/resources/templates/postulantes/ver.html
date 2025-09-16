@@ -8,7 +8,7 @@
 <body>
       
 <!--  <form th:action="@{/postulantes/modificar}" method="post" th:object="${postulante}"> -->
-    <form th:object="${postulante}" method="post" th:object="${postulante}" onsubmit="return accionEliminar_Modificar(this)">
+    <form method="post" th:object="${postulantes}" onsubmit="return accionEliminar_Modificar(this)">
 
       <div>
            <label for="usuario">Usuario</label>
@@ -41,26 +41,33 @@
         </div>
 
         <div>
-            <label for="fechanacimiento"> Fecha Nacimiento/label>
+            <label for="fechanacimiento"> Fecha Nacimiento </label>
 
             <input type="date" th:field="*{fechanacimiento}" readonly>
         </div>
 
-        <div aria-readonly="true">
+        <div>   
 
             <label for="fechanacimiento"> Departamento</label>
-            <label for="departamento" th:field="*{departamento}"> DEPARTAMENTO </label>        
+           <span th:text="*{departamento}" aria-readonly="true"></span>       
            
-        </div>   
-    
-                    <div>
-                           <!--ESTE BOTON MODIFICA-->
-                         <input type="submit" value="modificar" name="accionEnBoton">
+        </div>      
+
+
+        <div>
+            <label for="pdf"> CV</label>
+            <a th:href="@{|/pdf/*{usuario}.pdf|}"> CV </a>
+
+        </div>
+
+        <div>
+                          <!--ESTE BOTON MODIFICA-->
+            <input type="submit" value="modificar" name="accionEnBoton">
 
                             <!--ESTE BOTON ELIMINA-->
-                         <input type="submit" value="eliminar" name="accionEnBoton">                        
+            <input type="submit" value="eliminar" name="accionEnBoton">                        
                                                
-                    </div>
+        </div>
 
     </form>            
 

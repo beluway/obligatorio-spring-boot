@@ -40,6 +40,21 @@
             </tr>
         </tbody>
     </table>
+
+   
+        <tr>
+            <th>Título</th><th>Descripción</th><th>Publicación</th><th>Cierre</th><th>Vacantes</th><th></th>
+        </tr>
+
+        <tr th:each="o, ei : ${listaOfertas}" th:style="${ei.odd}?'background-color: crimson;'">
+
+            <td th:text="${o.titulo}"></td>
+            <td th:text="${o.descripcion}"></td>
+            <td th:text="${o.fechaPublicacion}"></td>
+            <td th:text="${o.fechaCierre}"></td>
+            <td><a th:href="/ofertas/ver.html?o.id" class="button">Ver más</a></td>
+        </tr>    
+
 </div>
 </body>
 </html>

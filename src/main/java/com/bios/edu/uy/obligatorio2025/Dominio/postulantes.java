@@ -147,6 +147,7 @@ public class postulantes extends usuarios{
             String segundoNombre, @NotNull(message = "Seleccione la fecha de nacimiento") Date fechanacimiento,
             @NotNull(message = "Seleccione el departamento") String departamento,
             @NotNull ArrayList<ofertas> listaOfertas, ImageIO imagen, @NotNull File pdf) {
+      
         super(usuario, clave);
         this.cedula = cedula;
         Primernombre = primernombre;

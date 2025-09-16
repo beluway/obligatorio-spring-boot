@@ -13,7 +13,7 @@
        
 
         <tr>
-            <th>Cédula</th><th>Primer Nombre</th><th>Primer Apellido</th><th>Fecha Nacimiento</th><th>e</th>
+            <th>Cédula</th><th>Primer Nombre</th><th>Primer Apellido</th><th>Fecha Nacimiento</th><th></th>
         </tr>
 
         <tr th:each="p, ei : ${listaPostulantes}" th:style="${ei.odd}?'background-color: crimson;'">
@@ -22,7 +22,7 @@
             <td th:text="${p.primernombre}"></td>
             <td th:text="${p.primerApellido}"></td>
             <td th:text="${p.fechanacimiento}"></td>
-        
+            <td><a th:href="/postulantes/ver.html?p.usuario" class="button">Ver más</a></td>
         </tr>    
 </body>
 </html>

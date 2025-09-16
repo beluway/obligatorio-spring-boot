@@ -74,8 +74,10 @@ public class ControladorPostulantes {
     
 
     @GetMapping("/ver")    
-    public String postulanteVer(@ModelAttribute postulantes postulantes) {
+    public String postulanteVer(String usuario, Model modelo) {
        
+        modelo.addAttribute("nombreUsuario", usuario);
+
 
         return "postulantes/ver";
     }   
