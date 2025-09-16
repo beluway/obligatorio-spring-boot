@@ -45,20 +45,24 @@
     <form th:action="@{/ofertas/crear}" method="post" th:object="${ofertas}">
 
         <div>
-             <label for="usuario">Usuario</label>           
-            <input type="text" th:field="*{usuario}">
+            <label for="usuario">Usuario</label>           
+            <input type="text" th:field="*{cliente}">
 
         </div>
+       
+       <div>
            <label for="titulo"> Título </label>
            <input type="text" th:filed="*{titulo}">
+       </div>           
+       
         <div>
-
-        </div>
-            <label for="descripcion"> Descripción </label>
+          <label for="descripcion"> Descripción </label>
           <!-- 
               <input type="text" th:field="*{descripcion}" multiple>  
           -->
-            <textarea rows="5" cols="50" th:field="*{descripcion}"></textarea>
+          <textarea rows="5" cols="50" th:field="*{descripcion}"></textarea>
+        </div>
+
         <div>
             <label for="fechaCierre">Fecha Cierre</label>
             <input type="date" th:field="*{fechaCierre}">
@@ -68,7 +72,6 @@
             <label for="cantidadVacantes"> Cantidad Vacantes</label>
             <input type="number" th:field="*{cantidadVacantes}">
         </div>
-
 
 
         <div>

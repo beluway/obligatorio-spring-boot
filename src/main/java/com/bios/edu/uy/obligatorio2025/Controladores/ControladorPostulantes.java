@@ -20,8 +20,17 @@ import jakarta.validation.Valid;
 public class ControladorPostulantes {
     
       
+    @GetMapping("/main")
+    public String pstulanteCrear(@ModelAttribute postulantes postulante)
+    {   
+
+        return "postulantes/main";  
+
+    }
+
+
     @GetMapping("/crear")
-    public String clienteCrear(@ModelAttribute postulantes postulante)
+    public String postulanteCrear(@ModelAttribute postulantes postulante)
     {
     
         return "postulantes/crear";
@@ -29,7 +38,7 @@ public class ControladorPostulantes {
     }
 
     @PostMapping("/crear")
-    public String clienteCrear (@ModelAttribute @Valid postulantes postulante,  BindingResult resultado, Model modelo) 
+    public String postulanteCrear (@ModelAttribute @Valid postulantes postulante,  BindingResult resultado, Model modelo) 
     {               
         return "redirect:/postulantes/crear";
     }
@@ -37,35 +46,35 @@ public class ControladorPostulantes {
 
     @GetMapping("/eliminar")
 
-    public String clienteEliminar(@ModelAttribute postulantes postulante) {
+    public String postulanteEliminar(@ModelAttribute postulantes postulante) {
       
         return "postulantes/eliminar";
 
     }
 
     @PostMapping("/eliminar")
-    public String clienteEliminar(@ModelAttribute @Valid postulantes postulante, Model modelo, BindingResult resultado)  {
+    public String postulanteEliminar(@ModelAttribute @Valid postulantes postulante, Model modelo, BindingResult resultado)  {
               
         return "redirect:/postulantes/eliminar";
     }
     
     
     @GetMapping("/modificar")
-    public String clienteModificar(@ModelAttribute postulantes postulante) {
+    public String postulanteModificar(@ModelAttribute postulantes postulante) {
       
         
         return "postulantes/modificar";
     }
     
     @PostMapping("/modificar")
-    public String clientesModificar(@ModelAttribute @Valid postulantes postulante, Model modelo, BindingResult resultado) {
+    public String postulanteModificar(@ModelAttribute @Valid postulantes postulante, Model modelo, BindingResult resultado) {
        
         return "redirect:/postulantes/modificar";
     }
     
 
     @GetMapping("/ver")    
-    public String clientesVer(@ModelAttribute postulantes postulantes) {
+    public String postulanteVer(@ModelAttribute postulantes postulantes) {
        
 
         return "postulantes/ver";
@@ -74,7 +83,7 @@ public class ControladorPostulantes {
 
     
     @PostMapping("/ver")    
-    public String clientesVer(@ModelAttribute postulantes postulantes, BindingResult resultado,  @RequestParam  String accion) {
+    public String postulanteVer(@ModelAttribute postulantes postulantes, BindingResult resultado,  @RequestParam  String accion) {
        
         if("btn_modificar".equals(accion))
         {

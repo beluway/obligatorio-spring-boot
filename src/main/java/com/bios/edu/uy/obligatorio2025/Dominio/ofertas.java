@@ -7,7 +7,7 @@ import jakarta.validation.constraints.*;
 
 public class ofertas {
     
- private int id;
+ private Integer id;
 
     @NotNull
     @PastOrPresent
@@ -17,20 +17,19 @@ public class ofertas {
     private clientes cliente;
 
     @NotNull(message = "Ingrese una descripción")
-    private String descripcion;
-  
+    private String descripcion; 
 
     @NotNull(message = "Ingrese el título")
     private String titulo;
 
     @NotNull(message = "Ingrese la cantidad de puestos vacantes")
-    private int cantidadVacantes;
+    private Integer cantidadVacantes;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -48,24 +47,7 @@ public class ofertas {
 
     public void setFechaCierre(Date fechaCierre) {
         this.fechaCierre = fechaCierre;
-    } 
-
-    public String getDescripcion() {
-        return descripcion;
     }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public int getCantidadVacantes() {
-        return cantidadVacantes;
-    }
-
-    public void setCantidadVacantes(int cantidadVacantes) {
-        this.cantidadVacantes = cantidadVacantes;
-    }
-  
 
     public clientes getCliente() {
         return cliente;
@@ -73,6 +55,14 @@ public class ofertas {
 
     public void setCliente(clientes cliente) {
         this.cliente = cliente;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getTitulo() {
@@ -83,11 +73,19 @@ public class ofertas {
         this.titulo = titulo;
     }
 
-    public ofertas(int id, @NotNull @PastOrPresent Date fechaPublicacion, @NotNull @PastOrPresent Date fechaCierre,
+    public Integer getCantidadVacantes() {
+        return cantidadVacantes;
+    }
+
+    public void setCantidadVacantes(Integer cantidadVacantes) {
+        this.cantidadVacantes = cantidadVacantes;
+    }
+
+    public ofertas(Integer id, @NotNull @PastOrPresent Date fechaPublicacion, @NotNull @PastOrPresent Date fechaCierre,
             @NotNull(message = "seleccione el cliente") clientes cliente,
             @NotNull(message = "Ingrese una descripción") String descripcion,
             @NotNull(message = "Ingrese el título") String titulo,
-            @NotNull(message = "Ingrese la cantidad de puestos vacantes") int cantidadVacantes) {
+            @NotNull(message = "Ingrese la cantidad de puestos vacantes") Integer cantidadVacantes) {
         this.id = id;
         this.fechaPublicacion = fechaPublicacion;
         this.fechaCierre = fechaCierre;
@@ -97,6 +95,7 @@ public class ofertas {
         this.cantidadVacantes = cantidadVacantes;
     }
 
+    
     @Override
     public String toString() {
         return "ofertas [id=" + id + ", fechaPublicacion=" + fechaPublicacion + ", fechaCierre=" + fechaCierre
@@ -104,12 +103,7 @@ public class ofertas {
                 + cantidadVacantes + "]";
     }
 
-
-    
-
-
-    
    
-
+    
 
 }
