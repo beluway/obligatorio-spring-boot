@@ -101,7 +101,7 @@ public class ControladorPostulantes {
             //LLAMA A PERSISTENCIA ELIMINAR
         }
 
-        return "postulantes/ver";
+        return "redirect:postulantes/ver";
     }   
 
     @GetMapping("/lista")
