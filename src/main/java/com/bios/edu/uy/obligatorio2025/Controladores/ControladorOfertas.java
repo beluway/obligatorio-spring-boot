@@ -78,12 +78,12 @@ public class ControladorOfertas {
     }   
 
 
-      @GetMapping("/lista")    
+    @GetMapping("/lista")    
     public String clientesVer(Model modelo) {
        
         //ACA SE SACA LA LISTA DESDE LA BASE DE DATOS
 
-        modelo.addAttribute("listaOfertas", modelo);
+     //  modelo.addAttribute("listaOfertas", modelo);
 
         return "ofertas/lista";
     } 
