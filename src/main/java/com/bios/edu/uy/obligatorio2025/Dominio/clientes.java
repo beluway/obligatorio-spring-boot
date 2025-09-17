@@ -12,7 +12,7 @@ public class clientes extends usuarios {
 
 
     @NotNull(message = "Ingrese el RUT.")
-    private long rut;
+    private Long rut;
 
     @NotNull(message = "Ingrese el nombre.")
     private String nombre;
@@ -24,12 +24,14 @@ public class clientes extends usuarios {
     private ArrayList<ofertas> listaOfertas;
 
 
-    public long getRut() {
+    public Long getRut() {
         return rut;
     }
-    public void setRut(long rut) {
+    public void setRut(Long rut) {
         this.rut = rut;
     }
+
+
     public String getNombre() {
         return nombre;
     }
@@ -55,7 +57,7 @@ public class clientes extends usuarios {
 
   
 
-    public clientes(String usuario, String clave, @NotNull(message = "Ingrese el RUT.") long rut,
+    public clientes(String usuario, String clave, @NotNull(message = "Ingrese el RUT.") Long rut,
             @NotNull(message = "Ingrese el nombre.") String nombre, String url,
             @NotNull ArrayList<ofertas> listaOfertas) {
         super(usuario, clave);
