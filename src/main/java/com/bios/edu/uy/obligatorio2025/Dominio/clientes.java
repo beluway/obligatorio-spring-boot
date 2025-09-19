@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 
     
@@ -12,6 +13,7 @@ public class clientes extends usuarios {
 
 
     @NotNull(message = "Ingrese el RUT.")
+    @Size(min=12, max=12)
     private Long rut;
 
     @NotNull(message = "Ingrese el nombre.")
@@ -19,9 +21,6 @@ public class clientes extends usuarios {
 
     
     private String url;
-
-    @NotNull
-    private ArrayList<ofertas> listaOfertas;
 
 
     public Long getRut() {
@@ -46,15 +45,7 @@ public class clientes extends usuarios {
         this.url = url;
     }
 
-   public ArrayList<ofertas> getListaOfertas() {
-        return listaOfertas;
-    }
-
-    public void setListaOfertas(ArrayList<ofertas> listaOfertas) {
-        this.listaOfertas = listaOfertas;
-    }
-      
-
+ 
   
 
     public clientes(String usuario, String clave, @NotNull(message = "Ingrese el RUT.") Long rut,
@@ -64,7 +55,7 @@ public class clientes extends usuarios {
         this.rut = rut;
         this.nombre = nombre;
         this.url = url;
-        this.listaOfertas = listaOfertas;
+      
     }
     @Override
     public String toString() {
