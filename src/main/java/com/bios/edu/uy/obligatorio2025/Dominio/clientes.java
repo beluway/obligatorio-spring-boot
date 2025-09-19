@@ -57,6 +57,9 @@ public class clientes extends usuarios {
         this.url = url;
       
     }
+
+
+    
     @Override
     public String toString() {
         return "clientes [rut=" + rut + ", nombre=" + nombre +", url= " +url +"]";
