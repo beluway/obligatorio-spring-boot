@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotNull;
 
 public class postulantes extends usuarios{
     
- @NotNull(message = "Ingrese la cedula")
+    @NotNull(message = "Ingrese la cedula")
     private Long cedula;
 
     @NotNull
@@ -27,19 +27,12 @@ public class postulantes extends usuarios{
     @NotNull (message = "Seleccione el departamento")
     private String departamento;
 
-
-    //ESTA ES UNA OPCION, OTRA OPCION ES TENER ESTA LISTA EN UNA ENTIDAD "POSTULACIONES"
-      @NotNull
-    private ArrayList<ofertas> listaOfertas;
-
+    //VER SI ESTO SIRVE PARA PDF
+    @NotNull (message = "Seleccione un .pdf para subirlo")
+    private File pdf;
+   
     //VER SI ESTO FUNCIONA COMO IMAGEN
     private ImageIO imagen;
-
-
-    //VER SI ESTO SIRVE PARA PDF
-    @NotNull
-    private File pdf;
-
 
     public Long getCedula() {
         return cedula;
@@ -110,22 +103,7 @@ public class postulantes extends usuarios{
         this.departamento = departamento;
     }
 
-    
-    public ArrayList<ofertas> getListaOfertas() {
-        return listaOfertas;
-    }
-
-
-    public void setListaOfertas(ArrayList<ofertas> listaOfertas) {
-        this.listaOfertas = listaOfertas;
-    }
-    
-
-    public ImageIO getImagen() {
-        return imagen;
-    }
-
-
+  
     public void setImagen(ImageIO imagen) {
         this.imagen = imagen;
     }
@@ -146,7 +124,7 @@ public class postulantes extends usuarios{
             @NotNull String primernombre, @NotNull String primerApellido, @NotNull String segundoApellido,
             String segundoNombre, @NotNull(message = "Seleccione la fecha de nacimiento") Date fechanacimiento,
             @NotNull(message = "Seleccione el departamento") String departamento,
-            @NotNull ArrayList<ofertas> listaOfertas, ImageIO imagen, @NotNull File pdf) {
+            ImageIO imagen, @NotNull File pdf) {
       
         super(usuario, clave);
         this.cedula = cedula;
@@ -156,7 +134,6 @@ public class postulantes extends usuarios{
         this.segundoNombre = segundoNombre;
         this.fechanacimiento = fechanacimiento;
         this.departamento = departamento;
-        this.listaOfertas = listaOfertas;
         this.imagen = imagen;
         this.pdf = pdf;
     }

@@ -9,8 +9,8 @@ public class postulaciones {
     @NotNull
     private Date fechaPostulacion;
 
-    @NotNull 
-    private Date fechaCierre;
+    @NotNull
+    private Integer cantidadPostulaciones;
 
     @NotNull
     private ofertas oferta;
@@ -42,29 +42,31 @@ public class postulaciones {
         this.postulante = postulante;
     }
 
-    public Date getFechaCierre() {
-        return fechaCierre;
+    public Integer getCantidadPostulaciones() {
+        return cantidadPostulaciones;
     }
 
-    public void setFechaCierre(Date fechaCierre) {
-        this.fechaCierre = fechaCierre;
+    public void setCantidadPostulaciones(Integer cantidadPostulaciones) {
+        this.cantidadPostulaciones = cantidadPostulaciones;
     }
 
-    public postulaciones(@NotNull Date fechaPostulacion, @NotNull Date fechaCierre, @NotNull ofertas oferta,
-            @NotNull postulantes postulante) {
+    public postulaciones(@NotNull Date fechaPostulacion, @NotNull Integer cantidadPostulaciones,
+            @NotNull ofertas oferta, @NotNull postulantes postulante) {
         this.fechaPostulacion = fechaPostulacion;
-        this.fechaCierre = fechaCierre;
+        this.cantidadPostulaciones = cantidadPostulaciones;
         this.oferta = oferta;
         this.postulante = postulante;
     }
 
-
     
     @Override
     public String toString() {
-        return "postulaciones [fechaPostulacion=" + fechaPostulacion + ", fechaCierre=" + fechaCierre + ", oferta="
-                + oferta + ", postulante=" + postulante + "]";
+        return "postulaciones [fechaPostulacion=" + fechaPostulacion + ", cantidadPostulaciones="
+                + cantidadPostulaciones + ", oferta=" + oferta + ", postulante=" + postulante + "]";
     }
+
+   
+
 
 
     
