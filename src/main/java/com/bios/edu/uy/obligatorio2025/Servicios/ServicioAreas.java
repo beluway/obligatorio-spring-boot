@@ -8,6 +8,11 @@ import com.bios.edu.uy.obligatorio2025.Dominio.areas;
 public class ServicioAreas implements IServicioAreas{
     
 
+    public void agregar(areas area)
+    {
+        
+    }
+
     public List<areas> listaAreas() {
 
         ArrayList<areas> lista = new ArrayList<>();
@@ -15,9 +20,6 @@ public class ServicioAreas implements IServicioAreas{
         return lista;
     }
 
-    public void agregar(areas area)
-    {
-        
-    }
+ 
 
 }
