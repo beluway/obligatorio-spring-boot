@@ -10,9 +10,6 @@ public class postulaciones {
     private Date fechaPostulacion;
 
     @NotNull
-    private Integer cantidadPostulaciones;
-
-    @NotNull
     private ofertas oferta;
 
     @NotNull
@@ -42,28 +39,23 @@ public class postulaciones {
         this.postulante = postulante;
     }
 
-    public Integer getCantidadPostulaciones() {
-        return cantidadPostulaciones;
-    }
-
-    public void setCantidadPostulaciones(Integer cantidadPostulaciones) {
-        this.cantidadPostulaciones = cantidadPostulaciones;
-    }
-
+   
     public postulaciones(@NotNull Date fechaPostulacion, @NotNull Integer cantidadPostulaciones,
             @NotNull ofertas oferta, @NotNull postulantes postulante) {
         this.fechaPostulacion = fechaPostulacion;
-        this.cantidadPostulaciones = cantidadPostulaciones;
+     
         this.oferta = oferta;
         this.postulante = postulante;
     }
-
     
+
     @Override
     public String toString() {
-        return "postulaciones [fechaPostulacion=" + fechaPostulacion + ", cantidadPostulaciones="
-                + cantidadPostulaciones + ", oferta=" + oferta + ", postulante=" + postulante + "]";
+        return "postulaciones [fechaPostulacion=" + fechaPostulacion + ", oferta=" + oferta + ", postulante="
+                + postulante + "]";
     }
+
+ 
 
    
 

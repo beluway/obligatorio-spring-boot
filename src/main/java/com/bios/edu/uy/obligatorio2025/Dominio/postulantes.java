@@ -11,6 +11,8 @@ import jakarta.validation.constraints.NotNull;
 
 public class postulantes extends usuarios{
     
+    private int cantidadPostulaciones;
+
     @NotNull(message = "Ingrese la cedula")
     private Long cedula;
 
@@ -117,14 +119,23 @@ public class postulantes extends usuarios{
     }
 
 
+    public int getCantidadPostulaciones() {
+        return cantidadPostulaciones;
+    }
 
-    public postulantes(String usuario, String clave, @NotNull(message = "Ingrese la cedula") Long cedula,
-            @NotNull String primernombre, @NotNull String primerApellido, @NotNull String segundoApellido,
-            String segundoNombre, @NotNull(message = "Seleccione la fecha de nacimiento") Date fechanacimiento,
-            @NotNull(message = "Seleccione el departamento") String departamento,
-            ImageIO imagen, @NotNull File pdf) {
-      
+
+    public void setCantidadPostulaciones(int cantidadPostulaciones) {
+        this.cantidadPostulaciones = cantidadPostulaciones;
+    }
+
+
+    public postulantes(String usuario, String clave, int cantidadPostulaciones,
+            @NotNull(message = "Ingrese la cedula") Long cedula, @NotNull String primernombre,
+            @NotNull String primerApellido, @NotNull String segundoApellido, String segundoNombre,
+            @NotNull(message = "Seleccione la fecha de nacimiento") Date fechanacimiento,
+            @NotNull(message = "Seleccione el departamento") String departamento) {
         super(usuario, clave);
+        this.cantidadPostulaciones = cantidadPostulaciones;
         this.cedula = cedula;
         Primernombre = primernombre;
         this.primerApellido = primerApellido;
@@ -132,18 +143,17 @@ public class postulantes extends usuarios{
         this.segundoNombre = segundoNombre;
         this.fechanacimiento = fechanacimiento;
         this.departamento = departamento;
-        this.imagen = imagen;
-        this.pdf = pdf;
     }
 
 
-    //VER COMO MOSTRAR LA IMAGEN Y EL PDF EN EL toString()
     @Override
     public String toString() {
-        return "postulantes [cedula=" + cedula + ", Primernombre=" + Primernombre + ", primerApellido=" + primerApellido
-                + ", segundoApellido=" + segundoApellido + ", segundoNombre=" + segundoNombre + ", fechanacimiento="
-                + fechanacimiento + ", departamento=" + departamento + ", imagen=" + imagen + ", pdf=" + pdf + "]";
+        return "postulantes [cantidadPostulaciones=" + cantidadPostulaciones + ", cedula=" + cedula + ", Primernombre="
+                + Primernombre + ", primerApellido=" + primerApellido + ", segundoApellido=" + segundoApellido
+                + ", segundoNombre=" + segundoNombre + ", fechanacimiento=" + fechanacimiento + ", departamento="
+                + departamento + ", pdf=" + pdf + ", imagen=" + imagen + "]";
     }
+  
 
 
 
