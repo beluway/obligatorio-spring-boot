@@ -1,8 +1,13 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
+
+@Entity
+@Table(name="areas")
 public class areas {
     
     private Integer id;

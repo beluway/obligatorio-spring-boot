@@ -1,13 +1,14 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 import java.util.ArrayList;
 
-
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 
-    
+ @Entity
+ @Table(name="clientes")   
 public class clientes extends usuarios {
     
 
