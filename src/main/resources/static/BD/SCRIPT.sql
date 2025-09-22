@@ -58,3 +58,15 @@ CREATE TABLE AREAS (
     nombre VARCHAR (15),
     asignada boolean
 );
+
+}
+
+
+CREATE PROCUDURE EliminarCliente 
+
+
+DELIMITER //
+
+/*ACA VAN TODOS LOS SP*/
+
+DELIMITER ;
