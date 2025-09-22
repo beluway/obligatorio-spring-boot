@@ -48,3 +48,10 @@ CREATE TABLE POSTULACIONES(
     FOREIGN KEY (usaurio) REFERENCES POSTULANTES (usuario),
     PRIMARY KEY(idOferta, usuario)     
 );
+
+
+CREATE TABLE AREAS (
+	id INT AUTO_INCREMENT,
+    nombre VARCHAR (15),
+    asignada boolean
+);

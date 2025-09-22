@@ -13,6 +13,16 @@ public class ServicioAreas implements IServicioAreas{
         
     }
 
+    public void modificar (areas area)
+    {
+
+    }
+
+    public void eliminar (Integer id)
+    {
+        
+    }
+
     public List<areas> listaAreas() {
 
         ArrayList<areas> lista = new ArrayList<>();

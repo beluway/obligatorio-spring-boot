@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 
 public class areas {
     
+    private Integer id;
+
     @NotNull(message = "ingrese el nombre del área")
     private String nombre;
 
@@ -28,16 +30,26 @@ public class areas {
         this.nombre = nombre;
     }
 
-    public areas(@NotNull(message = "ingrese el nombre del área") String nombre, boolean asignadaAOferta) {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public areas(Integer id, @NotNull(message = "ingrese el nombre del área") String nombre, boolean asignadaAOferta) {
+        this.id = id;
         this.nombre = nombre;
         this.asignadaAOferta = asignadaAOferta;
     }
 
-        
     @Override
     public String toString() {
-        return "areas [nombre=" + nombre + ", asignadaAOferta=" + asignadaAOferta + "]";
+        return "areas [id=" + id + ", nombre=" + nombre + ", asignadaAOferta=" + asignadaAOferta + "]";
     }
+
+   
 
     
 
