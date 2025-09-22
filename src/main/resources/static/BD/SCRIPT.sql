@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS obligatorioSpring2025;
+
 CREATE DATABASE obligatorioSpring2025;
 
 USE obligatorioSpring2025;
@@ -11,7 +13,7 @@ CREATE TABLE CLIENTES (
 	usuario VARCHAR (15),
     PRIMARY KEY (usuario),
 	FOREIGN KEY (usuario) REFERENCES USUARIO (usuario),
-    rut BIGINT (12) NOT NULL,
+    rut BIGINT NOT NULL,
     nombre VARCHAR (15) NOT NULL,
     url VARCHAR (40) CHECK (url LIKE '%@%.com%')
 );
@@ -20,7 +22,7 @@ CREATE TABLE POSTULANTES (
 	 usuario VARCHAR (15),
      PRIMARY KEY (usuario),
 	 FOREIGN KEY (usuario) REFERENCES USUARIO (usuario),
-     cedula BIGINT (8) NOT NULL,
+     cedula BIGINT  NOT NULL UNIQUE,
      primerNombre VARCHAR(15) NOT NULL,
      segundoNombre VARCHAR(15),
      primerApellido VARCHAR (15) NOT NULL,
@@ -34,24 +36,25 @@ CREATE TABLE OFERTAS (
     titulo VARCHAR (50) NOT NULL,
     descripcion VARCHAR (2000) NOT NULL,
     cliente VARCHAR (15) NOT NULL,
-    FOREIGN KEY (cliente) REFERENCES CLIENTE (cliente),
+    FOREIGN KEY (cliente) REFERENCES CLIENTES (usuario),
     cantidadVacantes INT NOT NULL,
-    fechaPublicacion DATE NOT NULL,
+    fechaPublicacion DATE NOT NULL, 
     fechaCierra DATE NOT NULL,
-    PRIMARY KEY (id, cliente)
+    PRIMARY KEY (id),
+    FOREIGN KEY (cliente) REFERENCES CLIENTES(usuario)
 );
 
 CREATE TABLE POSTULACIONES(
-	idOferta INT,
-	FOREIGN KEY (idOferta) REFERENCES OFERTAS (id),
-    usuario VARCHAR (15),
-    FOREIGN KEY (usaurio) REFERENCES POSTULANTES (usuario),
-    PRIMARY KEY(idOferta, usuario)     
+	idOferta INT AUTO_INCREMENT,
+	usuario VARCHAR (15),
+    PRIMARY KEY(idOferta, usuario),
+    FOREIGN KEY (idOferta) REFERENCES OFERTAS(id),
+    FOREIGN KEY (usuario) REFERENCES POSTULANTES(usuario)
 );
 
 
 CREATE TABLE AREAS (
-	id INT AUTO_INCREMENT,
+	id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR (15),
     asignada boolean
 );
