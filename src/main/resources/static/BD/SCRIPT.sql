@@ -22,7 +22,7 @@ CREATE TABLE POSTULANTES (
 	 FOREIGN KEY (usuario) REFERENCES USUARIO (usuario),
      cedula BIGINT (8) NOT NULL,
      primerNombre VARCHAR(15) NOT NULL,
-     segundoNombre VARCHAR(15) NOT NULL,
+     segundoNombre VARCHAR(15),
      primerApellido VARCHAR (15) NOT NULL,
      segundoApellido VARCHAR(15) NOT NULL,
      fechaNacimiento DATE NOT NULL,
