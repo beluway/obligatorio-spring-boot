@@ -33,7 +33,7 @@ CREATE TABLE OFERTAS (
 	id INT auto_increment,
     titulo VARCHAR (50) NOT NULL,
     descripcion VARCHAR (2000) NOT NULL,
-    cliente VARCHAR (15),
+    cliente VARCHAR (15) NOT NULL,
     FOREIGN KEY (cliente) REFERENCES CLIENTE (cliente),
     cantidadVacantes INT NOT NULL,
     fechaPublicacion DATE NOT NULL,
@@ -41,7 +41,10 @@ CREATE TABLE OFERTAS (
     PRIMARY KEY (id, cliente)
 );
 
-CREATE PROCEDURE POSTULACIONES(
-	FOREIGN KEY (id) REFERENECES OFERTAS (id),
-    FOREIGN KEY 
+CREATE TABLE POSTULACIONES(
+	idOferta INT,
+	FOREIGN KEY (idOferta) REFERENCES OFERTAS (id),
+    usuario VARCHAR (15),
+    FOREIGN KEY (usaurio) REFERENCES POSTULANTES (usuario),
+    PRIMARY KEY(idOferta, usuario)     
 );
