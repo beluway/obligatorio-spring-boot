@@ -22,6 +22,9 @@ public class ofertas {
     @NotNull(message = "Ingrese el título")
     private String titulo;
 
+    @NotNull(message = "Ingrese una área")
+    private areas area;
+
     @NotNull(message = "Ingrese la cantidad de puestos vacantes")
     private Integer cantidadVacantes;
 
@@ -69,6 +72,14 @@ public class ofertas {
         return titulo;
     }
 
+    public void setArea(areas area){
+        this.area=area;
+    }
+
+    public areas getArea(){
+        return area;
+    }
+
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
@@ -85,6 +96,7 @@ public class ofertas {
             @NotNull(message = "seleccione el cliente") clientes cliente,
             @NotNull(message = "Ingrese una descripción") String descripcion,
             @NotNull(message = "Ingrese el título") String titulo,
+            @NotNull(message = "Ingrese una área") areas area,
             @NotNull(message = "Ingrese la cantidad de puestos vacantes") Integer cantidadVacantes) {
         this.id = id;
         this.fechaPublicacion = fechaPublicacion;
@@ -92,6 +104,7 @@ public class ofertas {
         this.cliente = cliente;
         this.descripcion = descripcion;
         this.titulo = titulo;
+        this.area = area;
         this.cantidadVacantes = cantidadVacantes;
     }
 
@@ -99,11 +112,8 @@ public class ofertas {
     @Override
     public String toString() {
         return "ofertas [id=" + id + ", fechaPublicacion=" + fechaPublicacion + ", fechaCierre=" + fechaCierre
-                + ", cliente=" + cliente + ", descripcion=" + descripcion + ", titulo=" + titulo + ", cantidadVacantes="
+                + ", cliente=" + cliente + ", descripcion=" + descripcion + ", titulo=" + titulo + "área= "+area+", cantidadVacantes="
                 + cantidadVacantes + "]";
     }
-
-   
     
-
 }

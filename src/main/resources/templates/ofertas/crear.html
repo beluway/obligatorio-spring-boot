@@ -47,12 +47,14 @@
         <div>
             <label for="usuario">Usuario</label>           
             <input type="text" th:field="*{cliente}">
+            <p th:errors="*{cliente}" class="error"></p>
 
         </div>
        
        <div>
            <label for="titulo"> Título </label>
            <input type="text" th:filed="*{titulo}">
+           <p th:errors="*{titulo}" class="error"></p>
        </div>           
        
         <div>
@@ -64,13 +66,23 @@
         </div>
 
         <div>
+            <label for="area.nombre">Área</label>
+            <select th:field="*{area.nombre}">
+                <option th:each="a : ${areas}" th:value="${a.nombre}" th:text="${a.nombre}"></option>
+            </select>
+            <p th:errors="*{area.nombre}" class="error"></p>
+        </div>
+
+        <div>
             <label for="fechaCierre">Fecha Cierre</label>
             <input type="date" th:field="*{fechaCierre}">
+            <p th:errors="*{fechaCierre}" class="error"></p>
         </div>
 
         <div>
             <label for="cantidadVacantes"> Cantidad Vacantes</label>
             <input type="number" th:field="*{cantidadVacantes}">
+            <p th:errors="*{cantidadVacantes}" class="error"></p>
         </div>
 
 
