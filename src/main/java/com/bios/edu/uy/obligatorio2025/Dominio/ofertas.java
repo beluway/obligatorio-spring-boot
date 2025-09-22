@@ -3,8 +3,14 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.sql.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 
+
+
+@Entity
+@Table(name="ofertas")
 public class ofertas {
     
  private Integer id;

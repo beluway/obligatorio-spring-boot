@@ -5,10 +5,13 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.sql.Date;
 
-
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
+
+@Entity
+@Table(name="postulantes")
 public class postulantes extends usuarios{
     
     private int cantidadPostulaciones;

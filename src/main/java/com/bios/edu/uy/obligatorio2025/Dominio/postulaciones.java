@@ -2,8 +2,13 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
+
+@Entity
+@Table(name = "postulaciones")
 public class postulaciones {
     
     @NotNull
