@@ -1,15 +1,16 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
-
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.sql.Date;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+
 
 
 @Entity
@@ -24,10 +25,22 @@ public class postulantes extends usuarios{
     @NotNull(message = "Ingrese la cedula")
     private Long cedula;
 
-    @NotNull
-    private String Primernombre,primerApellido,segundoApellido;
+    @Column(name = "primerNombre", nullable = false, length = 15)
+    @NotNull(message = "Ingrese el nombre")
+    private String Primernombre;
 
+    @Optional
+    //(message = "Ingrese el segundo nombre ")
+    @Column(name = "segundoNombre",nullable = false, length = 15)
     private String segundoNombre;
+
+    @NotNull(message = "ingrese el apellido")
+    @Column(name="primerApellido", nullable = false,length=15)
+    private String primerApellido;
+
+    @NotNull(message = "ingrese el segundo apellido")
+    @Column(name="segundoApellido", nullable = false,length=15)
+    private String segundoApellido;
     
     @NotNull (message = "Seleccione la fecha de nacimiento")
     @PastOrPresent
