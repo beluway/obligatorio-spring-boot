@@ -15,7 +15,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 
 
-
 @Entity
 @Table(name="ofertas")
 public class ofertas {
