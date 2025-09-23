@@ -22,7 +22,7 @@ public class clientes extends usuarios {
     @NotNull(message = "Ingrese el nombre.")
     private String nombre;
 
-    
+    @Column(name="url")
     private String url;
 
 

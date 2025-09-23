@@ -16,17 +16,6 @@ public class areas {
     private String nombre;
 
 
-    private boolean asignadaAOferta;
-
-
-    public boolean isAsignadaAOferta() {
-        return asignadaAOferta;
-    }
-
-    public void setAsignadaAOferta(boolean asignadaAOferta) {
-        this.asignadaAOferta = asignadaAOferta;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -35,18 +24,16 @@ public class areas {
         this.nombre = nombre;
     }
 
-    public areas(@NotNull(message = "ingrese el nombre del área") String nombre, boolean asignadaAOferta) {
+    public areas(@NotNull(message = "ingrese el nombre del área") String nombre) {
         this.nombre = nombre;
-        this.asignadaAOferta = asignadaAOferta;
     }
 
     @Override
     public String toString() {
-        return "areas [nombre=" + nombre + ", asignadaAOferta=" + asignadaAOferta + "]";
+        return "areas [nombre=" + nombre + "]";
     }
 
-  
-
+   
    
 
     
