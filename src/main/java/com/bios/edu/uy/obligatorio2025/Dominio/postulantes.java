@@ -16,7 +16,7 @@ import jakarta.validation.constraints.PastOrPresent;
 @Table(name="postulantes")
 public class postulantes extends usuarios{
     
-
+    @Column(name="cantidadPostulaciones")
     private int cantidadPostulaciones;
 
     @Column(name = "cedula",unique = true,nullable = false,length = 8)
@@ -165,7 +165,6 @@ public class postulantes extends usuarios{
                 + departamento + ", pdf=" + pdf + ", imagen=" + imagen + "]";
     }
   
-
 
 
 }

@@ -8,10 +8,10 @@ import jakarta.persistence.Table;
 public class consultores extends usuarios{
     
 
-public consultores(String usuario, String clave)
-{
-        super(usuario, clave);
-}
+        public consultores(String usuario, String clave)
+        {
+                super(usuario, clave);
+        }
 
 
 

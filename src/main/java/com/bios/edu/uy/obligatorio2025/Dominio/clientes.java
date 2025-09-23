@@ -1,8 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 import java.util.List;
 
-import org.hibernate.annotations.Parent;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -11,10 +9,11 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 
- @Entity
- @Table(name="clientes")   
+@Entity
+@Table(name="clientes")   
 public class clientes extends usuarios {
     
+   
     @Column(name = "rut", nullable = false, length = 12)
     @NotNull(message = "Ingrese el RUT.")
     @Size(min=12, max=12)

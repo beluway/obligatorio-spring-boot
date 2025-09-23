@@ -3,9 +3,14 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.sql.Date;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 
@@ -16,6 +21,7 @@ import jakarta.validation.constraints.*;
 public class ofertas {
     
 @Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
  private Integer id;
 
     @NotNull
@@ -30,6 +36,7 @@ public class ofertas {
 
     @Column(name = "cliente",nullable = false)    
     @NotNull(message = "seleccione el cliente")
+    @ManyToOne // UN CLIENTE PUEDE TENER MUCHAS OFERTAS
     private clientes cliente;
 
     @Column(name = "descripcion",nullable = false, length = 4000)
@@ -42,10 +49,12 @@ public class ofertas {
 
     @Column(name = "area", nullable = false)
     @NotNull(message = "Ingrese una área")
+    @OneToOne
     private areas area;
 
     @Column(name="cantidadVacantes",nullable = false)
     @NotNull(message = "Ingrese la cantidad de puestos vacantes")
+    @Min(0)
     private Integer cantidadVacantes;
 
     public Integer getId() {

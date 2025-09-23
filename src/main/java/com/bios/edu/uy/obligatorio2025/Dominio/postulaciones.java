@@ -4,6 +4,7 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -20,11 +21,13 @@ public class postulaciones {
 
     @NotNull
     @Column(name = "oferta", nullable = false)
+    @OneToOne //UNA POSTULACIÓN SOLO TIENE UNA OFERTA
     private ofertas oferta;
 
 
     @NotNull
     @Column(name="postulante", nullable = false)
+    @OneToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
     private postulantes postulante;
 
     public Date getFechaPostulacion() {
