@@ -4,10 +4,10 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.sql.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
@@ -16,7 +16,8 @@ import jakarta.validation.constraints.PastOrPresent;
 @Table(name="postulantes")
 public class postulantes extends usuarios{
     
-    @Column(name="cantidadPostulaciones")
+    @Column(name="cantidadPostulaciones", nullable=false)
+    @Min(0)
     private int cantidadPostulaciones;
 
     @Column(name = "cedula",unique = true,nullable = false,length = 8)
@@ -27,7 +28,6 @@ public class postulantes extends usuarios{
     private String Primernombre,primerApellido,segundoApellido;
 
     private String segundoNombre;
-
     
     @NotNull (message = "Seleccione la fecha de nacimiento")
     @PastOrPresent

@@ -1,7 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,7 +23,6 @@ public abstract class usuarios {
     @NotNull (message =  "ingrese la clave")
     private String clave;
 
-    
     public String getUsuario() {
         return usuario;
     }

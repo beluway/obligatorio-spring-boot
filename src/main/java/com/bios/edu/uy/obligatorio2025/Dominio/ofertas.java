@@ -3,7 +3,6 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.sql.Date;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

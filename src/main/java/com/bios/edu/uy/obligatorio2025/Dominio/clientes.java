@@ -12,8 +12,7 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name="clientes")   
 public class clientes extends usuarios {
-    
-   
+       
     @Column(name = "rut", nullable = false, length = 12)
     @NotNull(message = "Ingrese el RUT.")
     @Size(min=12, max=12)
@@ -30,18 +29,18 @@ public class clientes extends usuarios {
     @Column(name="url")
     private String url;
 
-
     public Long getRut() {
         return rut;
     }
+
     public void setRut(Long rut) {
         this.rut = rut;
     }
 
-
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -49,11 +48,11 @@ public class clientes extends usuarios {
      public String getUrl() {
         return url;
     }
+    
     public void setUrl(String url) {
         this.url = url;
     }
 
- 
   
 
     public clientes(String usuario, String clave, @NotNull(message = "Ingrese el RUT.") Long rut,

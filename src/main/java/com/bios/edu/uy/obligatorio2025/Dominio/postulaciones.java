@@ -24,7 +24,6 @@ public class postulaciones {
     @OneToOne //UNA POSTULACIÓN SOLO TIENE UNA OFERTA
     private ofertas oferta;
 
-
     @NotNull
     @Column(name="postulante", nullable = false)
     @OneToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
