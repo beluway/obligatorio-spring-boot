@@ -2,6 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -9,9 +10,8 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name="areas")
 public class areas {
-    
-    private Integer id;
-
+ 
+    @Id
     @NotNull(message = "ingrese el nombre del área")
     private String nombre;
 
@@ -35,24 +35,17 @@ public class areas {
         this.nombre = nombre;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public areas(Integer id, @NotNull(message = "ingrese el nombre del área") String nombre, boolean asignadaAOferta) {
-        this.id = id;
+    public areas(@NotNull(message = "ingrese el nombre del área") String nombre, boolean asignadaAOferta) {
         this.nombre = nombre;
         this.asignadaAOferta = asignadaAOferta;
     }
 
     @Override
     public String toString() {
-        return "areas [id=" + id + ", nombre=" + nombre + ", asignadaAOferta=" + asignadaAOferta + "]";
+        return "areas [nombre=" + nombre + ", asignadaAOferta=" + asignadaAOferta + "]";
     }
+
+  
 
    
 

@@ -3,7 +3,9 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 
@@ -13,21 +15,32 @@ import jakarta.validation.constraints.*;
 @Table(name="ofertas")
 public class ofertas {
     
+@Id
  private Integer id;
 
     @NotNull
     @PastOrPresent
-    private Date fechaPublicacion, fechaCierre;
+    @Column(name = "fechaPublicacion")
+    private Date fechaPublicacion; 
+    
+    @NotNull
+    @PastOrPresent
+    @Column(name = "fechaCierre")
+    private Date fechaCierre;
+
 
     @NotNull(message = "seleccione el cliente")
     private clientes cliente;
 
+    @Column(name = "descripcion")
     @NotNull(message = "Ingrese una descripción")
     private String descripcion; 
 
+    @Column(name="titulo")
     @NotNull(message = "Ingrese el título")
     private String titulo;
 
+    @Column(name="cantidadVacantes")
     @NotNull(message = "Ingrese la cantidad de puestos vacantes")
     private Integer cantidadVacantes;
 

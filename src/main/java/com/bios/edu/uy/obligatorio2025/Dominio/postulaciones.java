@@ -2,9 +2,11 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 
 @Entity
@@ -12,7 +14,9 @@ import jakarta.validation.constraints.NotNull;
 public class postulaciones {
     
     @NotNull
-    private Date fechaPostulacion;
+    @PastOrPresent
+    @Column(name = "fechaPostulacion")
+    private Date fechaPostulacion; 
 
     @NotNull
     private ofertas oferta;

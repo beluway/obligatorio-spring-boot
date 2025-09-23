@@ -5,17 +5,21 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.sql.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 
 @Entity
 @Table(name="postulantes")
 public class postulantes extends usuarios{
     
+
     private int cantidadPostulaciones;
 
+    @Column(name = "cedula")
     @NotNull(message = "Ingrese la cedula")
     private Long cedula;
 
@@ -24,9 +28,13 @@ public class postulantes extends usuarios{
 
     private String segundoNombre;
 
+    
     @NotNull (message = "Seleccione la fecha de nacimiento")
-    private Date fechanacimiento;
+    @PastOrPresent
+    @Column(name = "fechanacimiento")
+    private Date fechanacimiento;    
 
+    @Column(name="departamento")
     @NotNull (message = "Seleccione el departamento")
     private String departamento;
 

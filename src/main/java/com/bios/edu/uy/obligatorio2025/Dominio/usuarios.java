@@ -2,7 +2,9 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -11,9 +13,11 @@ import jakarta.validation.constraints.NotNull;
 @Table(name="usuarios")
 public abstract class usuarios {
     
-     @NotNull (message = "ingrese el usuario")
+    @Id
+    @NotNull (message = "ingrese el usuario")
     private String usuario;
 
+    @Column(name = "clave")
     @NotNull (message =  "ingrese la clave")
     private String clave;
 
