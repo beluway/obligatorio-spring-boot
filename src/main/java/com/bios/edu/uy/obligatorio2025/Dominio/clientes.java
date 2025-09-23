@@ -1,5 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
-import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -53,7 +53,7 @@ public class clientes extends usuarios {
 
     public clientes(String usuario, String clave, @NotNull(message = "Ingrese el RUT.") Long rut,
             @NotNull(message = "Ingrese el nombre.") String nombre, String url,
-            @NotNull ArrayList<ofertas> listaOfertas) {
+            @NotNull List<ofertas> listaOfertas) {
         super(usuario, clave);
         this.rut = rut;
         this.nombre = nombre;
