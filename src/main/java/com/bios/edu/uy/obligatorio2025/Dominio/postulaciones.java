@@ -19,9 +19,12 @@ public class postulaciones {
     private Date fechaPostulacion; 
 
     @NotNull
+    @Column(name = "oferta", nullable = false)
     private ofertas oferta;
 
+
     @NotNull
+    @Column(name="postulante", nullable = false)
     private postulantes postulante;
 
     public Date getFechaPostulacion() {

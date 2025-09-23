@@ -19,7 +19,7 @@ public class postulantes extends usuarios{
 
     private int cantidadPostulaciones;
 
-    @Column(name = "cedula")
+    @Column(name = "cedula",unique = true,nullable = false,length = 8)
     @NotNull(message = "Ingrese la cedula")
     private Long cedula;
 
@@ -31,10 +31,10 @@ public class postulantes extends usuarios{
     
     @NotNull (message = "Seleccione la fecha de nacimiento")
     @PastOrPresent
-    @Column(name = "fechanacimiento")
+    @Column(name = "fechanacimiento",nullable = false)
     private Date fechanacimiento;    
 
-    @Column(name="departamento")
+    @Column(name="departamento",length = 20,nullable = false)
     @NotNull (message = "Seleccione el departamento")
     private String departamento;
 

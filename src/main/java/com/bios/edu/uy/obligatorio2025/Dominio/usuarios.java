@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 
 @Entity
@@ -14,10 +15,13 @@ import jakarta.validation.constraints.NotNull;
 public abstract class usuarios {
     
     @Id
+    @Column(length = 15)
     @NotNull (message = "ingrese el usuario")
     private String usuario;
 
-    @Column(name = "clave")
+    @Pattern(regexp = "[A-Z]")
+    @Pattern(regexp = "!#$%&/()=?")
+    @Column(name = "clave", nullable = false,length = 15)
     @NotNull (message =  "ingrese la clave")
     private String clave;
 

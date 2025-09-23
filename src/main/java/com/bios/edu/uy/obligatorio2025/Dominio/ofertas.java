@@ -20,32 +20,31 @@ public class ofertas {
 
     @NotNull
     @PastOrPresent
-    @Column(name = "fechaPublicacion")
+    @Column(name = "fechaPublicacion", nullable = false)
     private Date fechaPublicacion; 
     
     @NotNull
     @PastOrPresent
-    @Column(name = "fechaCierre")
+    @Column(name = "fechaCierre", nullable = false)
     private Date fechaCierre;
 
-
+    @Column(name = "cliente",nullable = false)    
     @NotNull(message = "seleccione el cliente")
     private clientes cliente;
 
-    @Column(name = "descripcion")
+    @Column(name = "descripcion",nullable = false, length = 4000)
     @NotNull(message = "Ingrese una descripción")
     private String descripcion; 
-
-    @Column(name="titulo")
+    
+    @Column(name="titulo",nullable = false, length = 100)
     @NotNull(message = "Ingrese el título")
     private String titulo;
 
-
-    @Column(name="cantidadVacantes")
-
+    @Column(name = "area", nullable = false)
     @NotNull(message = "Ingrese una área")
     private areas area;
 
+    @Column(name="cantidadVacantes",nullable = false)
     @NotNull(message = "Ingrese la cantidad de puestos vacantes")
     private Integer cantidadVacantes;
 

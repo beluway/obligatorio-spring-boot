@@ -1,10 +1,13 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 import java.util.List;
 
+import org.hibernate.annotations.Parent;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 
@@ -12,16 +15,19 @@ import jakarta.validation.constraints.Size;
  @Table(name="clientes")   
 public class clientes extends usuarios {
     
-    @Column(name = "rut")
+    @Column(name = "rut", nullable = false, length = 12)
     @NotNull(message = "Ingrese el RUT.")
     @Size(min=12, max=12)
     private Long rut;
 
-
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false, length = 15)
     @NotNull(message = "Ingrese el nombre.")
     private String nombre;
 
+    //termina con .com
+    @Pattern(regexp = "*.[.com]")
+    //empieza con www    
+    @Pattern(regexp="[www].*")
     @Column(name="url")
     private String url;
 
