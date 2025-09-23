@@ -14,7 +14,7 @@ public class ServicioAreas implements IServicioAreas{
 
         areas = new ArrayList<>();
 
-        areas.add(new areas(1, "alguna", true));
+       // areas.add(new areas(1, "alguna", true));
     }
     
 //AGREGAR
