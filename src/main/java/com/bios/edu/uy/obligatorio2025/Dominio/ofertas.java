@@ -28,7 +28,7 @@ public class ofertas {
     private Date fechaPublicacion; 
     
     @NotNull
-    @PastOrPresent
+    @Future
     @Column(name = "fechaCierre", nullable = false)
     private Date fechaCierre;
 

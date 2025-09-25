@@ -27,6 +27,8 @@ public class ServicioOfertas implements IServicioOfertas {
     
     public void agregar (ofertas oferta) throws Exception
     {
+
+        // ACA ES LO PREVIO AL ALTA
         if(obtener(oferta.getId())!=null){
             throw new Exception("La oferta ya existe");
         }
