@@ -1,9 +1,12 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-
+import com.bios.edu.uy.obligatorio2025.Dominio.*;
 
 
 @Service
@@ -19,14 +22,14 @@ public class ServicioClientes /* implements IServicioClientes */ {
   /*   } */
 
 //AGREGAR
-/*     public void agregar(clientes cliente) throws Exception */
-  /*   { */
+   public void agregar(clientes cliente) throws Exception 
+   { 
       /*   if (obtener(cliente.getUsuario()) != null) {
             throw new Exception("El cliente ya existe.");
         }
 
         clientes.add(cliente); */
-   /*  } */
+    } 
 
     //OBTENER POS
    /*  private int obtenerPosicion(String usuario) {
@@ -45,8 +48,8 @@ public class ServicioClientes /* implements IServicioClientes */ {
     } */
     
 //MODIFICAR
-/*     public void modificar (clientes cliente) throws Exception
-    { */
+  public void modificar (clientes cliente) throws Exception
+    { 
        /*  int posicion = obtenerPosicion(cliente.getUsuario());
 
         if (posicion == -1) {
@@ -58,11 +61,11 @@ public class ServicioClientes /* implements IServicioClientes */ {
 
         clientes.set(posicion, cliente);
  */
-  /*   } */
+   }
 
 //* /ELIMINAR
- /*    public void eliminar (String usuario) throws Exception
-    { */
+   public void eliminar (String usuario) throws Exception
+    { 
        /*  if (obtener(usuario)!=null) {
             clientes.remove(obtenerPosicion(usuario));
         }
@@ -70,15 +73,15 @@ public class ServicioClientes /* implements IServicioClientes */ {
             throw new Exception("El cliente no existe");
         } */
 
-/*     } */
+   } 
 
 //LISTAR
-/*     public List<clientes>listaClientes()
+     public List<clientes>listaClientes()
     {
           ArrayList<clientes> lista = new ArrayList<>();
 
           return lista;
-    } */
+    } 
 
 //OBTENER
   /*   public clientes obtener(String usuario) {
