@@ -2,8 +2,12 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.Serializable;
 import java.sql.Date;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -12,34 +16,27 @@ import jakarta.validation.constraints.PastOrPresent;
 
 
 
+
 @Entity
 @Table(name="postulantes")
 public class postulantes extends usuarios{
     
-    @Column(name="cantidadPostulaciones", nullable=false)
-    @Min(0)
+    //ESTE ES EL NOMBRE COMPLETO COMPUESTO EMBEBIDO
+    @Embedded
+    public NombreCompleto nombreCompleto;
+
+
+    //ESTA ES LA CLAVE FORÁNEA DE LA ENTIDAD USUARIO EMBEBIDA
+    @EmbeddedId
+    private ClaveCompuesta foreignKeyUsu;
+
+    @Min(1)
     private int cantidadPostulaciones;
 
     @Column(name = "cedula",unique = true,nullable = false,length = 8)
     @NotNull(message = "Ingrese la cedula")
     private Long cedula;
-
-    @Column(name = "primerNombre", nullable = false, length = 15)
-    @NotNull(message = "Ingrese el nombre")
-    private String Primernombre;
-
-    //(message = "Ingrese el segundo nombre ")
-    @Column(name = "segundoNombre",nullable = false, length = 15)
-    private String segundoNombre;
-
-    @NotNull(message = "ingrese el apellido")
-    @Column(name="primerApellido", nullable = false,length=15)
-    private String primerApellido;
-
-    @NotNull(message = "ingrese el segundo apellido")
-    @Column(name="segundoApellido", nullable = false,length=15)
-    private String segundoApellido;
-    
+     
     @NotNull (message = "Seleccione la fecha de nacimiento")
     @PastOrPresent
     @Column(name = "fechanacimiento",nullable = false)
@@ -63,46 +60,6 @@ public class postulantes extends usuarios{
 
     public void setCedula(Long cedula) {
         this.cedula = cedula;
-    }
-
-
-    public String getPrimernombre() {
-        return Primernombre;
-    }
-
-
-    public void setPrimernombre(String primernombre) {
-        Primernombre = primernombre;
-    }
-
-
-    public String getPrimerApellido() {
-        return primerApellido;
-    }
-
-
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
-    }
-
-
-    public String getSegundoApellido() {
-        return segundoApellido;
-    }
-
-
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
-    }
-
-
-    public String getSegundoNombre() {
-        return segundoNombre;
-    }
-
-
-    public void setSegundoNombre(String segundoNombre) {
-        this.segundoNombre = segundoNombre;
     }
 
 
@@ -151,31 +108,64 @@ public class postulantes extends usuarios{
     }
 
 
-    public postulantes(String usuario, String clave, int cantidadPostulaciones,
-            @NotNull(message = "Ingrese la cedula") Long cedula, @NotNull String primernombre,
-            @NotNull String primerApellido, @NotNull String segundoApellido, String segundoNombre,
-            @NotNull(message = "Seleccione la fecha de nacimiento") Date fechanacimiento,
-            @NotNull(message = "Seleccione el departamento") String departamento) {
+    public postulantes(String usuario, String clave, NombreCompleto nombreCompleto, @Min(1) int cantidadPostulaciones,
+            @NotNull(message = "Ingrese la cedula") Long cedula,
+            @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent Date fechanacimiento,
+            @NotNull(message = "Seleccione el departamento") String departamento,
+            @NotNull(message = "Seleccione un .pdf para subirlo") File pdf, ImageIO imagen) {
         super(usuario, clave);
+        this.nombreCompleto = nombreCompleto;
         this.cantidadPostulaciones = cantidadPostulaciones;
         this.cedula = cedula;
-        Primernombre = primernombre;
-        this.primerApellido = primerApellido;
-        this.segundoApellido = segundoApellido;
-        this.segundoNombre = segundoNombre;
         this.fechanacimiento = fechanacimiento;
         this.departamento = departamento;
+        this.pdf = pdf;
+        this.imagen = imagen;
     }
+
+
 
 
     @Override
     public String toString() {
-        return "postulantes [cantidadPostulaciones=" + cantidadPostulaciones + ", cedula=" + cedula + ", Primernombre="
-                + Primernombre + ", primerApellido=" + primerApellido + ", segundoApellido=" + segundoApellido
-                + ", segundoNombre=" + segundoNombre + ", fechanacimiento=" + fechanacimiento + ", departamento="
-                + departamento + ", pdf=" + pdf + ", imagen=" + imagen + "]";
+        return "postulantes [nombreCompleto=" + nombreCompleto + ", cantidadPostulaciones=" + cantidadPostulaciones
+                + ", cedula=" + cedula + ", fechanacimiento=" + fechanacimiento + ", departamento=" + departamento
+                + ", pdf=" + pdf + ", imagen=" + imagen + "]";
     }
-  
+
+
+
+    //Esto es la inner class del atributo multivaluado
+
+    @Embeddable
+    public class NombreCompleto {
+    
+        
+    @Column(name = "primerNombre", nullable = false, length = 15)
+    @NotNull(message = "Ingrese el nombre")
+    private String primerNombre;
+
+  //(message = "Ingrese el segundo nombre ")
+    @Column(name = "segundoNombre",nullable = false, length = 15)
+    private String segundoNombre; 
+
+    @NotNull(message = "ingrese el apellido")
+    @Column(name="primerApellido", nullable = false,length=15)
+    private String primerApellido;
+
+    @NotNull(message = "ingrese el segundo apellido")
+    @Column(name="segundoApellido", nullable = false,length=15)
+    private String segundoApellido;   
+    }
+
+    //Esto es para definir la clave compuesta
+    
+    @Embeddable 
+    public class ClaveCompuesta implements Serializable {
+        @Column(name = "usuario" ,nullable=false)
+        private String usuario;
+   
+    }
 
 
 }
