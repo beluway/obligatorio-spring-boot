@@ -2,12 +2,13 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.Serializable;
 import java.sql.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +18,6 @@ import jakarta.validation.constraints.PastOrPresent;
 
 
 @Entity
-@Table(name="postulantes")
 public class postulantes extends usuarios{
     
     //ESTE ES EL NOMBRE COMPLETO COMPUESTO EMBEBIDO
@@ -25,11 +25,8 @@ public class postulantes extends usuarios{
     public NombreCompleto nombreCompleto;
 
     //ESTA ES LA CLAVE FORÁNEA DE LA ENTIDAD USUARIO EMBEBIDA
-/*     @EmbeddedId
+    @EmbeddedId
     private ClaveFK foreignKeyUsu;
- */
-
-    @PrimaryKeyJoinColumn(name="")
 
     @Min(1)
     private int cantidadPostulaciones;
@@ -160,13 +157,13 @@ public class postulantes extends usuarios{
     }
 
     //Esto es para definir la clave compuesta
-  /*   
+    
     @Embeddable 
     public class ClaveFK implements Serializable {
         @Column(name = "usuario" ,nullable=false)
         private String usuario;
    
-    } */
+    }
 
 
 }
