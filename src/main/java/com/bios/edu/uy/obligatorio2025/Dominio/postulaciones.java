@@ -1,11 +1,10 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
-import java.io.Serializable;
+
 import java.util.Date;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EmbeddedId;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

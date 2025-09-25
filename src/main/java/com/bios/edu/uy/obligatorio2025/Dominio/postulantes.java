@@ -1,14 +1,14 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.io.File;
-import java.io.Serializable;
+
 import java.sql.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
-import jakarta.persistence.EmbeddedId;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
