@@ -1,6 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
-import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.Serializable;
 import java.sql.Date;
@@ -48,9 +47,7 @@ public class postulantes extends usuarios{
     @NotNull (message = "Seleccione un .pdf para subirlo")
     private File pdf;
    
-    //VER SI ESTO FUNCIONA COMO IMAGEN
-    private ImageIO imagen;
-
+  
     public Long getCedula() {
         return cedula;
     }
@@ -79,11 +76,7 @@ public class postulantes extends usuarios{
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
-
-  
-    public void setImagen(ImageIO imagen) {
-        this.imagen = imagen;
-    }
+ 
 
 
     public File getPdf() {
@@ -110,7 +103,7 @@ public class postulantes extends usuarios{
             @NotNull(message = "Ingrese la cedula") Long cedula,
             @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent Date fechanacimiento,
             @NotNull(message = "Seleccione el departamento") String departamento,
-            @NotNull(message = "Seleccione un .pdf para subirlo") File pdf, ImageIO imagen) {
+            @NotNull(message = "Seleccione un .pdf para subirlo") File pdf) {
         super(usuario, clave);
         this.nombreCompleto = nombreCompleto;
         this.cantidadPostulaciones = cantidadPostulaciones;
@@ -118,7 +111,7 @@ public class postulantes extends usuarios{
         this.fechanacimiento = fechanacimiento;
         this.departamento = departamento;
         this.pdf = pdf;
-        this.imagen = imagen;
+     
     }
 
 
@@ -128,7 +121,7 @@ public class postulantes extends usuarios{
     public String toString() {
         return "postulantes [nombreCompleto=" + nombreCompleto + ", cantidadPostulaciones=" + cantidadPostulaciones
                 + ", cedula=" + cedula + ", fechanacimiento=" + fechanacimiento + ", departamento=" + departamento
-                + ", pdf=" + pdf + ", imagen=" + imagen + "]";
+                + ", pdf=" + pdf + "]";
     }
 
 

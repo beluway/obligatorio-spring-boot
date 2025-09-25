@@ -7,7 +7,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -18,19 +22,20 @@ import jakarta.validation.constraints.PastOrPresent;
 @Table(name = "postulaciones")
 public class postulaciones {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @NotNull
     @PastOrPresent
     @Column(name = "fechaPostulacion")
     private Date fechaPostulacion; 
 
     @NotNull
-    @Column(name = "oferta", nullable = false)
-    @OneToOne //UNA POSTULACIÓN SOLO TIENE UNA OFERTA
+    @ManyToOne //UNA POSTULACIÓN SOLO TIENE UNA OFERTA
     @JoinColumn(name = "oferta", nullable = false)
     private ofertas oferta;
 
     @NotNull
-    @Column(name="postulante", nullable = false)
     @OneToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
     @JoinColumn (name="postulante",nullable = false)
     private postulantes postulante;

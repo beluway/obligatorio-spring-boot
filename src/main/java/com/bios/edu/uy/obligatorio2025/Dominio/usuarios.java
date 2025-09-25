@@ -18,7 +18,6 @@ public abstract class usuarios {
     @Id
     @NotNull (message = "ingrese el usuario")
     private String usuario;
-
     @Pattern(regexp = "[A-Z]")
     @Pattern(regexp = "!#$%&/()=?")
     @Column(name = "clave", nullable = false,length = 15)
