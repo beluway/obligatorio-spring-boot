@@ -3,13 +3,17 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name="usuarios")
+
 public abstract class usuarios {
     
     @Id
@@ -38,6 +42,8 @@ public abstract class usuarios {
     public void setClave(String clave) {
         this.clave = clave;
     }
+
+
     public usuarios(String usuario, String clave) {
         this.usuario = usuario;
         this.clave = clave;
