@@ -11,22 +11,16 @@ import jakarta.persistence.Table;
 @Entity
 public class consultores extends usuarios{
     
-/*     @EmbeddedId
-    private ClaveFK foreignKeyUsu;
- */
+  
 
         public consultores(String usuario, String clave)
         {
                 super(usuario, clave);
 
         }
-/* 
-         @Embeddable 
-         public class ClaveFK implements Serializable {
-        @Column(name = "usuario" ,nullable=false)
-        private String usuario; */
-  /*  
-    } */
+
+      
+    
 
 
 }

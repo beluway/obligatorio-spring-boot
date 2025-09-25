@@ -39,7 +39,9 @@ public class ofertas {
     @Column(name = "fechaCierre", nullable = false)
     private Date fechaCierre;
 
-   
+
+    @JoinColumn(name = "cliente",nullable = false)    
+
     @NotNull(message = "seleccione el cliente")
     @ManyToOne // UN CLIENTE PUEDE TENER MUCHAS OFERTAS
     @JoinColumn(name = "cliente",nullable = false)
@@ -52,6 +54,7 @@ public class ofertas {
     @Column(name="titulo",nullable = false, length = 100)
     @NotNull(message = "Ingrese el título")
     private String titulo;
+
 
     @NotNull(message = "Ingrese una área")
     @ManyToOne
