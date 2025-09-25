@@ -1,9 +1,12 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +30,9 @@ public class ofertas {
     @Column(name = "fechaPublicacion", nullable = false)
     private Date fechaPublicacion; 
     
+    @EmbeddedId
+    private OfertaFK ofertafk;
+
     @NotNull
     @Future
     @Column(name = "fechaCierre", nullable = false)
@@ -141,6 +147,14 @@ public class ofertas {
         return "ofertas [id=" + id + ", fechaPublicacion=" + fechaPublicacion + ", fechaCierre=" + fechaCierre
                 + ", cliente=" + cliente + ", descripcion=" + descripcion + ", titulo=" + titulo + "área= "+area+", cantidadVacantes="
                 + cantidadVacantes + "]";
+    }
+
+    @Embeddable
+    private class OfertaFK implements Serializable {
+    
+        @Column(name = "nombre", nullable = false)
+        private String nombre;
+        
     }
     
 }

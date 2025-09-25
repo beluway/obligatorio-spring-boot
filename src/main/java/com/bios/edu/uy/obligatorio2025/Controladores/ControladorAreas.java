@@ -20,6 +20,9 @@ public class ControladorAreas {
     @GetMapping("/crear")
     public String crear (@ModelAttribute areas area)
     {
+
+        //ENTRA ACA SOLO SI ES CONSULTOR
+
         return "areas/crear";
     }   
 

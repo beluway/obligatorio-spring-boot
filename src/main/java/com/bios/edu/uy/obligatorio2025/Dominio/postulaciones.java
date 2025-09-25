@@ -1,8 +1,11 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -28,6 +31,10 @@ public class postulaciones {
     @Column(name="postulante", nullable = false)
     @OneToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
     private postulantes postulante;
+
+    //CLAVES COMPUESTAS
+    @EmbeddedId
+    private ClavesCompuestas foreignKeyUsu;
 
     public Date getFechaPostulacion() {
         return fechaPostulacion;
@@ -70,11 +77,20 @@ public class postulaciones {
     }
 
  
+   @Embeddable
+   public class ClavesCompuestas implements Serializable{
 
+    @Column(name = "usuario", nullable = false)
+    private String usuario;   
+    
+    @Column(name = "id", nullable = false)
+    private Integer id;
+    
+   } 
    
-
-
-
+ 
     
 
 }
+
+

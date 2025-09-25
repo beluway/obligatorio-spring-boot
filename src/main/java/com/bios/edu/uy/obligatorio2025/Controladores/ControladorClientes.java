@@ -1,13 +1,11 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.bios.edu.uy.obligatorio2025.Dominio.clientes;
-
 import ch.qos.logback.core.model.Model;
 import jakarta.validation.Valid;
 
@@ -22,6 +20,7 @@ public class ControladorClientes {
     @GetMapping("/crear")
     public String clienteCrear(@ModelAttribute clientes cliente)
     {
+         //ENTRA ACA SOLO SI ES CONSULTOR
     
         return "clientes/crear";
         
@@ -36,9 +35,10 @@ public class ControladorClientes {
 
 
     @GetMapping("/eliminar")
-
     public String clienteEliminar(@ModelAttribute clientes cliente) {
       
+         //ENTRA ACA SOLO SI ES CONSULTOR
+
         return "clientes/eliminar";
 
     }
@@ -53,7 +53,8 @@ public class ControladorClientes {
     @GetMapping("/modificar")
     public String clienteModificar(@ModelAttribute clientes cliente) {
       
-        
+         //ENTRA ACA SOLO SI ES CONSULTOR
+
         return "clientes/modificar";
     }
     
@@ -67,6 +68,7 @@ public class ControladorClientes {
     @GetMapping("/ver")    
     public String clientesVer(@ModelAttribute clientes cliente) {
        
+         //ENTRA ACA SOLO SI ES CONSULTOR
 
         return "clientes/ver";
     }   
@@ -75,6 +77,7 @@ public class ControladorClientes {
     @GetMapping("/lista")    
     public String clientesVer() {
        
+         //ENTRA ACA SOLO SI ES CONSULTOR
 
         return "clientes/lista";
     } 

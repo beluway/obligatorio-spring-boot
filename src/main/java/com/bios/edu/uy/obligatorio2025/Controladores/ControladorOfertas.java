@@ -1,5 +1,4 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model ;
 import com.bios.edu.uy.obligatorio2025.Dominio.ofertas;
-
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 

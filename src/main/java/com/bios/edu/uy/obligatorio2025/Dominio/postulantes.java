@@ -25,10 +25,9 @@ public class postulantes extends usuarios{
     @Embedded
     public NombreCompleto nombreCompleto;
 
-
     //ESTA ES LA CLAVE FORÁNEA DE LA ENTIDAD USUARIO EMBEBIDA
     @EmbeddedId
-    private ClaveCompuesta foreignKeyUsu;
+    private ClaveFK foreignKeyUsu;
 
     @Min(1)
     private int cantidadPostulaciones;
@@ -161,7 +160,7 @@ public class postulantes extends usuarios{
     //Esto es para definir la clave compuesta
     
     @Embeddable 
-    public class ClaveCompuesta implements Serializable {
+    public class ClaveFK implements Serializable {
         @Column(name = "usuario" ,nullable=false)
         private String usuario;
    
