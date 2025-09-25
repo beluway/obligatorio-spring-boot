@@ -31,8 +31,8 @@ public class ofertas {
     @Column(name = "fechaPublicacion", nullable = false)
     private Date fechaPublicacion; 
     
-    @EmbeddedId
-    private OfertaFK ofertafk;
+  /*   @EmbeddedId
+    private OfertaFK ofertafk; */
 
     @NotNull
     @Future
@@ -151,12 +151,12 @@ public class ofertas {
                 + cantidadVacantes + "]";
     }
 
-    @Embeddable
+   /*  @Embeddable
     private class OfertaFK implements Serializable {
     
         @Column(name = "nombre", nullable = false)
         private String nombre;
         
-    }
+    } */
     
 }

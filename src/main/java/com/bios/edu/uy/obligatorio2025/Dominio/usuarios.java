@@ -3,6 +3,8 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -13,7 +15,7 @@ import jakarta.validation.constraints.Pattern;
 public abstract class usuarios {
     
     @Id
-    @Column(length = 15)
+    @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
     @NotNull (message = "ingrese el usuario")
     private String usuario;
 
