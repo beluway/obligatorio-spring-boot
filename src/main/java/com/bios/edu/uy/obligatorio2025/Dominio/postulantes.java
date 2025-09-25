@@ -18,7 +18,6 @@ import jakarta.validation.constraints.PastOrPresent;
 
 
 @Entity
-@Table(name="postulantes")
 public class postulantes extends usuarios{
     
     //ESTE ES EL NOMBRE COMPLETO COMPUESTO EMBEBIDO

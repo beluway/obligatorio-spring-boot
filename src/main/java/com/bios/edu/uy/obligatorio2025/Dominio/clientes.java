@@ -10,7 +10,6 @@ import jakarta.validation.constraints.Size;
 
 
 @Entity
-@Table(name="clientes")   
 public class clientes extends usuarios {
        
     @Column(name = "rut", nullable = false, length = 12)

@@ -9,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="consultores")
 public class consultores extends usuarios{
     
     @EmbeddedId
@@ -21,8 +20,6 @@ public class consultores extends usuarios{
                 super(usuario, clave);
 
         }
-
-
 
          @Embeddable 
          public class ClaveFK implements Serializable {
