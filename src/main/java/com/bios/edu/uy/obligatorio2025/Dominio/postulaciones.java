@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -25,16 +26,18 @@ public class postulaciones {
     @NotNull
     @Column(name = "oferta", nullable = false)
     @OneToOne //UNA POSTULACIÓN SOLO TIENE UNA OFERTA
+    @JoinColumn(name = "oferta", nullable = false)
     private ofertas oferta;
 
     @NotNull
     @Column(name="postulante", nullable = false)
     @OneToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
+    @JoinColumn (name="postulante",nullable = false)
     private postulantes postulante;
 
     //CLAVES COMPUESTAS
-    @EmbeddedId
-    private ClavesCompuestas foreignKeyUsu;
+  /*   @EmbeddedId
+    private ClavesCompuestas foreignKeyUsu; */
 
     public Date getFechaPostulacion() {
         return fechaPostulacion;
@@ -77,7 +80,7 @@ public class postulaciones {
     }
 
  
-   @Embeddable
+ /*   @Embeddable
    public class ClavesCompuestas implements Serializable{
 
     @Column(name = "usuario", nullable = false)
@@ -87,7 +90,7 @@ public class postulaciones {
     private Integer id;
     
    } 
-   
+    */
  
     
 

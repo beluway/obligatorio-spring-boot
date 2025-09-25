@@ -11,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -53,7 +54,8 @@ public class ofertas {
 
     @Column(name = "area", nullable = false)
     @NotNull(message = "Ingrese una área")
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "area",nullable = false)
     private areas area;
 
     @Column(name="cantidadVacantes",nullable = false)
