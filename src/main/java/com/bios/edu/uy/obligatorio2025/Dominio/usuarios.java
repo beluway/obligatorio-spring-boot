@@ -13,7 +13,6 @@ import jakarta.validation.constraints.Pattern;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name="usuarios")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class usuarios {
     
     @Id
