@@ -3,20 +3,19 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.ofertas;
+import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
 
 
 @Service
 public class ServicioOfertas implements IServicioOfertas {
 
-/*
+    @Autowired
+private IRepositorioOfertas repositorioOfertas;
 
-
-
-
-*/
 
    /*  private IServicioAreas servicioAreas;
     private IServicioClientes servicioClientes;
@@ -31,6 +30,7 @@ public class ServicioOfertas implements IServicioOfertas {
         ofertas.add(new ofertas(1, Date.valueOf(LocalDate.now()), Date.valueOf("20-10-2025"), servicioClientes.obtener("user1"), "Tu tiene que tlabajal", "Trabajo1", servicioAreas.obtener("alguna"), 10));
     } */
     
+    @Override
     public void agregar (ofertas oferta) throws Exception
     {
 

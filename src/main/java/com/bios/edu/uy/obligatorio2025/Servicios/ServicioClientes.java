@@ -10,7 +10,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.*;
 
 
 @Service
-public class ServicioClientes /* implements IServicioClientes */ {
+public class ServicioClientes implements IServicioClientes  {
 
   /*   private List<clientes> clientes;
 
@@ -84,16 +84,19 @@ public class ServicioClientes /* implements IServicioClientes */ {
     } 
 
 //OBTENER
-  /*   public clientes obtener(String usuario) {
+     public clientes obtener(String usuario) {
         clientes clienteEncontrado = null;
-
+/* 
         for(clientes c : clientes){
             if(c.getUsuario()==usuario){
                 clienteEncontrado = c;
                 break;
             }
         }
-        return clienteEncontrado;
-    } */ 
+
+        */
+        
+        return clienteEncontrado; 
+    } 
 
 } 
