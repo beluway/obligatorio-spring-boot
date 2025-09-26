@@ -35,7 +35,7 @@ public class postulaciones {
     private ofertas oferta;
 
     @NotNull
-    @OneToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
+    @ManyToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
     @JoinColumn (name="postulante",nullable = false)
     private postulantes postulante;
 

@@ -39,8 +39,6 @@ public class ofertas {
     private Date fechaCierre;
 
 
-    @JoinColumn(name = "cliente",nullable = false)    
-
     @NotNull(message = "seleccione el cliente")
     @ManyToOne // UN CLIENTE PUEDE TENER MUCHAS OFERTAS
     @JoinColumn(name = "cliente",nullable = false)
