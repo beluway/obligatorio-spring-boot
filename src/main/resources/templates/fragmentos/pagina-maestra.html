@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="html(titulo, contenido, estilos)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- título dinámico -->
+    <title th:replace="${titulo}">Aplicación</title>
+    
+    <!-- CSS global -->
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    
+    <!-- CSS extra opcionales que pasen las vistas hijas -->
+    <th:block th:replace="${estilos} ?: ~{}"></th:block>
+</head>
+<body>
+    <!-- Cabecera -->
+    <header class="cabezal-principal">
+        <h1>BiosWork TESTING FRAGMENTS</h1>
+    </header>
+
+    <!-- Navegación -->
+    <nav class="navegacion-principal">
+        <ul>
+            <li><a th:href="@{/}">Inicio</a></li>
+            <li><a th:href="@{/ofertas}">Ver ofertas</a></li>
+            <li><a th:href="@{/areas}">Áreas</a></li>
+            <li><a th:href="@{/perfil}">Mi perfil</a></li>
+            <li><a th:href="@{/login}">Ingresar</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenido dinámico -->
+    <main class="contenido" th:insert="${contenido}"></main>
+</body>
+</html>

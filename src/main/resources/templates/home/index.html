@@ -1,45 +1,27 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"> 
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> BIENVENIDO </title>
+    <title>BIENVENIDO</title>
+      <link rel="stylesheet" th:href="@{/css/listas.css}">
 </head>
-<body>
 
-    INDEX
-     
+<section>
+    <h2>INDEX</h2>
 
-    
-<form th:action="@{/home/index}" method="post">
-
+    <form th:action="@{/home/index}" method="post">
         <div>
-           <label for="usuario">Usuario</label>
-           
+            <label for="usuario">Usuario</label>
             <input type="text" name="usu">
         </div>
 
         <div>
-            <input type="submit" value="ingresar">
+            <input type="submit" value="Ingresar">
         </div>
-
     </form>
 
-<p text="ESTE ES EL NOMBRE QUE SE ESCRIBIÓ EN EL INPUT "></p>
-
-<p th:text="${usu}"></p>
-
-    <!--  ACA SE CARGA LA LISTA DE OFERTAS (SIN EL BOTON POSTULAR SI EL POSTULANTE NO ESTÁ LOGUEADO)
-        CUANDO EL POSTULANTE SE LOGUEA, APARECE EL BOTON EN CADA OFERTA PARA POSTULARSE
-
-
-    
-
-
-    -->
-
-
-
-
-</body>
+    <p>ESTE ES EL NOMBRE QUE SE ESCRIBIÓ EN EL INPUT:</p>
+    <p th:text="${usu}"></p>
+</section>
 </html>
