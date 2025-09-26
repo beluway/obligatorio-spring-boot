@@ -37,19 +37,6 @@ public class ServicioAreas implements IServicioAreas{
         repositorioAreas.save(area);
         
     }
-//OBTENER POS
-    private int obtenerPosicion(String nombre) {
-        int posicion = -1;
-
-        for (int i = 0; i < areas.size(); i++) {
-            if (areas.get(i).getNombre() == nombre) {
-                posicion = i;
-                break;
-            }
-        }
-
-        return posicion;
-    }
 
 //ELIMINAR 
     public void eliminar (String nombre) throws Exception
