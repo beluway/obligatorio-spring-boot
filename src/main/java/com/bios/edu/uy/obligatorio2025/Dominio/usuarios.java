@@ -13,7 +13,8 @@ import jakarta.validation.constraints.Pattern;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name="usuarios")
-public abstract class usuarios {
+
+public abstract  class usuarios {
     
     @Id
     @NotNull (message = "ingrese el usuario")

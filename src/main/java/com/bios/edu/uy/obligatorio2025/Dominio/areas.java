@@ -1,7 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
