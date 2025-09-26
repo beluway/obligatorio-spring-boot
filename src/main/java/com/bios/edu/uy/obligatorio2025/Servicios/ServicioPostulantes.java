@@ -36,7 +36,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
     public postulantes obtener (String usuario)
     {
-       postulantes postulanteEncontrado = respositorioPostulantes.findBy(usuario).orElse(null);
+        postulantes postulanteEncontrado = respositorioPostulantes.findById(usuario).orElse(null);
 
        /*  for(ofertas o : ofertas){
             if(o.getId()==id){
@@ -44,7 +44,9 @@ public class ServicioPostulantes  implements IServicioPostulantes{
                 break;
             }
         } */
-        return postulanteEncontrado;
+
+       return postulanteEncontrado;
+       
     }
 
     public List<postulantes> listaPostulante()
@@ -56,3 +58,4 @@ public class ServicioPostulantes  implements IServicioPostulantes{
         return lista;
     }
 }
+

@@ -18,10 +18,6 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     private IRepositorioPostulaciones repositorioPostulaciones;
 
   
-
-    
-
-
     public void agregar (postulaciones postulacion)
     {
         repositorioPostulaciones.save(postulacion);
