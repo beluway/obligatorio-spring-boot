@@ -4,13 +4,19 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
+import com.bios.edu.uy.obligatorio2025.Repositorios.IRepostorioClientes;
 
 
 @Service
 public class ServicioClientes implements IServicioClientes  {
+
+
+    @Autowired
+    private IRepostorioClientes repositorioClientes;
 
   /*   private List<clientes> clientes;
 
@@ -29,6 +35,9 @@ public class ServicioClientes implements IServicioClientes  {
         }
 
         clientes.add(cliente); */
+
+            repositorioClientes.save(cliente);
+
     } 
 
     //OBTENER POS
@@ -61,6 +70,8 @@ public class ServicioClientes implements IServicioClientes  {
 
         clientes.set(posicion, cliente);
  */
+        repositorioClientes.save(obtener(cliente.getUsuario()));
+
    }
 
 //* /ELIMINAR
@@ -73,19 +84,24 @@ public class ServicioClientes implements IServicioClientes  {
             throw new Exception("El cliente no existe");
         } */
 
+        repositorioClientes.delete(obtener(usuario));
    } 
 
 //LISTAR
      public List<clientes>listaClientes()
     {
-          ArrayList<clientes> lista = new ArrayList<>();
+        //  ArrayList<clientes> lista = new ArrayList<>();
+
+            List<clientes> lista = repositorioClientes.findAll();
 
           return lista;
     } 
 
 //OBTENER
      public clientes obtener(String usuario) {
-        clientes clienteEncontrado = null;
+
+        
+        clientes clienteEncontrado = repositorioClientes.findById(usuario).orElse(null);
 /* 
         for(clientes c : clientes){
             if(c.getUsuario()==usuario){
@@ -95,6 +111,7 @@ public class ServicioClientes implements IServicioClientes  {
         }
 
         */
+    
         
         return clienteEncontrado; 
     } 

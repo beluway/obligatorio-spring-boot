@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bios.edu.uy.obligatorio2025.Dominio.ofertas;
 import com.bios.edu.uy.obligatorio2025.Dominio.postulantes;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulantes;
 
@@ -19,12 +20,12 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
     public void agregar (postulantes postulante)
     {
-            respositorioPostulantes.save(postulante);
+          respositorioPostulantes.save(postulante);
     }
 
     public void modificar (postulantes postulante)
     {
-    
+        respositorioPostulantes.save(postulante);
     }
 
     public void eliminar (String usuario)
@@ -35,12 +36,22 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
     public postulantes obtener (String usuario)
     {
-        return respositorioPostulantes.findById(usuario);
+       postulantes postulanteEncontrado = respositorioPostulantes.findBy(usuario).orElse(null);
+
+       /*  for(ofertas o : ofertas){
+            if(o.getId()==id){
+                ofertaEncontrada=o;
+                break;
+            }
+        } */
+        return postulanteEncontrado;
     }
 
     public List<postulantes> listaPostulante()
     {
-        ArrayList<postulantes> lista = new ArrayList<>();
+       // ArrayList<postulantes> lista = new ArrayList<>();
+
+       List<postulantes> lista = respositorioPostulantes.findAll();
 
         return lista;
     }

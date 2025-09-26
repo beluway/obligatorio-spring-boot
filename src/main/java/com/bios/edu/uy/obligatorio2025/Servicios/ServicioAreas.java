@@ -1,11 +1,18 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.areas;
+import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioAreas;
 
 @Service
 public class ServicioAreas implements IServicioAreas{
+
+
+    @Autowired
+    private IRepositorioAreas repositorioAreas;
 
     private List<areas> areas;
 
@@ -19,12 +26,15 @@ public class ServicioAreas implements IServicioAreas{
 //AGREGAR
     public void agregar(areas area) throws Exception
     {
-        if (obtener(area.getNombre())!=null) {
+        /* if (obtener(area.getNombre())!=null) {
             throw new Exception("El area ya existe");
         }
         else{
             areas.add(area);
-        }
+        } */
+
+
+        repositorioAreas.save(area);
         
     }
 //OBTENER POS
@@ -44,12 +54,14 @@ public class ServicioAreas implements IServicioAreas{
 //ELIMINAR 
     public void eliminar (String nombre) throws Exception
     {
-        if (obtener(nombre)!=null) {
+       /*  if (obtener(nombre)!=null) {
             areas.remove(obtenerPosicion(nombre));
         }
         else{
             throw new Exception("El area no existe");
-        }
+        } */
+
+        repositorioAreas.delete(obtener(nombre));
         
     }
 
@@ -65,7 +77,7 @@ public class ServicioAreas implements IServicioAreas{
 //OBTENER
     //si devuelve null es porque no la encontró, mejorar
     public areas obtener(String nombre) {
-        areas areaEncontrada = null;
+      /*   areas areaEncontrada = null;
 
         for(areas a : areas){
             if(a.getNombre()==nombre){
@@ -73,7 +85,12 @@ public class ServicioAreas implements IServicioAreas{
                 break;
             }
         }
+        return areaEncontrada; */
+
+        areas areaEncontrada = repositorioAreas.findById(nombre).orElse(null);
+
         return areaEncontrada;
+    
     }
 
 

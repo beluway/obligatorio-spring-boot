@@ -2,7 +2,8 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
+import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,11 @@ import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
 @Service
 public class ServicioOfertas implements IServicioOfertas {
 
-    @Autowired
+@Autowired
 private IRepositorioOfertas repositorioOfertas;
 
+
+    private IRepositorioOfertas repositorioOFertas;
 
    /*  private IServicioAreas servicioAreas;
     private IServicioClientes servicioClientes;
@@ -43,36 +46,44 @@ private IRepositorioOfertas repositorioOfertas;
         oferta.setCliente(servicioClientes.obtener(oferta.getCliente().getUsuario()));
 
         ofertas.add(oferta); */
+
+        repositorioOfertas.save(oferta);
+
     }
 
     public void modificar (ofertas oferta)
     {
-
+        repositorioOfertas.save(oferta);
     }
 
     public void eliminar (Integer id)
     {
-
+        repositorioOfertas.delete(obtener(id));
     }
 
     public List<ofertas> listaOfertas()
     {
-         ArrayList<ofertas> lista = new ArrayList<>();
+        //ArrayList<ofertas> lista = new ArrayList<>();
+
+        List<ofertas> lista = repositorioOFertas.findAll();
 
          return lista;
     }
 
-   /*  public ofertas obtener(Integer id){
-        ofertas ofertaEncontrada = null;
+   public ofertas obtener(Integer id){    
 
-        for(ofertas o : ofertas){
+      ofertas ofertaEncontrada =  repositorioOFertas.findById(id).orElse(null);
+
+       /*  for(ofertas o : ofertas){
             if(o.getId()==id){
                 ofertaEncontrada=o;
                 break;
             }
-        }
-        return ofertaEncontrada;
+        } */
+       // return ofertaEncontrada;
         
-    } */
+
+       return ofertaEncontrada;
+    } 
 
 }

@@ -10,4 +10,5 @@ public interface IServicioPostulantes {
     void modificar (postulantes postulante);
     void eliminar (String usuario);
     List<postulantes> listaPostulante();
+    postulantes obtener (String usuario);
 }
