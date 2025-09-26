@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -30,12 +31,12 @@ public class postulaciones {
     private Date fechaPostulacion; 
 
     @NotNull
-    @ManyToOne //UNA POSTULACIÓN SOLO TIENE UNA OFERTA
+    @OneToOne //UNA POSTULACIÓN SOLO TIENE UNA OFERTA
     @JoinColumn(name = "oferta", nullable = false)
     private ofertas oferta;
 
     @NotNull
-    @ManyToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
+    @OneToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
     @JoinColumn (name="postulante",nullable = false)
     private postulantes postulante;
 
