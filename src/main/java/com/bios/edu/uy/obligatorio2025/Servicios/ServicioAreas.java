@@ -14,15 +14,7 @@ public class ServicioAreas implements IServicioAreas{
     @Autowired
     private IRepositorioAreas repositorioAreas;
 
-    private List<areas> areas;
-
-    public ServicioAreas(){
-
-        areas = new ArrayList<>();
-
-       // areas.add(new areas(1, "alguna", true));
-    }
-    
+     
 //AGREGAR
     public void agregar(areas area) throws Exception
     {

@@ -2,6 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 
 import java.util.List;
 
+
 import com.bios.edu.uy.obligatorio2025.Dominio.clientes;
 
 public interface IServicioClientes {
@@ -11,4 +12,11 @@ public interface IServicioClientes {
     void eliminar (String usuario) throws Exception;
     clientes obtener (String usuario);
     List<clientes>listaClientes();
+
+
+    //////CON PAGINACIÓN
+   
+  // org.springframework.data.domain.Page <clientes> listar (Pageable pageable);
+
+
 }

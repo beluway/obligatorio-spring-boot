@@ -98,20 +98,9 @@ public class ServicioClientes implements IServicioClientes  {
 
 //OBTENER
      public clientes obtener(String usuario) {
-
         
         clientes clienteEncontrado = repositorioClientes.findById(usuario).orElse(null);
-/* 
-        for(clientes c : clientes){
-            if(c.getUsuario()==usuario){
-                clienteEncontrado = c;
-                break;
-            }
-        }
-
-        */
-    
-        
+           
         return clienteEncontrado; 
     } 
 
