@@ -49,17 +49,20 @@ private IRepositorioOfertas repositorioOfertas;
 
     }
 
-    public void modificar (ofertas oferta)
+     @Override
+    public void modificar (ofertas oferta) throws Exception
     {
         repositorioOfertas.save(oferta);
     }
 
-    public void eliminar (Integer id)
+     @Override
+    public void eliminar (Integer id) throws Exception
     {
         repositorioOfertas.delete(obtener(id));
     }
 
-    public List<ofertas> listaOfertas()
+     @Override
+    public List<ofertas> listaOfertas() throws Exception
     {
         //ArrayList<ofertas> lista = new ArrayList<>();
 
@@ -68,7 +71,9 @@ private IRepositorioOfertas repositorioOfertas;
          return lista;
     }
 
-   public ofertas obtener(Integer id){    
+     @Override 
+   public ofertas obtener(Integer id) throws Exception
+   {    
 
       ofertas ofertaEncontrada =  repositorioOFertas.findById(id).orElse(null);
 

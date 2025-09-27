@@ -16,6 +16,7 @@ public class ServicioAreas implements IServicioAreas{
 
      
 //AGREGAR
+    @Override
     public void agregar(areas area) throws Exception
     {
         /* if (obtener(area.getNombre())!=null) {
@@ -31,6 +32,7 @@ public class ServicioAreas implements IServicioAreas{
     }
 
 //ELIMINAR 
+ @Override
     public void eliminar (String nombre) throws Exception
     {
        /*  if (obtener(nombre)!=null) {
@@ -46,6 +48,7 @@ public class ServicioAreas implements IServicioAreas{
 
 //LISTAR
     //devuelve listado de areas
+     @Override
     public List<areas> listaAreas() {
 
         ArrayList<areas> lista = new ArrayList<>();
@@ -55,6 +58,7 @@ public class ServicioAreas implements IServicioAreas{
 
 //OBTENER
     //si devuelve null es porque no la encontró, mejorar
+     @Override
     public areas obtener(String nombre) {
       /*   areas areaEncontrada = null;
 

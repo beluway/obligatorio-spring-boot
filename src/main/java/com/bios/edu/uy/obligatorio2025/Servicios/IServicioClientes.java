@@ -10,8 +10,8 @@ public interface IServicioClientes {
     void agregar(clientes cliente) throws Exception;
     void modificar (clientes cliente) throws Exception;
     void eliminar (String usuario) throws Exception;
-    clientes obtener (String usuario);
-    List<clientes>listaClientes();
+    clientes obtener (String usuario) throws Exception;
+    List<clientes>listaClientes() throws Exception;
 
 
     //////CON PAGINACIÓN

@@ -25,7 +25,7 @@ public class postulaciones {
     //CLAVE COMPUESTA (OFERTA + POSTULANTE)
     @EmbeddedId
     private PostulacionId id;
-
+ 
     @NotNull
     @PastOrPresent
     @Column(name = "fechaPostulacion")
@@ -85,14 +85,34 @@ public class postulaciones {
                 + ", postulante=" + postulante + "]";
     }
 
-   
-    
+       
    @Embeddable
-   public class PostulacionId implements Serializable{
+   public static class PostulacionId implements Serializable{
 
     private String usuarioPostulante;  
     private Integer idOferta;
+
+    public String getUsuarioPostulante() {
+        return usuarioPostulante;
+    }
+    public void setUsuarioPostulante(String usuarioPostulante) {
+        this.usuarioPostulante = usuarioPostulante;
+    }
+    public Integer getIdOferta() {
+        return idOferta;
+    }
+    public void setIdOferta(Integer idOferta) {
+        this.idOferta = idOferta;
+    }
     
+    public PostulacionId(String usuarioPostulante, Integer idOferta) {
+        this.usuarioPostulante = usuarioPostulante;
+        this.idOferta = idOferta;
+    }
+
+       
+    
+
    } 
     
  

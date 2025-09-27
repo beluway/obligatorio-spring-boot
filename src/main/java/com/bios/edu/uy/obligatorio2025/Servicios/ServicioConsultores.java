@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.consultores;
@@ -9,25 +10,29 @@ import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioConsultores;
 @Service
 public class ServicioConsultores implements IServicioConsultores{
     
-    
+    @Autowired
     private IRepositorioConsultores repositorioConsultores;
 
-    public void agregar (consultores consultor)
+     @Override
+    public void agregar (consultores consultor) throws Exception
     {
         repositorioConsultores.save(consultor);
     }
 
-    public void modificar(consultores consultor)
+     @Override
+    public void modificar(consultores consultor) throws Exception
     {
         repositorioConsultores.save(obtener(consultor.getUsuario()));
     }
 
-    public void eliminar (String usuario)
+     @Override
+    public void eliminar (String usuario) throws Exception
     {
         repositorioConsultores.delete(obtener(usuario));
     }
 
-    public List<consultores>listaConsultores()
+     @Override
+    public List<consultores>listaConsultores() throws Exception
     {
          //ArrayList<consultores> lista = new ArrayList<>();
 
@@ -35,8 +40,10 @@ public class ServicioConsultores implements IServicioConsultores{
 
          return lista;
     }
+    
 
-    private consultores obtener(String usuario)
+     @Override
+    public consultores obtener(String usuario) throws Exception
     {
         consultores consultorEncontrado = repositorioConsultores.findById(usuario).orElse(null);
 

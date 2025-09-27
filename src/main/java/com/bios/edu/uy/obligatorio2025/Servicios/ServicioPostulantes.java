@@ -14,23 +14,27 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     private IRepositorioPostulantes respositorioPostulantes;
 
 
-    public void agregar (postulantes postulante)
+     @Override 
+    public void agregar (postulantes postulante) throws Exception
     {
           respositorioPostulantes.save(postulante);
     }
 
-    public void modificar (postulantes postulante)
+     @Override 
+    public void modificar (postulantes postulante) throws Exception
     {
         respositorioPostulantes.save(postulante);
     }
 
-    public void eliminar (String usuario)
+
+     @Override 
+    public void eliminar (String usuario) throws Exception
     {
         respositorioPostulantes.delete(obtener(usuario));
     }
 
-
-    public postulantes obtener (String usuario)
+    @Override 
+    public postulantes obtener (String usuario) throws Exception
     {
         postulantes postulanteEncontrado = respositorioPostulantes.findById(usuario).orElse(null);
 
@@ -45,7 +49,8 @@ public class ServicioPostulantes  implements IServicioPostulantes{
        
     }
 
-    public List<postulantes> listaPostulante()
+     @Override 
+    public List<postulantes> listaPostulante() throws Exception
     {
        // ArrayList<postulantes> lista = new ArrayList<>();
 
