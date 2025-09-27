@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Oferta</title>
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
+</head>
+<body>
+<div class="card">
+    <h2>Modificar Oferta</h2>
+    <form action="#" method="post" th:object="${oferta}">
+        <label for="id">ID</label>
+        <input type="text" id="id" name="id" th:value="${oferta.id}" disabled > 
+        
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" th:value="${oferta.titulo}">
+
+        <label for="fecha_pub">Fecha de publicación</label>
+        <input type="text" id="fecha_pub" name="fecha_pub" th:field="*{fechaPublicacion}" readonly>
+
+        <label for="fecha_cierre">Fecha de cierre</label>
+        <input type="date" id="fecha_cierre" name="fecha_cierre" th:field="*{fechaCierre}">
+
+        <div>
+            <label for="area">Área</label>
+            <select th:field="*{area.nombre}">
+                <option th:each="a : ${areas}" th:value="${a.nombre}" th:text="${a.nombre}"></option>
+            </select>
+            <p th:errors="*{area.nombre}" class="error"></p>
+        </div>
+
+        <label for="cliente">Publicado por: </label>
+        <input type="text" name="cliente" id="cliente" th:value="${oferta.cliente.nombre}" >
+
+        <label for="descripcion">Descripción detallada</label>
+        <textarea id="descripcion" name="descripcion" th:field="*{descripcion}" ></textarea>
+
+        <label for="vacantes">Cantidad de puestos vacantes</label>
+        <input type="number" id="vacantes" name="vacantes" th:field="*{cantidadVacantes}">
+
+        <button type="submit" id="modificar">Modifcar</button>
+
+        <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
+        
+        </form>
+    </div>
+
+</body>
+</html>

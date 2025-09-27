@@ -51,9 +51,8 @@ public class ServicioAreas implements IServicioAreas{
      @Override
     public List<areas> listaAreas() {
 
-        ArrayList<areas> lista = new ArrayList<>();
+        return repositorioAreas.findAll();
 
-        return lista;
     }
 
 //OBTENER

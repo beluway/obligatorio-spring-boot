@@ -16,21 +16,6 @@ public class ServicioOfertas implements IServicioOfertas {
 private IRepositorioOfertas repositorioOfertas;
 
 
-    private IRepositorioOfertas repositorioOFertas;
-
-   /*  private IServicioAreas servicioAreas;
-    private IServicioClientes servicioClientes;
-    private List<ofertas> ofertas;
-
-    public ServicioOfertas(IServicioAreas servicioAreas, IServicioClientes servicioClientes){
-
-        this.servicioAreas = servicioAreas;
-
-        ofertas = new ArrayList<>();
-
-        ofertas.add(new ofertas(1, Date.valueOf(LocalDate.now()), Date.valueOf("20-10-2025"), servicioClientes.obtener("user1"), "Tu tiene que tlabajal", "Trabajo1", servicioAreas.obtener("alguna"), 10));
-    } */
-    
     @Override
     public void agregar (ofertas oferta) throws Exception
     {
@@ -64,18 +49,18 @@ private IRepositorioOfertas repositorioOfertas;
      @Override
     public List<ofertas> listaOfertas() throws Exception
     {
-        //ArrayList<ofertas> lista = new ArrayList<>();
+        //List<ofertas> lista = repositorioOfertas.findAll();
+        //prueba en console.log
+        //System.out.println("Ofertas encontradas:"+listaOfertas().size());
 
-        List<ofertas> lista = repositorioOFertas.findAll();
-
-         return lista;
+         return repositorioOfertas.findAll();
     }
 
      @Override 
    public ofertas obtener(Integer id) throws Exception
    {    
 
-      ofertas ofertaEncontrada =  repositorioOFertas.findById(id).orElse(null);
+      ofertas ofertaEncontrada =  repositorioOfertas.findById(id).orElse(null);
 
        /*  for(ofertas o : ofertas){
             if(o.getId()==id){

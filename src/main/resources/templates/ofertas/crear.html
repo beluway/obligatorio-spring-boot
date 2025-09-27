@@ -44,6 +44,7 @@
     
     <form th:action="@{/ofertas/crear}" method="post" th:object="${ofertas}">
 
+        <!--Es necesario preguntar usuario? No sería el que está navegando en el sitio?-->
         <div>
             <label for="usuario">Usuario</label>           
             <input type="text" th:field="*{cliente}">
@@ -85,14 +86,11 @@
             <p th:errors="*{cantidadVacantes}" class="error"></p>
         </div>
 
-
         <div>
             <input type="submit" value="crear">
         </div>
 
     </form>
-
-
 </div>
 </body>
 </html>

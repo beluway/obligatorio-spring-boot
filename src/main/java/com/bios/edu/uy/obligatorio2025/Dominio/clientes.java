@@ -53,6 +53,8 @@ public class clientes extends usuarios {
     }
 
   
+    //constructor x defecto para JPA
+    public clientes(){}
 
     public clientes(String usuario, String clave, @NotNull(message = "Ingrese el RUT.") Long rut,
             @NotNull(message = "Ingrese el nombre.") String nombre, String url,

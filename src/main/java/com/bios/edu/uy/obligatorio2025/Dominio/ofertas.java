@@ -127,6 +127,11 @@ public class ofertas {
         this.cantidadVacantes = cantidadVacantes;
     }
 
+    //constructor vacío para que JPA pueda hacer la consulta en la bd
+    //Hibernate necesita un constructor público vacío en todas las entidades (@Entity). Esto es obligatorio para poder instanciarlas al leer datos desde la base de datos.
+    public ofertas(){}
+
+    //constructor completo
     public ofertas(Integer id, @NotNull @PastOrPresent Date fechaPublicacion, @NotNull @PastOrPresent Date fechaCierre,
             @NotNull(message = "seleccione el cliente") clientes cliente,
             @NotNull(message = "Ingrese una descripción") String descripcion,

@@ -23,6 +23,9 @@ public class areas {
         this.nombre = nombre;
     }
 
+    //constructor x defecto para JPA
+    public areas(){}
+
     public areas(@NotNull(message = "ingrese el nombre del área") String nombre) {
         this.nombre = nombre;
     }

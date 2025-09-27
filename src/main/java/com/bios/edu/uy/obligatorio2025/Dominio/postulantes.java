@@ -98,6 +98,8 @@ public class postulantes extends usuarios{
         this.cantidadPostulaciones = cantidadPostulaciones;
     }
 
+    //constructor vacío para JPA
+    public postulantes(){}
 
     public postulantes(String usuario, String clave, NombreCompleto nombreCompleto, @Min(1) int cantidadPostulaciones,
             @NotNull(message = "Ingrese la cedula") Long cedula,

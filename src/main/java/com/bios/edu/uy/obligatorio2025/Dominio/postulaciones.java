@@ -70,7 +70,9 @@ public class postulaciones {
         this.postulante = postulante;
     }
 
-  
+    //constructor vacío
+    public postulaciones(){}
+
     public postulaciones(Integer id, @NotNull @PastOrPresent Date fechaPostulacion, @NotNull ofertas oferta,
             @NotNull postulantes postulante) {
         

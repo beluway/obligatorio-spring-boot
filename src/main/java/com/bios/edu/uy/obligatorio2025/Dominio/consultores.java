@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 public class consultores extends usuarios{
     
   
+        //constructor x defecto
+        public consultores(){}
 
         public consultores(String usuario, String clave)
         {

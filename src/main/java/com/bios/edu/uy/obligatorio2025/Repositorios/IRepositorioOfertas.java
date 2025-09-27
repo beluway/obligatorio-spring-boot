@@ -1,10 +1,14 @@
 package com.bios.edu.uy.obligatorio2025.Repositorios;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.ofertas;
 import com.bios.edu.uy.obligatorio2025.Dominio.postulaciones;
 
 public interface IRepositorioOfertas extends JpaRepository<ofertas,Integer> {
+
+    List<ofertas> findAllByOrderByAreaAsc();
     
 }

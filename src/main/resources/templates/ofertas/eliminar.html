@@ -7,39 +7,99 @@
 <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 <body>
+<!--<div class="card">
+    <h2>Eliminar Oferta</h2>
+    <form th:action="@{/ofertas/eliminar}" method="post" th:object="${oferta}">
+        <label for="id">ID</label>
+        <input type="text" id="id" name="id" th:value="${oferta.id}" disabled > 
+        
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" th:field="*{titulo}" readonly>
+
+        <label for="fecha_pub">Fecha de publicación</label>
+        <input type="text" id="fecha_pub" name="fecha_pub" th:value="*{fechaPublicacion}" readonly>
+
+        <label for="fecha_cierre">Fecha de cierre</label>
+        <input type="text" id="fecha_cierre" name="fecha_cierre" th:value="*{fechaCierre}" readonly>
+
+        <label for="area">Área</label>
+        <input type="text" name="area" id="area" th:value="*{area}" readonly>
+
+        <label for="cliente">Publicado por: </label>
+        <input type="text" name="cliente" id="cliente" th:field="*{cliente}" readonly>
+
+        <label for="descripcion">Descripción detallada</label>
+        <textarea id="descripcion" name="descripcion" th:text="${oferta.descripcion}" readonly></textarea>
+
+        <label for="vacantes">Cantidad de puestos vacantes</label>
+        <input type="number" id="vacantes" name="vacantes" th:value="${oferta.cantidadVacantes}" readonly>
+
+        <button type="submit" id="eliminar">Eliminar</button>
+
+       <p id="alerta" style="color: red;"></p>
+
+        <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
+</body>
+</html>
+
+<script>
+    const eliminar = document.getElementById('eliminar');
+    const alerta = document.getElementById('alerta');
+
+    eliminar.addEventListener('click',()=>{
+        alerta.innerHTML="Está seguro de que desea eliminar esta oferta?";
+    });
+</script>-->
 <div class="card">
-    <h1>Eliminar Cliente</h1>
+    <h2>Eliminar Oferta</h2>
 
-    <form th:action="@{/clientes/{id}/eliminar(id=${cliente.id})}" method="post">
-        <fieldset disabled>
-            <label>RUT:</label>
-            <input type="text" th:value="${cliente.rut}" />
+    <form th:action="@{/ofertas/eliminar}" method="post" th:object="${oferta}">
+        
+        <!-- ID oculto para enviar en POST -->
+        <input type="hidden" th:field="*{id}">
 
-            <label>Nombre:</label>
-            <input type="text" th:value="${cliente.nombre}" />
+        <label for="id">ID</label>
+        <input type="text" id="id" th:field="*{id}" readonly>
 
-            <label>Sitio Web:</label>
-            <input type="text" th:value="${cliente.urlSitioWeb}" />
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" th:field="*{titulo}" readonly>
 
-            <label>Estado:</label>
-            <input type="text" th:value="${cliente.activo ? 'Activo' : 'Inactivo'}" />
+        <label for="fecha_pub">Fecha de publicación</label>
+        <input type="date" id="fecha_pub" th:field="*{fechaPublicacion}" readonly>
 
-            <label>N° Ofertas Publicadas:</label>
-            <input type="text" th:value="${cliente.ofertas.size()}" />
-        </fieldset>
+        <label for="fecha_cierre">Fecha de cierre</label>
+        <input type="date" id="fecha_cierre" th:field="*{fechaCierre}" readonly>
 
-        <div th:if="${cliente.ofertas.size() > 0}" class="alert alert-warning">
-             Este cliente tiene ofertas publicadas. Se realizará una <strong>baja lógica</strong>.
-        </div>
-        <div th:if="${cliente.ofertas.size() == 0}" class="alert alert-success">
-             Se eliminará definitivamente del sistema.
-        </div>
+        <label for="area">Área</label>
+        <input type="text" id="area" th:value="*{area.nombre}" readonly>
 
-        <div class="botones">
-            <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
-            <a th:href="@{/clientes}" class="btn btn-secondary">Cancelar</a>
-        </div>
+        <label for="cliente">Publicado por:</label>
+        <input type="text" id="cliente" th:value="*{cliente.nombre}" readonly>
+
+        <label for="descripcion">Descripción detallada</label>
+        <textarea id="descripcion" th:field="*{descripcion}" readonly></textarea>
+
+        <label for="vacantes">Cantidad de puestos vacantes</label>
+        <input type="number" id="vacantes" th:field="*{cantidadVacantes}" readonly>
+
+        <button type="submit" id="eliminar">Eliminar</button>
+
+        <p id="alerta" style="color: red;"></p>
+        <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
     </form>
 </div>
+
+<script>
+    const eliminar = document.getElementById('eliminar');
+    const alerta = document.getElementById('alerta');
+
+    eliminar.addEventListener('click', (event) => {
+        const confirmar = confirm("¿Está seguro de que desea eliminar esta oferta?");
+        if (!confirmar) {
+            event.preventDefault(); // Detiene el envío del formulario si cancela
+        }
+    });
+    
+</script>
 </body>
 </html>
