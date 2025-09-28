@@ -30,11 +30,14 @@ public class ServicioClientes implements IServicioClientes  {
  @Override
    public void agregar(Cliente cliente) throws Exception 
    { 
-      /*   if (obtener(cliente.getUsuario()) != null) {
-            throw new Exception("El cliente ya existe.");
-        }
 
-        clientes.add(cliente); */
+    Cliente clienteExiste = obtener(cliente.getUsuario());
+            if (clienteExiste != null) {
+                throw new Exception("El cliente ya existe.");
+                
+            }else if (cliente.getRut().toString().length() != 8) {
+                throw new Exception("El RUT debe estar debe tener 8 digitos.");
+            }
 
             repositorioClientes.save(cliente);
 
