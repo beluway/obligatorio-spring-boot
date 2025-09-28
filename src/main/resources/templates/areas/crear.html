@@ -13,13 +13,18 @@
 
         <p th:text="${mensaje}" style="color: greenyellow;"></p>
         <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <input type="text" id="nombre" name="nombre" required placeholder="Ingrese un nombre">
         <button type="submit">Crear Area</button>
 
-            <button type="submit" id="crear">Crear</button>
+        <input type="submit" value="crear">   
 
      </form>
+
+     <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>
 </div>
 
 </body>
+<script>
+    const nombre = document.getElementById('nombre').focus();
+</script>
 </html>

@@ -3,10 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Modificar Área</title>
+        <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 <body>
-      
+      <div class="card">
+    <h2>Modificar Área</h2>
+    <form th:action="@{/areas/modificar}" method="post" th:object="${area}">
+
+        <label for="id">ID</label>
+        <input type="text" id="id" name="id" th:field="*{id}" readonly > 
+        
+        <label for="titulo">Nombre</label>
+        <input type="text" id="nombre" name="nombre" th:field="*{nombre}">
+
+        <button type="submit" id="modificar">Modifcar</button>
+
+        <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>
+        
+        </form>
+    </div>
 
 </body>
 </html>

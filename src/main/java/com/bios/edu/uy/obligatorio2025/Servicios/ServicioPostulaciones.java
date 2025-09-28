@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
-
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 
 

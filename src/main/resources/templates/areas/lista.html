@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
+<head>
+    <title>Listado de Áreas</title>
+    <link rel="stylesheet" th:href="@{/css/listas.css}">
+</head>
+
+<section>
+    <div class="card">
+        <h2>Listado de Áreas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="a : ${areas}">
+                    <td th:text="${a.id}"></td>
+                    <td th:text="${a.nombre}"></td>
+                    <td>
+                        <a th:href="@{/areas/modificar(id=${a.id})}" class="btn">Modificar</a>
+                       <a th:href="@{/areas/eliminar(id=${a.id})}" class="btn">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</html>
+
