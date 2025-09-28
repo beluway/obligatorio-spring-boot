@@ -1,7 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +44,9 @@ public class ControladorAreas {
     if (existente != null) {
     throw new Exception("Ya existe el área con nombre: " + existente.getNombre());
     } else {
+
+        //VER SI SE AGREGA area O existente
+
         modelo.addAttribute("mensaje",mensaje);
         servicioAreas.agregar(area);
     }
