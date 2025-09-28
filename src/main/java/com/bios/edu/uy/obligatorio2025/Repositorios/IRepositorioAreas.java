@@ -6,5 +6,5 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 
 public interface IRepositorioAreas extends JpaRepository<Area,Integer> {
 
-    Area findByNombre(String nombre);
+  //  Area findByNombre(String nombre);
 }

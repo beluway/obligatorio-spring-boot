@@ -1,5 +1,8 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,11 +16,13 @@ import jakarta.validation.constraints.NotNull;
 public class Area {
  
     @Id
+    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private Integer id;
-
+    @Column(name = "nombre")
     @NotNull(message = "ingrese el nombre del área")
-    private String nombre;
+     private String nombre;
 
     public void setId(Integer id) {
         this.id = id;
@@ -47,6 +52,13 @@ public class Area {
         return "areas [id=" + id + ", nombre=" + nombre + "]";
     }
 
+    public Area(Integer id, @NotNull(message = "ingrese el nombre del área") String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
     //AYUDAAAA
+
+    
 
 }

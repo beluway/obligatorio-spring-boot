@@ -7,17 +7,19 @@
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 <body>
+
 <div class="card">
-     <form th:action="@{/areas/crear}" method="post" th:object="${areas}">
+     <form th:action="@{/areas/crear}" method="post" th:object="${area}">
 
         <p th:text="${mensaje}" style="color: greenyellow;"></p>
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" required>
         <button type="submit">Crear Area</button>
 
-        <input type="submit" value="crear">   
+            <button type="submit" id="crear">Crear</button>
 
      </form>
 </div>
+
 </body>
 </html>

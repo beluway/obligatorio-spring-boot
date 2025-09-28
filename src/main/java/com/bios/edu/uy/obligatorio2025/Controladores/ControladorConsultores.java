@@ -42,7 +42,6 @@ private ServicioConsultores servicioConsultor;
  
 
 
-
     @PostMapping("/crear")
     public String consultorCrear (@ModelAttribute @Valid Consultor consultor, Model modelo, BindingResult resultado) throws Exception
     {           
@@ -58,7 +57,7 @@ private ServicioConsultores servicioConsultor;
         else
         {
          modelo.addAttribute("mensaje",mensaje);
-         servicioConsultor.agregar(existente);
+         servicioConsultor.agregar(consultor);
         }
         return "redirect:/consultores/crear";
     }

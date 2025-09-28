@@ -48,7 +48,7 @@ public class ServicioAreas implements IServicioAreas{
 
 //LISTAR
     //devuelve listado de areas
-     @Override
+    @Override
     public List<Area> listaAreas() {
 
         return repositorioAreas.findAll();
@@ -57,8 +57,8 @@ public class ServicioAreas implements IServicioAreas{
 
 //OBTENER
     //si devuelve null es porque no la encontró, mejorar
-     @Override
-    public Area obtener(Integer nombre) {
+    @Override
+    public Area obtener(Integer Id) {
       /*   areas areaEncontrada = null;
 
         for(areas a : areas){
@@ -69,7 +69,7 @@ public class ServicioAreas implements IServicioAreas{
         }
         return areaEncontrada; */
 
-        Area areaEncontrada = repositorioAreas.findById(nombre).orElse(null);
+        Area areaEncontrada = repositorioAreas.findById(Id).orElse(null);
 
         return areaEncontrada;
     

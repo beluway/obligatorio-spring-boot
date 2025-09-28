@@ -27,13 +27,8 @@ public class ControladorClientes {
 
     @GetMapping("/crear")
     public String clienteCrear(@ModelAttribute Cliente cliente, Model modelo) throws Exception
-    {
-        
-        
-       
-    
-        return "clientes/crear";
-        
+    {        
+        return "clientes/crear";        
     }
 
     //ACA VA FLASH ATTRIBUTES Y REDIRECT 
@@ -42,6 +37,7 @@ public class ControladorClientes {
     {              
         servicioClientes.agregar(cliente);
          
+        
         return "redirect:/clientes/crear";
     }
 

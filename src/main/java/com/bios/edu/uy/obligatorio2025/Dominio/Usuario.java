@@ -19,8 +19,9 @@ public abstract  class Usuario {
     @Id
     @NotNull (message = "ingrese el usuario")
     private String usuario;
-    @Pattern(regexp = "[A-Z]")
-    @Pattern(regexp = "!#$%&/()=?")
+   
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[!#$%&/()=?]).{6,15}$",
+    message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial")
     @Column(name = "clave", nullable = false,length = 15)
     @NotNull (message =  "ingrese la clave")
     private String clave;

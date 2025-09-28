@@ -3,29 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Registro Consultor</title>
 
  <link rel="stylesheet" th:href="@{/css/crud.css}">
 
 </head>
 <body>
       
-    <form th:action="@{/consultores/crear}" method="post" th:object="${Consultor}">
+
+
+<!-- <div class="card">
+     <form th:action="@{/areas/crear}" method="post" th:object="${area}">
+
+        <p th:text="${mensaje}" style="color: greenyellow;"></p>
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <button type="submit">Crear Area</button>
+
+            <button type="submit" id="crear">Crear</button>
+
+     </form>
+</div> -->
+
+
+<div class="card">
+   <form th:action="@{/consultores/crear}" method="post" th:object="${consultor}">
 
         <div>
            <label for="usuario">Usuario</label>           
-            <input type="text" th:field="*{usuario}">
+            <input type="text" id="usuario" name="usuario" required>
         </div>
 
         <div>
             <label for="clave"> Clave</label>
-            <input type="clave" th:field="*{clave}">
+            <input type="clave" id="clave" name="clave" required>
         </div>
        
         <div>
-            <input type="submit" value="crear">
+           <button type="submit" id="crear">Crear</button>
         </div>
    </form>
+</div>
+
+ 
 
 
 </body>
