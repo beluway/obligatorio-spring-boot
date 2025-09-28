@@ -30,8 +30,7 @@ public class ControladorAreas {
     private IServicioAreas servicioAreas;
 
     @GetMapping("/crear")
-    public String crear (@ModelAttribute Area area, HttpSession sesion, Model modelo)
-    public String crear (@ModelAttribute areas area, Model modelo) throws Exception
+    public String crear (@ModelAttribute Area area, HttpSession sesion, Model modelo)throws Exception
     {
         
         return "areas/crear";
