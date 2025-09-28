@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioUsuarios;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,9 @@ public class ControladorHome {
 
 HttpSession sessionUsuario;
 
-    @Autowired
+   
+       @Autowired
+    private IServicioUsuarios servicioUsuarios;
     
     @Qualifier("servicioUsuarioSession")
 
@@ -28,13 +32,13 @@ HttpSession sessionUsuario;
     public String index() {
       
     
-        Cliente usu=null;  // = aca va el metodo del servicio para la existencia usuarios
+      /*   Cliente usu=null;  // = aca va el metodo del servicio para la existencia usuarios
         //BUSCAR USUARIO ................controladorClientes
 
-        if(usu!=null)
+        if(sessionUsuario!=null)
         {       
             return "redirect:/home/login";
-        }
+        } */
        
         return "home/index";       
     }    
@@ -42,19 +46,20 @@ HttpSession sessionUsuario;
     @PostMapping("/index")
     public String index(String usu, Model modelo) {
        
+         //ACA VA EL ACCESO A LA CAPA DE DATOS DE USUARIO Y PREGUNTA SI EXISTE EL USUARIO   
 
-        if(usu!="")
+        Usuario usuarioLogin = servicioUsuarios.usuarioParaLogin(usu);
+
+        if(usuarioLogin!=null)
         {
-            modelo.addAttribute("usu",usu);
+            modelo.addAttribute("usuarioLogin",usu);
         
+             //SI EXISTE EL USUARIO, SE PASA A LA PÁGINA DE LOGIN
+            return "redirect:/home/login";
 
-        //ACA VA EL ACCESO A LA CAPA DE DATOS DE USUARIO Y PREGUNTA SI EXISTE EL USUARIO         
-
-
-         return "redirect:/home/login";
         }
         else
-        {
+        {   //SI NO EXISTE, SE QUEDA EN EL INDEX
             return "home/index";
         }
       

@@ -10,10 +10,15 @@
 <section>
     <h2>INDEX</h2>
 
-    <form th:action="@{/home/index}" method="post">
+
+<!-- 
+    th:object="${ofertas}    
+--> 
+
+    <form th:action="@{/home/index}" method="post" th:object="${usuario}">
         <div>
             <label for="usuario">Usuario</label>
-            <input type="text" name="usu">
+            <input type="text" name="usuario" id="usuario">
         </div>
 
         <div>

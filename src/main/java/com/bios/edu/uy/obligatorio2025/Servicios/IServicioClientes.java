@@ -13,7 +13,7 @@ public interface IServicioClientes {
     Cliente obtener (String usuario) throws Exception;
     List<Cliente>listaClientes() throws Exception;
 
-
+    
     //////CON PAGINACIÓN
    
   // org.springframework.data.domain.Page <clientes> listar (Pageable pageable);

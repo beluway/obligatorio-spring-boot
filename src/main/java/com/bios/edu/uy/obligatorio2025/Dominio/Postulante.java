@@ -8,7 +8,8 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -17,11 +18,37 @@ import jakarta.validation.constraints.PastOrPresent;
 
 
 @Entity
+@Table(name="postulantes")
+@PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
 public class Postulante extends Usuario{
     
     //ESTE ES EL NOMBRE COMPLETO COMPUESTO EMBEBIDO
     @Embedded
     public NombreCompleto nombreCompleto;
+
+
+  public NombreCompleto getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+
+    public void setNombreCompleto(NombreCompleto nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+
+    public String getTipo_usuario() {
+        return tipo_usuario;
+    }
+
+
+    public void setTipo_usuario(String tipo_usuario) {
+        this.tipo_usuario = tipo_usuario;
+    }
+
+
+
+  private String tipo_usuario;
 
     //ESTA ES LA CLAVE FORÁNEA DE LA ENTIDAD USUARIO EMBEBIDA
 /*     @EmbeddedId
@@ -101,34 +128,27 @@ public class Postulante extends Usuario{
     //constructor vacío para JPA
     public Postulante(){}
 
-    public Postulante(String usuario, String clave, NombreCompleto nombreCompleto, @Min(1) int cantidadPostulaciones,
-            @NotNull(message = "Ingrese la cedula") Long cedula,
-            @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent Date fechanacimiento,
-            @NotNull(message = "Seleccione el departamento") String departamento,
-            @NotNull(message = "Seleccione un .pdf para subirlo") File pdf) {
-        super(usuario, clave);
-        this.nombreCompleto = nombreCompleto;
-        this.cantidadPostulaciones = cantidadPostulaciones;
-        this.cedula = cedula;
-        this.fechanacimiento = fechanacimiento;
-        this.departamento = departamento;
-        this.pdf = pdf;
-     
-    }
 
-
-
-
-    @Override
-    public String toString() {
-        return "postulantes [nombreCompleto=" + nombreCompleto + ", cantidadPostulaciones=" + cantidadPostulaciones
-                + ", cedula=" + cedula + ", fechanacimiento=" + fechanacimiento + ", departamento=" + departamento
-                + ", pdf=" + pdf + "]";
-    }
 
 
 
     //Esto es la inner class del atributo multivaluado
+
+    public Postulante(NombreCompleto nombreCompleto, String tipo_usuario, @Min(1) int cantidadPostulaciones,
+            @NotNull(message = "Ingrese la cedula") Long cedula,
+            @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent Date fechanacimiento,
+            @NotNull(message = "Seleccione el departamento") String departamento) {
+        this.nombreCompleto = nombreCompleto;
+        this.tipo_usuario = tipo_usuario;
+        this.cantidadPostulaciones = cantidadPostulaciones;
+        this.cedula = cedula;
+        this.fechanacimiento = fechanacimiento;
+        this.departamento = departamento;
+    }
+
+
+
+
 
     @Embeddable
     public class NombreCompleto {

@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
@@ -11,7 +12,8 @@ import jakarta.validation.constraints.Pattern;
 
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="tipo_usuario")
 @Table(name="usuarios")
 
 public abstract  class Usuario {
@@ -41,13 +43,19 @@ public abstract  class Usuario {
     public void setClave(String clave) {
         this.clave = clave;
     }
+
     public Usuario(String usuario, String clave) {
         this.usuario = usuario;
         this.clave = clave;
     }
 
+    //USUARIO SOLO PARA PRELOGUEO
+      public Usuario(String usuario) {
+        this.usuario = usuario;
+       
+    }
 
- public Usuario() {
+    public Usuario() {
        
     }
 

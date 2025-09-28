@@ -20,11 +20,18 @@ public class ServicioAreas implements IServicioAreas{
     @Override
     public void agregar(Area area) throws Exception
     {
-         if (obtener(area.getId())!=null) {
+        /*  if (obtener(area.getId())!=null) {
             throw new Exception("El area ya existe");
         }
 
-        repositorioAreas.save(area);
+        else
+        { */
+       
+            repositorioAreas.save(area);
+
+       /*  } */
+
+       
         
     }
 
@@ -53,7 +60,7 @@ public class ServicioAreas implements IServicioAreas{
 //OBTENER
     //si devuelve null es porque no la encontró, mejorar
      @Override
-    public Area obtener(Integer nombre) {
+    public Area obtener(Integer id) {
       /*   areas areaEncontrada = null;
 
         for(areas a : areas){
@@ -64,7 +71,7 @@ public class ServicioAreas implements IServicioAreas{
         }
         return areaEncontrada; */
 
-        Area areaEncontrada = repositorioAreas.findById(nombre).orElse(null);
+        Area areaEncontrada = repositorioAreas.findById(id).orElse(null);
 
         return areaEncontrada;
     

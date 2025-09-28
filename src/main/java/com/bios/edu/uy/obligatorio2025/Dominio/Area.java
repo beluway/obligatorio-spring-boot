@@ -15,8 +15,7 @@ import jakarta.validation.constraints.NotNull;
 @Table(name="areas")
 public class Area {
  
-    @Id
-    
+    @Id    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
     private Integer id;

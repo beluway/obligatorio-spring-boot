@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
@@ -43,28 +43,15 @@ public class ControladorAreas {
 
     @PostMapping("/crear") 
     public String procesarCrear(@ModelAttribute @Valid Area area, Model modelo, BindingResult resultado) throws Exception {
+       
 
-        //NO PRECISA PREGUNTAR POR EL ID PORQUE ES AUTOGENERADO
+        servicioAreas.agregar(area);
 
-       //Area existente = servicioAreas.obtener(area.getId());
-
-        //Area existente = repo.findByNombre(area.getNombre());
-
-    
-
-  /*   if (existente != null) {
-    throw new Exception("Ya existe el área con nombre: " + existente.getNombre());
-    } else {
- */
-        //VER SI SE AGREGA area O existente
-
-         servicioAreas.agregar(area);
-
-        String mensaje = "Se agregregó el área correctamente";
+        String mensaje = "Se agregó el área correctamente";
 
         modelo.addAttribute("mensaje",mensaje);
         servicioAreas.agregar(area);
-    }
+    
         return "redirect:/areas/crear";
 
     }

@@ -3,14 +3,20 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 
 @Entity
+@Table(name = "clientes")
+@PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
 public class Cliente extends Usuario {
        
+    private String tipo_usuario;
+
     @Column(name = "rut", nullable = false, length = 12)
     @NotNull(message = "Ingrese el RUT.")
     @Digits(integer =  8, fraction = 0, message = "El RUT debe tener hasta 8 dígitos")
@@ -50,26 +56,32 @@ public class Cliente extends Usuario {
         this.url = url;
     }
 
+    public String getTipo_usuario() {
+        return tipo_usuario;
+    }
+
+    public void setTipo_usuario(String tipo_usuario) {
+        this.tipo_usuario = tipo_usuario;
+    }
   
     //constructor x defecto para JPA
     public Cliente(){}
 
-    public Cliente(String usuario, String clave, @NotNull(message = "Ingrese el RUT.") Long rut,
-            @NotNull(message = "Ingrese el nombre.") String nombre, String url,
-            @NotNull List<Oferta> listaOfertas) {
-        super(usuario, clave);
+    public Cliente(String tipo_usuario,
+            @NotNull(message = "Ingrese el RUT.") @Digits(integer = 8, fraction = 0, message = "El RUT debe tener hasta 8 dígitos") Long rut,
+            @NotNull(message = "Ingrese el nombre.") String nombre,
+            @Pattern(regexp = "^www\\..*", message = "La URL debe empezar con www") @Pattern(regexp = ".*\\.com$", message = "La URL debe terminar en .com") String url) {
+        this.tipo_usuario = tipo_usuario;
         this.rut = rut;
         this.nombre = nombre;
         this.url = url;
-      
     }
 
+   
 
     
-    @Override
-    public String toString() {
-        return "clientes [rut=" + rut + ", nombre=" + nombre +", url= " +url +"]";
-    }
+
+    
 
 
 
