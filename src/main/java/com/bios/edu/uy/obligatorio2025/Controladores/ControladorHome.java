@@ -31,7 +31,7 @@ HttpSession sessionUsuario;
     public String index() {
       
     
-        clientes usu=null;  // = aca va el metodo del servicio para la existencia usuarios
+        Cliente usu=null;  // = aca va el metodo del servicio para la existencia usuarios
         //BUSCAR USUARIO ................controladorClientes
 
         if(usu!=null)
@@ -82,7 +82,7 @@ HttpSession sessionUsuario;
 
 
     @PostMapping("/login")
-    public String login(@ModelAttribute @Valid usuarios usuario, Model modelo, BindingResult resultado, HttpSession sesion) {
+    public String login(@ModelAttribute @Valid Usuario usuario, Model modelo, BindingResult resultado, HttpSession sesion) {
        
       
         // SE BUSCA SI EXISTE EN LA CAPA USUARIO CON LOS DATOS PASADOS
@@ -93,16 +93,16 @@ HttpSession sessionUsuario;
             if(usuario!=null)
             {
 
-                if( usuario instanceof consultores)    
+                if( usuario instanceof Consultor)    
                 {
                     return "consultores/main";
                 }
-                else if(usuario instanceof clientes)
+                else if(usuario instanceof Cliente)
                 {
                     return "clientes/main";
                 }
             
-                else if(usuario instanceof postulantes)
+                else if(usuario instanceof Postulante)
                 {
                     return "postulantes/main";
                 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.bios.edu.uy.obligatorio2025.Dominio.areas;
+import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioAreas;
 
 @Service
@@ -17,7 +17,7 @@ public class ServicioAreas implements IServicioAreas{
      
 //AGREGAR
     @Override
-    public void agregar(areas area) throws Exception
+    public void agregar(Area area) throws Exception
     {
         /* if (obtener(area.getNombre())!=null) {
             throw new Exception("El area ya existe");
@@ -33,7 +33,7 @@ public class ServicioAreas implements IServicioAreas{
 
 //ELIMINAR 
  @Override
-    public void eliminar (String nombre) throws Exception
+    public void eliminar (Integer id) throws Exception
     {
        /*  if (obtener(nombre)!=null) {
             areas.remove(obtenerPosicion(nombre));
@@ -42,14 +42,14 @@ public class ServicioAreas implements IServicioAreas{
             throw new Exception("El area no existe");
         } */
 
-        repositorioAreas.delete(obtener(nombre));
+        repositorioAreas.delete(obtener(id));
         
     }
 
 //LISTAR
     //devuelve listado de areas
      @Override
-    public List<areas> listaAreas() {
+    public List<Area> listaAreas() {
 
         return repositorioAreas.findAll();
 
@@ -58,7 +58,7 @@ public class ServicioAreas implements IServicioAreas{
 //OBTENER
     //si devuelve null es porque no la encontró, mejorar
      @Override
-    public areas obtener(String nombre) {
+    public Area obtener(Integer nombre) {
       /*   areas areaEncontrada = null;
 
         for(areas a : areas){
@@ -69,7 +69,7 @@ public class ServicioAreas implements IServicioAreas{
         }
         return areaEncontrada; */
 
-        areas areaEncontrada = repositorioAreas.findById(nombre).orElse(null);
+        Area areaEncontrada = repositorioAreas.findById(nombre).orElse(null);
 
         return areaEncontrada;
     

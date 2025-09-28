@@ -16,7 +16,7 @@ import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 @Table(name = "postulaciones")
-public class postulaciones {
+public class Postulacion {
     
    /*  @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,14 +36,14 @@ public class postulaciones {
     @MapsId("idOferta")
     @OneToOne //UNA POSTULACIÓN SOLO TIENE UNA OFERTA
     @JoinColumn(name = "oferta", nullable = false)
-    private ofertas oferta;
+    private Oferta oferta;
 
     //LA COLUMNA POSTULANTE ES UNA UNION (JOIN) CON LA TABLA POSTULANTE Y ADEMAS FORMA LA PK COMPUESTA    
     @NotNull
     @MapsId("usuarioPostulante")
     @OneToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
     @JoinColumn (name="postulante",nullable = false)
-    private postulantes postulante;
+    private Postulante postulante;
 
 
     public Date getFechaPostulacion() {
@@ -54,27 +54,27 @@ public class postulaciones {
         this.fechaPostulacion = fechaPostulacion;
     }
 
-    public ofertas getOferta() {
+    public Oferta getOferta() {
         return oferta;
     }
 
-    public void setOferta(ofertas oferta) {
+    public void setOferta(Oferta oferta) {
         this.oferta = oferta;
     }
 
-    public postulantes getPostulante() {
+    public Postulante getPostulante() {
         return postulante;
     }
 
-    public void setPostulante(postulantes postulante) {
+    public void setPostulante(Postulante postulante) {
         this.postulante = postulante;
     }
 
     //constructor vacío
-    public postulaciones(){}
+    public Postulacion(){}
 
-    public postulaciones(Integer id, @NotNull @PastOrPresent Date fechaPostulacion, @NotNull ofertas oferta,
-            @NotNull postulantes postulante) {
+    public Postulacion(Integer id, @NotNull @PastOrPresent Date fechaPostulacion, @NotNull Oferta oferta,
+            @NotNull Postulante postulante) {
         
         this.fechaPostulacion = fechaPostulacion;
         this.oferta = oferta;
@@ -106,6 +106,7 @@ public class postulaciones {
     public void setIdOferta(Integer idOferta) {
         this.idOferta = idOferta;
     }
+    
     
     public PostulacionId(String usuarioPostulante, Integer idOferta) {
         this.usuarioPostulante = usuarioPostulante;

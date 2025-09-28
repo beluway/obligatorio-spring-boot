@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.bios.edu.uy.obligatorio2025.Dominio.clientes;
+import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import ch.qos.logback.core.model.Model;
 import jakarta.validation.Valid;
 
@@ -14,11 +14,10 @@ import jakarta.validation.Valid;
 
 public class ControladorClientes {
     
- 
 
 
     @GetMapping("/crear")
-    public String clienteCrear(@ModelAttribute clientes cliente)
+    public String clienteCrear(@ModelAttribute Cliente cliente)
     {
          //ENTRA ACA SOLO SI ES CONSULTOR
     
@@ -28,14 +27,14 @@ public class ControladorClientes {
 
     //ACA VA FLASH ATTRIBUTES Y REDIRECT 
     @PostMapping("/crear")
-    public String clienteCrear (@ModelAttribute @Valid clientes cliente, Model modelo, BindingResult resultado) 
+    public String clienteCrear (@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado) 
     {               
         return "redirect:/clientes/crear";
     }
 
 
     @GetMapping("/eliminar")
-    public String clienteEliminar(@ModelAttribute clientes cliente) {
+    public String clienteEliminar(@ModelAttribute Cliente cliente) {
       
          //ENTRA ACA SOLO SI ES CONSULTOR
 
@@ -44,14 +43,14 @@ public class ControladorClientes {
     }
 
     @PostMapping("/eliminar")
-    public String clienteEliminar(@ModelAttribute @Valid clientes cliente, Model modelo, BindingResult resultado)  {
+    public String clienteEliminar(@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado)  {
               
         return "redirect:/clientes/eliminar";
     }
     
     
     @GetMapping("/modificar")
-    public String clienteModificar(@ModelAttribute clientes cliente) {
+    public String clienteModificar(@ModelAttribute Cliente cliente) {
       
          //ENTRA ACA SOLO SI ES CONSULTOR
 
@@ -59,14 +58,14 @@ public class ControladorClientes {
     }
     
     @PostMapping("/modificar")
-    public String clientesModificar(@ModelAttribute @Valid clientes cliente, Model modelo, BindingResult resultado) {
+    public String clientesModificar(@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado) {
        
         return "redirect:/clientes/modificar";
     }
     
 
     @GetMapping("/ver")    
-    public String clientesVer(@ModelAttribute clientes cliente) {
+    public String clientesVer(@ModelAttribute Cliente cliente) {
        
          //ENTRA ACA SOLO SI ES CONSULTOR
 

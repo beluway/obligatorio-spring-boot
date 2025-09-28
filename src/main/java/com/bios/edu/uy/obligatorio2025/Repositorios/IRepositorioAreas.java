@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.areas;
-import com.bios.edu.uy.obligatorio2025.Dominio.ofertas;
+import com.bios.edu.uy.obligatorio2025.Dominio.Area;
+import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 
-public interface IRepositorioAreas extends JpaRepository<areas,String> {
+public interface IRepositorioAreas extends JpaRepository<Area,Integer> {
 
     areas findByNombre(String nombre);
 }

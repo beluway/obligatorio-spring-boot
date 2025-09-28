@@ -28,7 +28,7 @@ public class ServicioClientes implements IServicioClientes  {
 
 //AGREGAR
  @Override
-   public void agregar(clientes cliente) throws Exception 
+   public void agregar(Cliente cliente) throws Exception 
    { 
       /*   if (obtener(cliente.getUsuario()) != null) {
             throw new Exception("El cliente ya existe.");
@@ -58,7 +58,7 @@ public class ServicioClientes implements IServicioClientes  {
     
 //MODIFICAR
  @Override
-  public void modificar (clientes cliente) throws Exception
+  public void modificar (Cliente cliente) throws Exception
     { 
        /*  int posicion = obtenerPosicion(cliente.getUsuario());
 
@@ -91,20 +91,20 @@ public class ServicioClientes implements IServicioClientes  {
 
 //LISTAR
  @Override
-     public List<clientes>listaClientes()
+     public List<Cliente>listaClientes()
     {
         //  ArrayList<clientes> lista = new ArrayList<>();
 
-            List<clientes> lista = repositorioClientes.findAll();
+            List<Cliente> lista = repositorioClientes.findAll();
 
           return lista;
     } 
 
 //OBTENER
  @Override
-     public clientes obtener(String usuario) {
+     public Cliente obtener(String usuario) {
         
-        clientes clienteEncontrado = repositorioClientes.findById(usuario).orElse(null);
+        Cliente clienteEncontrado = repositorioClientes.findById(usuario).orElse(null);
            
         return clienteEncontrado; 
     } 

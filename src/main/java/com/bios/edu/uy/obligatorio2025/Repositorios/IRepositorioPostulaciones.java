@@ -1,10 +1,14 @@
 package com.bios.edu.uy.obligatorio2025.Repositorios;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.postulaciones;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 
 
-public interface IRepositorioPostulaciones extends JpaRepository<postulaciones,postulaciones.PostulacionId> {
+public interface IRepositorioPostulaciones extends JpaRepository<Postulacion,Postulacion.PostulacionId> {
     
+
+
+
 }

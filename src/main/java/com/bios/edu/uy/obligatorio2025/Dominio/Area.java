@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="areas")
-public class areas {
+public class Area {
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,11 +36,9 @@ public class areas {
     }
 
     //constructor x defecto para JPA
-    public areas(){}
+    public Area(){}
 
-
-    public areas(
-            @NotNull(message = "ingrese el nombre del área") String nombre) {
+    public Area(@NotNull(message = "ingrese el nombre del área") String nombre) {
         this.nombre = nombre;
     }
 
@@ -48,5 +46,7 @@ public class areas {
     public String toString() {
         return "areas [id=" + id + ", nombre=" + nombre + "]";
     }
+
+    //AYUDAAAA
 
 }

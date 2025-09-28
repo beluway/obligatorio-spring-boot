@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.bios.edu.uy.obligatorio2025.Dominio.postulantes;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import org.springframework.ui.Model;
 import jakarta.validation.Valid;
 
@@ -17,7 +17,7 @@ public class ControladorPostulantes {
     
       
     @GetMapping("/main")
-    public String pstulanteCrear(@ModelAttribute postulantes postulante)
+    public String pstulanteCrear(@ModelAttribute Postulante postulante)
     {   
 
         return "postulantes/main";  
@@ -26,7 +26,7 @@ public class ControladorPostulantes {
 
 
     @GetMapping("/crear")
-    public String postulanteCrear(@ModelAttribute postulantes postulante)
+    public String postulanteCrear(@ModelAttribute Postulante postulante)
     {
     
         return "postulantes/crear";
@@ -34,7 +34,7 @@ public class ControladorPostulantes {
     }
 
     @PostMapping("/crear")
-    public String postulanteCrear (@ModelAttribute @Valid postulantes postulante,  BindingResult resultado, Model modelo) 
+    public String postulanteCrear (@ModelAttribute @Valid Postulante postulante,  BindingResult resultado, Model modelo) 
     {               
         return "redirect:/postulantes/crear";
     }
@@ -42,28 +42,28 @@ public class ControladorPostulantes {
 
     @GetMapping("/eliminar")
 
-    public String postulanteEliminar(@ModelAttribute postulantes postulante) {
+    public String postulanteEliminar(@ModelAttribute Postulante postulante) {
       
         return "postulantes/eliminar";
 
     }
 
     @PostMapping("/eliminar")
-    public String postulanteEliminar(@ModelAttribute @Valid postulantes postulante, Model modelo, BindingResult resultado)  {
+    public String postulanteEliminar(@ModelAttribute @Valid Postulante postulante, Model modelo, BindingResult resultado)  {
               
         return "redirect:/postulantes/eliminar";
     }
     
     
     @GetMapping("/modificar")
-    public String postulanteModificar(@ModelAttribute postulantes postulante) {
+    public String postulanteModificar(@ModelAttribute Postulante postulante) {
       
         
         return "postulantes/modificar";
     }
     
     @PostMapping("/modificar")
-    public String postulanteModificar(@ModelAttribute @Valid postulantes postulante, Model modelo, BindingResult resultado) {
+    public String postulanteModificar(@ModelAttribute @Valid Postulante postulante, Model modelo, BindingResult resultado) {
        
         return "redirect:/postulantes/modificar";
     }
@@ -81,7 +81,7 @@ public class ControladorPostulantes {
 
     
     @PostMapping("/ver")    
-    public String postulanteVer(@ModelAttribute postulantes postulantes, BindingResult resultado,  @RequestParam  String accion) {
+    public String postulanteVer(@ModelAttribute Postulante postulantes, BindingResult resultado,  @RequestParam  String accion) {
        
         if("btn_modificar".equals(accion))
         {
