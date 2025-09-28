@@ -3,10 +3,9 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 
 @Entity
@@ -14,17 +13,16 @@ public class Cliente extends Usuario {
        
     @Column(name = "rut", nullable = false, length = 12)
     @NotNull(message = "Ingrese el RUT.")
-    @Size(min=12, max=12)
+    @Digits(integer =  8, fraction = 0, message = "El RUT debe tener hasta 8 dígitos")
     private Long rut;
 
     @Column(name = "nombre", nullable = false, length = 15)
     @NotNull(message = "Ingrese el nombre.")
     private String nombre;
 
-    //termina con .com
-    @Pattern(regexp = "*.[.com]")
-    //empieza con www    
-    @Pattern(regexp="[www].*")
+   
+    @Pattern(regexp = "^www\\..*", message = "La URL debe empezar con www")
+    @Pattern(regexp = ".*\\.com$", message = "La URL debe terminar en .com")
     @Column(name="url")
     private String url;
 

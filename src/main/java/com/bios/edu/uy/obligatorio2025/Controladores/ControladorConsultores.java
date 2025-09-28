@@ -1,10 +1,15 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
+import com.bios.edu.uy.obligatorio2025.Servicios.ServicioConsultores;
+
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/consultores")
 public class ControladorConsultores {
  
-
+@Autowired
+private ServicioConsultores servicioConsultor;
 
   @GetMapping("/main")
     public String consultorCrear()
@@ -35,9 +41,25 @@ public class ControladorConsultores {
     }
  
 
+
+
     @PostMapping("/crear")
-    public String consultorCrear (@ModelAttribute @Valid Consultor consultor, Model modelo, BindingResult resultado) 
+    public String consultorCrear (@ModelAttribute @Valid Consultor consultor, Model modelo, BindingResult resultado) throws Exception
     {           
+        Consultor existente = servicioConsultor.obtener(consultor.getUsuario());
+
+          String mensaje = "Se agregregó el consultor correctamente";
+
+        if(existente !=null)
+        {
+             throw new Exception("Ya existe el consultor con el usuario: " + existente.getUsuario());
+
+        }
+        else
+        {
+         modelo.addAttribute("mensaje",mensaje);
+         servicioConsultor.agregar(existente);
+        }
         return "redirect:/consultores/crear";
     }
 

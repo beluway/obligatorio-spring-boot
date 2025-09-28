@@ -1,4 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,6 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
+
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
+
 import ch.qos.logback.core.model.Model;
 import jakarta.validation.Valid;
 
@@ -13,13 +17,20 @@ import jakarta.validation.Valid;
 @RequestMapping("/clientes")
 
 public class ControladorClientes {
-    
+/*    
+    @Autowired
+    private IRepostorioClientes repositorioClientes; */
+
+    @Autowired
+    private IServicioClientes servicioClientes;
 
 
     @GetMapping("/crear")
-    public String clienteCrear(@ModelAttribute Cliente cliente)
+    public String clienteCrear(@ModelAttribute Cliente cliente, Model modelo) throws Exception
     {
-         //ENTRA ACA SOLO SI ES CONSULTOR
+        
+        
+       
     
         return "clientes/crear";
         
@@ -27,8 +38,10 @@ public class ControladorClientes {
 
     //ACA VA FLASH ATTRIBUTES Y REDIRECT 
     @PostMapping("/crear")
-    public String clienteCrear (@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado) 
-    {               
+    public String clienteProcesarCrear (@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado) throws Exception 
+    {              
+        servicioClientes.agregar(cliente);
+         
         return "redirect:/clientes/crear";
     }
 

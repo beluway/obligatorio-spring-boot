@@ -4,9 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+
+ <link rel="stylesheet" th:href="@{/css/crud.css}">
+
 </head>
 <body>
       
+    <form th:action="@{/consultores/crear}" method="post" th:object="${Consultor}">
+
+        <div>
+           <label for="usuario">Usuario</label>           
+            <input type="text" th:field="*{usuario}">
+        </div>
+
+        <div>
+            <label for="clave"> Clave</label>
+            <input type="clave" th:field="*{clave}">
+        </div>
+       
+        <div>
+            <input type="submit" value="crear">
+        </div>
+   </form>
+
 
 </body>
 </html>
