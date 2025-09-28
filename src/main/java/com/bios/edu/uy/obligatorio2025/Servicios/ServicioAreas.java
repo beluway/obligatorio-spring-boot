@@ -1,9 +1,10 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioAreas;
 
@@ -19,13 +20,9 @@ public class ServicioAreas implements IServicioAreas{
     @Override
     public void agregar(Area area) throws Exception
     {
-        /* if (obtener(area.getNombre())!=null) {
+         if (obtener(area.getId())!=null) {
             throw new Exception("El area ya existe");
         }
-        else{
-            areas.add(area);
-        } */
-
 
         repositorioAreas.save(area);
         
@@ -33,16 +30,14 @@ public class ServicioAreas implements IServicioAreas{
 
 //ELIMINAR 
  @Override
-    public void eliminar (Integer id) throws Exception
+    public void eliminar (Area area) throws Exception
     {
-       /*  if (obtener(nombre)!=null) {
-            areas.remove(obtenerPosicion(nombre));
+         if (obtener(area.getId())!=null) {
+            repositorioAreas.delete(area);
         }
         else{
             throw new Exception("El area no existe");
-        } */
-
-        repositorioAreas.delete(obtener(id));
+        } 
         
     }
 
@@ -58,22 +53,29 @@ public class ServicioAreas implements IServicioAreas{
 //OBTENER
     //si devuelve null es porque no la encontró, mejorar
      @Override
-    public Area obtener(Integer nombre) {
-      /*   areas areaEncontrada = null;
+    public Area obtener(Integer id) throws Exception {
 
-        for(areas a : areas){
-            if(a.getNombre()==nombre){
-                areaEncontrada=a;
-                break;
-            }
+        Area areaEncontrada = repositorioAreas.findById(id).orElse(null);
+        if(areaEncontrada==null){
+            throw new Exception("El área no existe");
         }
-        return areaEncontrada; */
-
-        Area areaEncontrada = repositorioAreas.findById(nombre).orElse(null);
 
         return areaEncontrada;
     
     }
+
+     @Override
+     public void modificar(Area area) throws Exception {
+
+        Area areaEncontrada = repositorioAreas.findById(area.getId()).orElse(null);
+
+        if (areaEncontrada ==null) {
+            throw new Exception("El área no existe");
+        }
+
+        //guardo el producto 
+        repositorioAreas.save(area);
+     }
 
 
  

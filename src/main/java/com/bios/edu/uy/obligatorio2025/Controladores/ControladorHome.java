@@ -20,12 +20,9 @@ public class ControladorHome {
 
 HttpSession sessionUsuario;
 
-
-
     @Autowired
     
     @Qualifier("servicioUsuarioSession")
-
 
     @GetMapping("/index") 
     public String index() {
@@ -41,8 +38,6 @@ HttpSession sessionUsuario;
        
         return "home/index";       
     }    
-
- 
 
     @PostMapping("/index")
     public String index(String usu, Model modelo) {
@@ -65,7 +60,6 @@ HttpSession sessionUsuario;
       
     }
     
-
     @GetMapping("/login")
     public String login(HttpSession session) {
       
@@ -84,7 +78,6 @@ HttpSession sessionUsuario;
     @PostMapping("/login")
     public String login(@ModelAttribute @Valid Usuario usuario, Model modelo, BindingResult resultado, HttpSession sesion) {
        
-      
         // SE BUSCA SI EXISTE EN LA CAPA USUARIO CON LOS DATOS PASADOS
 
         //SI EXISTE EL USUARIO, SE PREGUNTA DE QUE TIPO ES. 
@@ -111,8 +104,6 @@ HttpSession sessionUsuario;
             sessionUsuario.setAttribute("usuarioLogueado", usuario);     
       
             }
-
-           
       
         return "redirect:/postulantes/main";
     }

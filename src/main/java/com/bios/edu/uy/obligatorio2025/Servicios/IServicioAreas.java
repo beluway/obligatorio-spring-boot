@@ -8,7 +8,8 @@ public interface IServicioAreas {
     
     List<Area> listaAreas();
     void agregar(Area area) throws Exception;
-    void eliminar (Integer id) throws Exception;
-    Area obtener(Integer nombre);
+    void eliminar (Area area) throws Exception;
+    void modificar (Area area) throws Exception;
+    Area obtener(Integer id) throws Exception;;
 
 }
