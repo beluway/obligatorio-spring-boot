@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model ;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.areas;
-import com.bios.edu.uy.obligatorio2025.Dominio.ofertas;
+import com.bios.edu.uy.obligatorio2025.Dominio.Areas;
+import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioAreas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
 
@@ -27,12 +27,14 @@ public class ControladorOfertas {
 
     @Autowired
     private IServicioOfertas servicioOfertas;
-
+   
+    
     @Autowired
     private IServicioAreas servicioAreas;
 
+
     @GetMapping("/crear")
-    public String crearOferta(@ModelAttribute ofertas ofertas, HttpSession sesion, Model modelo)
+    public String crearOferta(@ModelAttribute Oferta ofertas, HttpSession sesion, Model modelo)
     {
          modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));   
 
@@ -41,7 +43,7 @@ public class ControladorOfertas {
     }
 
     @PostMapping("/crear") 
-    public String procesarCrearOferta (@ModelAttribute @Valid ofertas ofertas, Model modelo, BindingResult resultado, HttpSession sesion) 
+    public String procesarCrearOferta (@ModelAttribute @Valid Oferta ofertas, Model modelo, BindingResult resultado, HttpSession sesion) 
     {               
         //SE TRAE EL USUARIO LOGUEADO DESDE LA SESION
         sesion.getAttribute("usuarioLogueado");
@@ -54,7 +56,7 @@ public class ControladorOfertas {
 
     public String eliminarOferta(Model modelo, @RequestParam Integer codigo) throws Exception{
       
-        ofertas oferta = servicioOfertas.obtener(codigo);
+        Oferta oferta = servicioOfertas.obtener(codigo);
 
         modelo.addAttribute("oferta", oferta);
 
@@ -63,7 +65,7 @@ public class ControladorOfertas {
     }
 
     @PostMapping("/eliminar")
-    public String procesarEliminarOferta(@ModelAttribute @Valid ofertas ofertas, Model modelo, BindingResult resultado)  {
+    public String procesarEliminarOferta(@ModelAttribute @Valid Oferta ofertas, Model modelo, BindingResult resultado)  {
               
         return "redirect:/ofertas/eliminar";
     }
@@ -72,18 +74,18 @@ public class ControladorOfertas {
     @GetMapping("/modificar")
     public String modificarOferta(Model modelo, @RequestParam Integer codigo) throws Exception {
       
-        ofertas oferta = servicioOfertas.obtener(codigo);
+        Oferta oferta = servicioOfertas.obtener(codigo);
 
         if (oferta ==null) {
             return "redirect:/ofertas/lista"; // no existe la vista
         }
 
         if (oferta.getArea() == null) {
-        oferta.setArea(new areas()); // inicializar área para evitar null
+        oferta.setArea(new Areas()); // inicializar área para evitar null
         }
 
         //muestro todas las áreas que hay para elegir
-        List<areas> areas = servicioAreas.listaAreas();
+        List<Areas> areas = servicioAreas.listaAreas();
 
         modelo.addAttribute("oferta", oferta);
         modelo.addAttribute("areas", areas);
@@ -93,9 +95,9 @@ public class ControladorOfertas {
     
 
     @PostMapping("/modificar")
-    public String procesarModificarOferta(@ModelAttribute @Valid ofertas ofertas, Model modelo, @RequestParam Integer codigo,BindingResult resultado) throws Exception {
+    public String procesarModificarOferta(@ModelAttribute @Valid Oferta ofertas, Model modelo, @RequestParam Integer codigo,BindingResult resultado) throws Exception {
 
-        ofertas oferta = servicioOfertas.obtener(codigo);
+        Oferta oferta = servicioOfertas.obtener(codigo);
         modelo.addAttribute("oferta", oferta);
        
         return "redirect:/ofertas/modificar";
@@ -105,7 +107,7 @@ public class ControladorOfertas {
     @GetMapping("/ver")    
     public String verOferta(@RequestParam Integer codigo, Model modelo) throws Exception {
 
-       ofertas oferta = servicioOfertas.obtener(codigo);
+       Oferta oferta = servicioOfertas.obtener(codigo);
        modelo.addAttribute("oferta", oferta);
 
         return "ofertas/ver";
@@ -115,7 +117,7 @@ public class ControladorOfertas {
     @GetMapping("/lista")    
     public String listarOfertas(Model modelo) throws Exception {
        //ACA SE SACA LA LISTA DESDE LA BASE DE DATOS
-        List<ofertas> ofertas = servicioOfertas.listaOfertas();
+        List<Oferta> ofertas = servicioOfertas.listaOfertas();
 
         modelo.addAttribute("ofertas", ofertas);
 

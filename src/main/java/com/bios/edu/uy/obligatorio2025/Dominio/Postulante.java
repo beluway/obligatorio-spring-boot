@@ -17,7 +17,7 @@ import jakarta.validation.constraints.PastOrPresent;
 
 
 @Entity
-public class postulantes extends usuarios{
+public class Postulante extends Usuario{
     
     //ESTE ES EL NOMBRE COMPLETO COMPUESTO EMBEBIDO
     @Embedded
@@ -99,9 +99,9 @@ public class postulantes extends usuarios{
     }
 
     //constructor vacío para JPA
-    public postulantes(){}
+    public Postulante(){}
 
-    public postulantes(String usuario, String clave, NombreCompleto nombreCompleto, @Min(1) int cantidadPostulaciones,
+    public Postulante(String usuario, String clave, NombreCompleto nombreCompleto, @Min(1) int cantidadPostulaciones,
             @NotNull(message = "Ingrese la cedula") Long cedula,
             @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent Date fechanacimiento,
             @NotNull(message = "Seleccione el departamento") String departamento,

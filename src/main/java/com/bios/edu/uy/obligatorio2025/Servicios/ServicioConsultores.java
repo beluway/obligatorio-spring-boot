@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.consultores;
+import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioConsultores;
 
 @Service
@@ -14,13 +14,13 @@ public class ServicioConsultores implements IServicioConsultores{
     private IRepositorioConsultores repositorioConsultores;
 
      @Override
-    public void agregar (consultores consultor) throws Exception
+    public void agregar (Consultor consultor) throws Exception
     {
         repositorioConsultores.save(consultor);
     }
 
      @Override
-    public void modificar(consultores consultor) throws Exception
+    public void modificar(Consultor consultor) throws Exception
     {
         repositorioConsultores.save(obtener(consultor.getUsuario()));
     }
@@ -32,20 +32,20 @@ public class ServicioConsultores implements IServicioConsultores{
     }
 
      @Override
-    public List<consultores>listaConsultores() throws Exception
+    public List<Consultor>listaConsultores() throws Exception
     {
          //ArrayList<consultores> lista = new ArrayList<>();
 
-        List<consultores> lista = repositorioConsultores.findAll();
+        List<Consultor> lista = repositorioConsultores.findAll();
 
          return lista;
     }
     
 
      @Override
-    public consultores obtener(String usuario) throws Exception
+    public Consultor obtener(String usuario) throws Exception
     {
-        consultores consultorEncontrado = repositorioConsultores.findById(usuario).orElse(null);
+        Consultor consultorEncontrado = repositorioConsultores.findById(usuario).orElse(null);
 
         return consultorEncontrado;
     }

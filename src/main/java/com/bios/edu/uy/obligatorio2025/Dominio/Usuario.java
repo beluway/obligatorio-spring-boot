@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Pattern;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name="usuarios")
 
-public abstract  class usuarios {
+public abstract  class Usuario {
     
     @Id
     @NotNull (message = "ingrese el usuario")
@@ -40,13 +40,13 @@ public abstract  class usuarios {
     public void setClave(String clave) {
         this.clave = clave;
     }
-    public usuarios(String usuario, String clave) {
+    public Usuario(String usuario, String clave) {
         this.usuario = usuario;
         this.clave = clave;
     }
 
 
- public usuarios() {
+ public Usuario() {
        
     }
 

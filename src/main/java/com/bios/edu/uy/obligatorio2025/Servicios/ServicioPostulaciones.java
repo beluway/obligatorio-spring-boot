@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.bios.edu.uy.obligatorio2025.Dominio.postulaciones;
-import com.bios.edu.uy.obligatorio2025.Dominio.postulantes;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 
 
@@ -19,13 +19,13 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
 
   
      @Override 
-    public void agregar (postulaciones postulacion)
+    public void agregar (Postulacion postulacion)
     {
         repositorioPostulaciones.save(postulacion);
     }
 
      @Override 
-    public void modificar (postulaciones postulacion)
+    public void modificar (Postulacion postulacion)
     {
 
     }
@@ -37,9 +37,9 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     }
 
      @Override 
-    public List<postulaciones> listaPostulaciones ()
+    public List<Postulacion> listaPostulaciones ()
     {
-        ArrayList<postulaciones> lista = new ArrayList<>();
+        ArrayList<Postulacion> lista = new ArrayList<>();
 
         return lista;
     }

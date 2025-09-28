@@ -5,13 +5,13 @@ import jakarta.persistence.Entity;
 
 
 @Entity
-public class consultores extends usuarios{
+public class Consultor extends Usuario{
     
   
         //constructor x defecto
-        public consultores(){}
+        public Consultor(){}
 
-        public consultores(String usuario, String clave)
+        public Consultor(String usuario, String clave)
         {
                 super(usuario, clave);
 

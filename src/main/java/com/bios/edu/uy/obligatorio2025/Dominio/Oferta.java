@@ -19,7 +19,7 @@ import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name="ofertas")
-public class ofertas {
+public class Oferta {
     
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class ofertas {
     @NotNull(message = "seleccione el cliente")
     @ManyToOne // UN CLIENTE PUEDE TENER MUCHAS OFERTAS
     @JoinColumn(name = "cliente",nullable = false)
-    private clientes cliente;
+    private Cliente cliente;
 
     @Column(name = "descripcion",nullable = false, length = 4000)
     @NotNull(message = "Ingrese una descripción")
@@ -56,7 +56,7 @@ public class ofertas {
     @NotNull(message = "Ingrese una área")
     @ManyToOne
     @JoinColumn(name = "area",nullable = false)
-    private areas area;
+    private Areas area;
 
     @Column(name="cantidadVacantes",nullable = false)
     @NotNull(message = "Ingrese la cantidad de puestos vacantes")
@@ -87,11 +87,11 @@ public class ofertas {
         this.fechaCierre = fechaCierre;
     }
 
-    public clientes getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(clientes cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
@@ -107,11 +107,11 @@ public class ofertas {
         return titulo;
     }
 
-    public void setArea(areas area){
+    public void setArea(Areas area){
         this.area=area;
     }
 
-    public areas getArea(){
+    public Areas getArea(){
         return area;
     }
 
@@ -129,14 +129,14 @@ public class ofertas {
 
     //constructor vacío para que JPA pueda hacer la consulta en la bd
     //Hibernate necesita un constructor público vacío en todas las entidades (@Entity). Esto es obligatorio para poder instanciarlas al leer datos desde la base de datos.
-    public ofertas(){}
+    public Oferta(){}
 
     //constructor completo
-    public ofertas(Integer id, @NotNull @PastOrPresent Date fechaPublicacion, @NotNull @PastOrPresent Date fechaCierre,
-            @NotNull(message = "seleccione el cliente") clientes cliente,
+    public Oferta(Integer id, @NotNull @PastOrPresent Date fechaPublicacion, @NotNull @PastOrPresent Date fechaCierre,
+            @NotNull(message = "seleccione el cliente") Cliente cliente,
             @NotNull(message = "Ingrese una descripción") String descripcion,
             @NotNull(message = "Ingrese el título") String titulo,
-            @NotNull(message = "Ingrese una área") areas area,
+            @NotNull(message = "Ingrese una área") Areas area,
             @NotNull(message = "Ingrese la cantidad de puestos vacantes") Integer cantidadVacantes) {
         this.id = id;
         this.fechaPublicacion = fechaPublicacion;

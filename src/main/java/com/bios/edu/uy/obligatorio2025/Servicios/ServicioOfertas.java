@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.ofertas;
+import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
 
 
@@ -17,7 +17,7 @@ private IRepositorioOfertas repositorioOfertas;
 
 
     @Override
-    public void agregar (ofertas oferta) throws Exception
+    public void agregar (Oferta oferta) throws Exception
     {
 
         // ACA ES LO PREVIO AL ALTA
@@ -35,7 +35,7 @@ private IRepositorioOfertas repositorioOfertas;
     }
 
      @Override
-    public void modificar (ofertas oferta) throws Exception
+    public void modificar (Oferta oferta) throws Exception
     {
         repositorioOfertas.save(oferta);
     }
@@ -47,7 +47,7 @@ private IRepositorioOfertas repositorioOfertas;
     }
 
      @Override
-    public List<ofertas> listaOfertas() throws Exception
+    public List<Oferta> listaOfertas() throws Exception
     {
         //List<ofertas> lista = repositorioOfertas.findAll();
         //prueba en console.log
@@ -57,10 +57,10 @@ private IRepositorioOfertas repositorioOfertas;
     }
 
      @Override 
-   public ofertas obtener(Integer id) throws Exception
+   public Oferta obtener(Integer id) throws Exception
    {    
 
-      ofertas ofertaEncontrada =  repositorioOfertas.findById(id).orElse(null);
+      Oferta ofertaEncontrada =  repositorioOfertas.findById(id).orElse(null);
 
        /*  for(ofertas o : ofertas){
             if(o.getId()==id){

@@ -2,7 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.bios.edu.uy.obligatorio2025.Dominio.postulantes;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulantes;
 
 
@@ -15,13 +15,13 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
 
      @Override 
-    public void agregar (postulantes postulante) throws Exception
+    public void agregar (Postulante postulante) throws Exception
     {
           respositorioPostulantes.save(postulante);
     }
 
      @Override 
-    public void modificar (postulantes postulante) throws Exception
+    public void modificar (Postulante postulante) throws Exception
     {
         respositorioPostulantes.save(postulante);
     }
@@ -34,9 +34,9 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     }
 
     @Override 
-    public postulantes obtener (String usuario) throws Exception
+    public Postulante obtener (String usuario) throws Exception
     {
-        postulantes postulanteEncontrado = respositorioPostulantes.findById(usuario).orElse(null);
+        Postulante postulanteEncontrado = respositorioPostulantes.findById(usuario).orElse(null);
 
        /*  for(ofertas o : ofertas){
             if(o.getId()==id){
@@ -50,11 +50,11 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     }
 
      @Override 
-    public List<postulantes> listaPostulante() throws Exception
+    public List<Postulante> listaPostulante() throws Exception
     {
        // ArrayList<postulantes> lista = new ArrayList<>();
 
-       List<postulantes> lista = respositorioPostulantes.findAll();
+       List<Postulante> lista = respositorioPostulantes.findAll();
 
         return lista;
     }

@@ -2,13 +2,13 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 
 import java.util.List;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.postulaciones;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 
 public interface IServicioPostulaciones {
 
-    void agregar (postulaciones postulacion) throws Exception;
-    void modificar (postulaciones postulacion) throws Exception;
+    void agregar (Postulacion postulacion) throws Exception;
+    void modificar (Postulacion postulacion) throws Exception;
     void eliminar (Integer id) throws Exception;
-    List<postulaciones> listaPostulaciones () throws Exception;
+    List<Postulacion> listaPostulaciones () throws Exception;
     
 }

@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 
 
 @Entity
-public class clientes extends usuarios {
+public class Cliente extends Usuario {
        
     @Column(name = "rut", nullable = false, length = 12)
     @NotNull(message = "Ingrese el RUT.")
@@ -54,11 +54,11 @@ public class clientes extends usuarios {
 
   
     //constructor x defecto para JPA
-    public clientes(){}
+    public Cliente(){}
 
-    public clientes(String usuario, String clave, @NotNull(message = "Ingrese el RUT.") Long rut,
+    public Cliente(String usuario, String clave, @NotNull(message = "Ingrese el RUT.") Long rut,
             @NotNull(message = "Ingrese el nombre.") String nombre, String url,
-            @NotNull List<ofertas> listaOfertas) {
+            @NotNull List<Oferta> listaOfertas) {
         super(usuario, clave);
         this.rut = rut;
         this.nombre = nombre;

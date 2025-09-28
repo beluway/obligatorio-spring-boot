@@ -4,7 +4,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.bios.edu.uy.obligatorio2025.Dominio.consultores;
+import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +27,7 @@ public class ControladorConsultores {
     }
 
      @GetMapping("/crear")
-    public String consultorCrear(@ModelAttribute consultores consultor)
+    public String consultorCrear(@ModelAttribute Consultor consultor)
     {
     
         return "consultores/crear";
@@ -36,7 +36,7 @@ public class ControladorConsultores {
  
 
     @PostMapping("/crear")
-    public String consultorCrear (@ModelAttribute @Valid consultores consultor, Model modelo, BindingResult resultado) 
+    public String consultorCrear (@ModelAttribute @Valid Consultor consultor, Model modelo, BindingResult resultado) 
     {           
         return "redirect:/consultores/crear";
     }
@@ -44,35 +44,35 @@ public class ControladorConsultores {
 
     @GetMapping("/eliminar")
 
-    public String consultorEliminar(@ModelAttribute consultores consultor) {
+    public String consultorEliminar(@ModelAttribute Consultor consultor) {
       
         return "consultores/eliminar";
 
     }
 
     @PostMapping("/eliminar")
-    public String consultorEliminar(@ModelAttribute @Valid consultores consultor, Model modelo, BindingResult resultado)  {
+    public String consultorEliminar(@ModelAttribute @Valid Consultor consultor, Model modelo, BindingResult resultado)  {
               
         return "redirect:/consultores/eliminar";
     }
     
     
     @GetMapping("/modificar")
-    public String consultorModificar(@ModelAttribute consultores consultor) {
+    public String consultorModificar(@ModelAttribute Consultor consultor) {
       
         
         return "consultores/modificar";
     }
     
     @PostMapping("/modificar")
-    public String consultorModificar(@ModelAttribute @Valid consultores consultor, Model modelo, BindingResult resultado) {
+    public String consultorModificar(@ModelAttribute @Valid Consultor consultor, Model modelo, BindingResult resultado) {
        
         return "redirect:/consultores/modificar";
     }
     
 
     @GetMapping("/ver")    
-    public String consultorVer(@ModelAttribute consultores consultor) {
+    public String consultorVer(@ModelAttribute Consultor consultor) {
        
 
         return "consultores/ver";

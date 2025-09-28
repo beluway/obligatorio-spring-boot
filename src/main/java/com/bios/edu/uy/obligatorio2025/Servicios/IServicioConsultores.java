@@ -2,13 +2,13 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 
 import java.util.List;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.consultores;
+import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
 
 public interface IServicioConsultores {
     
-    void agregar (consultores consultor) throws Exception;
-    void modificar(consultores consultor) throws Exception;
+    void agregar (Consultor consultor) throws Exception;
+    void modificar(Consultor consultor) throws Exception;
     void eliminar (String usuario) throws Exception;
-    List<consultores>listaConsultores() throws Exception;
-    consultores obtener(String usuario) throws Exception;
+    List<Consultor>listaConsultores() throws Exception;
+    Consultor obtener(String usuario) throws Exception;
 }
