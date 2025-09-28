@@ -9,4 +9,5 @@ import com.bios.edu.uy.obligatorio2025.Dominio.ofertas;
 
 public interface IRepositorioAreas extends JpaRepository<areas,String> {
 
+    areas findByNombre(String nombre);
 }

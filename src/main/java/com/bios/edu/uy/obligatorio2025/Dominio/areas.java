@@ -1,6 +1,8 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -11,10 +13,20 @@ import jakarta.validation.constraints.NotNull;
 public class areas {
  
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     @NotNull(message = "ingrese el nombre del área")
     private String nombre;
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public Integer getId() {
+        return id;
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -26,17 +38,15 @@ public class areas {
     //constructor x defecto para JPA
     public areas(){}
 
-    public areas(@NotNull(message = "ingrese el nombre del área") String nombre) {
+
+    public areas(
+            @NotNull(message = "ingrese el nombre del área") String nombre) {
         this.nombre = nombre;
     }
 
     @Override
     public String toString() {
-        return "areas [nombre=" + nombre + "]";
+        return "areas [id=" + id + ", nombre=" + nombre + "]";
     }
-
-
-    
-
 
 }
