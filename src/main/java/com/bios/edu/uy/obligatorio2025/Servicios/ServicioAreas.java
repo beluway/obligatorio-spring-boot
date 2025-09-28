@@ -33,7 +33,7 @@ public class ServicioAreas implements IServicioAreas{
 
 //ELIMINAR 
  @Override
-    public void eliminar (String nombre) throws Exception
+    public void eliminar (Integer id) throws Exception
     {
        /*  if (obtener(nombre)!=null) {
             areas.remove(obtenerPosicion(nombre));
@@ -42,7 +42,7 @@ public class ServicioAreas implements IServicioAreas{
             throw new Exception("El area no existe");
         } */
 
-        repositorioAreas.delete(obtener(nombre));
+        repositorioAreas.delete(obtener(id));
         
     }
 
@@ -58,7 +58,7 @@ public class ServicioAreas implements IServicioAreas{
 //OBTENER
     //si devuelve null es porque no la encontró, mejorar
      @Override
-    public Areas obtener(String nombre) {
+    public Area obtener(Integer nombre) {
       /*   areas areaEncontrada = null;
 
         for(areas a : areas){
@@ -69,7 +69,7 @@ public class ServicioAreas implements IServicioAreas{
         }
         return areaEncontrada; */
 
-        Areas areaEncontrada = repositorioAreas.findById(nombre).orElse(null);
+        Area areaEncontrada = repositorioAreas.findById(nombre).orElse(null);
 
         return areaEncontrada;
     

@@ -56,7 +56,7 @@ public class Oferta {
     @NotNull(message = "Ingrese una área")
     @ManyToOne
     @JoinColumn(name = "area",nullable = false)
-    private Areas area;
+    private Area area;
 
     @Column(name="cantidadVacantes",nullable = false)
     @NotNull(message = "Ingrese la cantidad de puestos vacantes")
@@ -107,11 +107,11 @@ public class Oferta {
         return titulo;
     }
 
-    public void setArea(Areas area){
+    public void setArea(Area area){
         this.area=area;
     }
 
-    public Areas getArea(){
+    public Area getArea(){
         return area;
     }
 
@@ -136,7 +136,7 @@ public class Oferta {
             @NotNull(message = "seleccione el cliente") Cliente cliente,
             @NotNull(message = "Ingrese una descripción") String descripcion,
             @NotNull(message = "Ingrese el título") String titulo,
-            @NotNull(message = "Ingrese una área") Areas area,
+            @NotNull(message = "Ingrese una área") Area area,
             @NotNull(message = "Ingrese la cantidad de puestos vacantes") Integer cantidadVacantes) {
         this.id = id;
         this.fechaPublicacion = fechaPublicacion;

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model ;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.Areas;
+import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioAreas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
@@ -81,11 +81,11 @@ public class ControladorOfertas {
         }
 
         if (oferta.getArea() == null) {
-        oferta.setArea(new Areas()); // inicializar área para evitar null
+        oferta.setArea(new Area()); // inicializar área para evitar null
         }
 
         //muestro todas las áreas que hay para elegir
-        List<Areas> areas = servicioAreas.listaAreas();
+        List<Area> areas = servicioAreas.listaAreas();
 
         modelo.addAttribute("oferta", oferta);
         modelo.addAttribute("areas", areas);

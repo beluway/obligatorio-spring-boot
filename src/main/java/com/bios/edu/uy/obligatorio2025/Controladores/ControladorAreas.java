@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import com.bios.edu.uy.obligatorio2025.Dominio.Areas;
+import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioAreas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioAreas;
 
@@ -28,13 +28,9 @@ public class ControladorAreas {
 
 
     @GetMapping("/crear")
-    public String crear (@ModelAttribute Areas area, HttpSession sesion, Model modelo)
+    public String crear (@ModelAttribute Area area, HttpSession sesion, Model modelo)
     {
-        Areas areaExistente = repositorioAreas.findById(area.getNombre()).orElse(null);
-
-          
-
-        repositorioAreas.save(area);
+      
 
         //ENTRA ACA SOLO SI ES CONSULTOR
         return "areas/crear";
@@ -42,7 +38,7 @@ public class ControladorAreas {
 
 
     @PostMapping("/crear") 
-    public String crear(@ModelAttribute @Valid Areas area, Model modelo, BindingResult resultado) {
+    public String crear(@ModelAttribute @Valid Area area, Model modelo, BindingResult resultado) {
         
         return "redirect:/areas/crear";
 
