@@ -13,7 +13,7 @@ import org.springframework.ui.Model ;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
-import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioAreas;
+
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioAreas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
 
@@ -29,8 +29,8 @@ public class ControladorOfertas {
     @Autowired
     private IServicioOfertas servicioOfertas;
    
-    @Autowired
-    private IRepositorioAreas repositorioAreas;
+/*     @Autowired
+    private IRepositorioAreas repositorioAreas; */
 
     @Autowired
     private IServicioAreas servicioAreas;
@@ -41,7 +41,7 @@ public class ControladorOfertas {
     {
          modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));   
          modelo.addAttribute("ofertas", new Oferta());       
-         modelo.addAttribute("areas", repositorioAreas.findAll());
+         modelo.addAttribute("areas", servicioAreas.listaAreas());
 
         return "ofertas/crear";
         

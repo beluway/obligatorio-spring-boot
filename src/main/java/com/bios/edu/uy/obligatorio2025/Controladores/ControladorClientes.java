@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
-import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
-import com.bios.edu.uy.obligatorio2025.Repositorios.IRepostorioClientes;
+
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 
 import ch.qos.logback.core.model.Model;
@@ -18,9 +17,9 @@ import jakarta.validation.Valid;
 @RequestMapping("/clientes")
 
 public class ControladorClientes {
-   
+/*    
     @Autowired
-    private IRepostorioClientes repositorioClientes;
+    private IRepostorioClientes repositorioClientes; */
 
     @Autowired
     private IServicioClientes servicioClientes;

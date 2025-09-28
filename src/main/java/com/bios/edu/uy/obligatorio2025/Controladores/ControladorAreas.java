@@ -1,6 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 
-import java.lang.foreign.Arena;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
-import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioAreas;
+
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioAreas;
 
 import jakarta.servlet.http.HttpSession;
@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequestMapping("/areas")
 public class ControladorAreas {
-
-    @Autowired
-    private IRepositorioAreas repositorioAreas;
+ 
     
     @Autowired
     private IServicioAreas servicioAreas;
@@ -39,14 +37,17 @@ public class ControladorAreas {
 
     @PostMapping("/crear") 
     public String procesarCrear(@ModelAttribute @Valid Area area, Model modelo, BindingResult resultado) throws Exception {
-        Area existente = repositorioAreas.findByNombre(area.getNombre());
+
+        Area existente = servicioAreas.obtener(area.getId());
+
+    // Area existente = repositorioAreas.findByNombre(area.getNombre());
         String mensaje = "Se agregregó el área correctamente";
 
     if (existente != null) {
     throw new Exception("Ya existe el área con nombre: " + existente.getNombre());
     } else {
         modelo.addAttribute("mensaje",mensaje);
-        repositorioAreas.save(area);
+        servicioAreas.agregar(area);
     }
         return "redirect:/areas/crear";
 
