@@ -110,6 +110,6 @@ public class ControladorPostulantes {
         return "postulantes/lista";
 
     }
-    
+
 
 }
