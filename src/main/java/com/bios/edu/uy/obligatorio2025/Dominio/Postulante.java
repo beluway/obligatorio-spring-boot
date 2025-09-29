@@ -22,6 +22,8 @@ import jakarta.validation.constraints.PastOrPresent;
 @Table(name="postulantes")
 @PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
 @DiscriminatorValue("Postulante")
+
+
 public class Postulante extends Usuario{
     
     //ESTE ES EL NOMBRE COMPLETO COMPUESTO EMBEBIDO

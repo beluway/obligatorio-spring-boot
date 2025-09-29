@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.actuate.web.exchanges.HttpExchange.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +14,6 @@ import com.bios.edu.uy.obligatorio2025.Servicios.IServicioUsuarios;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -84,7 +84,7 @@ HttpSession sessionUsuario;
 
 
     @PostMapping("/login")
-    public String login(@ModelAttribute @Valid Usuario usuario, Model modelo, BindingResult resultado, HttpSession sesion) {
+    public String login(@ModelAttribute Usuario usuario, Model modelo, BindingResult resultado, HttpSession sesion) {
        
         // SE BUSCA SI EXISTE EN LA CAPA USUARIO CON LOS DATOS PASADOS
 
@@ -97,40 +97,30 @@ HttpSession sessionUsuario;
             if(usuarioLogueado!=null)
             {
 
-            //SI SE ENCONTRÓ EL USUARIO COMPLETO (USU + PASS)
-              sessionUsuario.setAttribute("usuarioLogueado", usuarioLogueado);   
+              //*********************  USUARIO EN SESION (SIN PREGUNTAR EL TIPO)  *************************
+              sesion.setAttribute("usuarioLogueado", usuarioLogueado);   
 
-             
-              /*   if( usuarioLogueado instanceof Consultor)    
-                {
-                    return "consultores/main";
-                }
-                else if(usuarioLogueado instanceof Cliente)
-                {
-                    return "clientes/main";
-                }
-            
-                else if(usuarioLogueado instanceof Postulante)
-                {
-                    return "postulantes/main";
-                } */
 
-                   return "redirect:/home/main";
-
-  
+                   return "redirect:/home/main"; 
       
             }
       
        return "redirect:/postulantes/main";
     }
 
-    @GetMapping("/main")
-    public String main(@ModelAttribute @Valid Usuario usuario, Model modelo, BindingResult resultado) {
-        
-            if(sessionUsuario.getAttribute("usuarioLogueado") instanceof Cliente)
-            {          }
 
-            modelo.addAttribute("usuarioLogueado", sessionUsuario.getAttribute("usuarioLogueado"));
+    /// PARA ESTA VISTA HACER MASTERPAGE
+    @GetMapping("/main") 
+    public String main(@ModelAttribute Usuario usuario, Model modelo, BindingResult resultado, HttpSession sesion) {
+        
+     
+           modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+
+             modelo.addAttribute("Cliente", sesion.getAttribute("usuarioLogueado") instanceof Cliente);
+
+            modelo.addAttribute("Postulante", sesion.getAttribute("usuarioLogueado") instanceof Postulante);
+
+            modelo.addAttribute("Consultor", sesion.getAttribute("usuarioLogueado") instanceof Consultor);
 
             return "home/main";
     }

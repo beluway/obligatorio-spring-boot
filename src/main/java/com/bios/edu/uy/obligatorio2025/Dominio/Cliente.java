@@ -15,6 +15,7 @@ import jakarta.validation.constraints.Pattern;
 @Table(name = "clientes")
 @PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
 @DiscriminatorValue("Cliente")
+
 public class Cliente extends Usuario {
        
     //private String tipo_usuario;

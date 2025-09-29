@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="html(titulo, contenido, estilos)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- título dinámico -->
+    <title th:replace="${titulo}">Aplicación</title>
+    
+    <!-- CSS global -->
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    
+    <!-- CSS extra opcionales que pasen las vistas hijas -->
+    <th:block th:replace="${estilos} ?: ~{}"></th:block>
+</head>
+
+     <!-- Solo si es Consultor -->
+        <li th:if="${Consultor}">
+            <a th:href="@{/consultor/panel}">Consultor</a>
+        </li>
+
+        <!-- Solo si es Cliente -->
+        <li th:if="${Cliente}">
+            <a th:href="@{/cliente/panel}">Cliente</a>
+        </li>
+
+        <!-- Solo si es Postulante -->
+        <li th:if="${Postulante}">
+            <a th:href="@{/postulante/panel}">Postulante</a>
+        </li>
+
+
+
+</html>

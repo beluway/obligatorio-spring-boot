@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 @Table(name="consultores")
 @PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
 @DiscriminatorValue("Consultor")
+
 public class Consultor extends Usuario{
     
     /*    private String tipo_usuario; */
