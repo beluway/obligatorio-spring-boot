@@ -4,32 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- título dinámico -->
     <title th:replace="${titulo}">Aplicación</title>
-    
+
     <!-- CSS global -->
     <link rel="stylesheet" th:href="@{/css/navbar.css}" />
-    
-    <!-- CSS extra opcionales que pasen las vistas hijas -->
+
+    <!-- CSS extra -->
     <th:block th:replace="${estilos} ?: ~{}"></th:block>
 </head>
 <body>
-  <!-- Solo si es Consultor -->
+    <ul>
         <li th:if="${Consultor}">
             <a th:href="@{/consultor/panel}">Consultor</a>
+            <p>Estás en tu main de <strong>Consultor</strong></p>
         </li>
 
-        <!-- Solo si es Cliente -->
         <li th:if="${Cliente}">
             <a th:href="@{/cliente/panel}">Cliente</a>
+            <p>Estás en tu main de <strong>Cliente</strong></p>
         </li>
 
-        <!-- Solo si es Postulante -->
         <li th:if="${Postulante}">
             <a th:href="@{/postulante/panel}">Postulante</a>
+            <p>Estás en tu main de <strong>Postulante</strong></p>
         </li>
-</body>
-   
+    </ul>
 
+    <!-- 👇 Lugar donde se inyecta el section de la hija -->
+    <main th:replace="${contenido}"></main>
+</body>
 </html>

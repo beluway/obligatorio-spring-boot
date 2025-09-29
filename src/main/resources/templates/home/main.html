@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" 
-
- th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
-
-th:replace="~{fragments/mp-main :: html(~{::title}, ~{::section}, ~{::link})}">
-
-</html>> 
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragmentos/mp-main :: html(~{::title}, ~{::section}, ~{::link})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIENVENIDA</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
 </head>
 <body>
-     
-
+    <section>
+        <h2>Página de inicio</h2>
+        <p>Contenido de bienvenida.</p>
+    </section>
 </body>
 </html>
