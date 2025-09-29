@@ -16,9 +16,13 @@ public class ServicioUsuarios implements IServicioUsuarios{
         @Override
         public Usuario usuarioParaLogin(String usuario)
         {           
-            return  repositorioUsuario.usuarioLogueado(usuario);
+            return  repositorioUsuario.findByUsuario(usuario);
         }
 
-
+        @Override
+        public Usuario usuarioLogueado (String usuario, String clave)
+        {
+            return repositorioUsuario.findByUsuarioAndClave(usuario, clave);
+        }
 
 }

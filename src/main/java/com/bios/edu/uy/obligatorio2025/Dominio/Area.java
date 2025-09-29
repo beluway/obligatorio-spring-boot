@@ -1,7 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
-import org.springframework.boot.context.properties.bind.DefaultValue;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -55,8 +53,6 @@ public class Area {
         this.id = id;
         this.nombre = nombre;
     }
-
-    //AYUDAAAA
 
     
 

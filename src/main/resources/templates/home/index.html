@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
+
     th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
 
 <head>
@@ -27,6 +28,6 @@
     </form>
 
     <p>ESTE ES EL NOMBRE QUE SE ESCRIBIÓ EN EL INPUT:</p>
-    <p th:text="${usu}"></p>
+    <p th:text="${usuario}"></p>
 </section>
 </html>

@@ -13,6 +13,8 @@ import com.bios.edu.uy.obligatorio2025.Servicios.IServicioUsuarios;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -23,7 +25,7 @@ public class ControladorHome {
 HttpSession sessionUsuario;
 
    
-       @Autowired
+   @Autowired
     private IServicioUsuarios servicioUsuarios;
     
     @Qualifier("servicioUsuarioSession")
@@ -44,18 +46,19 @@ HttpSession sessionUsuario;
     }    
 
     @PostMapping("/index")
-    public String index(String usu, Model modelo) {
+    public String index(String usuario, Model modelo) {
        
          //ACA VA EL ACCESO A LA CAPA DE DATOS DE USUARIO Y PREGUNTA SI EXISTE EL USUARIO   
 
-        Usuario usuarioLogin = servicioUsuarios.usuarioParaLogin(usu);
+        Usuario usuarioLogin = servicioUsuarios.usuarioParaLogin(usuario);
 
+        
         if(usuarioLogin!=null)
         {
-            modelo.addAttribute("usuarioLogin",usu);
+            modelo.addAttribute("usuarioLogin",usuarioLogin.getUsuario());
         
              //SI EXISTE EL USUARIO, SE PASA A LA PÁGINA DE LOGIN
-            return "redirect:/home/login";
+            return "home/login";
 
         }
         else
@@ -68,15 +71,15 @@ HttpSession sessionUsuario;
     @GetMapping("/login")
     public String login(HttpSession session) {
       
-        //EL USUARIO YA ESTA LOGUEADO (EXISTE EN LA SESION) ??
+       /*  //EL USUARIO YA ESTA LOGUEADO (EXISTE EN LA SESION) ??
         if(session.getAttribute("usuarioLogueado")==null)    
         {   
             //NO, REDIRIGE AL INDEX
             return "redirect:/home/index";
         }
-
+        */
         //SE QUEDA EN EL LOGIN (PARA INGRESAR LA CONTRASEÑA)
-         return "home/login";
+         return "home/login"; 
     }    
 
 
@@ -88,29 +91,50 @@ HttpSession sessionUsuario;
         //SI EXISTE EL USUARIO, SE PREGUNTA DE QUE TIPO ES. 
             //DEPENDIENDO EL TIPO SE REDIRIGE A LA PÁGINA QUE LE TOQUE
 
-            if(usuario!=null)
+          Usuario usuarioLogueado = servicioUsuarios.usuarioLogueado(usuario.getUsuario(),usuario.getClave());
+           
+
+            if(usuarioLogueado!=null)
             {
 
-                if( usuario instanceof Consultor)    
+            //SI SE ENCONTRÓ EL USUARIO COMPLETO (USU + PASS)
+              sessionUsuario.setAttribute("usuarioLogueado", usuarioLogueado);   
+
+             
+              /*   if( usuarioLogueado instanceof Consultor)    
                 {
                     return "consultores/main";
                 }
-                else if(usuario instanceof Cliente)
+                else if(usuarioLogueado instanceof Cliente)
                 {
                     return "clientes/main";
                 }
             
-                else if(usuario instanceof Postulante)
+                else if(usuarioLogueado instanceof Postulante)
                 {
                     return "postulantes/main";
-                }
+                } */
 
-            //SI SE ENCONTRÓ EL USUARIO COMPLETO (USU + PASS)
-            sessionUsuario.setAttribute("usuarioLogueado", usuario);     
+                   return "redirect:/home/main";
+
+  
       
             }
       
-        return "redirect:/postulantes/main";
+       return "redirect:/postulantes/main";
     }
+
+    @GetMapping("/main")
+    public String main(@ModelAttribute @Valid Usuario usuario, Model modelo, BindingResult resultado) {
+        
+            if(sessionUsuario.getAttribute("usuarioLogueado") instanceof Cliente)
+            {          }
+
+            modelo.addAttribute("usuarioLogueado", sessionUsuario.getAttribute("usuarioLogueado"));
+
+            return "home/main";
+    }
+    
+
 
 }

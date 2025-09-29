@@ -4,6 +4,7 @@ import java.io.File;
 
 import java.sql.Date;
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 
@@ -20,6 +21,7 @@ import jakarta.validation.constraints.PastOrPresent;
 @Entity
 @Table(name="postulantes")
 @PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
+@DiscriminatorValue("Postulante")
 public class Postulante extends Usuario{
     
     //ESTE ES EL NOMBRE COMPLETO COMPUESTO EMBEBIDO
@@ -37,22 +39,6 @@ public class Postulante extends Usuario{
     }
 
 
-    public String getTipo_usuario() {
-        return tipo_usuario;
-    }
-
-
-    public void setTipo_usuario(String tipo_usuario) {
-        this.tipo_usuario = tipo_usuario;
-    }
-
-
-
-  private String tipo_usuario;
-
-    //ESTA ES LA CLAVE FORÁNEA DE LA ENTIDAD USUARIO EMBEBIDA
-/*     @EmbeddedId
-    private ClaveFK foreignKeyUsu; */
 
     @Min(1)
     private int cantidadPostulaciones;
@@ -139,7 +125,7 @@ public class Postulante extends Usuario{
             @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent Date fechanacimiento,
             @NotNull(message = "Seleccione el departamento") String departamento) {
         this.nombreCompleto = nombreCompleto;
-        this.tipo_usuario = tipo_usuario;
+       // this.tipo_usuario = tipo_usuario;
         this.cantidadPostulaciones = cantidadPostulaciones;
         this.cedula = cedula;
         this.fechanacimiento = fechanacimiento;

@@ -5,4 +5,5 @@ public interface IServicioUsuarios {
     
     Usuario usuarioParaLogin(String usuario);
 
+    Usuario usuarioLogueado (String usuario, String clave);
 }
