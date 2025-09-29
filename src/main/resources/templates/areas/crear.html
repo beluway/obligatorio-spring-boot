@@ -11,13 +11,10 @@
 <div class="card">
      <form th:action="@{/areas/crear}" method="post" th:object="${area}">
 
-        <p th:text="${mensaje}" style="color: greenyellow;"></p>
+        <p th:text="${mensaje}" style="color: rgb(255, 54, 47);"></p>
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" required placeholder="Ingrese un nombre">
         <button type="submit">Crear Area</button>
-
-        <input type="submit" value="crear">   
-
      </form>
 
      <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>

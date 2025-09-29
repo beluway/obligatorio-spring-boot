@@ -19,19 +19,10 @@ public class ServicioAreas implements IServicioAreas{
     @Override
     public void agregar(Area area) throws Exception
     {
-        /*  if (obtener(area.getId())!=null) {
-            throw new Exception("El area ya existe");
+        if(repositorioAreas.findByNombre(area.getNombre()).isPresent()){
+            throw new Exception("El área con ese nombre ya existe.");
         }
-
-        else
-        { */
-       
             repositorioAreas.save(area);
-
-       /*  } */
-
-       
-        
     }
 
 //ELIMINAR 
@@ -57,20 +48,15 @@ public class ServicioAreas implements IServicioAreas{
     }
 
 //OBTENER
-    //si devuelve null es porque no la encontró, mejorar
+    //si devuelve null es porque no la encontró
      @Override
-    public Area obtener(Integer id) {
-      /*   areas areaEncontrada = null;
-
-        for(areas a : areas){
-            if(a.getNombre()==nombre){
-                areaEncontrada=a;
-                break;
-            }
-        }
-        return areaEncontrada; */
+    public Area obtener(Integer id) throws Exception {
 
         Area areaEncontrada = repositorioAreas.findById(id).orElse(null);
+
+        if (areaEncontrada==null) {
+            throw new Exception("El área no existe");
+        }
 
         return areaEncontrada;
     
@@ -85,8 +71,8 @@ public class ServicioAreas implements IServicioAreas{
             throw new Exception("El área no existe");
         }
 
-        //guardo el producto 
-        repositorioAreas.save(area);
+        //guardo el area nueva
+         repositorioAreas.save(area);
      }
 
 

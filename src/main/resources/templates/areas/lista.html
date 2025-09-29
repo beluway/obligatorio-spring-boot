@@ -10,23 +10,27 @@
 <section>
     <div class="card">
         <h2>Listado de Áreas</h2>
+        <div style="text-align: right; margin-bottom: 10px;">
+        <a th:href="@{/areas/crear}" class="btn">Agregar</a>
+    </div>
         <table>
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                </tr>
+        <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+        </tr>
             </thead>
-            <tbody>
-                <tr th:each="a : ${areas}">
-                    <td th:text="${a.id}"></td>
-                    <td th:text="${a.nombre}"></td>
-                    <td>
-                        <a th:href="@{/areas/modificar(id=${a.id})}" class="btn">Modificar</a>
-                       <a th:href="@{/areas/eliminar(id=${a.id})}" class="btn">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
+        <tbody>
+            <tr th:each="a : ${areas}">
+                <td th:text="${a.id}"></td>
+                <td th:text="${a.nombre}"></td>
+                <td>
+                    <a th:href="@{/areas/modificar(id=${a.id})}" class="btn">Modificar</a>
+                    <a th:href="@{/areas/eliminar(id=${a.id})}" class="btn">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
         </table>
     </div>
 </section>
