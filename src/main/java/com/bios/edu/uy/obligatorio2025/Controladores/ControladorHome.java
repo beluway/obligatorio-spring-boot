@@ -116,7 +116,7 @@ HttpSession sessionUsuario;
      
            modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
 
-             modelo.addAttribute("Cliente", sesion.getAttribute("usuarioLogueado") instanceof Cliente);
+           modelo.addAttribute("Cliente", sesion.getAttribute("usuarioLogueado") instanceof Cliente);
 
             modelo.addAttribute("Postulante", sesion.getAttribute("usuarioLogueado") instanceof Postulante);
 

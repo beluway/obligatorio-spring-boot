@@ -2,6 +2,9 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
@@ -12,7 +15,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-
+import java.util.Date;
 
 @Entity
 @Table(name = "postulaciones")
@@ -28,6 +31,7 @@ public class Postulacion {
  
     @NotNull
     @PastOrPresent
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fechaPostulacion")
     private Date fechaPostulacion; 
 

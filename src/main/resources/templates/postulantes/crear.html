@@ -9,58 +9,61 @@
 
 </head>
 <body>
-      
-<!--
 
- public postulantes(String usuario, String clave, @NotNull(message = "Ingrese la cedula") long cedula,
-            @NotNull String primernombre, @NotNull String primerApellido, @NotNull String segundoApellido,
-            String segundoNombre, @NotNull(message = "Seleccione la fecha de nacimiento") Date fechanacimiento,
-            @NotNull(message = "Seleccione el departamento") String departamento,
-            @NotNull ArrayList<ofertas> listaOfertas, ImageIO imagen, @NotNull File pdf) {
+   <form th:action="@{/postulantes/crear}" method="post" th:object="${Postulante}" id="formDefault" enctype="multipart/form-data">
 
--->
-
-   <form th:action="@{/postulantes/crear}" method="post" th:object="${Postulante}">
-
-      <div>
+        <div>
            <label for="usuario">Usuario</label>           
-            <input type="text" th:field="*{usuario}">
+            <input type="text" id="usuario" name="usuario">
+        </div>
+
+         <div>
+           <label for="clave">Clave</label>           
+            <input type="password" id="clave" name="clave">
         </div>
 
         <div>
-            <label for="primernombre">Primer Nombre</label>
+            <label for="primerNombre">Primer Nombre</label>
 
-            <input type="text" th:field="*{primernombre}">
+            <input type="text" id="primerNombre" name="primerNombre">
         </div>
 
         <div>
             <label for="segundoNombre"> Segundo Nombre</label>
 
-            <input type="text" th:field="*{segundoNombre}">
+           <!--  <input type="text" th:field="*{segundoNombre}"> -->
+
+           <input type="text" id="segundoNombre" name="segundoNombre"> 
+
         </div>
 
         <div>
             <label for="primerApellido"> Primer Apellido </label>
 
-            <input type="text" th:field="*{primerApellido}">
+            <!-- <input type="text" th:field="*{primerApellido}">
+ -->
+            <input type="text" id="primerApellido" name="primerApellido">
         </div>
 
         <div>
             <label for="segundoApellido"> Segundo Apellido</label>
 
-            <input type="text" th:field="*{segundoApellido}">
+         <!--    <input type="text" th:field="*{segundoApellido}"> -->
+
+             <input type="text" id="segundoApellido" name="segundoApellido">
         </div>
 
         <div>
             <label for="fechanacimiento"> Fecha Nacimiento</label>
 
-            <input type="date" th:field="*{fechanacimiento}">
+        <!--     <input type="date" th:field="*{fechanacimiento}">
+ -->
+             <input type="date" id="fechanacimiento" name="fechanacimiento">
         </div>
 
          <div>
             <label for="cedula"> Cedula</label>
-
-            <input type="number" th:field="*{cedula}">
+            <input type="number" id="cedula" name="cedula">
         </div>
 
         <div>
@@ -86,18 +89,19 @@
             <option value="tacuarembó">Tacuarembó</option>
             <option value="treinta-y-tres">Treinta y Tres</option>
           </select>
-
+                  
         </div>
-
         <div>
-            <input type="file" value="pdf">
-        </div>
-
+             <input type="file" id="pdf" name="pdf" accept="application/pdf" required>
         <div>
             <input type="submit" value="crear">
         </div>
-   </form>
 
-
+    </form>        
+        
 </body>
+
+<script>
+
+</script>
 </html>

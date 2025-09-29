@@ -1,8 +1,8 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
-import java.io.File;
 
-import java.sql.Date;
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Embeddable;
@@ -11,11 +11,14 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
+import jakarta.persistence.Transient;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity
@@ -27,40 +30,49 @@ import jakarta.validation.constraints.PastOrPresent;
 public class Postulante extends Usuario{
     
     //ESTE ES EL NOMBRE COMPLETO COMPUESTO EMBEBIDO
-    @Embedded
+/*     @Embedded
     public NombreCompleto nombreCompleto;
+ */
 
-
-  public NombreCompleto getNombreCompleto() {
-        return nombreCompleto;
-    }
-
-
-    public void setNombreCompleto(NombreCompleto nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
-
-
-
-    @Min(1)
+ 
     private int cantidadPostulaciones;
 
     @Column(name = "cedula",unique = true,nullable = false,length = 8)
     @NotNull(message = "Ingrese la cedula")
     private Long cedula;
      
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull (message = "Seleccione la fecha de nacimiento")
     @PastOrPresent
     @Column(name = "fechanacimiento",nullable = false)
-    private Date fechanacimiento;    
+    private LocalDate fechanacimiento;    
 
     @Column(name="departamento",length = 20,nullable = false)
     @NotNull (message = "Seleccione el departamento")
     private String departamento;
 
+         
+    @Column(name = "primerNombre", nullable = false, length = 15)
+    @NotNull(message = "Ingrese el nombre")
+    private String primerNombre;
+
+  //(message = "Ingrese el segundo nombre ")
+    @Column(name = "segundoNombre",nullable = true, length = 15)
+    private String segundoNombre; 
+
+    @NotNull(message = "ingrese el apellido")
+    @Column(name="primerApellido", nullable = false,length=15)
+    private String primerApellido;
+
+    @NotNull(message = "ingrese el segundo apellido")
+    @Column(name="segundoApellido", nullable = false,length=15)
+    private String segundoApellido;   
+
+
     //VER SI ESTO SIRVE PARA PDF
-    @NotNull (message = "Seleccione un .pdf para subirlo")
-    private File pdf;
+    @Transient
+    //@NotNull (message = "Seleccione un .pdf para subirlo")
+    private MultipartFile pdf;
    
   
     public Long getCedula() {
@@ -73,12 +85,12 @@ public class Postulante extends Usuario{
     }
 
 
-    public Date getFechanacimiento() {
+    public LocalDate getFechanacimiento() {
         return fechanacimiento;
     }
 
 
-    public void setFechanacimiento(Date fechanacimiento) {
+    public void setFechanacimiento(LocalDate fechanacimiento) {
         this.fechanacimiento = fechanacimiento;
     }
 
@@ -94,12 +106,12 @@ public class Postulante extends Usuario{
  
 
 
-    public File getPdf() {
+    public MultipartFile getPdf() {
         return pdf;
     }
 
 
-    public void setPdf(File pdf) {
+    public void setPdf(MultipartFile pdf) {
         this.pdf = pdf;
     }
 
@@ -117,56 +129,65 @@ public class Postulante extends Usuario{
     public Postulante(){}
 
 
+    public String getPrimerNombre() {
+        return primerNombre;
+    }
 
 
+    public void setPrimerNombre(String primerNombre) {
+        this.primerNombre = primerNombre;
+    }
 
-    //Esto es la inner class del atributo multivaluado
 
-    public Postulante(NombreCompleto nombreCompleto, String tipo_usuario, @Min(1) int cantidadPostulaciones,
+    public String getSegundoNombre() {
+        return segundoNombre;
+    }
+
+
+    public void setSegundoNombre(String segundoNombre) {
+        this.segundoNombre = segundoNombre;
+    }
+
+
+    public String getPrimerApellido() {
+        return primerApellido;
+    }
+
+
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
+    }
+
+
+    public String getSegundoApellido() {
+        return segundoApellido;
+    }
+
+
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
+    }
+
+
+    public Postulante(String usuario, String clave, int cantidadPostulaciones,
             @NotNull(message = "Ingrese la cedula") Long cedula,
-            @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent Date fechanacimiento,
-            @NotNull(message = "Seleccione el departamento") String departamento) {
-        this.nombreCompleto = nombreCompleto;
-       // this.tipo_usuario = tipo_usuario;
+            @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent LocalDate fechanacimiento,
+            @NotNull(message = "Seleccione el departamento") String departamento,
+            @NotNull(message = "Ingrese el nombre") String primerNombre, String segundoNombre,
+            @NotNull(message = "ingrese el apellido") String primerApellido,
+            @NotNull(message = "ingrese el segundo apellido") String segundoApellido) {
+       
+                super(usuario, clave);
+
         this.cantidadPostulaciones = cantidadPostulaciones;
         this.cedula = cedula;
         this.fechanacimiento = fechanacimiento;
         this.departamento = departamento;
+        this.primerNombre = primerNombre;
+        this.segundoNombre = segundoNombre;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
     }
-
-
-
-
-
-    @Embeddable
-    public class NombreCompleto {
-    
-        
-    @Column(name = "primerNombre", nullable = false, length = 15)
-    @NotNull(message = "Ingrese el nombre")
-    private String primerNombre;
-
-  //(message = "Ingrese el segundo nombre ")
-    @Column(name = "segundoNombre",nullable = false, length = 15)
-    private String segundoNombre; 
-
-    @NotNull(message = "ingrese el apellido")
-    @Column(name="primerApellido", nullable = false,length=15)
-    private String primerApellido;
-
-    @NotNull(message = "ingrese el segundo apellido")
-    @Column(name="segundoApellido", nullable = false,length=15)
-    private String segundoApellido;   
-    }
-
-    //Esto es para definir la clave compuesta
-    
-  /*   @Embeddable 
-    public class ClaveFK implements Serializable {
-        @Column(name = "usuario" ,nullable=false)
-        private String usuario;
-   
-    }
- */
+  
 
 }

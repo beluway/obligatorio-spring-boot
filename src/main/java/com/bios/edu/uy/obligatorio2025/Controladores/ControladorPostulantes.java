@@ -1,4 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,37 +7,91 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+import com.bios.edu.uy.obligatorio2025.Servicios.ServicioPostulantes;
+
 import org.springframework.ui.Model;
 import jakarta.validation.Valid;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("/postulantes")
 public class ControladorPostulantes {
-    
-      
-    @GetMapping("/main")
-    public String pstulanteCrear(@ModelAttribute Postulante postulante)
-    {   
 
-        return "postulantes/main";  
+    @Autowired
+    private ServicioPostulantes servicioPostulantes;
 
-    }
-
-
+       
     @GetMapping("/crear")
     public String postulanteCrear(@ModelAttribute Postulante postulante)
-    {
-    
+    { 
         return "postulantes/crear";
         
     }
 
     @PostMapping("/crear")
-    public String postulanteCrear (@ModelAttribute @Valid Postulante postulante,  BindingResult resultado, Model modelo) 
-    {               
+    public String postulanteCrear (@ModelAttribute @Valid Postulante postulante,  
+    BindingResult resultado, 
+    Model modelo, 
+     RedirectAttributes atributos) throws Exception
+    {             
+          if(resultado.hasErrors()){
+            atributos.addFlashAttribute("mensaje", "Errores en el formulario");
+            return "redirect:/postulantes/crear";
+          }
+
+
+          // SE OBTIENE COMO MULTIPARTE EL .PDF
+          MultipartFile pdf = postulante.getPdf();
+
+        if (pdf == null || pdf.isEmpty()) {
+        atributos.addFlashAttribute("mensaje", "ATENCIÓN: No se subió ningún archivo");
         return "redirect:/postulantes/crear";
+        }
+
+        //formateo la fecha y la asigno
+        LocalDate fechaFormateada =  LocalDate.parse(postulante.getFechanacimiento().toString());
+
+        postulante.setFechanacimiento(fechaFormateada);
+
+
+        //ACA OBTENGO LA CARPETA DE DESTINO
+        
+        File  carpetaDestino= new File("C:/ArchivosSubidos");
+
+        //si no existe la carpeta desitno, SE CREA        
+        if (!carpetaDestino.exists()) carpetaDestino.mkdirs();
+
+        
+        File archivoDestino = new File(carpetaDestino, pdf.getOriginalFilename());
+
+        
+        try
+        { 
+            pdf.transferTo(archivoDestino);
+
+            atributos.addFlashAttribute("mensaje","archivo subido !");
+
+            servicioPostulantes.agregar(postulante);          
+
+        }
+
+        catch(Exception ex)
+        {
+            atributos.addFlashAttribute("mensaje", "no se puede subir el archivo"+ex.getMessage());
+        }
+
+          return "redirect:/postulantes/crear";
+
     }
 
 

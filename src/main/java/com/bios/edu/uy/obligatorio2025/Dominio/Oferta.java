@@ -1,8 +1,10 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 
+import java.util.Date;
 
-import java.sql.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 
@@ -27,6 +29,7 @@ public class Oferta {
 
     @NotNull
     @PastOrPresent
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fechaPublicacion", nullable = false)
     private Date fechaPublicacion; 
     
@@ -35,6 +38,7 @@ public class Oferta {
 
     @NotNull
     @Future
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fechaCierre", nullable = false)
     private Date fechaCierre;
 
