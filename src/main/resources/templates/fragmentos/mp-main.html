@@ -14,8 +14,8 @@
     <!-- CSS extra opcionales que pasen las vistas hijas -->
     <th:block th:replace="${estilos} ?: ~{}"></th:block>
 </head>
-
-     <!-- Solo si es Consultor -->
+<body>
+  <!-- Solo si es Consultor -->
         <li th:if="${Consultor}">
             <a th:href="@{/consultor/panel}">Consultor</a>
         </li>
@@ -29,7 +29,7 @@
         <li th:if="${Postulante}">
             <a th:href="@{/postulante/panel}">Postulante</a>
         </li>
-
-
+</body>
+   
 
 </html>

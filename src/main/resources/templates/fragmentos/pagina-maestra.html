@@ -29,7 +29,6 @@
             <li><a th:href="@{/perfil}">Mi perfil</a></li>    
             <li><a th:href="@{/login}">Ingresar</a></li>     
 
-            th:value="${"usuarioLogueado"}"
 
             <input type="text" th:if="${Cliente != null}" th:value="${usuarioLogueado}" hidden />
             <input type="text" th:if="${Consultor != null}" th:value="${usuarioLogueado}" hidden />

@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/master :: html(~{::title}, ~{::section}, ~{::link})}"></html>> 
+<html lang="es" xmlns:th="http://www.thymeleaf.org" 
+
+ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
+th:replace="~{fragments/mp-main :: html(~{::title}, ~{::section}, ~{::link})}">
+
+</html>> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
