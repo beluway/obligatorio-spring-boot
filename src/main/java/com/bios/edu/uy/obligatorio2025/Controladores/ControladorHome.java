@@ -14,6 +14,8 @@ import com.bios.edu.uy.obligatorio2025.Servicios.IServicioUsuarios;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -116,6 +118,15 @@ HttpSession sessionUsuario;
             return "home/main";
     }
     
+    @GetMapping("/deslogueo")
+    public String deslogueo(Model modelo,HttpSession session) {
+        
+        //SE ELIMINA LA SESIÓN DE USUARIO
+        session.setAttribute("usuarioLogueado", null);
 
+        return "home/deslogueo";
+
+    }
+    
 
 }

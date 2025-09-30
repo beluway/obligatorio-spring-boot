@@ -31,22 +31,27 @@
                 <ul>
                 <li>
                     <a th:href="@{/}">Inicio</a></li> 
-                    <li><a th:href="@{/ofertas/lista}">Ver ofertas</a></li> 
+                    <li><a th:href="@{/home/main}">Principal</a></li> 
 
-                    <li><a th:href="@{/areas/lista}">Áreas</a></li>
+                    <li><a th:href="@{/home/deslogueo}">Salir</a></li>
 
-                
-                    <!--SI ES CONSULTOR-->
+                <!--SI ES CONSULTOR-->
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}">
-                    <a th:href="@{/consultores/ver}">Mi perfil cons</a></li>
+                    <a th:href="@{/consultores/main}">Consultores</a></li>
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}">
-                    <a th:href="@{/ofertas/lista}">Mis ofertas cons</a></li>
+                    <a th:href="@{/clientes/main}">Clientes</a></li>
+
+                    <!--SI ES CLIENTE-->
+                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}">
+                    <a th:href="@{/postulantes/ver}">Ver postulantes</a></li>
+                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}">
+                    <a th:href="@{/ofertas/main}">Ofertas</a></li>
 
                     <!--SI ES POSTULANTE-->
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}">
-                    <a th:href="@{/postulantes/ver}">Mi perfil post</a></li>
+                    <a th:href="@{/postulantes/ver}">Mi perfil</a></li>
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}">
-                    <a th:href="@{/ofertas/lista}">Ver ofertas psot</a></li> 
+                    <a th:href="@{/ofertas/lista}">Ver ofertas</a></li> 
 
                 </ul>
             </nav>
