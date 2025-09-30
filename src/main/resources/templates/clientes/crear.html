@@ -10,7 +10,8 @@
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 
 </head>
-<body>
+
+<section>
   <div class="card">
     <h2>Registrar Nuevo Cliente</h2>
     <!-- Cambia la URL en th:action al endpoint de tu controlador -->
@@ -25,7 +26,7 @@
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" placeholder="Empresa Bios" required>
         
-        <label for="rut">RUT</label>
+        <label for="rut">Rut</label>
         <input type="text" id="rut" name="rut" placeholder="214567890012" required>
         
         <label for="sitioWeb">Sitio web</label>
@@ -33,8 +34,8 @@
 
         <button type="submit">Registrar Cliente</button>
 
-        <a th:href="@{/clientes/lista}" id="volver">Volver</a>
+       <!--  <a th:href="@{/clientes/lista}" id="volver">Volver</a> -->
     </form>
 </div>
-</body>
+</section>
 </html>

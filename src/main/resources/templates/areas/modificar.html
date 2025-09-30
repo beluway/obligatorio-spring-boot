@@ -9,8 +9,11 @@
     <title>Modificar Área</title>
         <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
-<body>
-      <div class="card">
+
+
+<section>
+
+   <div class="card">
     <h2>Modificar Área</h2>
     <form th:action="@{/areas/modificar}" method="post" th:object="${area}">
 
@@ -26,6 +29,6 @@
         
         </form>
     </div>
+</section>
 
-</body>
 </html>

@@ -8,8 +8,8 @@
     <title>Eliminar Área</title>
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
-<body>
-    <div class="card">
+<section>
+   <div class="card">
         <h2>Eliminar Área</h2>
         <form th:action="@{/areas/eliminar}" method="post" th:object="${area}">
 
@@ -36,7 +36,9 @@
             <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>
         </form>
     </div>
-</body>
+</section>
+ 
+
 <script>
     const btn = document.getElementById('eliminar');
     const form = document.querySelector('form');

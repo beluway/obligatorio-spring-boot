@@ -6,6 +6,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -20,9 +21,10 @@ public class Cliente extends Usuario {
        
     //private String tipo_usuario;
 
-    @Column(name = "rut", nullable = false, length = 12)
+    @Column(name = "rut", nullable = false, length = 12, unique = true)
     @NotNull(message = "Ingrese el RUT.")
     @Digits(integer =  12, fraction = 0, message = "El RUT debe tener 12 dígitos")
+    
     private Long rut;
 
     @Column(name = "nombre", nullable = false, length = 15)
@@ -31,7 +33,7 @@ public class Cliente extends Usuario {
    
     @Pattern(regexp = "^www\\..*", message = "La URL debe empezar con www")
     @Pattern(regexp = ".*\\.com$", message = "La URL debe terminar en .com")
-    @Column(name="url")
+    @Column(name="url", unique = true)
     private String url;
 
     public Long getRut() {
@@ -50,43 +52,24 @@ public class Cliente extends Usuario {
         this.nombre = nombre;
     }
 
-     public String getUrl() {
+    public String getUrl() {
         return url;
     }
-    
+
     public void setUrl(String url) {
         this.url = url;
     }
 
-   /*  public String getTipo_usuario() {
-        return tipo_usuario;
-    }
-
-    public void setTipo_usuario(String tipo_usuario) {
-        this.tipo_usuario = tipo_usuario;
-    } */
-  
-    //constructor x defecto para JPA
-    public Cliente(){}
-
-    public Cliente(/* String tipo_usuario, */
+    public Cliente(String usuario, String clave,
             @NotNull(message = "Ingrese el RUT.") @Digits(integer = 12, fraction = 0, message = "El RUT debe tener 12 dígitos") Long rut,
             @NotNull(message = "Ingrese el nombre.") String nombre,
             @Pattern(regexp = "^www\\..*", message = "La URL debe empezar con www") @Pattern(regexp = ".*\\.com$", message = "La URL debe terminar en .com") String url) {
-      /*   this.tipo_usuario = tipo_usuario; */
+        super(usuario, clave);
         this.rut = rut;
         this.nombre = nombre;
         this.url = url;
     }
 
-   
-
-    
-
-    
-
-
-
-
+     public Cliente(){}
 
 }

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
@@ -37,10 +39,17 @@ public class ControladorClientes {
 
     //ACA VA FLASH ATTRIBUTES Y REDIRECT 
     @PostMapping("/crear")
-    public String clienteProcesarCrear (@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado) throws Exception 
+    public String clienteProcesarCrear (@ModelAttribute @Valid Cliente cliente, 
+    Model modelo, 
+    BindingResult resultado,
+    RedirectAttributes atributos) throws Exception 
     {              
-        servicioClientes.agregar(cliente);
-         
+         if(resultado.hasErrors()){
+            atributos.addFlashAttribute("mensaje", "Errores en el formulario");
+            return "redirect:/postulantes/crear";
+          }
+
+        servicioClientes.agregar(cliente);         
         
         return "redirect:/clientes/crear";
     }

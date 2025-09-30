@@ -2,15 +2,16 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" 
 
  
- > 
+ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Área</title>
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
-<body>
 
+<section>
 <div class="card">
      <form th:action="@{/areas/crear}" method="post" th:object="${area}">
 
@@ -22,8 +23,8 @@
 
      <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>
 </div>
+</section>
 
-</body>
 <script>
     const nombre = document.getElementById('nombre').focus();
 </script>

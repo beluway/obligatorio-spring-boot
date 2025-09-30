@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
  
-> 
+   th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,23 +11,13 @@
  <link rel="stylesheet" th:href="@{/css/crud.css}">
 
 </head>
-<body>
-      
+
+<!-- Solo define los bloques que la master necesita -->
+<title>Registro Consultor</title>
+<link rel="stylesheet" th:href="@{/css/crud.css}">
 
 
-<!-- <div class="card">
-     <form th:action="@{/areas/crear}" method="post" th:object="${area}">
-
-        <p th:text="${mensaje}" style="color: greenyellow;"></p>
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" required>
-        <button type="submit">Crear Area</button>
-
-            <button type="submit" id="crear">Crear</button>
-
-     </form>
-</div> -->
-
+<section>
 
 <div class="card">
    <form th:action="@{/consultores/crear}" method="post" th:object="${consultor}">
@@ -47,8 +38,6 @@
    </form>
 </div>
 
- 
+</section>
 
-
-</body>
 </html>

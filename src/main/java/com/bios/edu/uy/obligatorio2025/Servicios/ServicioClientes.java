@@ -35,8 +35,8 @@ public class ServicioClientes implements IServicioClientes  {
             if (clienteExiste != null) {
                 throw new Exception("El cliente ya existe.");
                 
-            }else if (cliente.getRut().toString().length() != 8) {
-                throw new Exception("El RUT debe estar debe tener 8 digitos.");
+            }else if (cliente.getRut().toString().length() != 12) {
+                throw new Exception("El RUT debe tener 12 digitos.");
             }
 
             repositorioClientes.save(cliente);
