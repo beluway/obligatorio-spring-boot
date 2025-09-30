@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,7 +11,8 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 
-import ch.qos.logback.core.model.Model;
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -26,8 +28,10 @@ public class ControladorClientes {
 
 
     @GetMapping("/crear")
-    public String clienteCrear(@ModelAttribute Cliente cliente, Model modelo) throws Exception
+    public String clienteCrear(Model modelo, HttpSession sesion) throws Exception
     {        
+
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "clientes/crear";        
     }
 
@@ -43,10 +47,10 @@ public class ControladorClientes {
 
 
     @GetMapping("/eliminar")
-    public String clienteEliminar(@ModelAttribute Cliente cliente) {
+    public String clienteEliminar(Model modelo, HttpSession sesion) {
       
          //ENTRA ACA SOLO SI ES CONSULTOR
-
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "clientes/eliminar";
 
     }
@@ -59,10 +63,10 @@ public class ControladorClientes {
     
     
     @GetMapping("/modificar")
-    public String clienteModificar(@ModelAttribute Cliente cliente) {
+    public String clienteModificar(Model modelo, HttpSession sesion) {
       
          //ENTRA ACA SOLO SI ES CONSULTOR
-
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "clientes/modificar";
     }
     
@@ -74,10 +78,10 @@ public class ControladorClientes {
     
 
     @GetMapping("/ver")    
-    public String clientesVer(@ModelAttribute Cliente cliente) {
+    public String clientesVer(Model modelo, HttpSession sesion) {
        
          //ENTRA ACA SOLO SI ES CONSULTOR
-
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "clientes/ver";
     }   
 

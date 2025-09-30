@@ -14,6 +14,8 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioPostulantes;
 
 import org.springframework.ui.Model;
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -32,8 +34,9 @@ public class ControladorPostulantes {
 
        
     @GetMapping("/crear")
-    public String postulanteCrear(@ModelAttribute Postulante postulante)
+    public String postulanteCrear(Model modelo, HttpSession sesion)
     { 
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "postulantes/crear";
         
     }
@@ -97,8 +100,10 @@ public class ControladorPostulantes {
 
     @GetMapping("/eliminar")
 
-    public String postulanteEliminar(@ModelAttribute Postulante postulante) {
-      
+    public String postulanteEliminar(Model modelo, HttpSession sesion) 
+    {
+    
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "postulantes/eliminar";
 
     }
@@ -111,9 +116,9 @@ public class ControladorPostulantes {
     
     
     @GetMapping("/modificar")
-    public String postulanteModificar(@ModelAttribute Postulante postulante) {
-      
-        
+    public String postulanteModificar(Model modelo, HttpSession sesion) 
+    {      
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));    
         return "postulantes/modificar";
     }
     
@@ -125,11 +130,9 @@ public class ControladorPostulantes {
     
 
     @GetMapping("/ver")    
-    public String postulanteVer(String usuario, Model modelo) {
-       
-        modelo.addAttribute("nombreUsuario", usuario);
-
-
+    public String postulanteVer(Model modelo, HttpSession sesion) 
+    {
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "postulantes/ver";
     }   
 
@@ -156,9 +159,12 @@ public class ControladorPostulantes {
     }   
 
     @GetMapping("/lista")
-    public String listaPostulantes(Model modelo) {
+    public String listaPostulantes(Model modelo, HttpSession sesion) {
        
+
+        
         //SE SACA LA LISTA DE POSTULANTES DE LA BD 
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         modelo.addAttribute("listaPostulantes", modelo);
 
 

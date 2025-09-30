@@ -22,13 +22,12 @@ public class Cliente extends Usuario {
 
     @Column(name = "rut", nullable = false, length = 12)
     @NotNull(message = "Ingrese el RUT.")
-    @Digits(integer =  8, fraction = 0, message = "El RUT debe tener hasta 8 dígitos")
+    @Digits(integer =  12, fraction = 0, message = "El RUT debe tener 12 dígitos")
     private Long rut;
 
     @Column(name = "nombre", nullable = false, length = 15)
     @NotNull(message = "Ingrese el nombre.")
     private String nombre;
-
    
     @Pattern(regexp = "^www\\..*", message = "La URL debe empezar con www")
     @Pattern(regexp = ".*\\.com$", message = "La URL debe terminar en .com")
@@ -71,7 +70,7 @@ public class Cliente extends Usuario {
     public Cliente(){}
 
     public Cliente(/* String tipo_usuario, */
-            @NotNull(message = "Ingrese el RUT.") @Digits(integer = 8, fraction = 0, message = "El RUT debe tener hasta 8 dígitos") Long rut,
+            @NotNull(message = "Ingrese el RUT.") @Digits(integer = 12, fraction = 0, message = "El RUT debe tener 12 dígitos") Long rut,
             @NotNull(message = "Ingrese el nombre.") String nombre,
             @Pattern(regexp = "^www\\..*", message = "La URL debe empezar con www") @Pattern(regexp = ".*\\.com$", message = "La URL debe terminar en .com") String url) {
       /*   this.tipo_usuario = tipo_usuario; */

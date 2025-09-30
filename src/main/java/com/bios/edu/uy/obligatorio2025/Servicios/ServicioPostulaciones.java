@@ -17,25 +17,25 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     private IRepositorioPostulaciones repositorioPostulaciones;
 
   
-     @Override 
+    @Override 
     public void agregar (Postulacion postulacion)
     {
         repositorioPostulaciones.save(postulacion);
     }
 
-     @Override 
+    @Override 
     public void modificar (Postulacion postulacion)
     {
 
     }
 
-     @Override 
+    @Override 
     public void eliminar (Integer id)
     {
         
     }
 
-     @Override 
+    @Override 
     public List<Postulacion> listaPostulaciones ()
     {
         ArrayList<Postulacion> lista = new ArrayList<>();

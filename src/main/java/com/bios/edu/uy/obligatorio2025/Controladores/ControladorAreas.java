@@ -31,7 +31,8 @@ public class ControladorAreas {
     @GetMapping("/crear")
     public String crear (@ModelAttribute Area area, HttpSession sesion, Model modelo)throws Exception
     {
-        
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+
         return "areas/crear";
     }
 
@@ -63,6 +64,8 @@ public class ControladorAreas {
         @GetMapping("/lista")
     public String listarAreas(@ModelAttribute Area area, HttpSession sesion, Model modelo)throws Exception
     {
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+
         List<Area> areas = servicioAreas.listaAreas();
         modelo.addAttribute("areas", areas);
         return "areas/lista";
@@ -70,7 +73,10 @@ public class ControladorAreas {
 
     //MODIFICAR ÁREA GET
     @GetMapping("/modificar")
-    public String modificarArea(Area area, Model modelo) throws Exception{
+    public String modificarArea(Area area, Model modelo, HttpSession sesion) throws Exception
+    {
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+
 
         Area areaEncontrada = servicioAreas.obtener(area.getId());
 
@@ -82,6 +88,8 @@ public class ControladorAreas {
         }
         return "areas/modificar";
     }
+
+    
 //MODIFICAR ÁREA POST
     @PostMapping("/modificar")
     public String procesarModificarArea(@ModelAttribute @Valid Area area,BindingResult resultado, Model modelo, RedirectAttributes attributes) throws Exception{
@@ -103,7 +111,9 @@ public class ControladorAreas {
 
         //ELIMINAR ÁREA GET
     @GetMapping("/eliminar")
-    public String eliminarArea(Area area, Model modelo) throws Exception{
+    public String eliminarArea(Area area, Model modelo, HttpSession sesion) throws Exception
+    {
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
 
         Area areaEncontrada = servicioAreas.obtener(area.getId());
 
@@ -115,6 +125,7 @@ public class ControladorAreas {
         }
         return "areas/eliminar";
     }
+    
     //ELIMINAR ÁREA POST
     @PostMapping("/eliminar")
     public String procesarEliminarArea(@ModelAttribute @Valid Area area,BindingResult resultado, Model modelo, RedirectAttributes attributes) throws Exception{

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioConsultores;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,9 +78,9 @@ private ServicioConsultores servicioConsultor;
     
     
     @GetMapping("/modificar")
-    public String consultorModificar(@ModelAttribute Consultor consultor) {
+    public String consultorModificar(Model modelo, HttpSession sesion) {
       
-        
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "consultores/modificar";
     }
     
@@ -91,9 +92,9 @@ private ServicioConsultores servicioConsultor;
     
 
     @GetMapping("/ver")    
-    public String consultorVer(@ModelAttribute Consultor consultor) {
+    public String consultorVer(Model modelo, HttpSession sesion) {
        
-
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "consultores/ver";
     }   
 

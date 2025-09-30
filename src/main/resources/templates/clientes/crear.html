@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
- th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}"
+ 
 > 
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,12 @@
     <!-- Cambia la URL en th:action al endpoint de tu controlador -->
     <form th:action="@{/clientes/crear}" method="post" th:object="${Cliente}">
         
+        <label for="usuario">Usuario</label>
+        <input type="text" id="usuario" name="usuario" required>
+
+        <label for="clave">Clave</label>
+        <input type="password" id="clave" name="clave" required>
+
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" placeholder="Empresa Bios" required>
         
