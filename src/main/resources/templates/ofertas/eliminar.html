@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
  
->
+th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,6 +53,8 @@
         alerta.innerHTML="Está seguro de que desea eliminar esta oferta?";
     });
 </script>-->
+
+<section>
 <div class="card">
     <h2>Eliminar Oferta</h2>
 
@@ -91,6 +94,9 @@
     </form>
 </div>
 
+
+
+
 <script>
     const eliminar = document.getElementById('eliminar');
     const alerta = document.getElementById('alerta');
@@ -103,5 +109,7 @@
     });
     
 </script>
-</body>
+
+</section>
+
 </html>

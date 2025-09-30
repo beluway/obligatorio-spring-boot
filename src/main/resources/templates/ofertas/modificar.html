@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
  
->
+th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Oferta</title>
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
-<body>
+
+<section>
 <div class="card">
     <h2>Modificar Oferta</h2>
     <form action="#" method="post" th:object="${oferta}">
@@ -47,6 +49,8 @@
         
         </form>
     </div>
+</section>
 
-</body>
+
+
 </html>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
 
->
+   th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
 <head>
     <meta charset="UTF-8" />
     <title>Formulario Oferta Laboral</title>
@@ -43,8 +44,8 @@
 
 -->
 
-    
-    <form th:action="@{/ofertas/crear}" method="post" th:object="${ofertas}">
+<section>
+<form th:action="@{/ofertas/crear}" method="post" th:object="${ofertas}">
 
         <!--Es necesario preguntar usuario? No sería el que está navegando en el sitio?-->
         <div>
@@ -93,6 +94,9 @@
         </div>
 
     </form>
+</section>
+    
+    
 </div>
 </body>
 </html>

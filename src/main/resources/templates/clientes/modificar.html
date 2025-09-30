@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
 
+ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +10,9 @@
      <link rel="stylesheet" th:href="@{/css/crud.css}">
 
 </head>
-<body>
-    <div class="card">
+
+<section>
+ <div class="card">
         <h2>Modificar Cliente</h2>
 
         <form th:action="@{/clientes/{id}/modificar(id=${cliente.id})}" method="post">
@@ -27,5 +30,8 @@
 
         <a th:href="@{/clientes}" id="volver">← Volver al listado</a>
     </div>
-</body>
+</section>
+
+   
+
 </html>
