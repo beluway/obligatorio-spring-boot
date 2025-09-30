@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
  
-> 
+th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +11,9 @@
 
     <title> LISTA POSTULANTES </title>
 </head>
-<body>
-       
-       
 
-        <tr>
+<section>
+  <tr>
             <th>Cédula</th><th>Primer Nombre</th><th>Primer Apellido</th><th>Fecha Nacimiento</th><th></th>
         </tr>
 
@@ -26,5 +25,6 @@
             <td th:text="${p.fechanacimiento}"></td>
             <td><a th:href="/postulantes/ver.html?p.usuario" class="button">Ver más</a></td>
         </tr>    
-</body>
+</section>
+
 </html>
