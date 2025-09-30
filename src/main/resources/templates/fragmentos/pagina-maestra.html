@@ -20,33 +20,42 @@
         <h1>BiosWork TESTING FRAGMENTS</h1>
     </header>
 
+    <p> BIENVENID@ <span th:if="${usuarioLogueado!=null}" th:text="${usuarioLogueado.usuario}"></span></p>
+
     <!-- Navegación -->
     <nav class="navegacion-principal">
         <ul>
-          <!--   <li><a th:href="@{/}">Inicio</a></li> 
+        <li>
+            <a th:href="@{/}">Inicio</a></li> 
             <li><a th:href="@{/ofertas/lista}">Ver ofertas</a></li> 
+
             <li><a th:href="@{/areas/lista}">Áreas</a></li>
-           <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}"><a th:href="@{/consultores/ver}">Mi perfil</a></li>
-            <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}"><a th:href="@{/postulantes/ver}">Mi perfil</a></li>
 
-            <li><a th:href="@{/home/index}">Ingresar</a></li>   
+          
+            <!--SI ES CONSULTOR-->
+           <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}"><a th:href="@{/consultores/ver}">Mi perfil cons</a></li>
+           <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}"><a th:href="@{/ofertas/lista}">Mis ofertas cons</a></li>
 
-            <input type="text" th:if="${Cliente != null}" th:value="${usuarioLogueado}" hidden disabled />
-            <input type="text" th:if="${Consultor != null}" th:value="${usuarioLogueado}" hidden disabled/>
-            <input type="text" th:if="${Postulante != null}" th:value="${usuarioLogueado}" hidden disabled/> -->
+            <!--SI ES POSTULANTE-->
+           <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}"><a th:href="@{/postulantes/ver}">Mi perfil post</a></li>
+           <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}"><a th:href="@{/ofertas/lista}">Ver ofertas psot</a></li> 
 
+
+<!--<li><a th:href="@{/home/index}">Ingresar</a></li>-->
+        
+<!-- 
 
             <li th:if="${Consultor}">
              <a th:href="@{/consultores/ver}">Mi perfil</a>
             </li>
 
             <li th:if="${Postulante}">
-                            <a th:href="@{/postulantes/ver}">Mi perfil</a>
+                <a th:href="@{/postulantes/ver}">Mi perfil</a>
             </li>
 
             <li th:if="${Cliente}">
             <a th:href="@{/clientes/ver}">Mi perfil</a>
-            </li>
+            </li> -->
 
         </ul>
     </nav>

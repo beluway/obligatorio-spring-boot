@@ -32,15 +32,7 @@ HttpSession sessionUsuario;
 
     @GetMapping("/index") 
     public String index() {
-      
-    
-      /*   Cliente usu=null;  // = aca va el metodo del servicio para la existencia usuarios
-        //BUSCAR USUARIO ................controladorClientes
-
-        if(sessionUsuario!=null)
-        {       
-            return "redirect:/home/login";
-        } */
+         
        
         return "home/index";       
     }    
@@ -96,31 +88,30 @@ HttpSession sessionUsuario;
 
             if(usuarioLogueado!=null)
             {
-
               //*********************  USUARIO EN SESION (SIN PREGUNTAR EL TIPO)  *************************
               sesion.setAttribute("usuarioLogueado", usuarioLogueado);   
 
 
-                   return "home/main"; 
+                   return "redirect:/home/main"; 
       
             }
       
-       return "redirect:/postulantes/main";
+       return "redirect:/home/index";
     }
 
 
     /// PARA ESTA VISTA HACER MASTERPAGE
     @GetMapping("/main") 
-    public String main(@ModelAttribute Usuario usuario, Model modelo, BindingResult resultado, HttpSession sesion) {
+    public String main(Model modelo, HttpSession sesion) {
         
-     
+             
            modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
 
-           modelo.addAttribute("Cliente", sesion.getAttribute("usuarioLogueado") instanceof Cliente);
+         /*   modelo.addAttribute("Cliente", sesion.getAttribute("usuarioLogueado") instanceof Cliente);
 
             modelo.addAttribute("Postulante", sesion.getAttribute("usuarioLogueado") instanceof Postulante);
 
-            modelo.addAttribute("Consultor", sesion.getAttribute("usuarioLogueado") instanceof Consultor);
+            modelo.addAttribute("Consultor", sesion.getAttribute("usuarioLogueado") instanceof Consultor); */
 
             return "home/main";
     }

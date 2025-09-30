@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragmentos/mp-main :: html(~{::title}, ~{::section}, ~{::link})}">
+
+
+      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+      
 <head>
     <title>BIENVENIDA</title>
     <link rel="stylesheet" th:href="@{/css/home.css}" />
