@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionYaExiste;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepostorioClientes;
 
 
@@ -28,15 +30,15 @@ public class ServicioClientes implements IServicioClientes  {
 
 //AGREGAR
  @Override
-   public void agregar(Cliente cliente) throws Exception 
+   public void agregar(Cliente cliente) throws ExcepcionBiosWork
    { 
 
     Cliente clienteExiste = obtener(cliente.getUsuario());
             if (clienteExiste != null) {
-                throw new Exception("El cliente ya existe.");
+                throw new ExcepcionYaExiste("El cliente ya existe.");
                 
             }else if (cliente.getRut().toString().length() != 12) {
-                throw new Exception("El RUT debe tener 12 digitos.");
+                throw new ExcepcionBiosWork("El RUT debe tener 12 digitos.");
             }
 
             repositorioClientes.save(cliente);
@@ -61,7 +63,7 @@ public class ServicioClientes implements IServicioClientes  {
     
 //MODIFICAR
  @Override
-  public void modificar (Cliente cliente) throws Exception
+  public void modificar (Cliente cliente) throws ExcepcionBiosWork
     { 
        /*  int posicion = obtenerPosicion(cliente.getUsuario());
 
@@ -80,7 +82,7 @@ public class ServicioClientes implements IServicioClientes  {
 
 //* /ELIMINAR
  @Override
-   public void eliminar (String usuario) throws Exception
+   public void eliminar (String usuario) throws ExcepcionBiosWork
     { 
        /*  if (obtener(usuario)!=null) {
             clientes.remove(obtenerPosicion(usuario));

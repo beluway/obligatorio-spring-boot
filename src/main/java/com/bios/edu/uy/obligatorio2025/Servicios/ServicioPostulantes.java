@@ -3,6 +3,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulantes;
 
 
@@ -15,26 +16,26 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
 
      @Override 
-    public void agregar (Postulante postulante) throws Exception
+    public void agregar (Postulante postulante) throws ExcepcionBiosWork
     {
           respositorioPostulantes.save(postulante);
     }
 
      @Override 
-    public void modificar (Postulante postulante) throws Exception
+    public void modificar (Postulante postulante) throws ExcepcionBiosWork
     {
         respositorioPostulantes.save(postulante);
     }
 
 
      @Override 
-    public void eliminar (String usuario) throws Exception
+    public void eliminar (String usuario) throws ExcepcionBiosWork
     {
         respositorioPostulantes.delete(obtener(usuario));
     }
 
     @Override 
-    public Postulante obtener (String usuario) throws Exception
+    public Postulante obtener (String usuario) 
     {
         Postulante postulanteEncontrado = respositorioPostulantes.findById(usuario).orElse(null);
 
@@ -50,7 +51,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     }
 
      @Override 
-    public List<Postulante> listaPostulante() throws Exception
+    public List<Postulante> listaPostulante() 
     {
        // ArrayList<postulantes> lista = new ArrayList<>();
 
