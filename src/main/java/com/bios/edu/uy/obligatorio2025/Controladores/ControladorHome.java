@@ -106,10 +106,19 @@ HttpSession sessionUsuario;
     @GetMapping("/main") 
     public String main(Model modelo, HttpSession sesion) {
         
-             
-           modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+             if (sesion.getAttribute("usuarioLogueado") instanceof Consultor) {
+                modelo.addAttribute("usuarioLogueado", (Consultor)sesion.getAttribute("usuarioLogueado"));
+             }
 
-         /*   modelo.addAttribute("Cliente", sesion.getAttribute("usuarioLogueado") instanceof Cliente);
+           if (sesion.getAttribute("usuarioLogueado") instanceof Cliente) {
+                modelo.addAttribute("usuarioLogueado", (Cliente)sesion.getAttribute("usuarioLogueado"));
+             }
+
+             if (sesion.getAttribute("usuarioLogueado") instanceof Postulante) {
+                modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));
+             }
+
+            /*modelo.addAttribute("Cliente", sesion.getAttribute("usuarioLogueado") instanceof Cliente);
 
             modelo.addAttribute("Postulante", sesion.getAttribute("usuarioLogueado") instanceof Postulante);
 

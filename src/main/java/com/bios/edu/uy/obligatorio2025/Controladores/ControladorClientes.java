@@ -1,4 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,10 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
-
+import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 
 
@@ -87,20 +90,29 @@ public class ControladorClientes {
     
 
     @GetMapping("/ver")    
-    public String clientesVer(Model modelo, HttpSession sesion) {
+    public String clienteVer(@RequestParam String usuario, Model modelo, HttpSession sesion) throws Exception {
        
-         //ENTRA ACA SOLO SI ES CONSULTOR
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        Cliente cliente = servicioClientes.obtener(usuario);
+        modelo.addAttribute("cliente", cliente);
         return "clientes/ver";
-    }   
+    }    
 
 
     @GetMapping("/lista")    
-    public String clientesVer() {
+    public String clientesListar(@ModelAttribute Cliente clientes, Model modelo, HttpSession sesion) throws Exception {
        
+        if (sesion.getAttribute("usuarioLogueado") instanceof Consultor) {
          //ENTRA ACA SOLO SI ES CONSULTOR
+        List<Cliente> listaClientes = servicioClientes.listaClientes();
+
+        modelo.addAttribute("clientes", listaClientes);
+        modelo.addAttribute("usuarioLogueado", (Consultor)sesion.getAttribute("usuarioLogueado"));
+        
 
         return "clientes/lista";
+    }
+    return "home/main";
     } 
 
 

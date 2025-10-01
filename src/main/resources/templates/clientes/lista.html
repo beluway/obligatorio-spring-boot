@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/listas.css}">
 </head>
 
-<section>
+<!--<section>
     <div class="card">
         <h2>Listado de Clientes</h2>
         <table>
@@ -39,6 +39,36 @@
                         <a href="modificar.html" class="btn">Editar</a>
                         <a href="eliminar.html?id=CL002" class="btn">Eliminar</a>
                         <a href="ver.html?id=CL002" class="btn">Ver</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>-->
+<section>
+    <div class="card">
+        <h2>Listado de Clientes</h2>
+                <div style="text-align: right; margin-bottom: 10px;">
+        <a th:href="@{/clientes/crear}" class="btn">Agregar</a>
+    </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>RUT</th>
+                    <!--<th>Sitio Web</th>-->
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${clientes}">
+                    <td th:text="${c.nombre}"></td>
+                    <td th:text="${c.rut}"></td>
+                    <!--<td th:text="${c.sitioWeb}"></td>-->
+                    <td>
+                        <a th:href="@{/clientes/ver(usuario=${c.usuario})}" class="btn">Ver más</a>
+                        <a th:href="@{/clientes/modificar(usuario=${c.usuario})}" class="btn">Modificar</a>
+                        <a th:href="@{/clientes/eliminar(usuario=${c.usuario})}" class="btn">Eliminar</a>
                     </td>
                 </tr>
             </tbody>

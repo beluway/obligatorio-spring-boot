@@ -1,4 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,7 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioConsultores;
 
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ControladorConsultores {
  
 @Autowired
-private ServicioConsultores servicioConsultor;
+private ServicioConsultores servicioConsultores;
 
   @GetMapping("/main")
     public String consultorCrear()
@@ -44,7 +46,7 @@ private ServicioConsultores servicioConsultor;
     @PostMapping("/crear")
     public String consultorCrear (@ModelAttribute @Valid Consultor consultor, Model modelo, BindingResult resultado) throws Exception
     {           
-        Consultor existente = servicioConsultor.obtener(consultor.getUsuario());
+        Consultor existente = servicioConsultores.obtener(consultor.getUsuario());
 
           String mensaje = "Se agregregó el consultor correctamente";
 
@@ -56,7 +58,7 @@ private ServicioConsultores servicioConsultor;
         else
         {
          modelo.addAttribute("mensaje",mensaje);
-         servicioConsultor.agregar(consultor);
+         servicioConsultores.agregar(consultor);
         }
         return "redirect:/consultores/crear";
     }
@@ -97,5 +99,16 @@ private ServicioConsultores servicioConsultor;
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "consultores/ver";
     }   
+
+    @GetMapping("/lista")
+    public String consultoresLista(@ModelAttribute Consultor consultor, Model modelo, HttpSession sesion){
+
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+
+        List<Consultor> consultores = servicioConsultores.listaConsultores();
+        modelo.addAttribute("consultores", consultores);
+
+        return "consultores/lista";
+    }
 
 }
