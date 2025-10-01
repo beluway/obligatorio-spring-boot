@@ -33,13 +33,14 @@
                 <li>
 
                     <li><a th:href="@{/home/main}">Inicio</a></li>
-                 
-
+                
                 <!--SI ES CONSULTOR-->
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}">
-                    <a th:href="@{/consultores/main}">Consultores</a></li>
+                    <a th:href="@{/consultores/lista}">Consultores</a></li>
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}">
-                    <a th:href="@{/clientes/main}">Clientes</a></li>
+                    <a th:href="@{/clientes/lista}">Clientes</a></li>
+                    <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}">
+                    <a th:href="@{/consultores/ver}">Mi perfil</a></li>
 
                     <!--SI ES CLIENTE-->
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}">

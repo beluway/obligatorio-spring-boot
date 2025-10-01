@@ -6,14 +6,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Listado de Consultores</title>
+    <link rel="stylesheet" th:href="@{/css/listas.css}">
 </head>
-
-<section>
-
  <!--ACA VA LISTA DE CONSULTORES, EN CADA ELEMENTO VAN LOs BOTONES VER, MODIFICAR Y ELIMINAR-->
 
+ <section>
+    <div class="card">
+        <h2>Listado de Consultores</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${consultores}">
+                    <td th:text="${c.usuario}"></td>
+                    <td>
+                        <a th:href="@{/consultores/ver(usuario=${c.usuario})}" class="btn">Ver más</a>
+                        <a th:href="@{/consultores/modificar(usuario=${c.usuario})}" class="btn">Modificar</a>
+                        <a th:href="@{/consultores/eliminar(usuario=${c.usuario})}" class="btn">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </section>
-
-      
+   
 </html>
