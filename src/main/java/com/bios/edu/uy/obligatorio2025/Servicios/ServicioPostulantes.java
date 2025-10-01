@@ -51,7 +51,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     }
 
      @Override 
-    public List<Postulante> listaPostulante() throws Exception
+    public List<Postulante> lista() throws Exception
     {
        // ArrayList<postulantes> lista = new ArrayList<>();
 

@@ -167,7 +167,7 @@ public class ControladorPostulantes {
         
         //SE SACA LA LISTA DE POSTULANTES DE LA BD 
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
-        modelo.addAttribute("listaPostulantes", listaPostulantes);
+        modelo.addAttribute("listaPostulantes", listaPostulantes.toArray());
 
 
         return "postulantes/lista";

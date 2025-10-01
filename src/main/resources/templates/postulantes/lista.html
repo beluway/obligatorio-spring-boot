@@ -13,11 +13,12 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 </head>
 
 <section>
-  <tr>
-            <th>Cédula</th><th>Primer Nombre</th><th>Primer Apellido</th><th>Fecha Nacimiento</th><th></th>
+<table>
+ <tr>
+        <th>Cédula</th><th>Primer Nombre</th><th>Primer Apellido</th><th>Fecha Nacimiento</th><th></th>
         </tr>
 
-        <tr th:each="p, ei : ${listaPostulantes}" th:style="${ei.odd}?'background-color: crimson;'">
+        <tr th:each="p, ei : ${listaPostulantes}" th:style="${ei.odd}?'background-color: white;'">
 
             <td th:text="${p.cedula}"></td>
             <td th:text="${p.primerNombre}"></td>
@@ -25,6 +26,9 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
             <td th:text="${p.fechanacimiento}"></td>
             <td><a th:href="@{/bioswork/postulantes/ver.html(p=${p.usuario})}" class="button">Ver más</a></td>
         </tr>    
+</table>
+
+ 
 </section>
 
 </html>
