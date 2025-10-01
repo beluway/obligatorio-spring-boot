@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioConsultores;
 
 @Service
@@ -14,26 +15,35 @@ public class ServicioConsultores implements IServicioConsultores{
     private IRepositorioConsultores repositorioConsultores;
 
      @Override
-    public void agregar (Consultor consultor) throws Exception
+    public void agregar (Consultor consultor) throws ExcepcionBiosWork
     {
         repositorioConsultores.save(consultor);
     }
 
      @Override
-    public void modificar(Consultor consultor) throws Exception
+    public void modificar(Consultor consultor) throws ExcepcionBiosWork
     {
-        repositorioConsultores.save(obtener(consultor.getUsuario()));
+        try {
+            repositorioConsultores.save(obtener(consultor.getUsuario()));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
      @Override
-    public void eliminar (String usuario) throws Exception
+    public void eliminar (String usuario) throws ExcepcionBiosWork
     {
-        repositorioConsultores.delete(obtener(usuario));
+        try {
+            repositorioConsultores.delete(obtener(usuario));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
      @Override
-    public List<Consultor>listaConsultores() throws Exception
-    {
+    public List<Consultor>listaConsultores() {
          //ArrayList<consultores> lista = new ArrayList<>();
 
         List<Consultor> lista = repositorioConsultores.findAll();

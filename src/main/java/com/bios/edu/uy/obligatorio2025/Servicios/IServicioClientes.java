@@ -4,12 +4,13 @@ import java.util.List;
 
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 
 public interface IServicioClientes {
     
-    void agregar(Cliente cliente) throws Exception;
-    void modificar (Cliente cliente) throws Exception;
-    void eliminar (String usuario) throws Exception;
+    void agregar(Cliente cliente) throws ExcepcionBiosWork;
+    void modificar (Cliente cliente) throws ExcepcionBiosWork;
+    void eliminar (String usuario) throws ExcepcionBiosWork;
     Cliente obtener (String usuario) throws Exception;
     List<Cliente>listaClientes() throws Exception;
 

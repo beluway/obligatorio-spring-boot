@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
 
 
@@ -17,7 +18,7 @@ private IRepositorioOfertas repositorioOfertas;
 
 
     @Override
-    public void agregar (Oferta oferta) throws Exception
+    public void agregar (Oferta oferta) throws ExcepcionBiosWork
     {
 
         // ACA ES LO PREVIO AL ALTA
@@ -35,15 +36,20 @@ private IRepositorioOfertas repositorioOfertas;
     }
 
      @Override
-    public void modificar (Oferta oferta) throws Exception
+    public void modificar (Oferta oferta) throws ExcepcionBiosWork
     {
         repositorioOfertas.save(oferta);
     }
 
      @Override
-    public void eliminar (Integer id) throws Exception
+    public void eliminar (Integer id) throws ExcepcionBiosWork
     {
-        repositorioOfertas.delete(obtener(id));
+        try {
+            repositorioOfertas.delete(obtener(id));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
      @Override
