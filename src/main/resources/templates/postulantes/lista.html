@@ -20,10 +20,10 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         <tr th:each="p, ei : ${listaPostulantes}" th:style="${ei.odd}?'background-color: crimson;'">
 
             <td th:text="${p.cedula}"></td>
-            <td th:text="${p.primernombre}"></td>
+            <td th:text="${p.primerNombre}"></td>
             <td th:text="${p.primerApellido}"></td>
             <td th:text="${p.fechanacimiento}"></td>
-            <td><a th:href="/postulantes/ver.html?p.usuario" class="button">Ver más</a></td>
+            <td><a th:href="@{/bioswork/postulantes/ver.html(p=${p.usuario})}" class="button">Ver más</a></td>
         </tr>    
 </section>
 

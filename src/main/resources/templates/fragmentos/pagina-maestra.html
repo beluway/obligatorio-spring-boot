@@ -22,7 +22,7 @@
 
  <!-- Cabecera -->   
             <header class="cabezal-principal">
-                <h1>BiosWork TESTING FRAGMENTS</h1>
+                <h1>BiosWork</h1>
             </header>
 
             <p> BIENVENID@ <span th:if="${usuarioLogueado!=null}" th:text="${usuarioLogueado.usuario}"></span></p>
@@ -31,10 +31,9 @@
             <nav class="navegacion-principal">
                 <ul>
                 <li>
-                    <a th:href="@{/}">Inicio</a></li> 
-                    <li><a th:href="@{/home/main}">Principal</a></li> 
 
-                    <li><a th:href="@{/home/deslogueo}">Salir</a></li>
+                    <li><a th:href="@{/home/main}">Inicio</a></li>
+                 
 
                 <!--SI ES CONSULTOR-->
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}">
@@ -44,7 +43,7 @@
 
                     <!--SI ES CLIENTE-->
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}">
-                    <a th:href="@{/postulantes/ver}">Ver postulantes</a></li>
+                    <a th:href="@{/postulantes/lista}">Ver postulantes</a></li>
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}">
                     <a th:href="@{/ofertas/main}">Ofertas</a></li>
 
@@ -53,7 +52,8 @@
                     <a th:href="@{/postulantes/ver}">Mi perfil</a></li>
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}">
                     <a th:href="@{/ofertas/lista}">Ver ofertas</a></li> 
-
+                    
+                       <li><a th:href="@{/home/deslogueo}">Salir</a></li>
                 </ul>
             </nav>
 

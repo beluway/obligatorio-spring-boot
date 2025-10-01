@@ -22,7 +22,9 @@
 
             -->
 
-            <input type="text" th:field="*{usuario}">
+            <!-- <input type="text" th:field="*{usuario}"> -->
+
+              <input type="text" name="usuario" id="usuario" readonly>
 
         </div>
 
@@ -33,7 +35,9 @@
                 <input type="text" th:field="*{primernombre}" readonly>
             -->
 
-            <input type="text" th:field="*{primernombre}">
+            <!-- <input type="text" th:field="*{primernombre}"> -->
+
+             <input type="text" name="primernombre" id="primernombre" readonly>
 
 
         </div>
@@ -46,7 +50,7 @@
             <input type="text" th:field="*{segundoNombre}" readonly>
             -->
 
-            <input type="text" th:field="*{segundoNombre}">
+            <input type="text" name="segundoNombre" id="primernomnbre" readonly>
 
         </div>
 
@@ -57,7 +61,7 @@
              <input type="text" th:field="*{primerApellido}" readonly>
             -->
 
-            <input type="text" th:field="*{primerApellido}">
+            <input type="text" name="primerApellido" id="primerApellido" readonly>
 
         </div>
 
@@ -68,7 +72,7 @@
             
             <input type="text" th:field="*{segundoApellido}" readonly>
             -->
-            <input type="text" th:field="*{segundoApellido}"> 
+            <input type="text" name="segundoApellido" id="segundoApellido" readonly> 
         </div>
 
         <div>
@@ -78,20 +82,22 @@
               <input type="date" th:field="*{fechanacimiento}" readonly>
             -->
 
-            <input type="date" th:field="*{fechanacimiento}">
+            <input type="date" name="fechanacimiento" id="fechanacimiento readonly">
         </div>
 
         <div>   
 
             <label for="fechanacimiento"> Departamento</label>
-           <span th:text="*{departamento}" aria-readonly="true"></span>       
+         <!--<span th:text="*{departamento}" aria-readonly="true"></span>-->   
+           
+            <input type="text" name="departamento" id="departamento" readonly>
            
         </div>      
 
 
         <div>
             <label for="pdf"> CV</label>
-            <a th:href="@{|/pdf/*{Cedula}.pdf|}"> CV </a>
+            <a th:href="@{|/pdf/${Cedula}.pdf|}"> CV </a>
         </div>
 
         <div>

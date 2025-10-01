@@ -24,6 +24,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 @RequestMapping("/postulantes")
@@ -133,6 +134,7 @@ public class ControladorPostulantes {
     public String postulanteVer(Model modelo, HttpSession sesion) 
     {
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+
         return "postulantes/ver";
     }   
 
@@ -159,13 +161,13 @@ public class ControladorPostulantes {
     }   
 
     @GetMapping("/lista")
-    public String listaPostulantes(Model modelo, HttpSession sesion) {
+    public String lista(Model modelo, HttpSession sesion) throws Exception {
        
-
+        List<Postulante> listaPostulantes = servicioPostulantes.lista();
         
         //SE SACA LA LISTA DE POSTULANTES DE LA BD 
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
-        modelo.addAttribute("listaPostulantes", modelo);
+        modelo.addAttribute("listaPostulantes", listaPostulantes);
 
 
         return "postulantes/lista";
