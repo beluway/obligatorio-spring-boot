@@ -10,6 +10,7 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -38,14 +39,14 @@ public class Postulacion {
     //LA COLUMNA OFERTA ES UNA UNION (JOIN) CON LA TABLA OFERTA Y ADEMAS FORMA LA PK COMPUESTA    
     @NotNull
     @MapsId("idOferta")
-    @OneToOne //UNA POSTULACIÓN SOLO TIENE UNA OFERTA
+    @ManyToOne //UNA POSTULACIÓN SOLO TIENE UNA OFERTA
     @JoinColumn(name = "oferta", nullable = false)
     private Oferta oferta;
 
     //LA COLUMNA POSTULANTE ES UNA UNION (JOIN) CON LA TABLA POSTULANTE Y ADEMAS FORMA LA PK COMPUESTA    
     @NotNull
     @MapsId("usuarioPostulante")
-    @OneToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
+    @ManyToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
     @JoinColumn (name="postulante",nullable = false)
     private Postulante postulante;
 
@@ -77,21 +78,17 @@ public class Postulacion {
     //constructor vacío
     public Postulacion(){}
 
-    public Postulacion(Integer id, @NotNull @PastOrPresent Date fechaPostulacion, @NotNull Oferta oferta,
-            @NotNull Postulante postulante) {
-        
-        this.fechaPostulacion = fechaPostulacion;
-        this.oferta = oferta;
-        this.postulante = postulante;
-    }
 
-    @Override
-    public String toString() {
-        return "postulaciones [fechaPostulacion=" + fechaPostulacion + ", oferta=" + oferta
-                + ", postulante=" + postulante + "]";
-    }
+public Postulacion(PostulacionId id, @NotNull @PastOrPresent Date fechaPostulacion, @NotNull Oferta oferta,
+        @NotNull Postulante postulante) {
+    this.id = id;
+    this.fechaPostulacion = fechaPostulacion;
+    this.oferta = oferta;
+    this.postulante = postulante;
+   } 
 
-       
+
+         
    @Embeddable
    public static class PostulacionId implements Serializable{
 
@@ -116,14 +113,8 @@ public class Postulacion {
         this.usuarioPostulante = usuarioPostulante;
         this.idOferta = idOferta;
     }
-
-       
     
-
-   } 
-    
- 
-    
+   }    
 
 }
 

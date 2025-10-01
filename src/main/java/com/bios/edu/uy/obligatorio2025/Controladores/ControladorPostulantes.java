@@ -160,6 +160,7 @@ public class ControladorPostulantes {
         return "redirect:postulantes/ver";
     }   
 
+    
     @GetMapping("/lista")
     public String lista(Model modelo, HttpSession sesion) throws Exception {
        

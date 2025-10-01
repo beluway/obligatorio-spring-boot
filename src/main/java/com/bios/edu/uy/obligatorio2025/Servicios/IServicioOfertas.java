@@ -2,6 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 
 import java.util.List;
 
+import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 
@@ -12,4 +13,5 @@ public interface IServicioOfertas {
     void eliminar (Integer codigo) throws ExcepcionBiosWork;
     List<Oferta> listaOfertas() throws Exception;
     Oferta obtener(Integer id) throws Exception;
+    List<Oferta> listaOfertasCliente (Cliente cliente);
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
@@ -21,6 +22,7 @@ public class Cliente extends Usuario {
        
     //private String tipo_usuario;
 
+   
     @Column(name = "rut", nullable = false, length = 12, unique = true)
     @NotNull(message = "Ingrese el RUT.")
     @Digits(integer =  12, fraction = 0, message = "El RUT debe tener 12 dígitos")

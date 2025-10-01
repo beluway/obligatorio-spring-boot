@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model ;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
+import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioAreas;
@@ -120,7 +121,7 @@ public class ControladorOfertas {
 
 
     @GetMapping("/lista")    
-    public String listarOfertas(Model modelo) throws Exception {
+    public String listarOfertas(Model modelo, HttpSession sesion) throws Exception {
        //ACA SE SACA LA LISTA DESDE LA BASE DE DATOS
         List<Oferta> ofertas = servicioOfertas.listaOfertas();
 
@@ -128,5 +129,18 @@ public class ControladorOfertas {
 
         return "ofertas/lista"; //nombre de la vista
     } 
+
+
+    @GetMapping("/listaPorCliente")
+    public String listaOfertas(Model modelo, HttpSession sesion, @RequestParam Cliente cliente) {
+       
+        List<Oferta> OfertasCliente = servicioOfertas.listaOfertasCliente(cliente);
+
+        modelo.addAttribute("listaOfertasCliente", OfertasCliente);
+
+        return "ofertas/listaPorCliente";
+
+    }
+    
 
 }
