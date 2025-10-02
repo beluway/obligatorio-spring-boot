@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
 
@@ -25,6 +26,9 @@ public class ControladorPostulaciones {
    
     @Autowired
     private IServicioPostulaciones servicioPostulaciones;
+
+     @Autowired
+    private IServicioOfertas servicioOfertas;
 
     @GetMapping("/crear")
     public String crear(Model modelo, HttpSession sesion)
@@ -42,7 +46,12 @@ public class ControladorPostulaciones {
     resultado, 
     HttpSession sesion,
     RedirectAttributes attributes) throws Exception 
-    {           
+    {       
+        Integer cantidadOfertasVencidas;
+        
+        //CANTIDAD DE POSTULACIONES ACTUALES DEL USUARIO LOGUEADO
+        Integer cantidadPostulacionesActuales = ((Postulante)sesion.getAttribute("usuarioLogueado")).getCantidadPostulaciones();
+
         if(resultado.hasErrors())
         {
             return "postulaciones/crear";
@@ -50,11 +59,13 @@ public class ControladorPostulaciones {
 
         try
         {   
-            //ACA LO QUE SE HACE SE CONTROLA SI LAS POSTULACIONES QUE TIENE Y SON VIGENTES SON 3 O MENOS
+            //CANTIDAD DE OFERTAS VENCIDAS DEL POSTULANTE
             
+            cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario(((Postulante)sesion.getAttribute("usuarioLogueado")).getUsuario());
+
             
             //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
-            if(((Postulante)sesion.getAttribute("usuarioLogueado")).getCantidadPostulaciones()>=3)
+            if(cantidadPostulacionesActuales - cantidadOfertasVencidas >=3)
             {
                 return "redirect:/home/main";
             }
