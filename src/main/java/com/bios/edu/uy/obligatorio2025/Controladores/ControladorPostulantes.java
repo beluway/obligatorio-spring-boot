@@ -37,6 +37,13 @@ public class ControladorPostulantes {
     @GetMapping("/crear")
     public String postulanteCrear(Model modelo, HttpSession sesion)
     { 
+        if(((Postulante)sesion.getAttribute("usuarioLogueado")).getCantidadPostulaciones()>=3)
+        {
+            
+
+            return "redirect/home/main";
+        }
+
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "postulantes/crear";
         
