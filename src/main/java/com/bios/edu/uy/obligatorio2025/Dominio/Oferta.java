@@ -25,7 +25,8 @@ public class Oferta {
     
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
- private Integer id;
+ 
+private Integer id;
 
     @NotNull
     @PastOrPresent

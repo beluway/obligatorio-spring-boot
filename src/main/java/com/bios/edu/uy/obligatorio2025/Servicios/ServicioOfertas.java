@@ -43,6 +43,7 @@ private IRepositorioOfertas repositorioOfertas;
         repositorioOfertas.save(oferta);
     }
 
+    
      @Override
     public void eliminar (Integer id) throws ExcepcionBiosWork
     {
@@ -54,6 +55,7 @@ private IRepositorioOfertas repositorioOfertas;
         }
     }
 
+
      @Override
     public List<Oferta> listaOfertas() throws Exception
     {
@@ -63,6 +65,7 @@ private IRepositorioOfertas repositorioOfertas;
 
          return repositorioOfertas.findAll();
     }
+
 
     @Override
     public List<Oferta> listaOfertasCliente(Cliente cliente)
@@ -81,6 +84,7 @@ private IRepositorioOfertas repositorioOfertas;
        return ofertaEncontrada;
     } 
 
+
     @Override
     public List<Oferta> listaOfertasVigentes()
 
@@ -88,6 +92,15 @@ private IRepositorioOfertas repositorioOfertas;
          List<Oferta> listaOfertasVigentes = repositorioOfertas.ofertasVigentes();
    
          return listaOfertasVigentes;
+    }
+
+
+    @Override
+    public Integer cantidadOfertasVencidasPorUsuario(String usuario)
+    {
+        Integer cantidadOfertasVencidasPorUsuario = repositorioOfertas.cantidadOfertasVencidasPorUsuario(usuario);
+
+        return cantidadOfertasVencidasPorUsuario;
     }
 
 }

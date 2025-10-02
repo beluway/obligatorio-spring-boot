@@ -16,4 +16,5 @@ public interface IServicioOfertas {
     Oferta obtener(Integer id) throws Exception;
     List<Oferta> listaOfertasCliente (Cliente cliente);
     List<Oferta> listaOfertasVigentes();
+    Integer cantidadOfertasVencidasPorUsuario(String usuario);
 }

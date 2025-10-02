@@ -29,7 +29,7 @@ public class ControladorAreas {
 
     //CREAR ÁREA GET
     @GetMapping("/crear")
-    public String crear (@ModelAttribute Area area, HttpSession sesion, Model modelo)throws Exception
+    public String crear (HttpSession sesion, Model modelo)throws Exception
     {
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
 
@@ -54,7 +54,9 @@ public class ControladorAreas {
         attributes.addFlashAttribute("mensaje",mensaje);
     
         return "redirect:/areas/lista";
-    }catch(Exception e){
+
+        }
+        catch(Exception e){
 
         modelo.addAttribute("mensaje", "Error, "+e.getMessage());
         return "areas/crear";
