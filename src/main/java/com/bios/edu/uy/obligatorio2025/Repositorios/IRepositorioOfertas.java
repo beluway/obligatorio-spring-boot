@@ -23,7 +23,7 @@ public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer> {
     List<Oferta> findAllByCliente(Cliente cliente);
     
 
-    public static Specification <Oferta> ofertasVigentes(Date fechaCierrePublicación, Oferta oferta)
+   /*  public static Specification <Oferta> ofertasVigentes(Date fechaCierrePublicación, Oferta oferta)
     {
        
         if(fechaCierrePublicación==null)
@@ -46,7 +46,7 @@ public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer> {
         }
 
         
-    } 
+    }  */
 
 
 }

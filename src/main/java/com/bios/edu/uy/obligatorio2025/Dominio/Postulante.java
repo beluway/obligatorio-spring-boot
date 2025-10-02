@@ -16,7 +16,7 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,6 +37,9 @@ public class Postulante extends Usuario{
  
     private int cantidadPostulaciones;
 
+    @Column(name = "activo")    
+    private Boolean activo;
+
     @Column(name = "cedula",unique = true,nullable = false,length = 8)
     @NotNull(message = "Ingrese la cedula")
     private Long cedula;
@@ -50,13 +53,11 @@ public class Postulante extends Usuario{
     @Column(name="departamento",length = 20,nullable = false)
     @NotNull (message = "Seleccione el departamento")
     private String departamento;
-
          
     @Column(name = "primerNombre", nullable = false, length = 15)
     @NotNull(message = "Ingrese el nombre")
     private String primerNombre;
 
-  //(message = "Ingrese el segundo nombre ")
     @Column(name = "segundoNombre",nullable = true, length = 15)
     private String segundoNombre; 
 
@@ -68,9 +69,8 @@ public class Postulante extends Usuario{
     @Column(name="segundoApellido", nullable = false,length=15)
     private String segundoApellido;   
 
-
-    //VER SI ESTO SIRVE PARA PDF
-    @Transient
+    //VER SI ESTO SIRVE PARA PDF (CAMPO QUE NO VA A LA BD)
+    @Transient 
     //@NotNull (message = "Seleccione un .pdf para subirlo")
     private MultipartFile pdf;
    
@@ -169,7 +169,27 @@ public class Postulante extends Usuario{
     }
 
 
-    public Postulante(String usuario, String clave, int cantidadPostulaciones,
+    public Postulante(String usuario, String clave, int cantidadPostulaciones, Boolean activo,
+            @NotNull(message = "Ingrese la cedula") Long cedula,
+            @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent LocalDate fechanacimiento,
+            @NotNull(message = "Seleccione el departamento") String departamento,
+            @NotNull(message = "Ingrese el nombre") String primerNombre, String segundoNombre,
+            @NotNull(message = "ingrese el apellido") String primerApellido,
+            @NotNull(message = "ingrese el segundo apellido") String segundoApellido) {
+        super(usuario, clave);
+        this.cantidadPostulaciones = cantidadPostulaciones;
+        this.activo = activo;
+        this.cedula = cedula;
+        this.fechanacimiento = fechanacimiento;
+        this.departamento = departamento;
+        this.primerNombre = primerNombre;
+        this.segundoNombre = segundoNombre;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
+    }
+
+
+/*     public Postulante(String usuario, String clave, int cantidadPostulaciones,
             @NotNull(message = "Ingrese la cedula") Long cedula,
             @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent LocalDate fechanacimiento,
             @NotNull(message = "Seleccione el departamento") String departamento,
@@ -187,7 +207,9 @@ public class Postulante extends Usuario{
         this.segundoNombre = segundoNombre;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
-    }
+    } */
   
 
+
+    
 }

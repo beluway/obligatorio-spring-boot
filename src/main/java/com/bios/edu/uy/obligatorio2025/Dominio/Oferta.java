@@ -33,15 +33,11 @@ public class Oferta {
     @Column(name = "fechaPublicacion", nullable = false)
     private Date fechaPublicacion; 
     
-  /*   @EmbeddedId
-    private OfertaFK ofertafk; */
-
     @NotNull
     @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fechaCierre", nullable = false)
     private Date fechaCierre;
-
 
     @NotNull(message = "seleccione el cliente")
     @ManyToOne // UN CLIENTE PUEDE TENER MUCHAS OFERTAS
