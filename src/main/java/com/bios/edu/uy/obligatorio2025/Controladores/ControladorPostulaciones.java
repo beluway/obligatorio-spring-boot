@@ -65,17 +65,19 @@ public class ControladorPostulaciones {
 
             
             //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
-            if(cantidadPostulacionesActuales - cantidadOfertasVencidas >=3)
+            if(cantidadPostulacionesActuales - cantidadOfertasVencidas ==3)
             {
                 return "redirect:/home/main";
             }
             else
             {
                 servicioPostulaciones.agregar(postulacion);
-
+ 
                  String mensaje = "Se agregó la postulación correctamente";
 
                  attributes.addFlashAttribute("mensaje",mensaje);
+
+                 //SUMAR 1 A LA CANTIDAD DE POSTULACIONES
             }
 
         }
