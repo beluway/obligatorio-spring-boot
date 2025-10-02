@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,22 +71,23 @@ private IRepositorioOfertas repositorioOfertas;
     }
 
 
-     @Override 
+   @Override 
    public Oferta obtener(Integer id) throws Exception
    {    
 
       Oferta ofertaEncontrada =  repositorioOfertas.findById(id).orElse(null);
-
-       /*  for(ofertas o : ofertas){
-            if(o.getId()==id){
-                ofertaEncontrada=o;
-                break;
-            }
-        } */
-       // return ofertaEncontrada;
-        
+            
 
        return ofertaEncontrada;
     } 
+
+    @Override
+    public List<Oferta> listaOfertasVigentes()
+
+    {
+         List<Oferta> listaOfertasVigentes = repositorioOfertas.ofertasVigentes();
+   
+         return listaOfertasVigentes;
+    }
 
 }

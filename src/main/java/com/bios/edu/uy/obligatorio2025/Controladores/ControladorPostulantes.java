@@ -115,14 +115,20 @@ public class ControladorPostulantes {
     @PostMapping("/eliminar")
     public String postulanteEliminar(@ModelAttribute @Valid Postulante postulante, Model modelo, BindingResult resultado)  {
               
+        modelo.addAttribute("postulante", postulante);
         return "redirect:/postulantes/eliminar";
     }
     
     
     @GetMapping("/modificar")
-    public String postulanteModificar(Model modelo, HttpSession sesion) 
+    public String postulanteModificar(Model modelo, HttpSession sesion. String usuario) 
     {      
+        Postulante postulante = servicioPostulantes.buscar(usuario);
+        
+        modelo.addAttribute("postulante", postulante);
+
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));    
+        
         return "postulantes/modificar";
     }
     

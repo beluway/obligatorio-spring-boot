@@ -1,5 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
+import java.util.Date;
 import java.util.List;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
@@ -14,4 +15,5 @@ public interface IServicioOfertas {
     List<Oferta> listaOfertas() throws Exception;
     Oferta obtener(Integer id) throws Exception;
     List<Oferta> listaOfertasCliente (Cliente cliente);
+    List<Oferta> listaOfertasVigentes();
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.Nullable;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
@@ -21,32 +22,9 @@ public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer> {
 
     List<Oferta> findAllByOrderByAreaAsc();
     List<Oferta> findAllByCliente(Cliente cliente);
-    
+    //List<Oferta> findByStartDateBetween(Date fechaActual,Date fechaCierreOferta);
 
-   /*  public static Specification <Oferta> ofertasVigentes(Date fechaCierrePublicación, Oferta oferta)
-    {
-       
-        if(fechaCierrePublicación==null)
-        {
-            return null;
-        }
-
-        return new Specification<Oferta>()
-        {
-
-            @Override
-            @Nullable
-            public Predicate toPredicate(Root<Oferta> root, @Nullable CriteriaQuery<?> query,
-                    CriteriaBuilder criteriaBuilder) {
-                
-                criteriaBuilder.between(oferta,new LocalDate().now(),fechaCierrePublicación);
-            }
-           
-
-        }
-
-        
-    }  */
-
+    @Query("SELECT o FROM ofertas o WHERE o.fecha_cierre>=CURRENT_DATE")
+    List<Oferta> ofertasVigentes();
 
 }

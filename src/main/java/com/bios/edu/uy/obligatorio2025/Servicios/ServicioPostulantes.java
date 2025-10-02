@@ -39,15 +39,16 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     {
         Postulante postulanteEncontrado = respositorioPostulantes.findById(usuario).orElse(null);
 
-       /*  for(ofertas o : ofertas){
-            if(o.getId()==id){
-                ofertaEncontrada=o;
-                break;
-            }
-        } */
+        return postulanteEncontrado;       
+    }
 
-       return postulanteEncontrado;
-       
+
+    @Override
+    public Postulante buscar(String usuario)
+    {
+        Postulante postulanteEncontrado = respositorioPostulantes.buscarPostulante(usuario);
+
+        return postulanteEncontrado;
     }
 
      @Override 

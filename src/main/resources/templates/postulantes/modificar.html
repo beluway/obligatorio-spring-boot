@@ -18,37 +18,50 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
       <div>
            <label for="usuario">Usuario</label>
            
-            <input type="text" th:field="*{usuario}" readonly>
+            <!-- <input type="text" th:field="*{usuario}" readonly> -->
+
+                <input type="text" name="usuario" id="usuario" readonly>
         </div>
 
         <div>
-            <label for="primernombre">Primer Nombre</label>
+            <label for="primerNombre">Primer Nombre</label>
 
-            <input type="text" th:field="*{primernombre}">
+            <!-- <input type="text" th:field="*{primerNombre}"> -->
+
+            <input type="text" name="primerNombre" id="primerNombre">
         </div>
 
         <div>
             <label for="segundoNombre"> Segundo Nombre</label>
 
-            <input type="text" th:field="*{segundoNombre}">
+        <!--     <input type="text" th:field="*{segundoNombre}">
+ -->
+            <input type="text" name="segundoNombre" id="segundoNombre">
+
         </div>
 
         <div>
             <label for="primerApellido"> PRIMER APELLIDO </label>
 
-            <input type="text" th:field="*{primerApellido}">
+           <!--  <input type="text" th:field="*{primerApellido}"> -->
+
+             <input type="text" name="primerApellido" id="primerApellido">
         </div>
 
         <div>
             <label for="segundoApellido"> SEGUNDO APELLIDO</label>
 
-            <input type="text" th:field="*{segundoApellido}">
+        <!--<input type="text" th:field="*{segundoApellido}">-->
+
+             <input type="text" name="segundoApellido" id="segundoApellido">
         </div>
 
         <div>
             <label for="fechanacimiento"> FECHA NACIMIENTO</label>
 
-            <input type="date" th:field="*{fechanacimiento}">
+          <!--   <input type="date" th:field="*{fechanacimiento}"> -->
+
+            <input type="date" name="fechanacimiento" id="fechanacimiento">
         </div>
 
         <div>
@@ -79,7 +92,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         </div>
 
         <div>
-            <input type="submit" value="crear">
+            <input type="submit" value="modificar">
         </div>
 
 </form>
