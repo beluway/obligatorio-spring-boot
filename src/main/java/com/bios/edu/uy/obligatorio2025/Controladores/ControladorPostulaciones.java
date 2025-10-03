@@ -63,16 +63,15 @@ public class ControladorPostulaciones {
 
         try
         {   
-            //CANTIDAD DE OFERTAS VENCIDAS DEL POSTULANTE
-            
+            //CANTIDAD DE OFERTAS VENCIDAS DEL POSTULANTE            
             cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario((postulanteLogueado).getUsuario());
-
             
             //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
             if(cantidadPostulacionesActuales - cantidadOfertasVencidas ==3)
             {
                 return "redirect:/home/main";
             }
+
             else
             {
                 servicioPostulaciones.agregar(postulacion);
@@ -82,9 +81,7 @@ public class ControladorPostulaciones {
                 
                 //DESPUES QUE SE POSTULA A UNA OFERTA, SE CUENTA +1, HASTA QUE SEAN 3 RESERVAS ACTUALES.
                 postulanteLogueado.setCantidadPostulaciones(cantidadPostulacionesActuales++);
-
             }
-
         }
         catch(Exception ex)
         {
@@ -105,9 +102,24 @@ public class ControladorPostulaciones {
 
 
     @PostMapping("/eliminar")
-    public String eliminar (@ModelAttribute @Valid Postulacion postulacion, Model modelo, BindingResult resultado) 
-    {           
-        return "postulaciones/eliminar";
+    public String eliminar (@ModelAttribute @Valid Postulacion postulacion, Model modelo, BindingResult resultado,RedirectAttributes attributes) throws Exception 
+    {         
+        if(resultado.hasErrors())
+        {
+            return "postulaciones/eliminar";
+        }
+
+        try
+        {
+            servicioPostulaciones.eliminar(postulacion);                         
+            attributes.addFlashAttribute("mensaje","Postulación eliminada con éxito.");
+            return "redirect:/postulaciones/lista";
+
+        } catch (Exception ex) {
+            modelo.addAttribute("mensaje", "Error " + ex.getMessage());
+
+            return "postulaciones/eliminar";
+        }                
     }
 
 

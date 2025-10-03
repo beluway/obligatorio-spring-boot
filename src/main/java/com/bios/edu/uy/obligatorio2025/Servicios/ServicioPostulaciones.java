@@ -31,7 +31,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     }
 
     @Override 
-    public void eliminar (Integer id)throws ExcepcionBiosWork
+    public void eliminar (Postulacion postulacion)throws ExcepcionBiosWork
     {
         
     }

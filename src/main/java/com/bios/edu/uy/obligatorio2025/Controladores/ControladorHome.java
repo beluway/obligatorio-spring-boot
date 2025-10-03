@@ -128,11 +128,11 @@ HttpSession sessionUsuario;
     @GetMapping("/deslogueo")
     public String deslogueo(Model modelo,HttpSession session) {
              
-        //SE BORRAN TODOS LOS DATOS DE SESION
-        session.invalidate();
-
-         //SE ELIMINA LA SESIÓN DE USUARIO
+               //SE ELIMINA LA SESIÓN DE USUARIO
         session.removeAttribute("usuarioLogueado");
+
+          //SE BORRAN TODOS LOS DATOS DE SESION
+        session.invalidate();
 
         return "home/deslogueo";
 

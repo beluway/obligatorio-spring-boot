@@ -57,8 +57,8 @@ private ServicioConsultores servicioConsultores;
         }
         else
         {
-         modelo.addAttribute("mensaje",mensaje);
-         servicioConsultores.agregar(consultor);
+            modelo.addAttribute("mensaje",mensaje);
+            servicioConsultores.agregar(consultor);
         }
         return "redirect:/consultores/crear";
     }

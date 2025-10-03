@@ -9,7 +9,7 @@ public interface IServicioPostulaciones {
 
     void agregar (Postulacion postulacion) throws ExcepcionBiosWork;
     void modificar (Postulacion postulacion) throws ExcepcionBiosWork;
-    void eliminar (Integer id) throws ExcepcionBiosWork;
+    void eliminar (Postulacion postulacion) throws ExcepcionBiosWork;
     List<Postulacion> listaPostulaciones () throws Exception;
     
 }

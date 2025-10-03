@@ -15,8 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
-
-
+import com.bios.edu.uy.obligatorio2025.Servicios.ServicioClientes;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -24,13 +23,14 @@ import jakarta.validation.Valid;
 @RequestMapping("/clientes")
 
 public class ControladorClientes {
+
+   
 /*    
     @Autowired
     private IRepostorioClientes repositorioClientes; */
 
     @Autowired
     private IServicioClientes servicioClientes;
-
 
     @GetMapping("/crear")
     public String clienteCrear(Model modelo, HttpSession sesion) throws Exception
@@ -45,16 +45,33 @@ public class ControladorClientes {
     public String clienteProcesarCrear (@ModelAttribute @Valid Cliente cliente, 
     Model modelo, 
     BindingResult resultado,
-    RedirectAttributes atributos) throws Exception 
+    RedirectAttributes attributes) throws Exception 
     {              
          if(resultado.hasErrors()){
-            atributos.addFlashAttribute("mensaje", "Errores en el formulario");
-            return "redirect:/postulantes/crear";
+            attributes.addFlashAttribute("mensaje", "Errores en el formulario");
+            return "redirect:/clientes/crear";
           }
 
-        servicioClientes.agregar(cliente);         
+          if(servicioClientes.obtener(cliente.getUsuario())!=null)
+          {
+             attributes.addFlashAttribute("mensaje", "Ya existe el usuario");
+             return "redirect:/clientes/crear";
+          }
+
+          try
+          {
+            servicioClientes.agregar(cliente); 
+
+            attributes.addFlashAttribute("mensaje","Cliente agregado con éxito.");
+            return "redirect:/clientes/lista";
+          
+          }
+          catch(Exception e)
+          {
+            modelo.addAttribute("mensaje","Hubo un error "+ e.getMessage());
+           return "redirect:/clientes/crear";
+          }                     
         
-        return "redirect:/clientes/crear";
     }
 
 
@@ -97,6 +114,7 @@ public class ControladorClientes {
         return "clientes/modificar";
     }
     
+
     @PostMapping("/modificar")
     public String clientesModificar(@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado,RedirectAttributes attributes) throws Exception{
      
@@ -146,6 +164,7 @@ public class ControladorClientes {
 
         return "clientes/lista";
     }
+    
     return "home/main";
     } 
 
