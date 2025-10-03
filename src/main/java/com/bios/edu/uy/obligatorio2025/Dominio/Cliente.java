@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
 
+
 @Entity
 @Table(name = "clientes")
 @PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
@@ -34,8 +35,9 @@ public class Cliente extends Usuario {
     private String nombre;
    
    @Pattern(
-    regexp = "^(http.|www|..)$",
-    message = "La URL debe comenzar con http o con www")
+    regexp = "^www\\..*\\.com$",
+    message = "La URL debe comenzar con www")
+
     @Column(name="url", unique = true)
     private String url;
 
@@ -66,13 +68,15 @@ public class Cliente extends Usuario {
     public Cliente(String usuario, String clave,
             @NotNull(message = "Ingrese el RUT.") @Digits(integer = 12, fraction = 0, message = "El RUT debe tener 12 dígitos") Long rut,
             @NotNull(message = "Ingrese el nombre.") String nombre,
-            @Pattern(regexp = "^www\\..*", message = "La URL debe empezar con www") @Pattern(regexp = ".*\\.com$", message = "La URL debe terminar en .com") String url) {
+            @Pattern(regexp = "^www\\..*\\.com$", message = "La URL debe comenzar con www") String url) {
         super(usuario, clave);
         this.rut = rut;
         this.nombre = nombre;
         this.url = url;
     }
 
-     public Cliente(){}
+    public Cliente(){}
 
+  
+   
 }
