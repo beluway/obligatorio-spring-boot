@@ -30,6 +30,7 @@ public class Oferta {
  
 private Integer id;
 
+
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fechaPublicacion", nullable = false)
