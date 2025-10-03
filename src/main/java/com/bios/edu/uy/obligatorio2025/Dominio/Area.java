@@ -17,7 +17,7 @@ public class Area {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
     private Integer id;
-    @Column(name = "nombre")
+    @Column(name = "nombre", unique = true)
     @NotNull(message = "ingrese el nombre del área")
      private String nombre;
 
@@ -40,19 +40,17 @@ public class Area {
     //constructor x defecto para JPA
     public Area(){}
 
-    public Area(@NotNull(message = "ingrese el nombre del área") String nombre) {
+    public Area(Integer id, @NotNull(message = "ingrese el nombre del área") String nombre) {
+        this.id = id;
         this.nombre = nombre;
     }
 
     @Override
     public String toString() {
-        return "areas [id=" + id + ", nombre=" + nombre + "]";
+        return "Area [id=" + id + ", nombre=" + nombre + "]";
     }
 
-    public Area(Integer id, @NotNull(message = "ingrese el nombre del área") String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
+   
 
     
 

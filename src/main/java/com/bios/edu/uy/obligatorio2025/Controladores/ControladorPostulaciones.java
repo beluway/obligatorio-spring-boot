@@ -51,8 +51,10 @@ public class ControladorPostulaciones {
     {       
         Integer cantidadOfertasVencidas;
         
+        Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
+
         //CANTIDAD DE POSTULACIONES ACTUALES DEL USUARIO LOGUEADO
-        Integer cantidadPostulacionesActuales = ((Postulante)sesion.getAttribute("usuarioLogueado")).getCantidadPostulaciones();
+        Integer cantidadPostulacionesActuales = (postulanteLogueado).getCantidadPostulaciones();
 
         if(resultado.hasErrors())
         {
@@ -63,7 +65,7 @@ public class ControladorPostulaciones {
         {   
             //CANTIDAD DE OFERTAS VENCIDAS DEL POSTULANTE
             
-            cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario(((Postulante)sesion.getAttribute("usuarioLogueado")).getUsuario());
+            cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario((postulanteLogueado).getUsuario());
 
             
             //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
@@ -76,10 +78,12 @@ public class ControladorPostulaciones {
                 servicioPostulaciones.agregar(postulacion);
  
                  String mensaje = "Se agregó la postulación correctamente";
-
                  attributes.addFlashAttribute("mensaje",mensaje);
 
                  //SUMAR 1 A LA CANTIDAD DE POSTULACIONES
+                int cantidadPostulaciones = postulanteLogueado.getCantidadPostulaciones();
+                postulanteLogueado.setCantidadPostulaciones(cantidadPostulaciones++);
+
             }
 
         }

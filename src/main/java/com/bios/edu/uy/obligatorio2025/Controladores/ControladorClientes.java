@@ -68,11 +68,26 @@ public class ControladorClientes {
     }
 
     @PostMapping("/eliminar")
-    public String clienteEliminar(@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado)  {
+    public String clienteEliminar(@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado, RedirectAttributes attributes) throws Exception  {
               
-        return "redirect:/clientes/eliminar";
-    }
-    
+        if(resultado.hasErrors())
+        {
+            return "clientes/eliminar";
+        }
+
+        try
+        {
+            servicioClientes.eliminar(cliente.getUsuario());
+            attributes.addFlashAttribute("mensaje","Cliente eliminado con éxito");
+            return "redirect:/clientes/lista";
+        }
+        catch(Exception ex)
+        {
+            modelo.addAttribute("mensaje", "Hubo un error "+ex.getMessage());
+
+            return "clientes/eliminar";
+        }
+    }    
     
     @GetMapping("/modificar")
     public String clienteModificar(Model modelo, HttpSession sesion) {
@@ -83,9 +98,28 @@ public class ControladorClientes {
     }
     
     @PostMapping("/modificar")
-    public String clientesModificar(@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado) {
-       
-        return "redirect:/clientes/modificar";
+    public String clientesModificar(@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado,RedirectAttributes attributes) throws Exception{
+     
+        if(resultado.hasErrors())
+        {
+            return "clientes/modificar";
+        }
+
+        try
+        {
+            servicioClientes.modificar(cliente);
+
+            attributes.addFlashAttribute("mensaje","Cliente modificado con éxito.");
+
+             return "redirect:/clientes/lista";
+        }
+
+        catch (Exception ex)
+        {
+           modelo.addAttribute("mensaje","Hubo un error "+ ex.getMessage());
+
+           return "clientes/modificar";
+        }
     }
     
 
