@@ -77,12 +77,11 @@ public class ControladorPostulaciones {
             {
                 servicioPostulaciones.agregar(postulacion);
  
-                 String mensaje = "Se agregó la postulación correctamente";
-                 attributes.addFlashAttribute("mensaje",mensaje);
-
-                 //SUMAR 1 A LA CANTIDAD DE POSTULACIONES
-                int cantidadPostulaciones = postulanteLogueado.getCantidadPostulaciones();
-                postulanteLogueado.setCantidadPostulaciones(cantidadPostulaciones++);
+                String mensaje = "Se agregó la postulación correctamente";
+                attributes.addFlashAttribute("mensaje",mensaje);
+                
+                //DESPUES QUE SE POSTULA A UNA OFERTA, SE CUENTA +1, HASTA QUE SEAN 3 RESERVAS ACTUALES.
+                postulanteLogueado.setCantidadPostulaciones(cantidadPostulacionesActuales++);
 
             }
 
