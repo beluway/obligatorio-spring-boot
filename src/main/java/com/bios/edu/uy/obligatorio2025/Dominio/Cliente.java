@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Table(name = "clientes")
@@ -33,8 +33,9 @@ public class Cliente extends Usuario {
     @NotNull(message = "Ingrese el nombre.")
     private String nombre;
    
-    @Pattern(regexp = "^www\\..*", message = "La URL debe empezar con www")
-    @Pattern(regexp = ".*\\.com$", message = "La URL debe terminar en .com")
+   @Pattern(
+    regexp = "^(http.|www|..)$",
+    message = "La URL debe comenzar con http o con www")
     @Column(name="url", unique = true)
     private String url;
 
