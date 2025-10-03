@@ -82,11 +82,7 @@ public class ControladorPostulantes {
         //si no existe la carpeta desitno, SE CREA        
         if (!carpetaDestino.exists()) carpetaDestino.mkdirs();
 
-        
-       // File archivoDestino = new File(carpetaDestino, pdf.getOriginalFilename());
-
-        //File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString() + ".pdf");
-
+     
          File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString()+".pdf");
 
         try

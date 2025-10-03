@@ -160,8 +160,6 @@ public class ControladorOfertas {
         modelo.addAttribute("listaOfertasCliente", OfertasCliente);
 
         return "ofertas/listaPorCliente";
-
-    }
-    
+    }   
 
 }
