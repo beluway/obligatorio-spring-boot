@@ -20,7 +20,7 @@ public interface IRepositorioPostulantes extends JpaRepository<Postulante,String
  //@Query("select * from usuarios u inner join postulantes p on u.usuario = p.usuario")
  
 
- @Query("select u from usuarios u inner join postulantes p where u.usuario WHERE u.usuario=:usuario")
+ @Query(value="select u from usuarios u inner join postulantes p where u.usuario = p.usuario",nativeQuery = true)
  Postulante buscarPostulante (@Param("usuario")String usuario);
  
 

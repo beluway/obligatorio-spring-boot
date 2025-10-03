@@ -128,7 +128,7 @@ public class ControladorPostulantes {
     
     
     @GetMapping("/modificar")
-    public String postulanteModificar(Model modelo, HttpSession sesion. String usuario) 
+    public String postulanteModificar(Model modelo, HttpSession sesion, String usuario) 
     {      
         Postulante postulante = servicioPostulantes.buscar(usuario);
         
