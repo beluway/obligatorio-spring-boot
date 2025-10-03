@@ -46,7 +46,7 @@
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}">
                     <a th:href="@{/postulantes/lista}">Ver postulantes</a></li>
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}">
-                    <a th:href="@{/ofertas/main}">Ofertas</a></li>
+                    <a th:href="@{/ofertas/lista}">Ofertas</a></li>
 
                     <!--SI ES POSTULANTE-->
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}">

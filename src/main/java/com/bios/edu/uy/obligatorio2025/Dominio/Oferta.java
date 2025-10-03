@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -16,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.*;
 
 
@@ -29,18 +31,17 @@ public class Oferta {
 private Integer id;
 
     @NotNull
-    @PastOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fechaPublicacion", nullable = false)
-    private Date fechaPublicacion; 
+    private LocalDate fechaPublicacion; 
     
     @NotNull
     @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fechaCierre", nullable = false)
-    private Date fechaCierre;
+    private LocalDate fechaCierre;
 
-    @NotNull(message = "seleccione el cliente")
+  /*@NotNull(message = "seleccione el cliente") */
     @ManyToOne // UN CLIENTE PUEDE TENER MUCHAS OFERTAS
     @JoinColumn(name = "cliente",nullable = false)
     private Cliente cliente;
@@ -72,19 +73,20 @@ private Integer id;
         this.id = id;
     }
 
-    public Date getFechaPublicacion() {
+   
+    public LocalDate getFechaPublicacion() {
         return fechaPublicacion;
     }
 
-    public void setFechaPublicacion(Date fechaPublicacion) {
+    public void setFechaPublicacion(LocalDate fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
     }
 
-    public Date getFechaCierre() {
+    public LocalDate getFechaCierre() {
         return fechaCierre;
     }
 
-    public void setFechaCierre(Date fechaCierre) {
+    public void setFechaCierre(LocalDate fechaCierre) {
         this.fechaCierre = fechaCierre;
     }
 
@@ -132,13 +134,10 @@ private Integer id;
     //Hibernate necesita un constructor público vacío en todas las entidades (@Entity). Esto es obligatorio para poder instanciarlas al leer datos desde la base de datos.
     public Oferta(){}
 
-    //constructor completo
-    public Oferta(Integer id, @NotNull @PastOrPresent Date fechaPublicacion, @NotNull @PastOrPresent Date fechaCierre,
-            @NotNull(message = "seleccione el cliente") Cliente cliente,
-            @NotNull(message = "Ingrese una descripción") String descripcion,
-            @NotNull(message = "Ingrese el título") String titulo,
-            @NotNull(message = "Ingrese una área") Area area,
-            @NotNull(message = "Ingrese la cantidad de puestos vacantes") Integer cantidadVacantes) {
+    public Oferta(Integer id, @NotNull LocalDate fechaPublicacion, @NotNull @Future LocalDate fechaCierre,
+            Cliente cliente, @NotNull(message = "Ingrese una descripción") String descripcion,
+            @NotNull(message = "Ingrese el título") String titulo, @NotNull(message = "Ingrese una área") Area area,
+            @NotNull(message = "Ingrese la cantidad de puestos vacantes") @Min(0) Integer cantidadVacantes) {
         this.id = id;
         this.fechaPublicacion = fechaPublicacion;
         this.fechaCierre = fechaCierre;
@@ -149,13 +148,14 @@ private Integer id;
         this.cantidadVacantes = cantidadVacantes;
     }
 
-    
     @Override
     public String toString() {
-        return "ofertas [id=" + id + ", fechaPublicacion=" + fechaPublicacion + ", fechaCierre=" + fechaCierre
-                + ", cliente=" + cliente + ", descripcion=" + descripcion + ", titulo=" + titulo + "área= "+area+", cantidadVacantes="
-                + cantidadVacantes + "]";
+        return "Oferta [id=" + id + ", fechaPublicacion=" + fechaPublicacion + ", fechaCierre=" + fechaCierre
+                + ", cliente=" + cliente + ", descripcion=" + descripcion + ", titulo=" + titulo + ", area=" + area
+                + ", cantidadVacantes=" + cantidadVacantes + "]";
     }
+
+   
 
    /*  @Embeddable
     private class OfertaFK implements Serializable {

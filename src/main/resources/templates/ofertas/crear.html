@@ -48,16 +48,10 @@
 <form th:action="@{/ofertas/crear}" method="post" th:object="${ofertas}">
 
         <!--Es necesario preguntar usuario? No sería el que está navegando en el sitio?-->
-        <div>
-            <label for="usuario">Usuario</label>           
-            <input type="text" th:field="*{cliente}">
-            <p th:errors="*{cliente}" class="error"></p>
-
-        </div>
-       
+              
        <div>
            <label for="titulo"> Título </label>
-           <input type="text" th:filed="*{titulo}">
+           <input type="text" name="titulo" id="titulo">
            <p th:errors="*{titulo}" class="error"></p>
        </div>           
        
@@ -79,13 +73,13 @@
 
         <div>
             <label for="fechaCierre">Fecha Cierre</label>
-            <input type="date" th:field="*{fechaCierre}">
+            <input type="date" name="fechaCierre" id="fechaCierre">
             <p th:errors="*{fechaCierre}" class="error"></p>
         </div>
 
         <div>
             <label for="cantidadVacantes"> Cantidad Vacantes</label>
-            <input type="number" th:field="*{cantidadVacantes}">
+            <input type="number" name="cantidadVacantes" id="cantidadVacantes">
             <p th:errors="*{cantidadVacantes}" class="error"></p>
         </div>
 

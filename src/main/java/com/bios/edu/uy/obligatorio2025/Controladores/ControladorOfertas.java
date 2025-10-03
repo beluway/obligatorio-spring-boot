@@ -1,7 +1,12 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
+import java.util.Date;
+import java.rmi.server.ExportException;
+import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.type.descriptor.java.LocalDateJavaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +45,7 @@ public class ControladorOfertas {
     @GetMapping("/crear")
     public String crearOferta(@ModelAttribute Oferta ofertas, HttpSession sesion, Model modelo)
     {
-         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));   
+         modelo.addAttribute("usuarioLogueado", (Cliente)sesion.getAttribute("usuarioLogueado"));   
          modelo.addAttribute("ofertas", new Oferta());       
          modelo.addAttribute("areas", servicioAreas.listaAreas());
 
@@ -49,11 +54,24 @@ public class ControladorOfertas {
     }
 
     @PostMapping("/crear") 
-    public String procesarCrearOferta (@ModelAttribute @Valid Oferta ofertas, Model modelo, BindingResult resultado, HttpSession sesion) 
+    public String procesarCrearOferta (@ModelAttribute @Valid Oferta ofertas, Model modelo, BindingResult resultado, HttpSession sesion)  throws Exception
     {               
+
+        //SE SETEA EL CLIENTE QUE CREA LA OFERTA
+        ofertas.setCliente((Cliente)sesion.getAttribute("usuarioLogueado"));
+    
+        //SE SETEA LA FECHA DE HO
+        ofertas.setFechaPublicacion(LocalDate.now());
+
         //SE TRAE EL USUARIO LOGUEADO DESDE LA SESION
-        sesion.getAttribute("usuarioLogueado");
-        
+        sesion.getAttribute("usuarioLogueado");            
+
+
+
+
+        servicioOfertas.agregar(ofertas);
+
+
         return "redirect:/ofertas/crear";
     }
 

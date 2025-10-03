@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,7 +35,7 @@ public class Postulacion {
     @PastOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fechaPostulacion")
-    private Date fechaPostulacion; 
+    private LocalDate fechaPostulacion; 
 
     //LA COLUMNA OFERTA ES UNA UNION (JOIN) CON LA TABLA OFERTA Y ADEMAS FORMA LA PK COMPUESTA    
     @NotNull
@@ -51,11 +52,11 @@ public class Postulacion {
     private Postulante postulante;
 
 
-    public Date getFechaPostulacion() {
+    public LocalDate getFechaPostulacion() {
         return fechaPostulacion;
     }
 
-    public void setFechaPostulacion(Date fechaPostulacion) {
+    public void setFechaPostulacion(LocalDate fechaPostulacion) {
         this.fechaPostulacion = fechaPostulacion;
     }
 
@@ -79,7 +80,7 @@ public class Postulacion {
     public Postulacion(){}
 
 
-public Postulacion(PostulacionId id, @NotNull @PastOrPresent Date fechaPostulacion, @NotNull Oferta oferta,
+public Postulacion(PostulacionId id, @NotNull @PastOrPresent LocalDate fechaPostulacion, @NotNull Oferta oferta,
         @NotNull Postulante postulante) {
     this.id = id;
     this.fechaPostulacion = fechaPostulacion;
