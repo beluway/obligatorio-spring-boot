@@ -8,42 +8,8 @@
     <title>Formulario Oferta Laboral</title>
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
-<body>
+
 <div class="card">
-
-<!--
-    
-<h2>Registrar Nueva Oferta Laboral</h2>
-    <form action="#" method="post">
-        <label for="titulo">Título</label>
-        <input type="text" id="titulo" name="titulo" placeholder="Ej: Desarrollador Frontend" required>
-
-        <label for="fecha_cierre">Fecha de cierre</label>
-        <input type="date" id="fecha_cierre" name="fecha_cierre" required>
-        
-        <label for="area">Área</label>
-        <select id="area" name="area" required>
-            <option value="">-- Selecciona un área --</option>
-            <option value="TI">Tecnología</option>
-            <option value="RRHH">Recursos Humanos</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Ventas">Ventas</option>
-            <option value="Administración">Administración</option>
-        </select>
-
-        <label for="descripcion">Descripción detallada</label>
-        <textarea id="descripcion" name="descripcion" placeholder="Describe las tareas, requisitos y condiciones..." required></textarea>
-
-        <label for="vacantes">Cantidad de puestos vacantes</label>
-        <input type="number" id="vacantes" name="vacantes" min="1" placeholder="Ej: 3" required>
-
-        <button type="submit">Publicar Oferta</button>
-
-        <a href="listado.html" id="volver">Volver</a>
-    </form>
-
--->
-
 <section>
 <form th:action="@{/ofertas/crear}" method="post" th:object="${ofertas}">
 
@@ -52,7 +18,7 @@
        <div>
            <label for="titulo"> Título </label>
            <input type="text" name="titulo" id="titulo">
-           <p th:errors="*{titulo}" class="error"></p>
+           <!-- <p th:errors="*{titulo}" class="error"></p> -->
        </div>           
        
         <div>
@@ -65,22 +31,23 @@
 
         <div>
             <label for="area.nombre">Área</label>
-            <select th:field="*{area.nombre}">
-                <option th:each="a : ${areas}" th:value="${a.nombre}" th:text="${a.nombre}"></option>
+            <select th:field="*{area.id}">
+                <option th:each="a : ${areas}" th:value="${a.id}" th:text="${a.nombre}"></option>
             </select>
-            <p th:errors="*{area.nombre}" class="error"></p>
+           <!--  <p th:errors="*{area.nombre}" class="error"></p> -->
         </div>
+      
 
         <div>
             <label for="fechaCierre">Fecha Cierre</label>
             <input type="date" name="fechaCierre" id="fechaCierre">
-            <p th:errors="*{fechaCierre}" class="error"></p>
+            <!-- <p th:errors="*{fechaCierre}" class="error"></p> -->
         </div>
 
         <div>
             <label for="cantidadVacantes"> Cantidad Vacantes</label>
             <input type="number" name="cantidadVacantes" id="cantidadVacantes">
-            <p th:errors="*{cantidadVacantes}" class="error"></p>
+           <!--  <p th:errors="*{cantidadVacantes}" class="error"></p> -->
         </div>
 
         <div>
@@ -92,5 +59,4 @@
     
     
 </div>
-</body>
 </html>

@@ -22,24 +22,25 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioAreas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
-
+import com.bios.edu.uy.obligatorio2025.Servicios.ServicioAreas;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-
 
 
 @Controller
 @RequestMapping("/ofertas")
 public class ControladorOfertas {
 
-    @Autowired
-    private IServicioOfertas servicioOfertas;
    
+       @Autowired
+    private IServicioOfertas servicioOfertas;
+ 
 /*     @Autowired
     private IRepositorioAreas repositorioAreas; */
 
     @Autowired
     private IServicioAreas servicioAreas;
+
 
 
     @GetMapping("/crear")
@@ -49,30 +50,29 @@ public class ControladorOfertas {
          modelo.addAttribute("ofertas", new Oferta());       
          modelo.addAttribute("areas", servicioAreas.listaAreas());
 
-        return "ofertas/crear";
-        
+        return "ofertas/crear";        
     }
 
-    @PostMapping("/crear") 
-    public String procesarCrearOferta (@ModelAttribute @Valid Oferta ofertas, Model modelo, BindingResult resultado, HttpSession sesion)  throws Exception
-    {               
 
+
+    @PostMapping("/crear") 
+    public String procesarCrearOferta (@ModelAttribute @Valid Oferta ofertas, BindingResult resultado, Model modelo,HttpSession sesion)  throws Exception
+    {               
         //SE SETEA EL CLIENTE QUE CREA LA OFERTA
         ofertas.setCliente((Cliente)sesion.getAttribute("usuarioLogueado"));
     
         //SE SETEA LA FECHA DE HO
         ofertas.setFechaPublicacion(LocalDate.now());
 
+    /*     Area areaParaOferta = servicioAreas.obtener(modelo.getAttribute("areas"));
+ */
+
         //SE TRAE EL USUARIO LOGUEADO DESDE LA SESION
         sesion.getAttribute("usuarioLogueado");            
 
-
-
-
         servicioOfertas.agregar(ofertas);
 
-
-        return "redirect:/ofertas/crear";
+        return "redirect:/ofertas/lista";
     }
 
 

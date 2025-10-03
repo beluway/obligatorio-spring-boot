@@ -51,7 +51,6 @@ public class Postulacion {
     @JoinColumn (name="postulante",nullable = false)
     private Postulante postulante;
 
-
     public LocalDate getFechaPostulacion() {
         return fechaPostulacion;
     }

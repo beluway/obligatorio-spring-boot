@@ -27,7 +27,7 @@ public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer> {
     @Query(value = "SELECT * FROM ofertas o WHERE o.fecha_cierre>=CURRENT_DATE",nativeQuery=true)
     List<Oferta> ofertasVigentes();
 
-    @Query(value = "SELECT COUNT(*)  FROM ofertas o INNER JOIN postulaciones p1 ON p1.oferta = o.id INNER JOIN postulantes p2 ON p2.usuario = p1.postulante  WHERE p2.usuario = ?1 AND o.fechaCierre > CURRENT_DATE",nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM ofertas o INNER JOIN postulaciones p1 ON p1.oferta = o.id INNER JOIN postulantes p2 ON p2.usuario = p1.postulante  WHERE p2.usuario = ?1 AND o.fechaCierre > CURRENT_DATE",nativeQuery = true)
     Integer cantidadOfertasVencidasPorUsuario(String usuario);
 
 

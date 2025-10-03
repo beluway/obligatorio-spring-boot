@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-
-
 @Controller
 @RequestMapping("/home")
 public class ControladorHome {
@@ -129,9 +127,12 @@ HttpSession sessionUsuario;
     
     @GetMapping("/deslogueo")
     public String deslogueo(Model modelo,HttpSession session) {
-        
-        //SE ELIMINA LA SESIÓN DE USUARIO
-        session.setAttribute("usuarioLogueado", null);
+             
+        //SE BORRAN TODOS LOS DATOS DE SESION
+        session.invalidate();
+
+         //SE ELIMINA LA SESIÓN DE USUARIO
+        session.removeAttribute("usuarioLogueado");
 
         return "home/deslogueo";
 

@@ -55,7 +55,6 @@ private Integer id;
     @NotNull(message = "Ingrese el título")
     private String titulo;
 
-
     @NotNull(message = "Ingrese una área")
     @ManyToOne
     @JoinColumn(name = "area",nullable = false)
