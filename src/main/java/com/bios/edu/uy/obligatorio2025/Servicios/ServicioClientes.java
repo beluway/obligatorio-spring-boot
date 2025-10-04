@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionYaExiste;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepostorioClientes;
 
@@ -63,20 +64,36 @@ public class ServicioClientes implements IServicioClientes  {
     
 //MODIFICAR
  @Override
-  public void modificar (Cliente cliente) throws ExcepcionBiosWork
+  public void modificar (Cliente clienteActualizado, String nuevaClave) throws ExcepcionBiosWork
     { 
-       /*  int posicion = obtenerPosicion(cliente.getUsuario());
+         Cliente existente = obtener(clienteActualizado.getUsuario());
 
-        if (posicion == -1) {
-            throw new Exception("El cliente no existe.");
+        // Si algún campo vino vacío, conservamos el valor anterior
+        if (clienteActualizado.getUsuario() == null || clienteActualizado.getUsuario().isBlank()) {
+            clienteActualizado.setUsuario(existente.getUsuario());
+        }
+        if (clienteActualizado.getNombre() == null || clienteActualizado.getNombre().isBlank()) {
+            clienteActualizado.setNombre(existente.getNombre());
+        }
+        if (clienteActualizado.getClave() == null || clienteActualizado.getClave().isBlank()) {
+            clienteActualizado.setClave(existente.getClave());
+        }
+        if (clienteActualizado.getRut() == null || clienteActualizado.getRut().toString().isBlank()) {
+            clienteActualizado.setRut(existente.getRut());
+        }
+        if (clienteActualizado.getUrl() == null || clienteActualizado.getUrl().isBlank()) {
+            clienteActualizado.setUrl(existente.getUrl());
         }
 
-        cliente.setNombre(cliente.getNombre());
-        cliente.setRut(cliente.getRut());
+        
 
-        clientes.set(posicion, cliente);
- */
-        repositorioClientes.save(obtener(cliente.getUsuario()));
+        if (nuevaClave != null && !nuevaClave.isBlank()) {
+        clienteActualizado.setClave(nuevaClave);
+        } else {
+        clienteActualizado.setClave(existente.getClave());
+        }
+
+        repositorioClientes.save(clienteActualizado);
 
    }
 
