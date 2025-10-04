@@ -35,7 +35,7 @@ private Integer id;
     @NotNull
     @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "fechaCierre", nullable = false)
+    @Column(name = "fecha_Cierre", nullable = false)
     private LocalDate fechaCierre;
 
   /*@NotNull(message = "seleccione el cliente") */

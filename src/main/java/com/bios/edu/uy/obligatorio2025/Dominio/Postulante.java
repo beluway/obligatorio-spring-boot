@@ -1,6 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
-
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -188,27 +187,6 @@ public class Postulante extends Usuario{
         this.segundoApellido = segundoApellido;
     }
 
-
-/*     public Postulante(String usuario, String clave, int cantidadPostulaciones,
-            @NotNull(message = "Ingrese la cedula") Long cedula,
-            @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent LocalDate fechanacimiento,
-            @NotNull(message = "Seleccione el departamento") String departamento,
-            @NotNull(message = "Ingrese el nombre") String primerNombre, String segundoNombre,
-            @NotNull(message = "ingrese el apellido") String primerApellido,
-            @NotNull(message = "ingrese el segundo apellido") String segundoApellido) {
-       
-                super(usuario, clave);
-
-        this.cantidadPostulaciones = cantidadPostulaciones;
-        this.cedula = cedula;
-        this.fechanacimiento = fechanacimiento;
-        this.departamento = departamento;
-        this.primerNombre = primerNombre;
-        this.segundoNombre = segundoNombre;
-        this.primerApellido = primerApellido;
-        this.segundoApellido = segundoApellido;
-    } */
-  
 
 
     

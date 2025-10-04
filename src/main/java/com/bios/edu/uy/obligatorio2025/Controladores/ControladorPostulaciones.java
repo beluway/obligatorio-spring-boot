@@ -59,10 +59,11 @@ public class ControladorPostulaciones {
     BindingResult resultado, 
     Model modelo, 
     HttpSession sesion,
-    RedirectAttributes attributes) throws Exception 
-    {       
-         
-        
+    RedirectAttributes attributes) throws Exception /*  */
+    {      
+
+        Integer cantidadOfertasVencidasPorPostulacion =0;
+                 
         Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
 
         Oferta ofertaEncontrada = servicioOfertas.obtener(postulacion.getOferta().getId()); 
@@ -71,10 +72,10 @@ public class ControladorPostulaciones {
         postulacion.setPostulante(postulanteLogueado);
         postulacion.setFechaPostulacion(LocalDate.now());
 
-        if(resultado.hasErrors())
+        /* if(resultado.hasErrors())
         {           
             return "postulaciones/crear";
-        }
+        } */
 
         try
         {   
@@ -82,10 +83,19 @@ public class ControladorPostulaciones {
          //CANTIDAD DE POSTULACIONES ACTUALES DEL USUARIO LOGUEADO
         Integer cantidadPostulacionesActuales = (postulanteLogueado).getCantidadPostulaciones();   
             //CANTIDAD DE OFERTAS VENCIDAS DEL POSTULANTE            
-         Integer cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario(postulanteLogueado.getUsuario());
-            
+        //Integer cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario(postulanteLogueado.getUsuario());
+         
+        for (Postulacion p : servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado)) 
+        {          
+           if(p.getOferta().getFechaCierre().isBefore(LocalDate.now()))
+           {
+                cantidadOfertasVencidasPorPostulacion++;
+           }
+        }          
+
+       
             //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
-            if(cantidadPostulacionesActuales - cantidadOfertasVencidas ==3)
+            if(cantidadPostulacionesActuales - cantidadOfertasVencidasPorPostulacion ==3)
             {
                 return "redirect:/home/main";
             }

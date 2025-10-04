@@ -13,5 +13,7 @@ public interface IServicioPostulaciones {
     void eliminar (Postulacion postulacion) throws ExcepcionBiosWork;
     List<Postulacion> listaPostulaciones () throws Exception;
     List<Postulacion> listaPostulacionesPorUsuario(Postulante postulante) throws Exception;
-    
+     List<Postulacion> listaPostulacionPorPostulante(Postulante postulante);
+     List<Postulacion> findAllByPostulante(Postulante postulante);
+    List<Postulacion> listaPostulacionesPorPostulante(Postulante postulante);
 }

@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
+
+import jakarta.validation.OverridesAttribute;
 
 
 @Service
@@ -94,13 +97,18 @@ private IRepositorioOfertas repositorioOfertas;
          return listaOfertasVigentes;
     }
 
-
     @Override
+    public List<Oferta> listaOfertasPorPostulante(Postulante postulante)
+    {
+        return  repositorioOfertas.findAllByPostulante(postulante);
+    }
+
+    /* @Override
     public Integer cantidadOfertasVencidasPorUsuario(String usuario)
     {
         Integer cantidadOfertasVencidasPorUsuario = repositorioOfertas.cantidadOfertasVencidasPorUsuario(usuario);
 
         return cantidadOfertasVencidasPorUsuario;
-    }
+    } */
 
 }

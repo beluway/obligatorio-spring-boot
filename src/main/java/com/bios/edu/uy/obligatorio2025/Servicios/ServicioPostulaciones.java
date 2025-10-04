@@ -47,7 +47,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     }
 
     @Override
-    public List<Postulacion> listaPostulacionesPorUsuario(Postulante postulante)
+    public List<Postulacion> listaPostulacionesPorPostulante(Postulante postulante)
     {
        return repositorioPostulaciones.findAllByPostulante(postulante);
     }
