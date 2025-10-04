@@ -1,5 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,42 +37,52 @@ public class ControladorPostulaciones {
     private IServicioOfertas servicioOfertas;
 
     @GetMapping("/crear")
-    public String crear(Model modelo, HttpSession sesion)
+    public String crear(Model modelo, HttpSession sesion) throws Exception
     {    
-         modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));   
-         modelo.addAttribute("postulacion", new Postulacion());       
-         modelo.addAttribute("ofertasVigentes", servicioOfertas.listaOfertasVigentes());
+        
+     Postulacion postulacion = new Postulacion();
+     postulacion.setOferta(new Oferta());
+
+        modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado")); 
+        modelo.addAttribute("postulacion", new Postulacion());       
+        modelo.addAttribute("ofertasVigentes", servicioOfertas.listaOfertasVigentes());
 
         return "postulaciones/crear";    
      
     }
 
-
+ 
 
     @PostMapping("/crear")
-    public String crear (@ModelAttribute @Valid Postulacion postulacion, 
+    public String crear (
+    @ModelAttribute @Valid Postulacion postulacion, 
+    BindingResult resultado, 
     Model modelo, 
-    BindingResult 
-    resultado, 
     HttpSession sesion,
     RedirectAttributes attributes) throws Exception 
     {       
-        Integer cantidadOfertasVencidas;
+         
         
         Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
 
-        //CANTIDAD DE POSTULACIONES ACTUALES DEL USUARIO LOGUEADO
-        Integer cantidadPostulacionesActuales = (postulanteLogueado).getCantidadPostulaciones();
+        Oferta ofertaEncontrada = servicioOfertas.obtener(postulacion.getOferta().getId()); 
+       
+        postulacion.setOferta(ofertaEncontrada);
+        postulacion.setPostulante(postulanteLogueado);
+        postulacion.setFechaPostulacion(LocalDate.now());
 
         if(resultado.hasErrors())
-        {
+        {           
             return "postulaciones/crear";
         }
 
         try
         {   
+
+         //CANTIDAD DE POSTULACIONES ACTUALES DEL USUARIO LOGUEADO
+        Integer cantidadPostulacionesActuales = (postulanteLogueado).getCantidadPostulaciones();   
             //CANTIDAD DE OFERTAS VENCIDAS DEL POSTULANTE            
-            cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario((postulanteLogueado).getUsuario());
+         Integer cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario(postulanteLogueado.getUsuario());
             
             //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
             if(cantidadPostulacionesActuales - cantidadOfertasVencidas ==3)
@@ -78,17 +90,20 @@ public class ControladorPostulaciones {
                 return "redirect:/home/main";
             }
 
-            else
-            {
+                       
+
                 servicioPostulaciones.agregar(postulacion);
  
                 String mensaje = "Se agregó la postulación correctamente";
                 attributes.addFlashAttribute("mensaje",mensaje);
                 
                 //DESPUES QUE SE POSTULA A UNA OFERTA, SE CUENTA +1, HASTA QUE SEAN 3 RESERVAS ACTUALES.
-                postulanteLogueado.setCantidadPostulaciones(cantidadPostulacionesActuales++);
-            }
+                postulanteLogueado.setCantidadPostulaciones(cantidadPostulacionesActuales+1);
+
+                return "redirect:/postulaciones/lista"; // redirige al listado después de crear
+            
         }
+        
         catch(Exception ex)
         {
             modelo.addAttribute("mensaje", "Error " + ex.getMessage());
@@ -96,7 +111,6 @@ public class ControladorPostulaciones {
             return "postulaciones/crear";
         }        
 
-        return "postulaciones/crear";
     }
 
 

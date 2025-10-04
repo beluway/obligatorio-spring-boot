@@ -108,11 +108,7 @@ public Postulacion(PostulacionId id, @NotNull @PastOrPresent LocalDate fechaPost
         this.idOferta = idOferta;
     }
     
-    
-    public PostulacionId(String usuarioPostulante, Integer idOferta) {
-        this.usuarioPostulante = usuarioPostulante;
-        this.idOferta = idOferta;
-    }
+   
     
    }    
 

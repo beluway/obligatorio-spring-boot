@@ -14,9 +14,9 @@ import jakarta.validation.constraints.NotNull;
 public class Area {
  
     @Id    
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Integer id;
+    
     @Column(name = "nombre", unique = true)
     @NotNull(message = "ingrese el nombre del área")
      private String nombre;

@@ -1,9 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
-
 import java.time.LocalDate;
 import java.util.Date;
-
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,10 +24,8 @@ import jakarta.validation.constraints.*;
 public class Oferta {
     
 @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
- 
+@GeneratedValue(strategy = GenerationType.IDENTITY) 
 private Integer id;
-
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
