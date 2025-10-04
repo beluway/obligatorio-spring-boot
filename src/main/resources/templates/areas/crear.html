@@ -12,6 +12,7 @@
 </head>
 
 <section>
+    <div id="contenedor">
 <div class="card">
      <form th:action="@{/areas/crear}" method="post" th:object="${area}">
 
@@ -23,6 +24,7 @@
 
      <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>
 </div>
+    </div>
 </section>
 
 <script>

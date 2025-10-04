@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 <section>
+    <div id="contenedor">
    <div class="card">
         <h2>Eliminar Área</h2>
         <form th:action="@{/areas/eliminar}" method="post" th:object="${area}">
@@ -35,6 +36,7 @@
 
             <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>
         </form>
+    </div>
     </div>
 </section>
  

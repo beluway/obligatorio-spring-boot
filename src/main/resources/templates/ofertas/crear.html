@@ -6,11 +6,18 @@
 <head>
     <meta charset="UTF-8" />
     <title>Formulario Oferta Laboral</title>
-    <link rel="stylesheet" th:href="@{/css/crud.css}">
+     <!-- CSS global -->
+    
+    
+    <!-- CSS extra opcionales que pasen las vistas hijas -->
+    <link rel="stylesheet" href="/bioswork/css/crud.css">
 </head>
 
-<div class="card">
+
 <section>
+    <div id="contenedor">
+    <div class="card">
+    
 <form th:action="@{/ofertas/crear}" method="post" th:object="${ofertas}">
 
         <!--Es necesario preguntar usuario? No sería el que está navegando en el sitio?-->
@@ -55,8 +62,10 @@
         </div>
 
     </form>
+    </div>
+    </div>
 </section>
+
     
-    
-</div>
+
 </html>
