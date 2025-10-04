@@ -106,6 +106,7 @@ public class ControladorClientes {
         }
     }    
     
+
     @GetMapping("/modificar")
     public String clienteModificar(Model modelo, HttpSession sesion) {
       
@@ -139,6 +140,7 @@ public class ControladorClientes {
            return "clientes/modificar";
         }
     }
+    
     
 
     @GetMapping("/ver")    

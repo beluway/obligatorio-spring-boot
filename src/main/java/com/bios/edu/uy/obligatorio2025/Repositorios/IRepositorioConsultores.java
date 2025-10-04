@@ -5,4 +5,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
 
 public interface IRepositorioConsultores extends JpaRepository<Consultor,String> {
     
+
+
+
 }

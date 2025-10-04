@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
+import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
@@ -35,10 +37,14 @@ public class ControladorPostulaciones {
     @GetMapping("/crear")
     public String crear(Model modelo, HttpSession sesion)
     {    
-         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+         modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));   
+         modelo.addAttribute("postulacion", new Postulacion());       
+         modelo.addAttribute("ofertasVigentes", servicioOfertas.listaOfertasVigentes());
+
         return "postulaciones/crear";    
      
     }
+
 
 
     @PostMapping("/crear")
@@ -123,10 +129,12 @@ public class ControladorPostulaciones {
     }
 
 
-     @GetMapping("/ver")
-    public String ver(@ModelAttribute Postulacion postulacion)
+     @GetMapping("/lista")
+    public String ver(Model modelo, HttpSession sesion) throws Exception
     {    
-        return "postulaciones/ver";        
+        servicioPostulaciones.listaPostulacionesPorUsuario();
+
+        return "postulaciones/lista";        
     }
 
 

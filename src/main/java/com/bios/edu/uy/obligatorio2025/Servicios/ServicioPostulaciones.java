@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
+import com.fasterxml.jackson.databind.node.POJONode;
 
 
 
@@ -43,5 +44,12 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
 
         return lista;
     }
+
+    @Override
+    public List<Postulacion> listaPostulacionesPorUsuario()
+    {
+       return repositorioPostulaciones.findAllByPostulante();
+    }
+
 
 }

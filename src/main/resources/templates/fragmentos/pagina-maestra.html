@@ -53,6 +53,8 @@
                     <a th:href="@{/postulantes/ver}">Mi perfil</a></li>
                 <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}">
                     <a th:href="@{/ofertas/lista}">Ver ofertas</a></li> 
+                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}">
+                    <a th:href="@{/postulaciones/lista}">Mis postulaciones</a></li> 
                     
                        <li><a th:href="@{/home/deslogueo}">Salir</a></li>
                 </ul>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+
+      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+      
+<head>
+    <title>BIENVENIDA</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
+</head>
+
+    <div class="card">
+      <section>
+            <h2>Página de inicio</h2>
+            <p>Contenido de bienvenida.</p>
+
+        <form th:action="@{/postulaciones/crear}" method="post" th:object="${Postulacion}">
+
+            <div>
+                <label for="oferta.nombre" > Oferta </label>
+                    <select th:field="*{oferta.id}">
+                        <option th:each="o : ${ofertas}" th:value="${o.id}" th:text="${o.nombre}"></option>
+                    </select>                
+            </div>
+
+            <div>
+                <button type="submit" id="crear"> Crear</button>
+            </div>
+
+        </form>
+
+     </section>
+    </div>
+
+   
+
+</html>

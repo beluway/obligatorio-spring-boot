@@ -11,5 +11,6 @@ public interface IServicioPostulaciones {
     void modificar (Postulacion postulacion) throws ExcepcionBiosWork;
     void eliminar (Postulacion postulacion) throws ExcepcionBiosWork;
     List<Postulacion> listaPostulaciones () throws Exception;
+    List<Postulacion> listaPostulacionesPorUsuario() throws Exception;
     
 }
