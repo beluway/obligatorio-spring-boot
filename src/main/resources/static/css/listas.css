@@ -14,6 +14,16 @@ html, body {
     flex-direction: column; /* organiza header, nav y main en columna */
 }
 
+#contenedor {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* centra horizontal */
+    align-items: center;     /* centra vertical */
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 30px;
+}
+
 /* === Header === */
 header.cabezal-principal {
     width: 100%;

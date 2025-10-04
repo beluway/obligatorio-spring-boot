@@ -108,16 +108,26 @@ public class ControladorClientes {
     
 
     @GetMapping("/modificar")
-    public String clienteModificar(Model modelo, HttpSession sesion) {
-      
+    public String clienteModificar(@RequestParam String usuario,Model modelo, HttpSession sesion) throws Exception {
+
          //ENTRA ACA SOLO SI ES CONSULTOR
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+
+        Cliente cliente = servicioClientes.obtener(usuario);
+
+        if (cliente==null) {
+             modelo.addAttribute("mensaje", "Cliente no encontrado");
+            return "redirect:/clientes/lista";
+        }
+
+        modelo.addAttribute("cliente", cliente);
+
         return "clientes/modificar";
     }
     
 
     @PostMapping("/modificar")
-    public String clientesModificar(@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado,RedirectAttributes attributes) throws Exception{
+    public String procesarModificar(@ModelAttribute /*@Valid*/ Cliente cliente, @RequestParam(required = false)String clave, BindingResult resultado,RedirectAttributes attributes) throws Exception{
      
         if(resultado.hasErrors())
         {
@@ -126,17 +136,18 @@ public class ControladorClientes {
 
         try
         {
-            servicioClientes.modificar(cliente);
-
-            attributes.addFlashAttribute("mensaje","Cliente modificado con éxito.");
+        // Si se ingresó una nueva clave, la reemplaza
+        if (clave != null && !clave.isBlank()) {
+            cliente.setClave(clave);
+        }
+        servicioClientes.modificar(cliente,clave);
+        attributes.addFlashAttribute("exito", "Cliente modificado correctamente");
 
              return "redirect:/clientes/lista";
         }
 
         catch (Exception ex)
         {
-           modelo.addAttribute("mensaje","Hubo un error "+ ex.getMessage());
-
            return "clientes/modificar";
         }
     }

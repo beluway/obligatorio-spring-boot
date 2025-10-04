@@ -8,30 +8,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Cliente</title>
      <link rel="stylesheet" th:href="@{/css/crud.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
 <section>
+    <div id="contenedor">
+
  <div class="card">
         <h2>Modificar Cliente</h2>
 
-        <form th:action="@{/clientes/{id}/modificar(id=${cliente.id})}" method="post">
+        <form th:action="@{/clientes/modificar}" method="post" th:object="${cliente}">
+            
             <label>Nombre de Usuario</label>
-            <input type="text" th:value="${cliente.username}"/>
+            <input type="text" th:field="*{usuario}" readonly/>
+
+            <label>Nombre:</label>
+            <input type="text" th:field="*{nombre}"/>
+
+            <label>Nueva Clave:</label>
+        <div class="input-group">
+        <input type="password" id="nuevaClave" name="nuevaClave" placeholder="Dejar vacío para no cambiar" style="width: 94%;">
+        <span class="material-icons" id="toggleClave">visibility</span>
+        </div>
 
             <label>RUT:</label>
-            <input type="text" name="rut" th:value="${cliente.rut}" required />
+            <input type="text" name="rut" th:field="*{rut}" required />
 
             <label>Sitio Web:</label>
-            <input type="text" name="urlSitioWeb" th:value="${cliente.urlSitioWeb}" />
+            <input type="text" name="url" th:value="${cliente.url}" />
 
+            
             <button type="submit">Guardar Cambios</button>
         </form>
 
-        <a th:href="@{/clientes}" id="volver">← Volver al listado</a>
+        <a th:href="@{/clientes/lista}" id="volver">← Volver al listado</a>
+    </div>
     </div>
 </section>
-
-   
-
 </html>
+<script>
+
+const toggleClave = document.getElementById("toggleClave");
+const passwordInput = document.getElementById("clave");
+
+toggleClave.addEventListener("click", () => {
+  const type = passwordInput.type === "password" ? "text" : "password";
+  passwordInput.setAttribute("type", type);});
+</script>
