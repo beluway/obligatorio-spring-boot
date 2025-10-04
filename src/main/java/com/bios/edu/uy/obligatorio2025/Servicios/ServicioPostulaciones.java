@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 import com.fasterxml.jackson.databind.node.POJONode;
@@ -46,9 +47,9 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     }
 
     @Override
-    public List<Postulacion> listaPostulacionesPorUsuario()
+    public List<Postulacion> listaPostulacionesPorUsuario(Postulante postulante)
     {
-       return repositorioPostulaciones.findAllByPostulante();
+       return repositorioPostulaciones.findAllByPostulante(postulante);
     }
 
 

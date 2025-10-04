@@ -3,6 +3,7 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.util.List;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 
 public interface IServicioPostulaciones {
@@ -11,6 +12,6 @@ public interface IServicioPostulaciones {
     void modificar (Postulacion postulacion) throws ExcepcionBiosWork;
     void eliminar (Postulacion postulacion) throws ExcepcionBiosWork;
     List<Postulacion> listaPostulaciones () throws Exception;
-    List<Postulacion> listaPostulacionesPorUsuario() throws Exception;
+    List<Postulacion> listaPostulacionesPorUsuario(Postulante postulante) throws Exception;
     
 }

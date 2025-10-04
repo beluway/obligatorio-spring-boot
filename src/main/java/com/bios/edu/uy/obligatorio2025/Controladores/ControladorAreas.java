@@ -36,6 +36,8 @@ public class ControladorAreas {
         return "areas/crear";
     }
 
+
+    
 //CREAR ÁREA POST
     @PostMapping("/crear") 
     public String procesarCrear(@ModelAttribute @Valid Area area, Model modelo, BindingResult resultado,

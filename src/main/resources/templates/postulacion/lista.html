@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+
+      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+      
+<head>
+    <title>LISTA</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
+</head>
+<body>
+    <section>
+        <h2>Página de inicio</h2>
+        <p>Contenido de bienvenida.</p>
+    </section>
+</body>
+</html>

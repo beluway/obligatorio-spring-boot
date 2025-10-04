@@ -132,7 +132,9 @@ public class ControladorPostulaciones {
      @GetMapping("/lista")
     public String ver(Model modelo, HttpSession sesion) throws Exception
     {    
-        servicioPostulaciones.listaPostulacionesPorUsuario();
+        modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));  
+
+        servicioPostulaciones.listaPostulacionesPorUsuario((Postulante)sesion.getAttribute("usuarioLogueado"));
 
         return "postulaciones/lista";        
     }
