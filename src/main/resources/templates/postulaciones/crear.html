@@ -8,17 +8,19 @@
     <link rel="stylesheet" th:href="@{/css/home.css}" />
 </head>
 
-    <div class="card">
       <section>
+
+    <div class="card">
+    
             <h2>Página de inicio</h2>
             <p>Contenido de bienvenida.</p>
 
-        <form th:action="@{/postulaciones/crear}" method="post" th:object="${Postulacion}">
+        <form th:action="@{/postulaciones/crear}" method="post" th:object="${postulacion}">
 
             <div>
-                <label for="oferta.nombre" > Oferta </label>
+                <label for="oferta.id"> Oferta </label>
                     <select th:field="*{oferta.id}">
-                        <option th:each="o : ${ofertas}" th:value="${o.id}" th:text="${o.nombre}"></option>
+                        <option th:each="o : ${ofertasVigentes}" th:value="${o.id}" th:text="${o.titulo}"></option>
                     </select>                
             </div>
 
@@ -26,10 +28,17 @@
                 <button type="submit" id="crear"> Crear</button>
             </div>
 
+
+              <a th:href="@{/postulaciones/lista}" id="volver">Volver al listado</a> 
+
+
         </form>
 
-     </section>
+    
     </div>
+
+
+      </section>
 
    
 
