@@ -61,3 +61,46 @@ body {
         #volver:hover{
             transform: scale(1.2);
         }
+
+/* Esto es para el ojito de mostrar clave */
+.input-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 500;
+    color: #333;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 40px 10px 10px; /* deja espacio para el icono */
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: #1976d2;
+    box-shadow: 0 0 3px rgba(25, 118, 210, 0.3);
+}
+
+.input-group .material-icons {
+    position: absolute;
+    right: 3px;
+    bottom: 7px;
+    cursor: pointer;
+    color: #555;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.input-group .material-icons:hover {
+    color: #1976d2;
+}
