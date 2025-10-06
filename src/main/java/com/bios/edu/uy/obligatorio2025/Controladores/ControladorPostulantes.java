@@ -37,14 +37,16 @@ public class ControladorPostulantes {
     @GetMapping("/crear")
     public String postulanteCrear(Model modelo, HttpSession sesion)
     { 
-        if(((Postulante)sesion.getAttribute("usuarioLogueado")).getCantidadPostulaciones()>=3)
+        /* if(((Postulante)sesion.getAttribute("usuarioLogueado")).getCantidadPostulaciones()>=3)
         {
             
 
             return "redirect/home/main";
         }
 
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado")); */
+
+
         return "postulantes/crear";
         
     }
@@ -90,6 +92,8 @@ public class ControladorPostulantes {
             pdf.transferTo(archivoDestino);
 
             atributos.addFlashAttribute("mensaje","archivo subido !");
+
+            postulante.setCantidadPostulaciones(0);
 
             servicioPostulantes.agregar(postulante);          
 

@@ -7,11 +7,13 @@ import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.Nullable;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -19,21 +21,28 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
-public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer> {
+public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer>, JpaSpecificationExecutor<Oferta> {
 
     List<Oferta> findAllByOrderByAreaAsc();
-    List<Oferta> findAllByCliente(Cliente cliente);
-    //List<Oferta> findByStartDateBetween(Date fechaActual,Date fechaCierreOferta);
+    List<Oferta> findAllByCliente(Cliente cliente);   
+
+    
+    public static Specification<Oferta> ofertasVigentes(LocalDate fechaFinPublicacion)
+    {
+        return new Specification<Oferta>(){
+
+            @Override         
+            public Predicate toPredicate(Root<Oferta> root, @Nullable CriteriaQuery<?> query,
+                    CriteriaBuilder filtro) {
+              
+              return filtro.between(root.get("fechaCierre"), fechaFinPublicacion, LocalDate.now());
 
 
+            }
 
+        };
+        
+    }
 
-
-    @Query(value = "SELECT * FROM ofertas o WHERE o.fecha_cierre>=CURRENT_DATE",nativeQuery=true)
-    List<Oferta> ofertasVigentes();
-
-   /*  @Query(value = "SELECT COUNT(*) FROM ofertas o INNER JOIN postulaciones p1 ON p1.oferta = o.id INNER JOIN postulantes p2 ON p2.usuario = p1.postulante  WHERE p2.usuario = ?1 AND o.fecha_Cierre > CURRENT_DATE",nativeQuery = true)
-    Integer cantidadOfertasVencidasPorUsuario(String usuario); */
-
-
+   
 }

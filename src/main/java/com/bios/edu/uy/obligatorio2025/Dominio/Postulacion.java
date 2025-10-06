@@ -51,6 +51,14 @@ public class Postulacion {
     @JoinColumn (name="postulante",nullable = false)
     private Postulante postulante;
 
+    public PostulacionId getId() {
+        return id;
+    }
+
+    public void setId(PostulacionId id) {
+        this.id = id;
+    }
+
     public LocalDate getFechaPostulacion() {
         return fechaPostulacion;
     }

@@ -1,5 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +17,7 @@ public interface IServicioOfertas {
     void eliminar (Integer codigo) throws ExcepcionBiosWork;
     List<Oferta> listaOfertas() throws Exception;
     Oferta obtener(Integer id) throws Exception;
-    List<Oferta> listaOfertasCliente (Cliente cliente);
-    List<Oferta> listaOfertasVigentes();
-   /*  Integer cantidadOfertasVencidasPorUsuario(String usuario); */
-   
+    List<Oferta> listaOfertasCliente (Cliente cliente) throws Exception;
+    public List<Oferta> listaOfertasVigentes(LocalDate fechaFinPublicacion) throws Exception;
+    
 }

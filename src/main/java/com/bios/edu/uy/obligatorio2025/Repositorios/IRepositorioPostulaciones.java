@@ -14,5 +14,4 @@ public interface IRepositorioPostulaciones extends JpaRepository<Postulacion,Pos
 List<Postulacion> findAllByPostulante(Postulante postulante);
 
 
-
 }

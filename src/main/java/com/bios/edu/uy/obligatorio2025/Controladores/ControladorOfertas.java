@@ -141,7 +141,10 @@ public class ControladorOfertas {
     @GetMapping("/lista")    
     public String listarOfertas(Model modelo, HttpSession sesion) throws Exception {
        //ACA SE SACA LA LISTA DESDE LA BASE DE DATOS
-        List<Oferta> ofertas = servicioOfertas.listaOfertasVigentes();
+
+        LocalDate fechaActual = LocalDate.now();
+
+        List<Oferta> ofertas = servicioOfertas.listaOfertasVigentes(fechaActual);
 
         modelo.addAttribute("ofertas", ofertas);
          modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
@@ -151,7 +154,7 @@ public class ControladorOfertas {
 
 
     @GetMapping("/listaPorCliente")
-    public String listaOfertas(Model modelo, HttpSession sesion, @RequestParam Cliente cliente) {
+    public String listaOfertas(Model modelo, HttpSession sesion, @RequestParam Cliente cliente) throws Exception {
        
         List<Oferta> OfertasCliente = servicioOfertas.listaOfertasCliente(cliente);
 

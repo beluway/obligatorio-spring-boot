@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion.PostulacionId;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
@@ -41,11 +43,12 @@ public class ControladorPostulaciones {
     {    
         
      Postulacion postulacion = new Postulacion();
-     postulacion.setOferta(new Oferta());
+     postulacion.setOferta(new Oferta());   
 
+      
         modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado")); 
         modelo.addAttribute("postulacion", new Postulacion());       
-        modelo.addAttribute("ofertasVigentes", servicioOfertas.listaOfertasVigentes());
+        modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaOfertasVigentesParaPostularse(LocalDate.now(),(Postulante)sesion.getAttribute("usuarioLogueado")));
 
         return "postulaciones/crear";    
      
@@ -63,19 +66,37 @@ public class ControladorPostulaciones {
     {      
 
         Integer cantidadOfertasVencidasPorPostulacion =0;
-                 
+              
         Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
 
         Oferta ofertaEncontrada = servicioOfertas.obtener(postulacion.getOferta().getId()); 
        
+
+        //************PARTE CLAVE COMPUESTA  */
+        /// AHORA PARA LA CLAVE COMPUESTA            
+        PostulacionId claveCompuestaPostulacion = new PostulacionId();
+
+        //SE VINCULA LA OFERTA DE LA CLAVE COMPUESTA CON LA OFERTA ELEGIDA
+        claveCompuestaPostulacion.setIdOferta(postulacion.getOferta().getId());
+
+        //SE VINCULA EL USUARIO DE LA CLAVE COMPUESTA CON EL USUARIO LOGUEADO (POSTULANTE)
+        claveCompuestaPostulacion.setUsuarioPostulante(postulanteLogueado.getUsuario());
+
+        //Y SE ASIGNA LA CLAVE COMPUESTA CON LOS 2 OBJETOS ADENTRO A POSTULACION        
+        postulacion.setId(claveCompuestaPostulacion);
+
+
+        //******PARTE ATRIBUTOS DE OBJETO POSTULACION */
+
         postulacion.setOferta(ofertaEncontrada);
         postulacion.setPostulante(postulanteLogueado);
         postulacion.setFechaPostulacion(LocalDate.now());
+        
 
-        /* if(resultado.hasErrors())
+      /*   if(resultado.hasErrors())
         {           
             return "postulaciones/crear";
-        } */
+        }  */
 
         try
         {   
@@ -85,10 +106,13 @@ public class ControladorPostulaciones {
             //CANTIDAD DE OFERTAS VENCIDAS DEL POSTULANTE            
         //Integer cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario(postulanteLogueado.getUsuario());
          
+        //DE TODAS LAS POSTULACIONES DEL POSTULANTE
         for (Postulacion p : servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado)) 
         {          
+            //SE FILTRAN LAS POSTULACIONES QUE ESTAN VENCIDAS 
            if(p.getOferta().getFechaCierre().isBefore(LocalDate.now()))
            {
+                //Y SE SUMAN
                 cantidadOfertasVencidasPorPostulacion++;
            }
         }          
@@ -99,9 +123,7 @@ public class ControladorPostulaciones {
             {
                 return "redirect:/home/main";
             }
-
-                       
-
+                    
                 servicioPostulaciones.agregar(postulacion);
  
                 String mensaje = "Se agregó la postulación correctamente";
@@ -153,12 +175,19 @@ public class ControladorPostulaciones {
     }
 
 
-     @GetMapping("/lista")
-    public String ver(Model modelo, HttpSession sesion) throws Exception
-    {    
-        modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));  
 
-        servicioPostulaciones.listaPostulacionesPorUsuario((Postulante)sesion.getAttribute("usuarioLogueado"));
+     @GetMapping("/ver")
+     public String ver(Model modelo, HttpSession sesion) throws Exception
+     {
+        return "postulaciones/ver";     
+     }
+
+     @GetMapping("/lista")
+    public String lista(Model modelo, HttpSession sesion) throws Exception
+    {    
+        modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));        
+
+        modelo.addAttribute("postulacionesPostulante",  servicioPostulaciones.listaPostulacionesPorPostulante((Postulante)sesion.getAttribute("usuarioLogueado")));
 
         return "postulaciones/lista";        
     }

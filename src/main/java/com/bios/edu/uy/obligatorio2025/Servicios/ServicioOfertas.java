@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +25,7 @@ private IRepositorioOfertas repositorioOfertas;
 
     @Override
     public void agregar (Oferta oferta) throws ExcepcionBiosWork
-    {
-
-        // ACA ES LO PREVIO AL ALTA
-   /*      if(obtener(oferta.getId())!=null){
-            throw new Exception("La oferta ya existe");
-        }
-
-        oferta.setArea(servicioAreas.obtener(oferta.getArea().getNombre()));
-        oferta.setCliente(servicioClientes.obtener(oferta.getCliente().getUsuario()));
-
-        ofertas.add(oferta); */
+    {      
 
         repositorioOfertas.save(oferta);
 
@@ -89,26 +80,14 @@ private IRepositorioOfertas repositorioOfertas;
 
 
     @Override
-    public List<Oferta> listaOfertasVigentes()
-
+    public List<Oferta> listaOfertasVigentes(LocalDate fechaFinPublicacion)
     {
-         List<Oferta> listaOfertasVigentes = repositorioOfertas.ofertasVigentes();
+         List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes(fechaFinPublicacion));
    
          return listaOfertasVigentes;
-    }
+    }    
+ 
+  
 
-    @Override
-    public List<Oferta> listaOfertasPorPostulante(Postulante postulante)
-    {
-        return  repositorioOfertas.findAllByPostulante(postulante);
-    }
-
-    /* @Override
-    public Integer cantidadOfertasVencidasPorUsuario(String usuario)
-    {
-        Integer cantidadOfertasVencidasPorUsuario = repositorioOfertas.cantidadOfertasVencidasPorUsuario(usuario);
-
-        return cantidadOfertasVencidasPorUsuario;
-    } */
 
 }
