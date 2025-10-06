@@ -18,6 +18,6 @@ public interface IServicioOfertas {
     List<Oferta> listaOfertas() throws Exception;
     Oferta obtener(Integer id) throws Exception;
     List<Oferta> listaOfertasCliente (Cliente cliente) throws Exception;
-    public List<Oferta> listaOfertasVigentes(LocalDate fechaFinPublicacion) throws Exception;
+    public List<Oferta> listaOfertasVigentes() throws Exception;
     
 }

@@ -33,7 +33,7 @@ public class Postulante extends Usuario{
     public NombreCompleto nombreCompleto;
  */
 
- 
+    @Column(name = "cantidadPostulaciones")
     private int cantidadPostulaciones;
 
     @Column(name = "activo")    
@@ -68,6 +68,7 @@ public class Postulante extends Usuario{
     @Column(name="segundoApellido", nullable = false,length=15)
     private String segundoApellido;   
 
+    
     //VER SI ESTO SIRVE PARA PDF (CAMPO QUE NO VA A LA BD)
     @Transient 
     //@NotNull (message = "Seleccione un .pdf para subirlo")
@@ -125,8 +126,7 @@ public class Postulante extends Usuario{
     }
 
     //constructor vacío para JPA
-    public Postulante(){}
-
+   
 
     public String getPrimerNombre() {
         return primerNombre;
@@ -166,6 +166,10 @@ public class Postulante extends Usuario{
     public void setSegundoApellido(String segundoApellido) {
         this.segundoApellido = segundoApellido;
     }
+
+
+ public Postulante(){}
+
 
 
     public Postulante(String usuario, String clave, int cantidadPostulaciones, Boolean activo,

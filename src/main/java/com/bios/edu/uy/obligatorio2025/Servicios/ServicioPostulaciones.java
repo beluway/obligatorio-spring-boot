@@ -61,10 +61,10 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
 
 
     @Override
-    public List<Oferta> listaOfertasVigentesParaPostularse(LocalDate fechaFinPublicacion,Postulante postulante)
+    public List<Oferta> listaOfertasVigentesParaPostularse(Postulante postulante)
     {
       
-        List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes(fechaFinPublicacion));
+        List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes());
 
         List<Postulacion> listaPostulacionesDelPostulante = repositorioPostulaciones.findAllByPostulante(postulante);
  

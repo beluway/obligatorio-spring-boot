@@ -144,7 +144,7 @@ public class ControladorOfertas {
 
         LocalDate fechaActual = LocalDate.now();
 
-        List<Oferta> ofertas = servicioOfertas.listaOfertasVigentes(fechaActual);
+        List<Oferta> ofertas = servicioOfertas.listaOfertasVigentes();
 
         modelo.addAttribute("ofertas", ofertas);
          modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));

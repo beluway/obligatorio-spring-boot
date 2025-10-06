@@ -46,9 +46,25 @@ public class ControladorPostulaciones {
      postulacion.setOferta(new Oferta());   
 
       
-        modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado")); 
+    Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
+
+
+  //CANTIDAD DE POSTULACIONES ACTUALES DEL USUARIO LOGUEADO
+     
+            //CANTIDAD DE OFERTAS VENCIDAS DEL POSTULANTE            
+        //Integer cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario(postulanteLogueado.getUsuario());
+         
+             
+            //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
+            if(postulanteLogueado.getCantidadPostulaciones()==3)
+            {
+                return "redirect:/home/main";
+            }
+
+
+        modelo.addAttribute("usuarioLogueado", postulanteLogueado); 
         modelo.addAttribute("postulacion", new Postulacion());       
-        modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaOfertasVigentesParaPostularse(LocalDate.now(),(Postulante)sesion.getAttribute("usuarioLogueado")));
+        modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaOfertasVigentesParaPostularse(postulanteLogueado));
 
         return "postulaciones/crear";    
      
@@ -65,7 +81,6 @@ public class ControladorPostulaciones {
     RedirectAttributes attributes) throws Exception /*  */
     {      
 
-        Integer cantidadOfertasVencidasPorPostulacion =0;
               
         Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
 
@@ -102,35 +117,19 @@ public class ControladorPostulaciones {
         {   
 
          //CANTIDAD DE POSTULACIONES ACTUALES DEL USUARIO LOGUEADO
-        Integer cantidadPostulacionesActuales = (postulanteLogueado).getCantidadPostulaciones();   
+       // Integer cantidadPostulacionesActuales = (postulanteLogueado).getCantidadPostulaciones();   
             //CANTIDAD DE OFERTAS VENCIDAS DEL POSTULANTE            
         //Integer cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario(postulanteLogueado.getUsuario());
-         
-        //DE TODAS LAS POSTULACIONES DEL POSTULANTE
-        for (Postulacion p : servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado)) 
-        {          
-            //SE FILTRAN LAS POSTULACIONES QUE ESTAN VENCIDAS 
-           if(p.getOferta().getFechaCierre().isBefore(LocalDate.now()))
-           {
-                //Y SE SUMAN
-                cantidadOfertasVencidasPorPostulacion++;
-           }
-        }          
-
-       
-            //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
-            if(cantidadPostulacionesActuales - cantidadOfertasVencidasPorPostulacion ==3)
-            {
-                return "redirect:/home/main";
-            }
-                    
-                servicioPostulaciones.agregar(postulacion);
+        
+             
  
                 String mensaje = "Se agregó la postulación correctamente";
                 attributes.addFlashAttribute("mensaje",mensaje);
                 
                 //DESPUES QUE SE POSTULA A UNA OFERTA, SE CUENTA +1, HASTA QUE SEAN 3 RESERVAS ACTUALES.
-                postulanteLogueado.setCantidadPostulaciones(cantidadPostulacionesActuales+1);
+                postulanteLogueado.setCantidadPostulaciones(postulanteLogueado.getCantidadPostulaciones()+1);
+                       
+                servicioPostulaciones.agregar(postulacion);
 
                 return "redirect:/postulaciones/lista"; // redirige al listado después de crear
             

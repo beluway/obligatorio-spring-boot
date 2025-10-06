@@ -80,9 +80,9 @@ private IRepositorioOfertas repositorioOfertas;
 
 
     @Override
-    public List<Oferta> listaOfertasVigentes(LocalDate fechaFinPublicacion)
+    public List<Oferta> listaOfertasVigentes()
     {
-         List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes(fechaFinPublicacion));
+         List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes());
    
          return listaOfertasVigentes;
     }    

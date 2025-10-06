@@ -27,7 +27,7 @@ public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer>, JpaS
     List<Oferta> findAllByCliente(Cliente cliente);   
 
     
-    public static Specification<Oferta> ofertasVigentes(LocalDate fechaFinPublicacion)
+    public static Specification<Oferta> ofertasVigentes()
     {
         return new Specification<Oferta>(){
 
@@ -35,7 +35,11 @@ public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer>, JpaS
             public Predicate toPredicate(Root<Oferta> root, @Nullable CriteriaQuery<?> query,
                     CriteriaBuilder filtro) {
               
-              return filtro.between(root.get("fechaCierre"), fechaFinPublicacion, LocalDate.now());
+             return filtro.between(
+                filtro.literal(LocalDate.now()),           // valor a evaluar
+                root.get("fechaPublicacion"), // límite inferior
+                root.get("fechaCierre")       // límite superior
+            );
 
 
             }

@@ -15,5 +15,5 @@ public interface IServicioPostulaciones {
     void eliminar (Postulacion postulacion) throws ExcepcionBiosWork;
     List<Postulacion> listaPostulaciones () throws Exception;  
     List<Postulacion> listaPostulacionesPorPostulante(Postulante postulante) throws Exception;
-    public List<Oferta> listaOfertasVigentesParaPostularse(LocalDate fechaFinPublicacion,Postulante postulante) throws Exception;
+    public List<Oferta> listaOfertasVigentesParaPostularse(Postulante postulante) throws Exception;
 }
