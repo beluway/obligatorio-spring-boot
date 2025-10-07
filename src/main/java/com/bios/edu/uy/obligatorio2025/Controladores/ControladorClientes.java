@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
-import com.bios.edu.uy.obligatorio2025.Servicios.ServicioClientes;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 

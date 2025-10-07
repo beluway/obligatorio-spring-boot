@@ -181,6 +181,8 @@ public class ControladorPostulaciones {
         return "postulaciones/ver";     
      }
 
+     
+
      @GetMapping("/lista")
     public String lista(Model modelo, HttpSession sesion) throws Exception
     {    
