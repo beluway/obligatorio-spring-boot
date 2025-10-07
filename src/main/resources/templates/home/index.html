@@ -1,31 +1,44 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"> 
-
-
-
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="html(titulo, contenido, estilos)">
 <head>
-    <title>BIENVENIDO</title>
-      <link rel="stylesheet" th:href="@{/css/crud.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- título dinámico -->
+    <title th:replace="${titulo}">Página Principal de BiosWork</title>
+    
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    
 </head>
+<body>
 
-<section>
-    <h2>INDEX</h2>
+    
+    <div class="contenedor">
+
+            <header class="cabezal-principal">
+                <h1>Bienvenido a Bios Work</h1>
+            </header>
+
+            <nav class="navegacion-principal">
+                <ul>
+
+                    <li><a th:href="@{/home/main}">Inicio</a></li>
+                    <p>Acá va un poco de info sobre qué es BiosWork</p>
+                       <li><a th:href="@{/home/index}">Ingresar</a></li>
+                       <li><a th:href="@{/postulantes/crear}">Registrarse</a></li>
+                </ul>
+            </nav>
+
+        <main class="contenido" th:replace="${contenido} ?: ~{}">
+            <p>Acá va algún banner o imágenes de nuestro sitio y qué ofrecemos</p>
+        </main>
 
 
-<!-- 
-    th:object="${ofertas}    
---> 
+    </div>
 
-    <form th:action="@{/home/index}" method="post" th:object="${usuario}">
-        <div>
-            <label for="usuario">Usuario</label>
-            <input type="text" name="usuario" id="usuario">
-        </div>
 
-        <div>
-            <input type="submit" value="Ingresar">
-        </div>
-    </form>
-
-</section>
+   
+   
+</body>
 </html>
