@@ -43,7 +43,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
 
     @Override 
     public void eliminar (Postulacion postulacion)throws ExcepcionBiosWork
-    {
+    {     
         repositorioPostulaciones.delete(postulacion);
     }
 
@@ -70,33 +70,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
         List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes());
 
         List<Postulacion> listaPostulacionesDelPostulante = repositorioPostulaciones.findAllByPostulante(postulante);
- 
-        /* //DE TODAS LAS OFERTAS VIGENTES
-         for(Oferta o:repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes(fechaFinPublicacion)))
-         {
-            //Y DE TODAS LAS POSTULACIONES (QUE YA TIENEN LAS OFERTAS ELEGIDAS)
-            for(Postulacion p:repositorioPostulaciones.findAllByPostulante(postulante))
-            {
-                // SE FILTRAN LAS OFERTAS QUE NO ESTAN EN LAS POSTULACIONES DEL POSTULANTE
-                if(p.getOferta().getId()!=o.getId())
-                {
-                    //Y SE AGREGAN A LA LISTA DE OFERTAS DISPONIBLES PARA EL POSTULANTE
-                    listaOfertasDisponibles_VigentesParaPostularse.add(o);
-                }
-            }
-         } */
-
-         /*    for(Oferta o:listaOfertasVigentes)
-
-                for(Postulacion p:listaPostulacionesDelPostulante)
-                {
-                    if(!p.getOferta().getId().equals(o.getId()))
-                      {
-                            listaOfertasDisponibles_VigentesParaPostularse.add(o);
-                      }
-                } */
-            
-
+                
         List<Oferta> listaOfertasVigentesParaPostularse = listaOfertasVigentes.stream()
                 .filter(oferta -> listaPostulacionesDelPostulante.stream().
                 noneMatch(postulacion->postulacion.getOferta().getId().equals(oferta.getId())))
@@ -105,42 +79,11 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
          return listaOfertasVigentesParaPostularse;
     }    
 
- /*   @Override
-   public Postulacion obtener(Postulacion postulacion)
-   {
-      /*  PostulacionId id = new PostulacionId(postulacion.getPostulante().getUsuario(),postulacion.getOferta().getId()); */
 
-/*          PostulacionId id = postulacion.getId();        
-
-       return  repositorioPostulaciones.findById(id.hashCode()); */
-
-
-
-/* 
-PostulacionId id = new PostulacionId(null, null);
-MiEntidad entidad = repositorio.findById(id).orElse(null);
-@Autowired
-private PostulacionRepository postulacionRepository;
-
-public Postulacion obtenerPostulacion(String usuarioPostulante, Integer idOferta) {
-
-    // Crear el objeto de clave compuesta
-    Postulacion.PostulacionId id = new Postulacion.PostulacionId();
-    id.setUsuarioPostulante(usuarioPostulante);
-    id.setIdOferta(idOferta);
-
-    // Buscar en la base de datos
-    return postulacionRepository.findById(id).orElse(null);
-} */
-
-/* 
-@Query(value = "DELETE postulaciones WHERE ") */
-
-
-    @Override
-    public Optional<Postulacion> obtener(Postulacion postulacion)
+     @Override
+    public Optional<Postulacion> obtener(Integer idOferta, String usuario)
     {
-        return  repositorioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());
+        return  repositorioPostulaciones.findById_IdOfertaAndId_UsuarioPostulante(idOferta,usuario);
     }
 
 }

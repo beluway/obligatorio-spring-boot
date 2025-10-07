@@ -12,31 +12,28 @@
 <section>
     <div id="contenedor">
      <div class="card">
-            <h2>Eliminar Área</h2>
-            <form th:action="@{/postulaciones/eliminar}" method="post" th:object="${postulacion}">
+            <h2>Eliminar Postulacion</h2>
 
+
+        <form th:action="@{/postulaciones/eliminar}" method="post" th:object="${postulacion}">
                 <p th:text="${mensaje}"></p>
 
-                <label for="id">ID</label>
-                <input type="text" id="id" name="id" th:field="*{id}" readonly> 
-                
-                <label for="titulo">Nombre</label>
-                <input type="text" id="postulacion.oferta.titulo" name="postulacion.oferta.titulo" th:field="*{postulacion.oferta.titulo}" readonly>
+                <input type="hidden" th:field="*{id.idOferta}" />
+                <input type="hidden" th:field="*{id.usuarioPostulante}" />      
 
-                 <label for="descripcion">Nombre</label>
-                <input type="text" id="postulacion.oferta.descripcion" name="postulacion.oferta.descripcion" th:field="*{postulacion.oferta.descripcion}" readonly>
+                <label for="titulo">Título</label>
+                <input type="text" th:field="*{oferta.titulo}" readonly>
+
+                <label for="descripcion">Descripción</label>
+                <input type="text" th:field="*{oferta.descripcion}" readonly>
+
+                <label for="fechaPostulacion">Fecha de Postulación</label>
+                <input type="text" th:field="*{fechaPostulacion}" readonly>
+
+                <label for="postulante">Postulante</label>
+                <input type="text" th:field="*{postulante.usuario}" readonly>
 
                 <button type="submit" id="eliminar">Eliminar</button>
-
-                <!-- Modal de confirmación -->
-                <dialog id="confirmDialog" class="card">
-                    <h3>Confirmar eliminación</h3>
-                    <p>¿Está seguro de que desea eliminar esta área permanentemente?</p>
-                    <div style="margin-top: 1em;">
-                        <button type="button" id="confirmYes">Sí, eliminar</button>
-                        <button type="button" id="confirmNo">Cancelar</button>
-                    </div>
-                </dialog>
 
                 <a th:href="@{/postulaciones/lista}" id="volver">Volver al listado</a>
             </form>

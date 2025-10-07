@@ -17,5 +17,5 @@ public interface IServicioPostulaciones {
     List<Postulacion> listaPostulaciones () throws Exception;  
     List<Postulacion> listaPostulacionesPorPostulante(Postulante postulante) throws Exception;
     public List<Oferta> listaOfertasVigentesParaPostularse(Postulante postulante) throws Exception;
-    Optional<Postulacion> obtener(Postulacion postulacion) throws Exception;
+    public Optional<Postulacion> obtener(Integer idOferta, String usuario) throws Exception;
 }
