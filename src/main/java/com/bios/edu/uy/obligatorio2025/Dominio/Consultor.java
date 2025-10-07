@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
@@ -16,8 +17,28 @@ public class Consultor extends Usuario{
     
     /*    private String tipo_usuario; */
 
+        @Column(name="activo")
+        private Boolean activo=true;
+        
+
         //constructor x defecto
         public Consultor(){}
+
+
+        public Boolean getActivo() {
+                return activo;
+        }
+
+
+        public void setActivo(Boolean activo) {
+                this.activo = activo;
+        }
+
+
+        public Consultor(String usuario, String clave, Boolean activo) {
+                super(usuario, clave);
+                this.activo = activo;
+        }
 
     /*     public String getTipo_usuario() {
                 return tipo_usuario;
@@ -27,11 +48,6 @@ public class Consultor extends Usuario{
                 this.tipo_usuario = tipo_usuario;
         } */
 
-        public Consultor(String usuario, String clave, String tipo_usuario) {
-                super(usuario, clave);
-               // this.tipo_usuario = tipo_usuario;
-        }
     
-
 
 }

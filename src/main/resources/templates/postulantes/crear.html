@@ -12,6 +12,8 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
 </head>
 <section>
+    <div id="contenedor">
+    <div class="card">
 <form th:action="@{/postulantes/crear}" method="post" th:object="${Postulante}" id="formDefault" enctype="multipart/form-data">
 
         <div>
