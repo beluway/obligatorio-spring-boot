@@ -1,40 +1,31 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
-    
+    <title>Página de inicio</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
 </head>
 <body>
-
+    
     
     <div class="contenedor">
 
+
+ <!-- Cabecera -->   
             <header class="cabezal-principal">
-                <h1>Bienvenido a Bios Work</h1>
+                <h1>BiosWork</h1>
             </header>
+            <h3>Bienvenido, está listo para adentrarse en el mundo laboral?</h3>
+            <h4>No espere más y ....</h4>
 
             <nav class="navegacion-principal">
                 <ul>
-
-                    <li><a th:href="@{/home/main}">Inicio</a></li>
-                    <p>Acá va un poco de info sobre qué es BiosWork</p>
-                       <li><a th:href="@{/home/index}">Ingresar</a></li>
+                <li>
+                    <li><a th:href="@{/home/ingresar}">Ingresar</a></li>
+                    
                        <li><a th:href="@{/postulantes/crear}">Registrarse</a></li>
                 </ul>
             </nav>
-
-        <main class="contenido" th:replace="${contenido} ?: ~{}">
-            <p>Acá va algún banner o imágenes de nuestro sitio y qué ofrecemos</p>
-        </main>
-
-
-    </div>
-
-
-   
-   
 </body>
 </html>

@@ -37,8 +37,16 @@ HttpSession sessionUsuario;
         return "home/index";       
     }    
 
-    @PostMapping("/index")
-    public String index(String usuario, Model modelo) {
+    @GetMapping("/ingresar") 
+    public String ingresar() {
+         
+       
+        return "home/ingresar";       
+    }    
+
+
+    @PostMapping("/ingresar")
+    public String ingresar(String usuario, Model modelo) {
        
          //ACA VA EL ACCESO A LA CAPA DE DATOS DE USUARIO Y PREGUNTA SI EXISTE EL USUARIO   
 
@@ -55,7 +63,7 @@ HttpSession sessionUsuario;
         }
         else
         {   //SI NO EXISTE, SE QUEDA EN EL INDEX
-            return "home/index";
+            return "home/ingresar";
         }
       
     }
