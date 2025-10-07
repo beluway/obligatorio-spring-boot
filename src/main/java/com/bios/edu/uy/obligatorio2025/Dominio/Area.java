@@ -19,7 +19,10 @@ public class Area {
     
     @Column(name = "nombre", unique = true)
     @NotNull(message = "ingrese el nombre del área")
-     private String nombre;
+    private String nombre;
+
+    @Column(name = "")
+    private Boolean asignada;
 
     public void setId(Integer id) {
         this.id = id;
