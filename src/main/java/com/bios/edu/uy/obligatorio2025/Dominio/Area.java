@@ -1,5 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +21,10 @@ public class Area {
     
     @Column(name = "nombre", unique = true)
     @NotNull(message = "ingrese el nombre del área")
-     private String nombre;
+    private String nombre;
+
+    @Column(name = "asignada")
+    private Boolean asignada =false;
 
     public void setId(Integer id) {
         this.id = id;
@@ -37,20 +42,30 @@ public class Area {
         this.nombre = nombre;
     }
 
+
     //constructor x defecto para JPA
     public Area(){}
 
-    public Area(Integer id, @NotNull(message = "ingrese el nombre del área") String nombre) {
+    public Boolean getAsignada() {
+        return asignada;
+    }
+
+    public void setAsignada(Boolean asignada) {
+        this.asignada = asignada;
+    }
+
+    public Area(Integer id, @NotNull(message = "ingrese el nombre del área") String nombre, Boolean asignada) {
         this.id = id;
         this.nombre = nombre;
+        this.asignada = asignada;
     }
 
     @Override
     public String toString() {
-        return "Area [id=" + id + ", nombre=" + nombre + "]";
+        return "Area [id=" + id + ", nombre=" + nombre + ", asignada=" + asignada + "]";
     }
 
-   
+  
 
     
 

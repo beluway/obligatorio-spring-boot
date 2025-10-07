@@ -62,7 +62,7 @@ public class ControladorAreas {
 
         modelo.addAttribute("mensaje", "Error, "+e.getMessage());
         return "areas/crear";
-    }
+         }
 
     }
     //LISTAR ÁREAS GET
