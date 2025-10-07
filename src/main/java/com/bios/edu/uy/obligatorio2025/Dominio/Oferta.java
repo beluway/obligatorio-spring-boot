@@ -1,10 +1,13 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
@@ -13,7 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.*;
@@ -60,6 +63,10 @@ private Integer id;
     @NotNull(message = "Ingrese la cantidad de puestos vacantes")
     @Min(0)
     private Integer cantidadVacantes;
+
+    @OneToMany(mappedBy = "oferta", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Postulacion> postulaciones = new ArrayList<>();
+
 
     public Integer getId() {
         return id;
@@ -130,6 +137,11 @@ private Integer id;
     //Hibernate necesita un constructor público vacío en todas las entidades (@Entity). Esto es obligatorio para poder instanciarlas al leer datos desde la base de datos.
     public Oferta(){}
 
+
+  
+    public List<Postulacion> getPostulaciones() { return postulaciones; }
+    public void setPostulaciones(List<Postulacion> postulaciones) { this.postulaciones = postulaciones; }
+
     public Oferta(Integer id, @NotNull LocalDate fechaPublicacion, @NotNull @Future LocalDate fechaCierre,
             Cliente cliente, @NotNull(message = "Ingrese una descripción") String descripcion,
             @NotNull(message = "Ingrese el título") String titulo, @NotNull(message = "Ingrese una área") Area area,
@@ -142,6 +154,26 @@ private Integer id;
         this.titulo = titulo;
         this.area = area;
         this.cantidadVacantes = cantidadVacantes;
+    }
+   
+
+
+
+    public Oferta(Integer id, @NotNull LocalDate fechaPublicacion, @NotNull @Future LocalDate fechaCierre,
+            Cliente cliente, @NotNull(message = "Ingrese una área") Area area,
+            @NotNull(message = "Ingrese una descripción") String descripcion,
+            @NotNull(message = "Ingrese el título") String titulo,
+            @NotNull(message = "Ingrese la cantidad de puestos vacantes") @Min(0) Integer cantidadVacantes,
+            List<Postulacion> postulaciones) {
+        this.id = id;
+        this.fechaPublicacion = fechaPublicacion;
+        this.fechaCierre = fechaCierre;
+        this.cliente = cliente;
+        this.area = area;
+        this.descripcion = descripcion;
+        this.titulo = titulo;
+        this.cantidadVacantes = cantidadVacantes;
+        this.postulaciones = postulaciones;
     }
 
     @Override

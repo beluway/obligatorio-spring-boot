@@ -3,7 +3,9 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 import java.io.Serializable;
 import java.lang.ProcessBuilder.Redirect.Type;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,6 +13,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -23,15 +28,15 @@ import java.util.Date;
 @Entity
 @Table(name = "postulaciones")
 public class Postulacion {
-    
-   /*  @Id
+  /*   
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; */
+    private Integer idGenerado; */
 
     //CLAVE COMPUESTA (OFERTA + POSTULANTE)
     @EmbeddedId
     private PostulacionId id;
- 
+    
     @NotNull
     @PastOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -84,10 +89,12 @@ public class Postulacion {
         this.postulante = postulante;
     }
 
+
+
     //constructor vacío
     public Postulacion(){}
 
-
+  
 public Postulacion(PostulacionId id, @NotNull @PastOrPresent LocalDate fechaPostulacion, @NotNull Oferta oferta,
         @NotNull Postulante postulante) {
     this.id = id;
@@ -107,12 +114,15 @@ public Postulacion(PostulacionId id, @NotNull @PastOrPresent LocalDate fechaPost
     public String getUsuarioPostulante() {
         return usuarioPostulante;
     }
+
     public void setUsuarioPostulante(String usuarioPostulante) {
         this.usuarioPostulante = usuarioPostulante;
     }
+
     public Integer getIdOferta() {
         return idOferta;
     }
+    
     public void setIdOferta(Integer idOferta) {
         this.idOferta = idOferta;
     }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+    
+ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Área</title>
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
+</head>
+
+<section>
+    <div id="contenedor">
+     <div class="card">
+            <h2>Eliminar Área</h2>
+            <form th:action="@{/postulaciones/eliminar}" method="post" th:object="${postulacion}">
+
+                <p th:text="${mensaje}"></p>
+
+                <label for="id">ID</label>
+                <input type="text" id="id" name="id" th:field="*{id}" readonly> 
+                
+                <label for="titulo">Nombre</label>
+                <input type="text" id="postulacion.oferta.titulo" name="postulacion.oferta.titulo" th:field="*{postulacion.oferta.titulo}" readonly>
+
+                 <label for="descripcion">Nombre</label>
+                <input type="text" id="postulacion.oferta.descripcion" name="postulacion.oferta.descripcion" th:field="*{postulacion.oferta.descripcion}" readonly>
+
+                <button type="submit" id="eliminar">Eliminar</button>
+
+                <!-- Modal de confirmación -->
+                <dialog id="confirmDialog" class="card">
+                    <h3>Confirmar eliminación</h3>
+                    <p>¿Está seguro de que desea eliminar esta área permanentemente?</p>
+                    <div style="margin-top: 1em;">
+                        <button type="button" id="confirmYes">Sí, eliminar</button>
+                        <button type="button" id="confirmNo">Cancelar</button>
+                    </div>
+                </dialog>
+
+                <a th:href="@{/postulaciones/lista}" id="volver">Volver al listado</a>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    const btn = document.getElementById('eliminar');
+    const form = document.querySelector('form');
+    const dialog = document.getElementById('confirmDialog');
+    const confirmYes = document.getElementById('confirmYes');
+    const confirmNo = document.getElementById('confirmNo');
+
+    btn.addEventListener('click', function (event) {
+        event.preventDefault();
+        dialog.showModal(); // abre el modal
+    });
+
+    confirmYes.addEventListener('click', () => {
+        dialog.close();
+        form.submit(); // solo acá se envía
+    });
+
+    confirmNo.addEventListener('click', () => {
+        dialog.close(); // cierra sin enviar
+    });
+</script>
+
+</html>

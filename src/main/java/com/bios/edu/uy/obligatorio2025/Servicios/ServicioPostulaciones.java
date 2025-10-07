@@ -3,13 +3,16 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion.PostulacionId;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
@@ -41,7 +44,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     @Override 
     public void eliminar (Postulacion postulacion)throws ExcepcionBiosWork
     {
-        
+        repositorioPostulaciones.delete(postulacion);
     }
 
     @Override 
@@ -102,6 +105,42 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
          return listaOfertasVigentesParaPostularse;
     }    
 
+ /*   @Override
+   public Postulacion obtener(Postulacion postulacion)
+   {
+      /*  PostulacionId id = new PostulacionId(postulacion.getPostulante().getUsuario(),postulacion.getOferta().getId()); */
 
+/*          PostulacionId id = postulacion.getId();        
+
+       return  repositorioPostulaciones.findById(id.hashCode()); */
+
+
+
+/* 
+PostulacionId id = new PostulacionId(null, null);
+MiEntidad entidad = repositorio.findById(id).orElse(null);
+@Autowired
+private PostulacionRepository postulacionRepository;
+
+public Postulacion obtenerPostulacion(String usuarioPostulante, Integer idOferta) {
+
+    // Crear el objeto de clave compuesta
+    Postulacion.PostulacionId id = new Postulacion.PostulacionId();
+    id.setUsuarioPostulante(usuarioPostulante);
+    id.setIdOferta(idOferta);
+
+    // Buscar en la base de datos
+    return postulacionRepository.findById(id).orElse(null);
+} */
+
+/* 
+@Query(value = "DELETE postulaciones WHERE ") */
+
+
+    @Override
+    public Optional<Postulacion> obtener(Postulacion postulacion)
+    {
+        return  repositorioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());
+    }
 
 }

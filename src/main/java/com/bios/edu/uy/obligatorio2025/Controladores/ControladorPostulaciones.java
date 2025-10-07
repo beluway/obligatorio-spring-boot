@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
@@ -145,9 +146,13 @@ public class ControladorPostulaciones {
     }
 
 
-     @GetMapping("/eliminar")
-    public String eliminar(@ModelAttribute Postulacion postulacion)
-    {    
+    @GetMapping("/eliminar")
+    public String eliminar(Model modelo, HttpSession sesion, Postulacion postulacion) throws Exception
+    {  
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        
+        servicioPostulaciones.eliminar(postulacion);         
+
         return "postulaciones/eliminar";        
     }
 

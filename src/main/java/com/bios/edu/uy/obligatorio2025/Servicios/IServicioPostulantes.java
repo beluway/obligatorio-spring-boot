@@ -11,6 +11,6 @@ public interface IServicioPostulantes {
     void modificar (Postulante postulante) throws Exception;
     void eliminar (String usuario) throws Exception;
     List<Postulante> lista() throws Exception;
-    Postulante obtener (String usuario) throws Exception;
     Postulante buscar(String usuario);
+    public Postulante obtener (String usuario) throws Exception;
 }

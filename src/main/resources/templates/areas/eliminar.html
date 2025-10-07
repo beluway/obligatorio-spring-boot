@@ -10,33 +10,33 @@
 </head>
 <section>
     <div id="contenedor">
-   <div class="card">
-        <h2>Eliminar Área</h2>
-        <form th:action="@{/areas/eliminar}" method="post" th:object="${area}">
+     <div class="card">
+            <h2>Eliminar Área</h2>
+            <form th:action="@{/areas/eliminar}" method="post" th:object="${area}">
 
-            <p th:text="${mensaje}"></p>
+                <p th:text="${mensaje}"></p>
 
-            <label for="id">ID</label>
-            <input type="text" id="id" name="id" th:field="*{id}" readonly> 
-            
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" th:field="*{nombre}" readonly>
+                <label for="id">ID</label>
+                <input type="text" id="id" name="id" th:field="*{id}" readonly> 
+                
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" th:field="*{nombre}" readonly>
 
-            <button type="submit" id="eliminar">Eliminar</button>
+                <button type="submit" id="eliminar">Eliminar</button>
 
-            <!-- Modal de confirmación -->
-            <dialog id="confirmDialog" class="card">
-                <h3>Confirmar eliminación</h3>
-                <p>¿Está seguro de que desea eliminar esta área permanentemente?</p>
-                <div style="margin-top: 1em;">
-                    <button type="button" id="confirmYes">Sí, eliminar</button>
-                    <button type="button" id="confirmNo">Cancelar</button>
-                </div>
-            </dialog>
+                <!-- Modal de confirmación -->
+                <dialog id="confirmDialog" class="card">
+                    <h3>Confirmar eliminación</h3>
+                    <p>¿Está seguro de que desea eliminar esta área permanentemente?</p>
+                    <div style="margin-top: 1em;">
+                        <button type="button" id="confirmYes">Sí, eliminar</button>
+                        <button type="button" id="confirmNo">Cancelar</button>
+                    </div>
+                </dialog>
 
-            <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>
-        </form>
-    </div>
+                <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>
+            </form>
+        </div>
     </div>
 </section>
  
@@ -62,4 +62,5 @@
         dialog.close(); // cierra sin enviar
     });
 </script>
+
 </html>

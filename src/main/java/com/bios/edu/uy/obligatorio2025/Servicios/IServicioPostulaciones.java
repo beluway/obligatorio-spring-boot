@@ -2,6 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
@@ -16,4 +17,5 @@ public interface IServicioPostulaciones {
     List<Postulacion> listaPostulaciones () throws Exception;  
     List<Postulacion> listaPostulacionesPorPostulante(Postulante postulante) throws Exception;
     public List<Oferta> listaOfertasVigentesParaPostularse(Postulante postulante) throws Exception;
+    Optional<Postulacion> obtener(Postulacion postulacion) throws Exception;
 }
