@@ -42,7 +42,6 @@ public class Area {
         this.nombre = nombre;
     }
 
-
     //constructor x defecto para JPA
     public Area(){}
 

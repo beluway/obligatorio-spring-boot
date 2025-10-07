@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.io.Serializable;
+import java.lang.ProcessBuilder.Redirect.Type;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -40,7 +41,7 @@ public class Postulacion {
     //LA COLUMNA OFERTA ES UNA UNION (JOIN) CON LA TABLA OFERTA Y ADEMAS FORMA LA PK COMPUESTA    
     @NotNull
     @MapsId("idOferta")
-    @ManyToOne //UNA POSTULACIÓN SOLO TIENE UNA OFERTA
+    @ManyToOne
     @JoinColumn(name = "oferta", nullable = false)
     private Oferta oferta;
 

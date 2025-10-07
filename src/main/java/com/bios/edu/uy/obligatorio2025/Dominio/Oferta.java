@@ -43,18 +43,18 @@ private Integer id;
     @JoinColumn(name = "cliente",nullable = false)
     private Cliente cliente;
 
+    @NotNull(message = "Ingrese una área")
+    @ManyToOne
+    @JoinColumn(name = "area",nullable = false)
+    private Area area;
+
     @Column(name = "descripcion",nullable = false, length = 4000)
     @NotNull(message = "Ingrese una descripción")
     private String descripcion; 
     
     @Column(name="titulo",nullable = false, length = 100)
     @NotNull(message = "Ingrese el título")
-    private String titulo;
-
-    @NotNull(message = "Ingrese una área")
-    @ManyToOne
-    @JoinColumn(name = "area",nullable = false)
-    private Area area;
+    private String titulo;    
 
     @Column(name="cantidadVacantes",nullable = false)
     @NotNull(message = "Ingrese la cantidad de puestos vacantes")
