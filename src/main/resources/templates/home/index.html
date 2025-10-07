@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"
-      th:fragment="html(titulo, contenido, estilos)">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- título dinámico -->
-    <title th:replace="${titulo}">Página Principal de BiosWork</title>
     
     <link rel="stylesheet" th:href="@{/css/navbar.css}" />
     
