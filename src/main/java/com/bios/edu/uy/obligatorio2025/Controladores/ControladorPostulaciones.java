@@ -42,6 +42,9 @@ public class ControladorPostulaciones {
      @Autowired
     private IServicioOfertas servicioOfertas;
 
+    @Autowired
+    private IServicioPostulantes servicioPostulantes;
+
     @GetMapping("/crear")
     public String crear(Model modelo, HttpSession sesion) throws Exception
     {    
@@ -173,12 +176,18 @@ public class ControladorPostulaciones {
         //SE LE ASIGNA (SE ENCAPSULA) LA CLAVE COMPUESTA A LA POSTULACION
         postulacionEncapusulaClaveCompuestaOF_POST.setId(claveCompuestaPostulacion); */
 
-        //EL METODO "OBTENER" RECIBE UN OBJETO POSTULACION PARA ENCONTRAR LA POSTULACIÓN 
-        Optional<Postulacion> encontrada= servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
+        //EL METODO "OBTENER" RECIBE UN OBJETO POSTULACION PARA ENCONTRAR LA POSTULACIÓN  ???
 
-        if(!encontrada.isEmpty())
+        //primero creo una oferta a partir del código que recibo
+        Oferta oferta = servicioOfertas.obtener(codigoOferta);
+        //creo el postulante tmb
+        Postulante postulante = servicioPostulantes.obtener(codigoPostulante);
+        //Optional<Postulacion> encontrada= servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
+        Optional<Postulacion> postulacionEncontrada = servicioPostulaciones.findByOfertaAndPostulante(oferta, postulante);
+
+        if(!postulacionEncontrada.isEmpty())
         {
-            modelo.addAttribute("postulacion", encontrada.get());
+            modelo.addAttribute("postulacion", postulacionEncontrada.get());
 
              return "postulaciones/eliminar"; 
         }
