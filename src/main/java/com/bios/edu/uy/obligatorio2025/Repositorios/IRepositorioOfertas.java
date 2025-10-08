@@ -24,6 +24,8 @@ import jakarta.persistence.criteria.Root;
 public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer>, JpaSpecificationExecutor<Oferta> {
 
     List<Oferta> findAllByOrderByAreaAsc();
+
+    
     List<Oferta> findAllByCliente(Cliente cliente);   
 
     
