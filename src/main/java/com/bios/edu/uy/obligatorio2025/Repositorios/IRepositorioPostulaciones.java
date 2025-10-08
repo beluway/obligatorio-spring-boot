@@ -28,5 +28,7 @@ void deleteBy (Postulacion.PostulacionId id);
 
 Optional<Postulacion> findById_IdOfertaAndId_UsuarioPostulante(Integer idOferta, String usuarioPostulante);
 
+List<Postulacion> findAllByOferta(Oferta oferta);
+
 
 }

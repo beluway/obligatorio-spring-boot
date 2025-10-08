@@ -16,9 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.*;
 
 
@@ -64,9 +62,9 @@ private Integer id;
     @Min(0)
     private Integer cantidadVacantes;
 
-    @OneToMany(mappedBy = "oferta", cascade = CascadeType.REMOVE, orphanRemoval = true)
+/*     @OneToMany(mappedBy = "oferta", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Postulacion> postulaciones = new ArrayList<>();
-
+ */
 
     public Integer getId() {
         return id;
@@ -139,8 +137,8 @@ private Integer id;
 
 
   
-    public List<Postulacion> getPostulaciones() { return postulaciones; }
-    public void setPostulaciones(List<Postulacion> postulaciones) { this.postulaciones = postulaciones; }
+/*     public List<Postulacion> getPostulaciones() { return postulaciones; }
+    public void setPostulaciones(List<Postulacion> postulaciones) { this.postulaciones = postulaciones; } */
 
     public Oferta(Integer id, @NotNull LocalDate fechaPublicacion, @NotNull @Future LocalDate fechaCierre,
             Cliente cliente, @NotNull(message = "Ingrese una descripción") String descripcion,
@@ -173,7 +171,7 @@ private Integer id;
         this.descripcion = descripcion;
         this.titulo = titulo;
         this.cantidadVacantes = cantidadVacantes;
-        this.postulaciones = postulaciones;
+       /*  this.postulaciones = postulaciones; */
     }
 
     @Override

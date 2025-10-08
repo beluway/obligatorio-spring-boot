@@ -48,5 +48,6 @@ public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer>, JpaS
         
     }
 
+
    
 }

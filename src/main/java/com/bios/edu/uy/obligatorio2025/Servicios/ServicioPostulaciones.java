@@ -86,4 +86,10 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
         return  repositorioPostulaciones.findById_IdOfertaAndId_UsuarioPostulante(idOferta,usuario);
     }
 
+    @Override 
+    public List<Postulacion> listaPostulacionesPorOferta (Oferta oferta)
+    {
+        return repositorioPostulaciones.findAllByOferta(oferta);
+    }
+
 }
