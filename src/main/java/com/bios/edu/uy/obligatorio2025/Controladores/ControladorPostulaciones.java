@@ -2,6 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Controladores;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion.PostulacionId;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
@@ -149,9 +151,7 @@ public class ControladorPostulaciones {
     @GetMapping("/eliminar")
     public String eliminar(Model modelo, HttpSession sesion, Postulacion postulacion) throws Exception
     {  
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
-        
-        servicioPostulaciones.eliminar(postulacion);         
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));     
 
         return "postulaciones/eliminar";        
     }
@@ -167,7 +167,13 @@ public class ControladorPostulaciones {
 
         try
         {
-            servicioPostulaciones.eliminar(postulacion);                         
+            Optional<Postulacion> postulacionExistente = servicioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());  
+            
+            if (postulacionExistente==null) {
+                throw new ExcepcionNoExiste("La postulación con a la Oferta "+postulacion.getOferta().getId()+"del Postulante "+
+                postulacion.getPostulante().getUsuario()+"no fue encontrada.");
+            }
+            servicioPostulaciones.eliminar(postulacionExistente.get());
             attributes.addFlashAttribute("mensaje","Postulación eliminada con éxito.");
             return "redirect:/postulaciones/lista";
 

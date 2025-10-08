@@ -143,4 +143,9 @@ public Postulacion obtenerPostulacion(String usuarioPostulante, Integer idOferta
         return  repositorioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());
     }
 
+    @Override
+    public Optional<Postulacion> findByOfertaAndPostulante(Oferta oferta, Postulante postulante) {
+        return repositorioPostulaciones.findByOfertaAndPostulante(oferta,postulante);
+    }
+
 }

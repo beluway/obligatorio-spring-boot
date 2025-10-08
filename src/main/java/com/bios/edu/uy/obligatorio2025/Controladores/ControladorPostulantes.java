@@ -91,6 +91,8 @@ public class ControladorPostulantes {
         { 
             pdf.transferTo(archivoDestino);
 
+            postulante.setActivo(true);
+
             atributos.addFlashAttribute("mensaje","archivo subido !");
 
             postulante.setCantidadPostulaciones(0);

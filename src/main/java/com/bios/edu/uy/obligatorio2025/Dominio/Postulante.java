@@ -167,7 +167,6 @@ public class Postulante extends Usuario{
         this.segundoApellido = segundoApellido;
     }
 
-
  public Postulante(){}
 
 
@@ -207,6 +206,16 @@ public class Postulante extends Usuario{
         this.segundoNombre = segundoNombre;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
+    }
+
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
     

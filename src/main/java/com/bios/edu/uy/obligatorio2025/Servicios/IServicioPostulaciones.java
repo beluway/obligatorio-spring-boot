@@ -18,4 +18,5 @@ public interface IServicioPostulaciones {
     List<Postulacion> listaPostulacionesPorPostulante(Postulante postulante) throws Exception;
     public List<Oferta> listaOfertasVigentesParaPostularse(Postulante postulante) throws Exception;
     Optional<Postulacion> obtener(Postulacion postulacion) throws Exception;
+    Optional<Postulacion> findByOfertaAndPostulante(Oferta oferta, Postulante postulante);
 }

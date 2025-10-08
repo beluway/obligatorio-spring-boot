@@ -12,10 +12,12 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 <section>
 <div class="card">
     <h2>Ver Oferta</h2>
-    <form action="#" method="post">
+    <form th:action="@{/postulaciones/crear}" method="post">
+
         <label for="id">ID</label>
-        <input type="text" id="id" name="id" th:value="${oferta.id}" disabled > 
-        
+        <input type="text" id="id" name="id" th:value="${oferta.id}" readonly > 
+        <input type="hidden" name="oferta.id" th:value="${oferta.id}">
+
         <label for="titulo">Título</label>
         <input type="text" id="titulo" name="titulo" th:value="${oferta.titulo}" readonly>
 
@@ -38,6 +40,8 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         <input type="number" id="vacantes" name="vacantes" th:value="${oferta.cantidadVacantes}" readonly>
 
         <button type="submit" id="postularse">Postularse</button>
+
+        <p th:text="${mensaje}" class="alert alert-success"></p>
 
         <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
         
