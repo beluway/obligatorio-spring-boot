@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.web.exchanges.HttpExchange.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,6 +46,8 @@ public class ControladorPostulaciones {
     @Autowired
     private IServicioPostulantes servicioPostulantes;
 
+
+
     @GetMapping("/crear")
     public String crear(Model modelo, HttpSession sesion) throws Exception
     {    
@@ -54,13 +57,6 @@ public class ControladorPostulaciones {
 
       
     Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
-
-
-  //CANTIDAD DE POSTULACIONES ACTUALES DEL USUARIO LOGUEADO
-     
-            //CANTIDAD DE OFERTAS VENCIDAS DEL POSTULANTE            
-        //Integer cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario(postulanteLogueado.getUsuario());
-         
              
             //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
             if(postulanteLogueado.getCantidadPostulaciones()==3)
@@ -87,8 +83,7 @@ public class ControladorPostulaciones {
     HttpSession sesion,
     RedirectAttributes attributes) throws Exception /*  */
     {      
-
-              
+  
         Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
 
         Oferta ofertaEncontrada = servicioOfertas.obtener(postulacion.getOferta().getId()); 
@@ -115,20 +110,8 @@ public class ControladorPostulaciones {
         postulacion.setFechaPostulacion(LocalDate.now());
         
 
-      /*   if(resultado.hasErrors())
-        {           
-            return "postulaciones/crear";
-        }  */
-
         try
         {   
-
-         //CANTIDAD DE POSTULACIONES ACTUALES DEL USUARIO LOGUEADO
-       // Integer cantidadPostulacionesActuales = (postulanteLogueado).getCantidadPostulaciones();   
-            //CANTIDAD DE OFERTAS VENCIDAS DEL POSTULANTE            
-        //Integer cantidadOfertasVencidas = servicioOfertas.cantidadOfertasVencidasPorUsuario(postulanteLogueado.getUsuario());
-        
-             
  
                 String mensaje = "Se agregó la postulación correctamente";
                 attributes.addFlashAttribute("mensaje",mensaje);
@@ -158,32 +141,8 @@ public class ControladorPostulaciones {
     @RequestParam("codigoPostulante")String codigoPostulante) throws Exception
     {  
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));       
-     
-        //SE CREA UN OBJETO CLAVE COMPUESTA PARA PASARLE LA OFERTA Y EL POSTULANTE DE LA POSTULACION
-        //ELEGIDA EN LA LISTA
-               
-/* 
-        PostulacionId claveCompuestaPostulacion = new PostulacionId();
-
-        claveCompuestaPostulacion.setIdOferta(codigoOferta);
-        claveCompuestaPostulacion.setUsuarioPostulante(codigoPostulante);
-
-        //AHORA EL OBJETO CLAVE COMPUESTA SE "ENCAPSULA" NUEVAMENTE PARA METERLO ADENTRO DE UN OBJETO POSTULACION
-
-        //SE CREA EL OBJETO POSTULACION QUE ES NECESARIA PARA EL METODO "OBTENER" DEL SERVICIO POSTULACIONES:
-        Postulacion postulacionEncapusulaClaveCompuestaOF_POST= new Postulacion();
-
-        //SE LE ASIGNA (SE ENCAPSULA) LA CLAVE COMPUESTA A LA POSTULACION
-        postulacionEncapusulaClaveCompuestaOF_POST.setId(claveCompuestaPostulacion); */
-
-        //EL METODO "OBTENER" RECIBE UN OBJETO POSTULACION PARA ENCONTRAR LA POSTULACIÓN  ???
-
-        //primero creo una oferta a partir del código que recibo
-        Oferta oferta = servicioOfertas.obtener(codigoOferta);
-        //creo el postulante tmb
-        Postulante postulante = servicioPostulantes.obtener(codigoPostulante);
-        //Optional<Postulacion> encontrada= servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
-        Optional<Postulacion> postulacionEncontrada = servicioPostulaciones.findByOfertaAndPostulante(oferta, postulante);
+            
+        Optional<Postulacion> postulacionEncontrada = servicioPostulaciones.obtener(codigoOferta, codigoPostulante);
 
         if(!postulacionEncontrada.isEmpty())
         {
@@ -197,8 +156,9 @@ public class ControladorPostulaciones {
     }
 
 
+    
     @PostMapping("/eliminar")
-    public String eliminar (@ModelAttribute @Valid Postulacion postulacion,BindingResult resultado, Model modelo, RedirectAttributes attributes) throws Exception 
+    public String eliminar (@ModelAttribute @Valid Postulacion postulacion,BindingResult resultado, Model modelo, RedirectAttributes attributes, HttpSession sesion) throws Exception 
     {         
         if(resultado.hasErrors())
         {
@@ -207,13 +167,15 @@ public class ControladorPostulaciones {
 
         try
         {
-            Optional<Postulacion> postulacionExistente = servicioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());  
+            servicioPostulaciones.eliminar(postulacion);  
             
-            if (postulacionExistente==null) {
-                throw new ExcepcionNoExiste("La postulación con a la Oferta "+postulacion.getOferta().getId()+"del Postulante "+
-                postulacion.getPostulante().getUsuario()+"no fue encontrada.");
-            }
-            servicioPostulaciones.eliminar(postulacionExistente.get());
+            //SE LE QUITA 1 A LA CANTIDAD DE POSTULACIONES DEL POSTULANTE
+          Postulante postulanteParaActualizarCantidadPostulaciones =  (Postulante)sesion.getAttribute("usuarioLogueado")
+
+            int cantidadNueva =  postulanteParaActualizarCantidadPostulaciones.getCantidadPostulaciones()-1;
+
+            postulanteParaActualizarCantidadPostulaciones.setCantidadPostulaciones(cantidadNueva);
+
             attributes.addFlashAttribute("mensaje","Postulación eliminada con éxito.");
             return "redirect:/postulaciones/lista";
 
@@ -234,7 +196,7 @@ public class ControladorPostulaciones {
 
      
 
-     @GetMapping("/lista")
+    @GetMapping("/lista")
     public String lista(Model modelo, HttpSession sesion) throws Exception
     {    
         modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));        

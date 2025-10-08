@@ -15,14 +15,17 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 public interface IRepositorioPostulaciones extends JpaRepository<Postulacion,Postulacion.PostulacionId> {
     
 List<Postulacion> findAllByPostulante(Postulante postulante);
-
-Postulacion findById(Integer id);
-
+/* 
 @EntityGraph(type = EntityGraphType.LOAD, attributePaths = { "oferta.id", "postulante.usuario" })
-Optional<Postulacion> findByOfertaAndPostulante(Oferta oferta, Postulante postulante);
+Optional<Postulacion> findByOfertaAndPostulante(Oferta oferta, Postulante postulante); */
+
 
 Optional<Postulacion> findById_IdOfertaAndId_UsuarioPostulante(Integer idOferta, String usuarioPostulante);
 
+
+// SE SACAN TODAS LAS POSTULACIONES POR OFERTA
+//PARA HACER LA BAJA FISICA, PRIMERO SE ELIMINAN TODAS ESTAS POSTULACIONES, Y DESPUES LA OFERTA
+List<Postulacion> findAllByOferta(Oferta oferta);
 
 }
 //l

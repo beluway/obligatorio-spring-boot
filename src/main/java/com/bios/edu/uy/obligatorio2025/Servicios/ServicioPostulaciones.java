@@ -29,6 +29,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     @Autowired
     private IRepositorioOfertas repositorioOfertas;
   
+
     @Override 
     public void agregar (Postulacion postulacion) throws ExcepcionBiosWork
     {
@@ -41,11 +42,13 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
 
     }
 
+
     @Override 
     public void eliminar (Postulacion postulacion)throws ExcepcionBiosWork
     {     
         repositorioPostulaciones.delete(postulacion);
     }
+
 
     @Override 
     public List<Postulacion> listaPostulaciones ()
@@ -65,8 +68,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
 
     @Override
     public List<Oferta> listaOfertasVigentesParaPostularse(Postulante postulante)
-    {
-      
+    {      
         List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes());
 
         List<Postulacion> listaPostulacionesDelPostulante = repositorioPostulaciones.findAllByPostulante(postulante);
@@ -80,10 +82,20 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     }    
 
 
-     @Override
+
+    @Override
     public Optional<Postulacion> obtener(Integer idOferta, String usuario)
     {
         return  repositorioPostulaciones.findById_IdOfertaAndId_UsuarioPostulante(idOferta,usuario);
+    }
+
+
+    // SE SACAN TODAS LAS POSTULACIONES POR OFERTA
+    //PARA HACER LA BAJA FISICA, PRIMERO SE ELIMINAN TODAS ESTAS POSTULACIONES, Y DESPUES LA OFERTA
+    @Override 
+    public List<Postulacion> listaPostulacionesPorOferta (Oferta oferta)
+    {
+        return  repositorioPostulaciones.findAllByOferta(oferta);
     }
 
 }
