@@ -64,6 +64,8 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         <!-- ID oculto para enviar en POST -->
         <input type="hidden" th:field="*{id}">
 
+        <input type="hidden" th:field="*{area.id}">
+
         <label for="id">ID</label>
         <input type="text" id="id" th:field="*{id}" readonly>
 
@@ -93,6 +95,8 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         <p id="alerta" style="color: red;"></p>
         <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
     </form>
+
+    
 </div>
 </div>
 

@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
+import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 
 import jakarta.validation.OverridesAttribute;
 
@@ -21,6 +23,10 @@ public class ServicioOfertas implements IServicioOfertas {
 
 @Autowired
 private IRepositorioOfertas repositorioOfertas;
+
+@Autowired
+private IRepositorioPostulaciones respositorioPostulaciones;
+
 
 
     @Override
@@ -85,9 +91,9 @@ private IRepositorioOfertas repositorioOfertas;
          List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes());
    
          return listaOfertasVigentes;
-    }    
- 
-  
-
+    }   
+   
+       
+    
 
 }

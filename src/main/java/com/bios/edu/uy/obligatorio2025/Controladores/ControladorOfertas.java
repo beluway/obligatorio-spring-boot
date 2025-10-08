@@ -22,6 +22,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioAreas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioAreas;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -32,11 +33,11 @@ import jakarta.validation.Valid;
 public class ControladorOfertas {
 
    
-       @Autowired
+    @Autowired
     private IServicioOfertas servicioOfertas;
  
-/*     @Autowired
-    private IRepositorioAreas repositorioAreas; */
+    @Autowired
+    private IServicioPostulaciones servicioPostulaciones;
 
     @Autowired
     private IServicioAreas servicioAreas;
@@ -78,7 +79,7 @@ public class ControladorOfertas {
 
     @GetMapping("/eliminar")
 
-    public String eliminarOferta(Model modelo, @RequestParam Integer codigo) throws Exception{
+    public String eliminarOferta(Model modelo,@RequestParam Integer codigo) throws Exception{
       
         Oferta oferta = servicioOfertas.obtener(codigo);
 
@@ -89,8 +90,14 @@ public class ControladorOfertas {
     }
 
     @PostMapping("/eliminar")
-    public String procesarEliminarOferta(@ModelAttribute @Valid Oferta ofertas, Model modelo, BindingResult resultado)  {
-              
+    public String procesarEliminarOferta(@ModelAttribute @Valid Oferta oferta,  BindingResult resultado, Model modelo)throws Exception
+    {
+        //PRIMERO SE ELIMINAN LAS POSTULACIONES
+        servicioPostulaciones.eliminarConOferta(oferta);   
+
+        //DESPUES DE ELIMINA LA OFERTA
+        servicioOfertas.eliminar(oferta.getId());      
+
         return "redirect:/ofertas/eliminar";
     }
     
