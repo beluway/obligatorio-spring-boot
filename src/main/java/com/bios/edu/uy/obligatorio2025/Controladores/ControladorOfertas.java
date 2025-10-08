@@ -98,7 +98,7 @@ public class ControladorOfertas {
         //DESPUES DE ELIMINA LA OFERTA
         servicioOfertas.eliminar(oferta.getId());      
 
-        return "redirect:/ofertas/eliminar";
+        return "redirect:/ofertas/listaPorCliente";
     }
     
     
