@@ -22,6 +22,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion.PostulacionId;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
@@ -40,6 +41,9 @@ public class ControladorPostulaciones {
 
      @Autowired
     private IServicioOfertas servicioOfertas;
+
+    @Autowired
+    private IServicioPostulantes servicioPostulantes;
 
     @GetMapping("/crear")
     public String crear(Model modelo, HttpSession sesion) throws Exception
@@ -172,12 +176,18 @@ public class ControladorPostulaciones {
         //SE LE ASIGNA (SE ENCAPSULA) LA CLAVE COMPUESTA A LA POSTULACION
         postulacionEncapusulaClaveCompuestaOF_POST.setId(claveCompuestaPostulacion); */
 
-        //EL METODO "OBTENER" RECIBE UN OBJETO POSTULACION PARA ENCONTRAR LA POSTULACIÓN 
-        Optional<Postulacion> encontrada= servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
+        //EL METODO "OBTENER" RECIBE UN OBJETO POSTULACION PARA ENCONTRAR LA POSTULACIÓN  ???
 
-        if(!encontrada.isEmpty())
+        //primero creo una oferta a partir del código que recibo
+        Oferta oferta = servicioOfertas.obtener(codigoOferta);
+        //creo el postulante tmb
+        Postulante postulante = servicioPostulantes.obtener(codigoPostulante);
+        //Optional<Postulacion> encontrada= servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
+        Optional<Postulacion> postulacionEncontrada = servicioPostulaciones.findByOfertaAndPostulante(oferta, postulante);
+
+        if(!postulacionEncontrada.isEmpty())
         {
-            modelo.addAttribute("postulacion", encontrada.get());
+            modelo.addAttribute("postulacion", postulacionEncontrada.get());
 
              return "postulaciones/eliminar"; 
         }
@@ -197,7 +207,13 @@ public class ControladorPostulaciones {
 
         try
         {
-            servicioPostulaciones.eliminar(postulacion);                         
+            Optional<Postulacion> postulacionExistente = servicioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());  
+            
+            if (postulacionExistente==null) {
+                throw new ExcepcionNoExiste("La postulación con a la Oferta "+postulacion.getOferta().getId()+"del Postulante "+
+                postulacion.getPostulante().getUsuario()+"no fue encontrada.");
+            }
+            servicioPostulaciones.eliminar(postulacionExistente.get());
             attributes.addFlashAttribute("mensaje","Postulación eliminada con éxito.");
             return "redirect:/postulaciones/lista";
 
