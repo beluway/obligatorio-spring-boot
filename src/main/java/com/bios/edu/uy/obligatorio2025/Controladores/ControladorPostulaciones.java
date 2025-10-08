@@ -134,41 +134,14 @@ public class ControladorPostulaciones {
 
     }
 
-
-    @GetMapping("/eliminar")
+@GetMapping("/eliminar")
     public String eliminar(Model modelo, HttpSession sesion,
     @RequestParam("codigoOferta")Integer codigoOferta, 
     @RequestParam("codigoPostulante")String codigoPostulante) throws Exception
     {  
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));       
-<<<<<<< HEAD
-            
-        Optional<Postulacion> postulacionEncontrada = servicioPostulaciones.obtener(codigoOferta, codigoPostulante);
-=======
-     
-        //SE CREA UN OBJETO CLAVE COMPUESTA PARA PASARLE LA OFERTA Y EL POSTULANTE DE LA POSTULACION
-        //ELEGIDA EN LA LISTA
-               
-/* 
-        PostulacionId claveCompuestaPostulacion = new PostulacionId();
-
-        claveCompuestaPostulacion.setIdOferta(codigoOferta);
-        claveCompuestaPostulacion.setUsuarioPostulante(codigoPostulante);
-
-        //AHORA EL OBJETO CLAVE COMPUESTA SE "ENCAPSULA" NUEVAMENTE PARA METERLO ADENTRO DE UN OBJETO POSTULACION
-
-        //SE CREA EL OBJETO POSTULACION QUE ES NECESARIA PARA EL METODO "OBTENER" DEL SERVICIO POSTULACIONES:
-        Postulacion postulacionEncapusulaClaveCompuestaOF_POST= new Postulacion();
-
-        //SE LE ASIGNA (SE ENCAPSULA) LA CLAVE COMPUESTA A LA POSTULACION
-        postulacionEncapusulaClaveCompuestaOF_POST.setId(claveCompuestaPostulacion); */
-
-        //EL METODO "OBTENER" RECIBE UN OBJETO POSTULACION PARA ENCONTRAR LA POSTULACIÓN  
-
->>>>>>> 40b88b403d061e929bd71380e9f1bf558d6f8014
-
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado")); 
+        
         Optional<Postulacion> encontrada= servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
-        //Optional<Postulacion> postulacionEncontrada = servicioPostulaciones.findByOfertaAndPostulante(oferta, postulante);
 
         if(!encontrada.isEmpty())
         {
@@ -182,14 +155,12 @@ public class ControladorPostulaciones {
     }
 
 
-    
+
+   
     @PostMapping("/eliminar")
-<<<<<<< HEAD
-    public String eliminar (@ModelAttribute @Valid Postulacion postulacion,BindingResult resultado, Model modelo, RedirectAttributes attributes, HttpSession sesion) throws Exception 
-=======
-    public String eliminar (@ModelAttribute @Valid Postulacion postulacion,BindingResult resultado, Model modelo, RedirectAttributes attributes,    @RequestParam("codigoOferta")Integer codigoOferta, 
-    @RequestParam("codigoPostulante")String codigoPostulante) throws Exception 
->>>>>>> 40b88b403d061e929bd71380e9f1bf558d6f8014
+    public String eliminar (@ModelAttribute @Valid Postulacion postulacion,BindingResult resultado, Model modelo, RedirectAttributes attributes,  
+     @RequestParam("codigoOferta")Integer codigoOferta, 
+    @RequestParam("codigoPostulante")String codigoPostulante, HttpSession sesion) throws Exception 
     {         
         if(resultado.hasErrors())
         {
@@ -198,17 +169,6 @@ public class ControladorPostulaciones {
 
         try
         {
-<<<<<<< HEAD
-            servicioPostulaciones.eliminar(postulacion);  
-            
-            //SE LE QUITA 1 A LA CANTIDAD DE POSTULACIONES DEL POSTULANTE
-          Postulante postulanteParaActualizarCantidadPostulaciones =  (Postulante)sesion.getAttribute("usuarioLogueado")
-
-            int cantidadNueva =  postulanteParaActualizarCantidadPostulaciones.getCantidadPostulaciones()-1;
-
-            postulanteParaActualizarCantidadPostulaciones.setCantidadPostulaciones(cantidadNueva);
-
-=======
             Optional<Postulacion> encontrada = servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
             /* Optional<Postulacion> postulacionExistente = servicioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());   */
             
@@ -217,7 +177,14 @@ public class ControladorPostulaciones {
                 postulacion.getPostulante().getUsuario()+"no fue encontrada.");
             }
             servicioPostulaciones.eliminar(encontrada.get());
->>>>>>> 40b88b403d061e929bd71380e9f1bf558d6f8014
+
+            Postulante postulanteParaActualizacionCantidadPostulaciones = (Postulante)sesion.getAttribute("usuarioLogueado");
+
+            int cantidadNuevaPostulaciones = postulanteParaActualizacionCantidadPostulaciones.getCantidadPostulaciones()-1;
+
+            postulanteParaActualizacionCantidadPostulaciones.setCantidadPostulaciones(cantidadNuevaPostulaciones);
+
+
             attributes.addFlashAttribute("mensaje","Postulación eliminada con éxito.");
             return "redirect:/postulaciones/lista";
 
@@ -227,6 +194,7 @@ public class ControladorPostulaciones {
             return "postulaciones/eliminar";
         }                
     }
+
 
 
 

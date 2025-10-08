@@ -18,8 +18,8 @@
         <form th:action="@{/postulaciones/eliminar}" method="post" th:object="${postulacion}">
                 <p th:text="${mensaje}"></p>
 
-                <input type="hidden" th:field="*{id.idOferta}" />
-                <input type="hidden" th:field="*{id.usuarioPostulante}" />      
+                <input type="hidden" name="codigoOferta" th:value="*{id.idOferta}" />
+                <input type="hidden" name="codigoPostulante" th:value="*{id.usuarioPostulante}" />      
 
                 <label for="titulo">Título</label>
                 <input type="text" th:field="*{oferta.titulo}" readonly>
