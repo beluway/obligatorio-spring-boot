@@ -176,18 +176,15 @@ public class ControladorPostulaciones {
         //SE LE ASIGNA (SE ENCAPSULA) LA CLAVE COMPUESTA A LA POSTULACION
         postulacionEncapusulaClaveCompuestaOF_POST.setId(claveCompuestaPostulacion); */
 
-        //EL METODO "OBTENER" RECIBE UN OBJETO POSTULACION PARA ENCONTRAR LA POSTULACIÓN  ???
+        //EL METODO "OBTENER" RECIBE UN OBJETO POSTULACION PARA ENCONTRAR LA POSTULACIÓN  
 
-        //primero creo una oferta a partir del código que recibo
-        Oferta oferta = servicioOfertas.obtener(codigoOferta);
-        //creo el postulante tmb
-        Postulante postulante = servicioPostulantes.obtener(codigoPostulante);
-        //Optional<Postulacion> encontrada= servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
-        Optional<Postulacion> postulacionEncontrada = servicioPostulaciones.findByOfertaAndPostulante(oferta, postulante);
 
-        if(!postulacionEncontrada.isEmpty())
+        Optional<Postulacion> encontrada= servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
+        //Optional<Postulacion> postulacionEncontrada = servicioPostulaciones.findByOfertaAndPostulante(oferta, postulante);
+
+        if(!encontrada.isEmpty())
         {
-            modelo.addAttribute("postulacion", postulacionEncontrada.get());
+            modelo.addAttribute("postulacion", encontrada.get());
 
              return "postulaciones/eliminar"; 
         }
@@ -198,7 +195,8 @@ public class ControladorPostulaciones {
 
 
     @PostMapping("/eliminar")
-    public String eliminar (@ModelAttribute @Valid Postulacion postulacion,BindingResult resultado, Model modelo, RedirectAttributes attributes) throws Exception 
+    public String eliminar (@ModelAttribute @Valid Postulacion postulacion,BindingResult resultado, Model modelo, RedirectAttributes attributes,    @RequestParam("codigoOferta")Integer codigoOferta, 
+    @RequestParam("codigoPostulante")String codigoPostulante) throws Exception 
     {         
         if(resultado.hasErrors())
         {
@@ -207,13 +205,14 @@ public class ControladorPostulaciones {
 
         try
         {
-            Optional<Postulacion> postulacionExistente = servicioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());  
+            Optional<Postulacion> encontrada = servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
+            /* Optional<Postulacion> postulacionExistente = servicioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());   */
             
-            if (postulacionExistente==null) {
+            if (encontrada==null) {
                 throw new ExcepcionNoExiste("La postulación con a la Oferta "+postulacion.getOferta().getId()+"del Postulante "+
                 postulacion.getPostulante().getUsuario()+"no fue encontrada.");
             }
-            servicioPostulaciones.eliminar(postulacionExistente.get());
+            servicioPostulaciones.eliminar(encontrada.get());
             attributes.addFlashAttribute("mensaje","Postulación eliminada con éxito.");
             return "redirect:/postulaciones/lista";
 
