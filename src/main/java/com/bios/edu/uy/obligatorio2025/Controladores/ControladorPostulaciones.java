@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
@@ -149,21 +150,51 @@ public class ControladorPostulaciones {
 
 
     @GetMapping("/eliminar")
-    public String eliminar(Model modelo, HttpSession sesion, Postulacion postulacion) throws Exception
+    public String eliminar(Model modelo, HttpSession sesion,
+    @RequestParam("codigoOferta")Integer codigoOferta, 
+    @RequestParam("codigoPostulante")String codigoPostulante) throws Exception
     {  
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));     
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));       
+     
+        //SE CREA UN OBJETO CLAVE COMPUESTA PARA PASARLE LA OFERTA Y EL POSTULANTE DE LA POSTULACION
+        //ELEGIDA EN LA LISTA
+               
+/* 
+        PostulacionId claveCompuestaPostulacion = new PostulacionId();
 
-        return "postulaciones/eliminar";        
+        claveCompuestaPostulacion.setIdOferta(codigoOferta);
+        claveCompuestaPostulacion.setUsuarioPostulante(codigoPostulante);
+
+        //AHORA EL OBJETO CLAVE COMPUESTA SE "ENCAPSULA" NUEVAMENTE PARA METERLO ADENTRO DE UN OBJETO POSTULACION
+
+        //SE CREA EL OBJETO POSTULACION QUE ES NECESARIA PARA EL METODO "OBTENER" DEL SERVICIO POSTULACIONES:
+        Postulacion postulacionEncapusulaClaveCompuestaOF_POST= new Postulacion();
+
+        //SE LE ASIGNA (SE ENCAPSULA) LA CLAVE COMPUESTA A LA POSTULACION
+        postulacionEncapusulaClaveCompuestaOF_POST.setId(claveCompuestaPostulacion); */
+
+        //EL METODO "OBTENER" RECIBE UN OBJETO POSTULACION PARA ENCONTRAR LA POSTULACIÓN 
+        Optional<Postulacion> encontrada= servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
+
+        if(!encontrada.isEmpty())
+        {
+            modelo.addAttribute("postulacion", encontrada.get());
+
+             return "postulaciones/eliminar"; 
+        }
+
+
+        return "redirect:/postulaciones/lista";        
     }
 
 
     @PostMapping("/eliminar")
-    public String eliminar (@ModelAttribute @Valid Postulacion postulacion, Model modelo, BindingResult resultado,RedirectAttributes attributes) throws Exception 
+    public String eliminar (@ModelAttribute @Valid Postulacion postulacion,BindingResult resultado, Model modelo, RedirectAttributes attributes) throws Exception 
     {         
         if(resultado.hasErrors())
         {
             return "postulaciones/eliminar";
-        }
+        }  
 
         try
         {
@@ -198,6 +229,7 @@ public class ControladorPostulaciones {
     public String lista(Model modelo, HttpSession sesion) throws Exception
     {    
         modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));        
+
 
         modelo.addAttribute("postulacionesPostulante",  servicioPostulaciones.listaPostulacionesPorPostulante((Postulante)sesion.getAttribute("usuarioLogueado")));
 

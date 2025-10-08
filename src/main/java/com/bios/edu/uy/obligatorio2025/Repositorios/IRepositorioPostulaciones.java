@@ -16,7 +16,10 @@ public interface IRepositorioPostulaciones extends JpaRepository<Postulacion,Pos
     
 List<Postulacion> findAllByPostulante(Postulante postulante);
 
-@EntityGraph(type = EntityGraphType.LOAD, attributePaths = { "oferta", "postulante" })
+Postulacion findById(Integer id);
+
+@EntityGraph(type = EntityGraphType.LOAD, attributePaths = { "oferta.id", "postulante.usuario" })
 Optional<Postulacion> findByOfertaAndPostulante(Oferta oferta, Postulante postulante);
 
 }
+//l
