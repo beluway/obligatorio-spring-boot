@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioPostulantes;
 
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.rmi.server.ExportException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +34,10 @@ public class ControladorPostulantes {
 
     @Autowired
     private ServicioPostulantes servicioPostulantes;
+
+     @Autowired
+    private IServicioPostulaciones servicioPostulaciones;
+
 
        
     @GetMapping("/crear")
@@ -106,18 +112,22 @@ public class ControladorPostulantes {
     @GetMapping("/eliminar")
 
     public String postulanteEliminar(Model modelo, HttpSession sesion) 
-    {
-    
+    {    
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "postulantes/eliminar";
 
     }
 
     @PostMapping("/eliminar")
-    public String postulanteEliminar(@ModelAttribute @Valid Postulante postulante, Model modelo, BindingResult resultado)  {
-              
-        modelo.addAttribute("postulante", postulante);
-        return "redirect:/postulantes/eliminar";
+    public String postulanteEliminar(@ModelAttribute @Valid Postulante postulante, 
+    Model modelo, 
+    BindingResult resultado) throws Exception 
+    {
+         servicioPostulaciones.eliminarConPostulante(postulante);
+         
+         servicioPostulantes.eliminar(postulante.getUsuario());
+        
+        return "redirect:/home/index";
     }
     
     

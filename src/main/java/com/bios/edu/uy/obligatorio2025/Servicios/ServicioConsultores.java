@@ -14,13 +14,15 @@ public class ServicioConsultores implements IServicioConsultores{
     @Autowired
     private IRepositorioConsultores repositorioConsultores;
 
-     @Override
+    
+    @Override
     public void agregar (Consultor consultor) throws ExcepcionBiosWork
     {
         repositorioConsultores.save(consultor);
     }
 
-     @Override
+
+    @Override
     public void modificar(Consultor consultor) throws ExcepcionBiosWork
     {
         try {
@@ -31,7 +33,9 @@ public class ServicioConsultores implements IServicioConsultores{
         }
     }
 
-     @Override
+
+
+    @Override
     public void eliminar (String usuario) throws ExcepcionBiosWork
     {
         try {
@@ -42,7 +46,9 @@ public class ServicioConsultores implements IServicioConsultores{
         }
     }
 
-     @Override
+
+
+    @Override
     public List<Consultor>listaConsultores() {
          //ArrayList<consultores> lista = new ArrayList<>();
 

@@ -37,14 +37,14 @@ private IRepositorioPostulaciones respositorioPostulaciones;
 
     }
 
-     @Override
+    @Override
     public void modificar (Oferta oferta) throws ExcepcionBiosWork
     {
         repositorioOfertas.save(oferta);
     }
 
     
-     @Override
+    @Override
     public void eliminar (Integer id) throws ExcepcionBiosWork
     {
         try {
@@ -74,9 +74,9 @@ private IRepositorioPostulaciones respositorioPostulaciones;
     }
 
 
-   @Override 
-   public Oferta obtener(Integer id) throws Exception
-   {    
+    @Override 
+    public Oferta obtener(Integer id) throws Exception
+    {    
 
       Oferta ofertaEncontrada =  repositorioOfertas.findById(id).orElse(null);
             

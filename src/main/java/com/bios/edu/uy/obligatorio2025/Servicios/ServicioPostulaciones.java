@@ -59,6 +59,17 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
         }        
     } 
 
+
+    @Override 
+    public void eliminarConPostulante (Postulante postulante)throws ExcepcionBiosWork
+    {        
+        for(Postulacion p: repositorioPostulaciones.findAllByPostulante(postulante))
+        {
+            repositorioPostulaciones.delete(p);
+        }        
+    } 
+
+
     @Override 
     public List<Postulacion> listaPostulaciones ()
     {

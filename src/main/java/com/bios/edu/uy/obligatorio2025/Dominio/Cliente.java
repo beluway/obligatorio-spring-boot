@@ -64,6 +64,8 @@ public class Cliente extends Usuario {
         this.url = url;
     }
 
+    public Cliente(){}
+
     public Cliente(String usuario, String clave,
             @NotNull(message = "Ingrese el RUT.") @Digits(integer = 12, fraction = 0, message = "El RUT debe tener 12 dígitos") Long rut,
             @NotNull(message = "Ingrese el nombre.") String nombre,
@@ -72,11 +74,6 @@ public class Cliente extends Usuario {
         this.rut = rut;
         this.nombre = nombre;
         this.url = url;
-    }
-    
-
-    public Cliente(){}
-
-  
-   
+    } 
+     
 }
