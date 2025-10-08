@@ -47,11 +47,14 @@ private IRepositorioPostulaciones respositorioPostulaciones;
     @Override
     public void eliminar (Integer id) throws ExcepcionBiosWork
     {
-        try {
+        try 
+        {
             repositorioOfertas.delete(obtener(id));
-        } catch (Exception e) {
+        }
+        catch (Exception e) 
+        {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+          e.printStackTrace();
         }
     }
 
@@ -59,11 +62,7 @@ private IRepositorioPostulaciones respositorioPostulaciones;
     @Override
     public List<Oferta> listaOfertas() throws Exception
     {
-        //List<ofertas> lista = repositorioOfertas.findAll();
-        //prueba en console.log
-        //System.out.println("Ofertas encontradas:"+listaOfertas().size());
-
-         return repositorioOfertas.findAll();
+        return repositorioOfertas.findAll();
     }
 
 
@@ -76,10 +75,9 @@ private IRepositorioPostulaciones respositorioPostulaciones;
 
     @Override 
     public Oferta obtener(Integer id) throws Exception
-    {    
+    {  
 
-      Oferta ofertaEncontrada =  repositorioOfertas.findById(id).orElse(null);
-            
+      Oferta ofertaEncontrada =  repositorioOfertas.findById(id).orElse(null);         
 
        return ofertaEncontrada;
     } 
@@ -91,9 +89,7 @@ private IRepositorioPostulaciones respositorioPostulaciones;
          List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes());
    
          return listaOfertasVigentes;
-    }   
-   
-       
-    
+    }    
+          
 
 }
