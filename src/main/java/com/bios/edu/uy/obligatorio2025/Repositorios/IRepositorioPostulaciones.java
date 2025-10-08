@@ -21,5 +21,7 @@ Postulacion findById(Integer id);
 @EntityGraph(type = EntityGraphType.LOAD, attributePaths = { "oferta.id", "postulante.usuario" })
 Optional<Postulacion> findByOfertaAndPostulante(Oferta oferta, Postulante postulante);
 
+Optional<Postulacion> findById_IdOfertaAndId_UsuarioPostulante(Integer idOferta, String usuario);
+
 }
 //l

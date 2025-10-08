@@ -91,4 +91,10 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
         return repositorioPostulaciones.findByOfertaAndPostulante(oferta,postulante);
     }
 
+    @Override
+    public Optional<Postulacion> obtener(Postulacion postulacion) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'obtener'");
+    }
+
 }
