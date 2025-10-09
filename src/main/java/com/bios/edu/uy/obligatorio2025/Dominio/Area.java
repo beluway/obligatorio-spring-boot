@@ -19,9 +19,10 @@ public class Area {
     @Id    
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Integer id;
-    
+
+    @NotBlank(message = "Ingrese el nombre del área")
     @Column(name = "nombre", unique = true)
-    @NotBlank(message = "ingrese el nombre del área")
+    @NotNull(message = "ingrese el nombre del área")
     private String nombre;
 
     @Column(name = "asignada")
