@@ -19,17 +19,21 @@
             <form th:action="@{/consultores/crear}" method="post" th:object="${consultor}">
                 <div>
                     <label for="usuario">Usuario</label>
-                    <input type="text" id="usuario" th:field="usuario" required>
+                    <input type="text" id="usuario" th:field="usuario">
+                         <p th:errors="*{usuario}" class="error"></p>
                 </div>
 
                 <div>
                     <label for="clave">Clave</label>
-                    <input type="password" id="clave" th:field="clave" required>
+                    <input type="password" id="clave" th:field="clave">
+                        <p th:errors="*{clave}" class="error"></p>
                 </div>
 
                 <div>
                     <button type="submit" id="crear">Crear</button>
                 </div>
+
+                      <p th:if="${mensaje}" th:text="${mensaje}"></p>
             </form>
         </div>
         </div>

@@ -7,7 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioConsultores;
 
@@ -32,10 +34,11 @@ private ServicioConsultores servicioConsultores;
         
     }
 
-     @GetMapping("/crear")
-    public String consultorCrear(@ModelAttribute Consultor consultor)
+    @GetMapping("/crear")
+    public String consultorCrear(Model modelo, HttpSession sesion) throws Exception
     {
-    
+        modelo.addAttribute("consultor", new Consultor());
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "consultores/crear";
         
     }
@@ -43,9 +46,42 @@ private ServicioConsultores servicioConsultores;
 
 
     @PostMapping("/crear")
-    public String consultorCrear (@ModelAttribute @Valid Consultor consultor, Model modelo, BindingResult resultado) throws Exception
+    public String consultorCrear (@ModelAttribute @Valid Consultor consultor,
+    Model modelo, 
+    BindingResult resultado,
+    RedirectAttributes atributos ) throws Exception
     {           
-        Consultor existente = servicioConsultores.obtener(consultor.getUsuario());
+
+        if(resultado.hasErrors())
+        {
+            modelo.addAttribute("consultor", consultor);
+            return "consultores/crear";
+        }
+
+        if(servicioConsultores.obtener(consultor.getUsuario())!=null)
+        {
+            modelo.addAttribute("mensaje", "ya existe el consultor");
+
+            return "consultores/crear";
+        }
+
+        try
+        {
+            servicioConsultores.agregar(consultor);
+
+            atributos.addFlashAttribute("mensaje","consultor agregado con exito");
+
+            return "redirect:/consultores/crear";
+        }
+
+        catch(Exception ex)
+        {
+             modelo.addAttribute("mensaje","Hubo un error "+ e.getMessage());
+           return "consultores/crear";
+
+        }
+
+       /*  Consultor existente = servicioConsultores.obtener(consultor.getUsuario());
 
           String mensaje = "Se agregregó el consultor correctamente";
 
@@ -59,7 +95,7 @@ private ServicioConsultores servicioConsultores;
             modelo.addAttribute("mensaje",mensaje);
             servicioConsultores.agregar(consultor);
         }
-        return "redirect:/consultores/crear";
+        return "redirect:/consultores/crear"; */
     }
 
 
@@ -72,7 +108,7 @@ private ServicioConsultores servicioConsultores;
     }
 
     @PostMapping("/eliminar")
-    public String consultorEliminar(@ModelAttribute @Valid Consultor consultor, Model modelo, BindingResult resultado)  {
+    public String consultorEliminar(@ModelAttribute @Valid Consultor consultor, BindingResult resultado, Model modelo)  {
               
         return "redirect:/consultores/eliminar";
     }
@@ -81,13 +117,18 @@ private ServicioConsultores servicioConsultores;
     @GetMapping("/modificar")
     public String consultorModificar(Model modelo, HttpSession sesion) {
       
+        modelo.addAttribute("consultor", new Consultor());
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "consultores/modificar";
     }
     
     @PostMapping("/modificar")
-    public String consultorModificar(@ModelAttribute @Valid Consultor consultor, Model modelo, BindingResult resultado) {
+    public String consultorModificar(@ModelAttribute @Valid Consultor consultor,
+    BindingResult resultado,
+    Model modelo) {
        
+     
+
         return "redirect:/consultores/modificar";
     }
     

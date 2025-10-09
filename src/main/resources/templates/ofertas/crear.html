@@ -25,7 +25,8 @@
        <div>
            <label for="titulo"> Título </label>
            <input type="text" name="titulo" id="titulo">
-           <!-- <p th:errors="*{titulo}" class="error"></p> -->
+           <p th:errors="*{titulo}" class="error"></p>
+               
        </div>           
        
         <div>
@@ -34,6 +35,9 @@
               <input type="text" th:field="*{descripcion}" multiple>  
           -->
           <textarea rows="5" cols="50" th:field="*{descripcion}"></textarea>
+             <p th:errors="*{descripcion}" class="error"></p>
+
+
         </div>
 
         <div>
@@ -48,18 +52,20 @@
         <div>
             <label for="fechaCierre">Fecha Cierre</label>
             <input type="date" name="fechaCierre" id="fechaCierre">
-            <!-- <p th:errors="*{fechaCierre}" class="error"></p> -->
+            <p th:errors="*{fechaCierre}" class="error"></p>
         </div>
 
         <div>
             <label for="cantidadVacantes"> Cantidad Vacantes</label>
             <input type="number" name="cantidadVacantes" id="cantidadVacantes">
-           <!--  <p th:errors="*{cantidadVacantes}" class="error"></p> -->
+            <p th:errors="*{cantidadVacantes}" class="error"></p>
         </div>
 
         <div>
           <button type="submit" id="crear">Crear</button>
         </div>
+
+              <p th:if="${mensaje}" th:text="${mensaje}"></p>
 
     </form>
     </div>

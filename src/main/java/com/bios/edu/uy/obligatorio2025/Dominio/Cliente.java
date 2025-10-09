@@ -79,7 +79,5 @@ public class Cliente extends Usuario {
         this.url = url;
     }
 
-
-    public Cliente(){}
    
 }

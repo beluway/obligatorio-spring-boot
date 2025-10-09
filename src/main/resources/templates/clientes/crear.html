@@ -17,7 +17,7 @@
   <div class="card">
     <h2>Registrar Nuevo Cliente</h2>
     <!-- Cambia la URL en th:action al endpoint de tu controlador -->
-    <form th:action="@{/clientes/crear}" method="post" th:object="${Cliente}">
+    <form th:action="@{/clientes/crear}" method="post" th:object="${cliente}">
         
         <label for="usuario">Usuario</label>
         <input type="text" id="usuario" th:field="*{usuario}">
@@ -46,6 +46,8 @@
 
 
         <button type="submit">Registrar Cliente</button>
+
+        <p th:if="${mensaje}" th:text="${mensaje}"></p>
 
         <a th:href="@{/clientes/lista}" id="volver">Volver al listado</a> 
     </form>
