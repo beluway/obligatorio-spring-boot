@@ -43,7 +43,7 @@ public class ControladorPostulantes {
     @GetMapping("/crear")
     public String postulanteCrear(Model modelo, HttpSession sesion)
     {            
-
+        modelo.addAttribute("postulante", new Postulante());
 
         return "postulantes/crear";
         
