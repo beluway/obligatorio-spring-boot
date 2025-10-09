@@ -22,7 +22,6 @@ public class Area {
 
     @NotBlank(message = "Ingrese el nombre del área")
     @Column(name = "nombre", unique = true)
-    @NotNull(message = "ingrese el nombre del área")
     private String nombre;
 
     @Column(name = "asignada")

@@ -1,34 +1,43 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"
- 
-th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+<html xmlns:th="http://www.thymeleaf.org"
+
+ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-     <link rel="stylesheet" th:href="@{/css/listas.css}">
-
-    <title> LISTA POSTULANTES </title>
+    <title>Listado de Postulantes</title>
+    <link rel="stylesheet" th:href="@{/css/listas.css}">
 </head>
 
 <section>
-<table>
- <tr>
-        <th>Cédula</th><th>Primer Nombre</th><th>Primer Apellido</th><th>Fecha Nacimiento</th><th></th>
-        </tr>
+        <div id="contenedor">
+    <div class="card">
+        <h2>Listado de Postulantes</h2>
+                 <div style="text-align: center; margin-bottom: 10px;">
+        <a th:href="@{/postulantes/crear}" class="btn">Agregar</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cédula</th>
+                    <th>Primer nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${listaPostulantes}" >
+                    <td th:text="${p.cedula}"></td>
+                    <td th:text="${p.primerNombre}"></td>
+                    <td th:text="${p.primerApellido}"></td>
+                    <td th:text="${p.fechanacimiento}"></td>
+                    <td>
+                        <a th:href="@{/postulantes/ver(usuario=${p.usuario})}" class="btn">Ver</a>
+                    </td>
 
-        <tr th:each="p, ei : ${listaPostulantes}" th:style="${ei.odd}?'background-color: white;'">
-
-            <td th:text="${p.cedula}"></td>
-            <td th:text="${p.primerNombre}"></td>
-            <td th:text="${p.primerApellido}"></td>
-            <td th:text="${p.fechanacimiento}"></td>
-            <td><a th:href="@{/bioswork/postulantes/ver.html(p=${p.usuario})}" class="button">Ver más</a></td>
-        </tr>    
-</table>
-
- 
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
 </section>
-
 </html>
