@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -115,5 +116,28 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     {
         return  repositorioPostulaciones.findAllByOferta(oferta);
     }
+
+        @Override
+        public Boolean MayorEdad(LocalDate fechaNacimiento) throws Exception
+        {
+            
+            Boolean mayorDeEdad=true;
+            
+            int cantidadAños = LocalDate.now().getYear() - fechaNacimiento.getYear();
+
+            if(cantidadAños>=18)
+            {
+                if(LocalDate.now().getMonth()==fechaNacimiento.getMonth())
+                {
+                    if(LocalDate.now().getDayOfMonth()<=fechaNacimiento.getDayOfMonth())
+                    {
+                        return mayorDeEdad;
+                    }
+                }  
+                
+            }
+
+               return mayorDeEdad=false;
+        }
 
 }
