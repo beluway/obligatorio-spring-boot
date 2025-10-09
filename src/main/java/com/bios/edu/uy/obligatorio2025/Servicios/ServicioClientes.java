@@ -68,6 +68,8 @@ public class ServicioClientes implements IServicioClientes  {
     { 
          Cliente existente = obtener(clienteActualizado.getUsuario());
 
+        //ESTO ESTA BIEN ??? 
+
         // Si algún campo vino vacío, conservamos el valor anterior
         if (clienteActualizado.getUsuario() == null || clienteActualizado.getUsuario().isBlank()) {
             clienteActualizado.setUsuario(existente.getUsuario());

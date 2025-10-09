@@ -15,12 +15,9 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 public interface IRepositorioPostulaciones extends JpaRepository<Postulacion,Postulacion.PostulacionId> {
     
 List<Postulacion> findAllByPostulante(Postulante postulante);
-/* 
-@EntityGraph(type = EntityGraphType.LOAD, attributePaths = { "oferta.id", "postulante.usuario" })
-Optional<Postulacion> findByOfertaAndPostulante(Oferta oferta, Postulante postulante); */
 
 //SE BUSCA POR:
-// OFERTA(Id_)con mayuscula y el guion bajo significa que se va a buscar en las clases embebidas
+// OFERTA(Id_)con mayuscula y el guion bajo significa que se va a buscar en las clases embebidas segun el id de Oferta
 //IdOferta (con mayuscula indica clave de la clase embebida Oferta)
 //UsuarioPostulante (con mayuscula indica clave de la clase embebida Postulante)
 Optional<Postulacion> findById_IdOfertaAndId_UsuarioPostulante(Integer idOferta, String usuarioPostulante);
@@ -30,7 +27,5 @@ Optional<Postulacion> findById_IdOfertaAndId_UsuarioPostulante(Integer idOferta,
 //PARA HACER LA BAJA FISICA, PRIMERO SE ELIMINAN TODAS ESTAS POSTULACIONES, Y DESPUES LA OFERTA
 List<Postulacion> findAllByOferta(Oferta oferta);
 
-
-
 }
-//l
+
