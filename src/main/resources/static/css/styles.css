@@ -4,3 +4,66 @@
     background-size: cover;
     background-position: center;
 }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden; /* evita el scroll horizontal */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    display: flex;
+    flex-direction: column; /* organiza header, nav y main en columna */
+}
+
+
+/* === Header === */
+header.cabezal-principal {
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(135deg, #4e73df, #2e59d9);
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+header.cabezal-principal h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+/* === Barra de navegación === */
+nav.navegacion-principal {
+    width: 100%;
+    background-color: #4e73df;
+    position: sticky; /* se queda arriba al hacer scroll */
+    top: 0;
+    z-index: 1000; /* queda por encima del contenido */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+nav.navegacion-principal ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* permite que se acomode en pantallas chicas */
+}
+
+nav.navegacion-principal li {
+    margin: 0;
+}
+
+nav.navegacion-principal a {
+    display: block;
+    padding: 12px 20px;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+nav.navegacion-principal a:hover {
+    background-color: #2e59d9;
+    transform: translateY(-2px);
+}
