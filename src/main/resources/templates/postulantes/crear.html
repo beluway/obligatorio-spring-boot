@@ -1,110 +1,131 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
- 
-th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Crear Postulante</title>
 
     <link rel="stylesheet" th:href="@{/css/crud.css}">
-
 </head>
+
+<body>
 <section>
     <div id="contenedor">
-    <div class="card">
-<form th:action="@{/postulantes/crear}" method="post" th:object="${postulante}" id="formDefault" enctype="multipart/form-data">
+        <div class="card">
 
-        <div>
-           <label for="usuario">Usuario</label>           
-            <input type="text" id="usuario" th:field="*{usuario}">
+            <form th:action="@{/postulantes/crear}" method="post" 
+                  th:object="${postulante}" id="formDefault" 
+                  enctype="multipart/form-data">
+
+                <!-- Usuario -->
+                <div>
+                    <label for="usuario">Usuario</label>
+                    <input type="text" id="usuario" th:field="*{usuario}">
+                    <p th:if="${#fields.hasErrors('usuario')}" 
+                       th:errors="*{usuario}" class="error"></p>
+                </div>
+
+                <!-- Clave -->
+                <div>
+                    <label for="clave">Clave</label>
+                    <input type="password" id="clave" th:field="*{clave}">
+                    <p th:if="${#fields.hasErrors('clave')}" 
+                       th:errors="*{clave}" class="error"></p>
+                </div>
+
+                <!-- Nombres y Apellidos -->
+                <div>
+                    <label for="primerNombre">Primer Nombre</label>
+                    <input type="text" id="primerNombre" th:field="*{primerNombre}">
+                    <p th:if="${#fields.hasErrors('primerNombre')}" 
+                       th:errors="*{primerNombre}" class="error"></p>
+                </div>
+
+                <div>
+                    <label for="segundoNombre">Segundo Nombre</label>
+                    <input type="text" id="segundoNombre" th:field="*{segundoNombre}">
+                    <p th:if="${#fields.hasErrors('segundoNombre')}" 
+                       th:errors="*{segundoNombre}" class="error"></p>
+                </div>
+
+                <div>
+                    <label for="primerApellido">Primer Apellido</label>
+                    <input type="text" id="primerApellido" th:field="*{primerApellido}">
+                    <p th:if="${#fields.hasErrors('primerApellido')}" 
+                       th:errors="*{primerApellido}" class="error"></p>
+                </div>
+
+                <div>
+                    <label for="segundoApellido">Segundo Apellido</label>
+                    <input type="text" id="segundoApellido" th:field="*{segundoApellido}">
+                    <p th:if="${#fields.hasErrors('segundoApellido')}" 
+                       th:errors="*{segundoApellido}" class="error"></p>
+                </div>
+
+                <!-- Fecha nacimiento -->
+                <div>
+                    <label for="fechanacimiento">Fecha Nacimiento</label>
+                    <input type="date" id="fechanacimiento" th:field="*{fechanacimiento}">
+                    <p th:if="${#fields.hasErrors('fechanacimiento')}" 
+                       th:errors="*{fechanacimiento}" class="error"></p>
+                </div>
+
+                <!-- Cédula -->
+                <div>
+                    <label for="cedula">Cédula</label>
+                    <input type="number" id="cedula" th:field="*{cedula}">
+                    <p th:if="${#fields.hasErrors('cedula')}" 
+                       th:errors="*{cedula}" class="error"></p>
+                </div>
+
+                <!-- Departamento -->
+                <div>
+                    <label for="departamento">Departamento</label>
+                    <select id="departamento" th:field="*{departamento}">
+                        <option value="">Seleccione un departamento</option>
+                        <option value="artigas">Artigas</option>
+                        <option value="canelones">Canelones</option>
+                        <option value="cerro-largo">Cerro Largo</option>
+                        <option value="colonia">Colonia</option>
+                        <option value="durazno">Durazno</option>
+                        <option value="flores">Flores</option>
+                        <option value="florida">Florida</option>
+                        <option value="lavalleja">Lavalleja</option>
+                        <option value="maldonado">Maldonado</option>
+                        <option value="montevideo" selected>Montevideo</option>
+                        <option value="paysandu">Paysandú</option>
+                        <option value="río-negro">Río Negro</option>
+                        <option value="rivera">Rivera</option>
+                        <option value="rocha">Rocha</option>
+                        <option value="salto">Salto</option>
+                        <option value="san-josé">San José</option>
+                        <option value="soriano">Soriano</option>
+                        <option value="tacuarembó">Tacuarembó</option>
+                        <option value="treinta-y-tres">Treinta y Tres</option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('departamento')}" 
+                       th:errors="*{departamento}" class="error"></p>
+                </div>
+
+                <!-- PDF -->
+                <div>
+                    <label for="pdf">Subir CV (PDF)</label>
+                    <input type="file" id="pdf" th:field="*{pdf}" accept="application/pdf" required>
+                    <p class="error" th:if="${errorPdf}" th:text="${errorPdf}"></p>
+                </div>
+
+                <!-- Botón -->
+                <div>
+                    <input type="submit" value="Crear">
+                    <p th:if="${mensaje}" th:text="${mensaje}" class="exito"></p>
+                </div>
+
+            </form>
+
         </div>
-
-         <div>
-           <label for="clave">Clave</label>           
-            <input type="password" id="clave" th:field="*{clave}">
-        </div>
-
-        <div>
-            <label for="primerNombre">Primer Nombre</label>
-
-            <input type="text" id="primerNombre" th:field="*{primerNombre}">
-        </div>
-
-        <div>
-            <label for="segundoNombre"> Segundo Nombre</label>
-
-           <!--  <input type="text" th:field="*{segundoNombre}"> -->
-
-           <input type="text" id="segundoNombre" th:field="*{segundoNombre}"> 
-
-        </div>
-
-        <div>
-            <label for="primerApellido"> Primer Apellido </label>
-
-            <!-- <input type="text" th:field="*{primerApellido}">
- -->
-            <input type="text" id="primerApellido" th:field="*{primerApellido}">
-        </div>
-
-        <div>
-            <label for="segundoApellido"> Segundo Apellido</label>
-
-         <!--    <input type="text" th:field="*{segundoApellido}"> -->
-
-             <input type="text" id="segundoApellido" th:field="*{segundoApellido}">
-        </div>
-
-        <div>
-            <label for="fechanacimiento"> Fecha Nacimiento</label>
-
-        <!--     <input type="date" th:field="*{fechanacimiento}">
- -->
-             <input type="date" id="fechanacimiento" th:field="*{fechanacimiento}">
-        </div>
-
-         <div>
-            <label for="cedula"> Cedula</label>
-            <input type="number" id="cedula" th:field="*{cedula}">
-        </div>
-
-        <div>
-            <label for="departamento"> DEPARTAMENTO </label>
-
-           <select id="departamento" name="departamento">
-            <option value="artigas">Artigas</option>
-            <option value="canelones">Canelones</option>
-            <option value="cerro-largo">Cerro Largo</option>
-            <option value="colonia">Colonia</option>
-            <option value="durazno">Durazno</option>
-            <option value="flores">Flores</option>
-            <option value="florida">Florida</option>
-            <option value="lavalleja">Lavalleja</option>
-            <option value="maldonado">Maldonado</option>
-            <option value="montevideo" selected>Montevideo</option> <!-- Departamento por defecto -->
-            <option value="paysandu">Paysandú</option>
-            <option value="río-negro">Río Negro</option>
-            <option value="rivera">Rivera</option>
-            <option value="rocha">Rocha</option>
-            <option value="salto">Salto</option>
-            <option value="san-josé">San José</option>
-            <option value="soriano">Soriano</option>
-            <option value="tacuarembó">Tacuarembó</option>
-            <option value="treinta-y-tres">Treinta y Tres</option>
-          </select>
-                  
-        </div>
-        <div>
-             <input type="file" id="pdf" name="pdf" accept="application/pdf" required>
-        <div>
-            <input type="submit" value="crear">
-        </div>
-
-    </form>        
+    </div>
 </section>
-<script>
-
-</script>
+</body>
 </html>

@@ -45,6 +45,10 @@ public class ControladorPostulantes {
     {            
         modelo.addAttribute("postulante", new Postulante());
 
+         Object usuario = sesion.getAttribute("usuarioLogueado");
+        if (usuario != null) {
+            modelo.addAttribute("usuarioLogueado", usuario);
+        }
         return "postulantes/crear";
         
     }
@@ -58,23 +62,28 @@ public class ControladorPostulantes {
      RedirectAttributes atributos) throws Exception
     {             
           if(resultado.hasErrors()){
-            atributos.addFlashAttribute("mensaje", "Errores en el formulario");
-            return "redirect:/postulantes/crear";
+            return "postulantes/crear";
           }
 
 
           // SE OBTIENE COMO MULTIPARTE EL .PDF
           MultipartFile pdf = postulante.getPdf();
 
-        if (pdf == null || pdf.isEmpty()) {
-        atributos.addFlashAttribute("mensaje", "ATENCIÓN: No se subió ningún archivo");
-        return "redirect:/postulantes/crear";
-        }
+    // Validación del PDF
+    if (pdf == null || pdf.isEmpty()) {
+        modelo.addAttribute("errorPdf", "Debe subir un archivo PDF");
+        return "postulantes/crear";
+    }
+        // Validar tipo MIME del archivo
+    if (!"application/pdf".equalsIgnoreCase(pdf.getContentType())) {
+        modelo.addAttribute("errorPdf", "El archivo debe ser un PDF válido");
+        return "postulantes/crear";
+    }
 
         
         if (servicioPostulantes.MayorEdad(postulante.getFechanacimiento())==false) {
-        atributos.addFlashAttribute("mensaje", "ATENCIÓN: No es mayor de Edad");
-        return "redirect:/postulantes/crear";
+        modelo.addAttribute("mensaje", "ATENCIÓN: No es mayor de Edad");
+        return "/postulantes/crear";
         }
 
 
@@ -104,7 +113,9 @@ public class ControladorPostulantes {
 
             postulante.setCantidadPostulaciones(0);
 
-            servicioPostulantes.agregar(postulante);          
+            servicioPostulantes.agregar(postulante);  
+            atributos.addFlashAttribute("mensaje", "Postulante guardado correctamente.");
+            return "redirect:/postulantes/lista";
 
         }
 
@@ -113,6 +124,7 @@ public class ControladorPostulantes {
             atributos.addFlashAttribute("mensaje", "no se puede subir el archivo"+ex.getMessage());
         }
 
+        atributos.addFlashAttribute("mensaje","Postulante creado con éxito");
           return "redirect:/postulantes/crear";
 
     }
