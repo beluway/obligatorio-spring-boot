@@ -37,6 +37,8 @@ public class Consultor extends Usuario{
         }
 
 
+       
+
         public Consultor(String usuario, String clave, Boolean activo) {
                 super(usuario, clave);
                 this.activo = activo;

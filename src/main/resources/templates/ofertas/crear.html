@@ -39,7 +39,7 @@
         <div>
             <label for="area.nombre">Área</label>
             <select th:field="*{area.id}">
-                <option th:each="a : ${areas}" th:field="${a.id}" th:text="${a.nombre}"></option>
+                <option th:each="a : ${areas}" th:value="${a.id}" th:text="${a.nombre}"></option>
             </select>
            <!--  <p th:errors="*{area.nombre}" class="error"></p> -->
         </div>

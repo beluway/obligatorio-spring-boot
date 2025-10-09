@@ -35,7 +35,7 @@ public class ControladorClientes {
     @GetMapping("/crear")
     public String clienteCrear(Model modelo, HttpSession sesion) throws Exception
     {        
-         modelo.addAttribute("Cliente", new Cliente());
+        modelo.addAttribute("Cliente", new Cliente());
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "clientes/crear";        
     }
@@ -43,21 +43,21 @@ public class ControladorClientes {
     //ACA VA FLASH ATTRIBUTES Y REDIRECT 
     @PostMapping("/crear")
     public String clienteProcesarCrear (@ModelAttribute @Valid Cliente cliente, 
-    Model modelo, 
     BindingResult resultado,
+    Model modelo,   
     RedirectAttributes attributes) throws Exception 
     {              
          if(resultado.hasErrors()){
 
-       /*      modelo.addAttribute("errores", resultado.getFieldErrors()); */
+       /*   modelo.addAttribute("errores", resultado.getFieldErrors()); */
             attributes.addFlashAttribute("mensaje", "Errores en el formulario");
-            return "redirect:/clientes/crear";
+            return "clientes/crear";
           }
 
           if(servicioClientes.obtener(cliente.getUsuario())!=null)
           {
              attributes.addFlashAttribute("mensaje", "Ya existe el usuario");
-             return "redirect:/clientes/crear";
+             return "clientes/crear";
           }
 
           try
@@ -71,7 +71,7 @@ public class ControladorClientes {
           catch(Exception e)
           {
             modelo.addAttribute("mensaje","Hubo un error "+ e.getMessage());
-           return "redirect:/clientes/crear";
+           return "clientes/crear";
           }                     
         
     }
@@ -80,7 +80,8 @@ public class ControladorClientes {
     @GetMapping("/eliminar")
     public String clienteEliminar(Model modelo, HttpSession sesion) {
       
-         //ENTRA ACA SOLO SI ES CONSULTOR
+     
+        //ENTRA ACA SOLO SI ES CONSULTOR
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "clientes/eliminar";
 

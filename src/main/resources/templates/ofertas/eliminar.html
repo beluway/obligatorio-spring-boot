@@ -59,42 +59,42 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 <div class="card">
     <h2>Eliminar Oferta</h2>
 
-    <form th:action="@{/ofertas/eliminar}" method="post" th:object="${oferta}">
-        
-        <!-- ID oculto para enviar en POST -->
-        <input type="hidden" th:field="*{id}">
+        <form th:action="@{/ofertas/eliminar}" method="post" th:object="${oferta}">
+            
+            <!-- ID oculto para enviar en POST -->
+            <input type="hidden" th:field="*{id}">
 
-        <input type="hidden" th:field="*{area.id}">
+            <input type="hidden" th:field="*{area.id}">
 
-        <label for="id">ID</label>
-        <input type="text" id="id" th:field="*{id}" readonly>
+            <label for="id">ID</label>
+            <input type="text" id="id" th:field="*{id}" readonly>
 
-        <label for="titulo">Título</label>
-        <input type="text" id="titulo" th:field="*{titulo}" readonly>
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" th:field="*{titulo}" readonly>
 
-        <label for="fecha_pub">Fecha de publicación</label>
-        <input type="date" id="fecha_pub" th:field="*{fechaPublicacion}" readonly>
+            <label for="fecha_pub">Fecha de publicación</label>
+            <input type="date" id="fecha_pub" th:field="*{fechaPublicacion}" readonly>
 
-        <label for="fecha_cierre">Fecha de cierre</label>
-        <input type="date" id="fecha_cierre" th:field="*{fechaCierre}" readonly>
+            <label for="fecha_cierre">Fecha de cierre</label>
+            <input type="date" id="fecha_cierre" th:field="*{fechaCierre}" readonly>
 
-        <label for="area">Área</label>
-        <input type="text" id="area" th:value="*{area.nombre}" readonly>
+            <label for="area">Área</label>
+            <input type="text" id="area" th:value="*{area.nombre}" readonly>
 
-        <label for="cliente">Publicado por:</label>
-        <input type="text" id="cliente" th:value="*{cliente.nombre}" readonly>
+            <label for="cliente">Publicado por:</label>
+            <input type="text" id="cliente" th:value="*{cliente.nombre}" readonly>
 
-        <label for="descripcion">Descripción detallada</label>
-        <textarea id="descripcion" th:field="*{descripcion}" readonly></textarea>
+            <label for="descripcion">Descripción detallada</label>
+            <textarea id="descripcion" th:field="*{descripcion}" readonly></textarea>
 
-        <label for="vacantes">Cantidad de puestos vacantes</label>
-        <input type="number" id="vacantes" th:field="*{cantidadVacantes}" readonly>
+            <label for="vacantes">Cantidad de puestos vacantes</label>
+            <input type="number" id="vacantes" th:field="*{cantidadVacantes}" readonly>
 
-        <button type="submit" id="eliminar">Eliminar</button>
+            <button type="submit" id="eliminar">Eliminar</button>
 
-        <p id="alerta" style="color: red;"></p>
-        <a th:href="@{/ofertas/listaPorCliente}" id="volver">Volver al listado</a>
-    </form>
+            <p id="alerta" style="color: red;"></p>
+            <a th:href="@{/ofertas/listaPorCliente}" id="volver">Volver al listado</a>
+        </form>
 
     
 </div>
