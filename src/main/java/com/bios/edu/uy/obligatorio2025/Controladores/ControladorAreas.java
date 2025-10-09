@@ -32,39 +32,31 @@ public class ControladorAreas {
     public String crear (HttpSession sesion, Model modelo)throws Exception
     {
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
-
+        modelo.addAttribute("area",new Area());
         return "areas/crear";
     }
 
 
     
 //CREAR ÁREA POST
-    @PostMapping("/crear") 
-    public String procesarCrear(@ModelAttribute @Valid Area area, Model modelo, BindingResult resultado,
-     RedirectAttributes attributes) throws Exception {
-       
-        if (resultado.hasErrors()) {
-            return "areas/crear";
-        }
-
-        try{
-
-        servicioAreas.agregar(area);
-
-        String mensaje = "Se agregó el área correctamente";
-
-        attributes.addFlashAttribute("mensaje",mensaje);
-    
-        return "redirect:/areas/lista";
-
-        }
-        catch(Exception e){
-
-        modelo.addAttribute("mensaje", "Error, "+e.getMessage());
+@PostMapping("/crear")
+public String procesarCrear(@Valid @ModelAttribute("area") Area area,
+                            BindingResult resultado,
+                            Model modelo,
+                            RedirectAttributes attributes) throws Exception {
+    if (resultado.hasErrors()) {
         return "areas/crear";
-         }
-
     }
+
+    try {
+        servicioAreas.agregar(area);
+        attributes.addFlashAttribute("mensaje", "Se agregó el área correctamente");
+        return "redirect:/areas/lista";
+    } catch (Exception e) {
+        modelo.addAttribute("mensaje", "Error, " + e.getMessage());
+        return "areas/crear";
+    }
+}
     //LISTAR ÁREAS GET
         @GetMapping("/lista")
     public String listarAreas(@ModelAttribute Area area, HttpSession sesion, Model modelo)throws Exception
