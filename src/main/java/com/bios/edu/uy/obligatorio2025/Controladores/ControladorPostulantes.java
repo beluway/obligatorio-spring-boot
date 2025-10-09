@@ -128,9 +128,9 @@ public class ControladorPostulantes {
     }
 
     @PostMapping("/eliminar")
-    public String postulanteEliminar(@ModelAttribute @Valid Postulante postulante, 
-    Model modelo, 
-    BindingResult resultado) throws Exception 
+    public String postulanteEliminar(@ModelAttribute @Valid Postulante postulante , 
+    BindingResult resultado, 
+    Model modelo) throws Exception 
     {
          servicioPostulaciones.eliminarConPostulante(postulante);
          

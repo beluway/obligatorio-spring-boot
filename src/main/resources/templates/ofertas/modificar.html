@@ -16,10 +16,10 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     <h2>Modificar Oferta</h2>
     <form action="#" method="post" th:object="${oferta}">
         <label for="id">ID</label>
-        <input type="text" id="id" name="id" th:value="${oferta.id}" disabled > 
+        <input type="text" id="id" name="id" th:field="${oferta.id}" disabled > 
         
         <label for="titulo">Título</label>
-        <input type="text" id="titulo" name="titulo" th:value="${oferta.titulo}">
+        <input type="text" id="titulo" name="titulo" th:field="${oferta.titulo}">
 
         <label for="fecha_pub">Fecha de publicación</label>
         <input type="text" id="fecha_pub" name="fecha_pub" th:field="*{fechaPublicacion}" readonly>
@@ -30,13 +30,13 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         <div>
             <label for="area">Área</label>
             <select th:field="*{area.nombre}">
-                <option th:each="a : ${areas}" th:value="${a.nombre}" th:text="${a.nombre}"></option>
+                <option th:each="a : ${areas}" th:field="${a.nombre}" th:text="${a.nombre}"></option>
             </select>
             <p th:errors="*{area.nombre}" class="error"></p>
         </div>
 
         <label for="cliente">Publicado por: </label>
-        <input type="text" name="cliente" id="cliente" th:value="${oferta.cliente.nombre}" >
+        <input type="text" name="cliente" id="cliente" th:field="${oferta.cliente.nombre}" >
 
         <label for="descripcion">Descripción detallada</label>
         <textarea id="descripcion" name="descripcion" th:field="*{descripcion}" ></textarea>

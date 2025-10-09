@@ -20,19 +20,25 @@
     <form th:action="@{/clientes/crear}" method="post" th:object="${Cliente}">
         
         <label for="usuario">Usuario</label>
-        <input type="text" id="usuario" name="usuario" required>
+        <input type="text" id="usuario" th:field="*{usuario}">
+        <span th:if="${#fields.hasErrors('usuario')}" th:errors="{usuario}" class="error"></span>
 
         <label for="clave">Clave</label>
-        <input type="password" id="clave" name="clave" required>
+        <input type="password" id="clave" th:field="*{clave}" >
+        <span th:if="${#fields.hasErrors('clave')}" th:errors="{clave}" class="error"></span>
 
         <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Empresa Bios" required>
+        <input type="text" id="nombre" th:field="*{nombre}" placeholder="Empresa Bios">
+        <span th:if="${#fields.hasErrors('nombre')}" th:errors="{nombre}" class="error"></span>
         
         <label for="rut">Rut</label>
-        <input type="text" id="rut" name="rut" placeholder="214567890012" required>
+        <input type="text" id="rut" th:field="*{rut}" placeholder="214567890012">
+        <span th:if="${#fields.hasErrors('rut')}" th:errors="{rut}" class="error"></span>
         
         <label for="sitioWeb">Sitio web</label>
-        <input type="text" id="url" name="url" placeholder="https://www.ejemplo.com">
+        <input type="text" id="url" th:field="*{url}" placeholder="https://www.ejemplo.com">
+        <span th:if="${#fields.hasErrors('url')}" th:errors="{url}" class="error"></span>
+        
 
         <button type="submit">Registrar Cliente</button>
 

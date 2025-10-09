@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
@@ -44,20 +45,13 @@ public abstract  class Usuario {
         this.clave = clave;
     }
 
-    public Usuario(String usuario, String clave) {
+ 
+    public Usuario(@NotNull(message = "ingrese el usuario") String usuario,
+            @Pattern(regexp = "^(?=.*[A-Z])(?=.*[!#$%&/()=?]).{6,15}$", message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial") @NotNull(message = "ingrese la clave") String clave) {
         this.usuario = usuario;
         this.clave = clave;
     }
 
-    //USUARIO SOLO PARA PRELOGUEO
-      public Usuario(String usuario) {
-        this.usuario = usuario;
-       
-    }
-
-    public Usuario() {
-       
-    }
 
 
     @Override

@@ -36,7 +36,7 @@
             <input type="text" name="rut" th:field="*{rut}" required />
 
             <label>Sitio Web:</label>
-            <input type="text" name="url" th:value="${cliente.url}" />
+            <input type="text" name="url" th:field="${cliente.url}" />
 
             
             <button type="submit">Guardar Cambios</button>

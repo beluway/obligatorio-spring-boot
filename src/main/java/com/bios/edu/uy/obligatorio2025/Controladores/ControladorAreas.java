@@ -40,7 +40,7 @@ public class ControladorAreas {
     
 //CREAR ÁREA POST
     @PostMapping("/crear") 
-    public String procesarCrear(@ModelAttribute @Valid Area area,BindingResult resultado, Model modelo, 
+    public String procesarCrear(@ModelAttribute @Valid Area area, BindingResult resultado, Model modelo, 
      RedirectAttributes attributes) throws Exception {
        
         if (resultado.hasErrors()) {
