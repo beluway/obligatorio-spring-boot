@@ -22,7 +22,9 @@ public class Consultor extends Usuario{
         
 
         //constructor x defecto
-        public Consultor(){}
+        public Consultor(){
+                super("", "");
+        }
 
 
         public Boolean getActivo() {

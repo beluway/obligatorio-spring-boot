@@ -167,29 +167,9 @@ public class Postulante extends Usuario{
         this.segundoApellido = segundoApellido;
     }
 
- public Postulante(){}
-
-
-
-    public Postulante(String usuario, String clave, int cantidadPostulaciones, Boolean activo,
-            @NotBlank(message = "Ingrese la cedula") Long cedula,
-            @NotBlank(message = "Seleccione la fecha de nacimiento") @PastOrPresent LocalDate fechanacimiento,
-            @NotBlank(message = "Seleccione el departamento") String departamento,
-            @NotBlank(message = "Ingrese el nombre") String primerNombre, String segundoNombre,
-            @NotBlank(message = "ingrese el apellido") String primerApellido,
-            @NotBlank(message = "ingrese el segundo apellido") String segundoApellido) {
-        super(usuario, clave);
-        this.cantidadPostulaciones = cantidadPostulaciones;
-        this.activo = activo;
-        this.cedula = cedula;
-        this.fechanacimiento = fechanacimiento;
-        this.departamento = departamento;
-        this.primerNombre = primerNombre;
-        this.segundoNombre = segundoNombre;
-        this.primerApellido = primerApellido;
-        this.segundoApellido = segundoApellido;
-    }
-
+ public Postulante(){
+     super("", "");
+ }
 
     public Postulante(String usuario, String clave,  Boolean activo,
             @NotNull(message = "Ingrese la cedula") Long cedula,

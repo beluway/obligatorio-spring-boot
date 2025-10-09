@@ -65,6 +65,10 @@ public class Cliente extends Usuario {
         this.url = url;
     }
 
+    public Cliente(){
+        super("", "");
+    }
+
     public Cliente(@NotNull(message = "ingrese el usuario") String usuario,
             @Pattern(regexp = "^(?=.*[A-Z])(?=.*[!#$%&/()=?]).{6,15}$", message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial") @NotNull(message = "ingrese la clave") String clave,
             @NotNull(message = "Ingrese el RUT.") @Digits(integer = 12, fraction = 0, message = "El RUT debe tener 12 dígitos") Long rut,
