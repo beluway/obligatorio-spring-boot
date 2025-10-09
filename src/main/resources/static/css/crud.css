@@ -98,6 +98,10 @@ button:hover {
     transform: scale(1.2);
 }
 
+.error{
+    color: red;
+}
+
 
 /* === Animación === */
 @keyframes fadeIn {

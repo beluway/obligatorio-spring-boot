@@ -21,7 +21,10 @@ public class Consultor extends Usuario{
         private Boolean activo=true;
         
 
-      
+        //constructor x defecto
+        public Consultor(){
+                super("", "");
+        }
 
 
         public Boolean getActivo() {

@@ -8,6 +8,9 @@
     <title>Eliminar Área</title>
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
+<body>
+    
+
 <section>
     <div id="contenedor">
      <div class="card">
@@ -30,9 +33,9 @@
 
 
                  <p th:if="${mensaje}" th:text="${mensaje}"></p>
-
-
-                <!-- Modal de confirmación -->
+                <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>
+            </form>
+            <!-- Modal de confirmación -->
                 <dialog id="confirmDialog" class="card">
                     <h3>Confirmar eliminación</h3>
                     <p>¿Está seguro de que desea eliminar esta área permanentemente?</p>
@@ -41,20 +44,22 @@
                         <button type="button" id="confirmNo">Cancelar</button>
                     </div>
                 </dialog>
-
-                <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>
-            </form>
         </div>
     </div>
 </section>
- 
 
-<script>
+    <script>
+
+
     const btn = document.getElementById('eliminar');
     const form = document.querySelector('form');
     const dialog = document.getElementById('confirmDialog');
     const confirmYes = document.getElementById('confirmYes');
     const confirmNo = document.getElementById('confirmNo');
+
+    if (!window.HTMLDialogElement) {
+  alert("Tu navegador no soporta el elemento <dialog>");
+}
 
     btn.addEventListener('click', function (event) {
         event.preventDefault();
@@ -69,6 +74,7 @@
     confirmNo.addEventListener('click', () => {
         dialog.close(); // cierra sin enviar
     });
-</script>
+</script>  
 
+ </body>
 </html>
