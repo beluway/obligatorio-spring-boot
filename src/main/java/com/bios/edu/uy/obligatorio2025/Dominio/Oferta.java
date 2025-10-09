@@ -28,12 +28,12 @@ public class Oferta {
 @GeneratedValue(strategy = GenerationType.IDENTITY) 
 private Integer id;
 
-    @NotNull
+    @NotBlank
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fechaPublicacion", nullable = false)
     private LocalDate fechaPublicacion; 
     
-    @NotNull
+    @NotBlank
     @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_Cierre", nullable = false)
@@ -44,7 +44,7 @@ private Integer id;
     @JoinColumn(name = "cliente",nullable = false)
     private Cliente cliente;
 
-    @NotNull(message = "Ingrese una área")
+    @NotBlank(message = "Ingrese una área")
     @ManyToOne
     @JoinColumn(name = "area",nullable = false)
     private Area area;
@@ -140,10 +140,10 @@ private Integer id;
 /*     public List<Postulacion> getPostulaciones() { return postulaciones; }
     public void setPostulaciones(List<Postulacion> postulaciones) { this.postulaciones = postulaciones; } */
 
-    public Oferta(Integer id, @NotNull LocalDate fechaPublicacion, @NotNull @Future LocalDate fechaCierre,
-            Cliente cliente, @NotNull(message = "Ingrese una descripción") String descripcion,
-            @NotNull(message = "Ingrese el título") String titulo, @NotNull(message = "Ingrese una área") Area area,
-            @NotNull(message = "Ingrese la cantidad de puestos vacantes") @Min(0) Integer cantidadVacantes) {
+    public Oferta(Integer id, @NotBlank LocalDate fechaPublicacion, @NotBlank @Future LocalDate fechaCierre,
+            Cliente cliente, @NotBlank(message = "Ingrese una descripción") String descripcion,
+            @NotBlank(message = "Ingrese el título") String titulo, @NotBlank(message = "Ingrese una área") Area area,
+            @NotBlank(message = "Ingrese la cantidad de puestos vacantes") @Min(0) Integer cantidadVacantes) {
         this.id = id;
         this.fechaPublicacion = fechaPublicacion;
         this.fechaCierre = fechaCierre;

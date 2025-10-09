@@ -21,7 +21,7 @@
             <div>
                 <label for="oferta.id"> Oferta </label>
                     <select th:field="*{oferta.id}">
-                        <option th:each="o : ${ofertasVigentesParaPostularse}" th:value="${o.id}" th:text="${o.titulo}"></option>
+                        <option th:each="o : ${ofertasVigentesParaPostularse}" th:field="${o.id}" th:text="${o.titulo}"></option>
                     </select>                
             </div>
 

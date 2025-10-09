@@ -35,7 +35,7 @@ public class ControladorClientes {
     @GetMapping("/crear")
     public String clienteCrear(Model modelo, HttpSession sesion) throws Exception
     {        
-
+         modelo.addAttribute("Cliente", new Cliente());
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "clientes/crear";        
     }
@@ -48,6 +48,8 @@ public class ControladorClientes {
     RedirectAttributes attributes) throws Exception 
     {              
          if(resultado.hasErrors()){
+
+       /*      modelo.addAttribute("errores", resultado.getFieldErrors()); */
             attributes.addFlashAttribute("mensaje", "Errores en el formulario");
             return "redirect:/clientes/crear";
           }

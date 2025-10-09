@@ -11,7 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
@@ -40,31 +40,31 @@ public class Postulante extends Usuario{
     private Boolean activo;
 
     @Column(name = "cedula",unique = true,nullable = false,length = 8)
-    @NotNull(message = "Ingrese la cedula")
+    @NotBlank(message = "Ingrese la cedula")
     private Long cedula;
      
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull (message = "Seleccione la fecha de nacimiento")
+    @NotBlank (message = "Seleccione la fecha de nacimiento")
     @PastOrPresent
     @Column(name = "fechanacimiento",nullable = false)
     private LocalDate fechanacimiento;    
 
     @Column(name="departamento",length = 20,nullable = false)
-    @NotNull (message = "Seleccione el departamento")
+    @NotBlank (message = "Seleccione el departamento")
     private String departamento;
          
     @Column(name = "primerNombre", nullable = false, length = 15)
-    @NotNull(message = "Ingrese el nombre")
+    @NotBlank(message = "Ingrese el nombre")
     private String primerNombre;
 
     @Column(name = "segundoNombre",nullable = true, length = 15)
     private String segundoNombre; 
 
-    @NotNull(message = "ingrese el apellido")
+    @NotBlank(message = "ingrese el apellido")
     @Column(name="primerApellido", nullable = false,length=15)
     private String primerApellido;
 
-    @NotNull(message = "ingrese el segundo apellido")
+    @NotBlank(message = "ingrese el segundo apellido")
     @Column(name="segundoApellido", nullable = false,length=15)
     private String segundoApellido;   
 
@@ -172,12 +172,12 @@ public class Postulante extends Usuario{
 
 
     public Postulante(String usuario, String clave, int cantidadPostulaciones, Boolean activo,
-            @NotNull(message = "Ingrese la cedula") Long cedula,
-            @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent LocalDate fechanacimiento,
-            @NotNull(message = "Seleccione el departamento") String departamento,
-            @NotNull(message = "Ingrese el nombre") String primerNombre, String segundoNombre,
-            @NotNull(message = "ingrese el apellido") String primerApellido,
-            @NotNull(message = "ingrese el segundo apellido") String segundoApellido) {
+            @NotBlank(message = "Ingrese la cedula") Long cedula,
+            @NotBlank(message = "Seleccione la fecha de nacimiento") @PastOrPresent LocalDate fechanacimiento,
+            @NotBlank(message = "Seleccione el departamento") String departamento,
+            @NotBlank(message = "Ingrese el nombre") String primerNombre, String segundoNombre,
+            @NotBlank(message = "ingrese el apellido") String primerApellido,
+            @NotBlank(message = "ingrese el segundo apellido") String segundoApellido) {
         super(usuario, clave);
         this.cantidadPostulaciones = cantidadPostulaciones;
         this.activo = activo;

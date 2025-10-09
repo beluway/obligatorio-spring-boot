@@ -22,7 +22,6 @@ public class Area {
 
     @NotBlank(message = "Ingrese el nombre del área")
     @Column(name = "nombre", unique = true)
-    @NotNull(message = "ingrese el nombre del área")
     private String nombre;
 
     @Column(name = "asignada")
@@ -55,7 +54,7 @@ public class Area {
         this.asignada = asignada;
     }
 
-    public Area(Integer id, @NotNull(message = "ingrese el nombre del área") String nombre, Boolean asignada) {
+    public Area(Integer id, @NotBlank(message = "ingrese el nombre del área") String nombre, Boolean asignada) {
         this.id = id;
         this.nombre = nombre;
         this.asignada = asignada;
