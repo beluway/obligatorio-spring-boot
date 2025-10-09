@@ -27,12 +27,11 @@ public class Cliente extends Usuario {
    
     @Column(name = "rut", nullable = false, length = 12, unique = true)
     @NotNull(message = "Ingrese el RUT.")
-    @Digits(integer =  12, fraction = 0, message = "El RUT debe tener 12 dígitos")
-    
+    @Digits(integer =  12, fraction = 0, message = "El RUT debe tener 12 dígitos")    
     private Long rut;
 
     @Column(name = "nombre", nullable = false, length = 15)
-    @NotNull(message = "Ingrese el nombre.")
+    @NotBlank(message = "Ingrese el nombre.")
     private String nombre;
    
    @Pattern(
@@ -68,7 +67,7 @@ public class Cliente extends Usuario {
     public Cliente(@NotNull(message = "ingrese el usuario") String usuario,
             @Pattern(regexp = "^(?=.*[A-Z])(?=.*[!#$%&/()=?]).{6,15}$", message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial") @NotNull(message = "ingrese la clave") String clave,
             @NotNull(message = "Ingrese el RUT.") @Digits(integer = 12, fraction = 0, message = "El RUT debe tener 12 dígitos") Long rut,
-            @NotNull(message = "Ingrese el nombre.") String nombre,
+            @NotBlank(message = "Ingrese el nombre.") String nombre,
             @Pattern(regexp = "^www\\..*\\.com$", message = "La URL debe comenzar con www") String url) {
         super(usuario, clave);
         this.rut = rut;
@@ -76,5 +75,7 @@ public class Cliente extends Usuario {
         this.url = url;
     }
 
+
+    public Cliente(){}
    
 }

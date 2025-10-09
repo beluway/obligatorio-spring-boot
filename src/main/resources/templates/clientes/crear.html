@@ -21,24 +21,29 @@
         
         <label for="usuario">Usuario</label>
         <input type="text" id="usuario" th:field="*{usuario}">
-        <span th:if="${#fields.hasErrors('usuario')}" th:errors="{usuario}" class="error"></span>
+       <!--  <span th:if="${#fields.hasErrors('usuario')}" th:errors="{usuario}" class="error"></span> -->
+        <p th:errors="*{usuario}" class="error"></p>
 
         <label for="clave">Clave</label>
         <input type="password" id="clave" th:field="*{clave}" >
-        <span th:if="${#fields.hasErrors('clave')}" th:errors="{clave}" class="error"></span>
+       <!--  <span th:if="${#fields.hasErrors('clave')}" th:errors="{clave}" class="error"></span> -->
+          <p th:errors="*{clave}" class="error"></p>
 
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" th:field="*{nombre}" placeholder="Empresa Bios">
-        <span th:if="${#fields.hasErrors('nombre')}" th:errors="{nombre}" class="error"></span>
-        
+      <!--   <span th:if="${#fields.hasErrors('nombre')}" th:errors="{nombre}" class="error"></span> -->
+          <p th:errors="*{nombre}" class="error"></p>
+
         <label for="rut">Rut</label>
         <input type="text" id="rut" th:field="*{rut}" placeholder="214567890012">
-        <span th:if="${#fields.hasErrors('rut')}" th:errors="{rut}" class="error"></span>
-        
+       <!--  <span th:if="${#fields.hasErrors('rut')}" th:errors="{rut}" class="error"></span> -->
+          <p th:errors="*{rut}" class="error"></p>
+
         <label for="sitioWeb">Sitio web</label>
         <input type="text" id="url" th:field="*{url}" placeholder="https://www.ejemplo.com">
-        <span th:if="${#fields.hasErrors('url')}" th:errors="{url}" class="error"></span>
-        
+      <!--   <span th:if="${#fields.hasErrors('url')}" th:errors="{url}" class="error"></span> -->
+          <p th:errors="*{url}" class="error"></p>
+
 
         <button type="submit">Registrar Cliente</button>
 

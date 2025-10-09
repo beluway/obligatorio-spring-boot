@@ -21,8 +21,7 @@ public class Consultor extends Usuario{
         private Boolean activo=true;
         
 
-        //constructor x defecto
-        public Consultor(){}
+      
 
 
         public Boolean getActivo() {
@@ -34,6 +33,9 @@ public class Consultor extends Usuario{
                 this.activo = activo;
         }
 
+
+          //constructor x defecto
+        public Consultor(){}
 
         public Consultor(String usuario, String clave, Boolean activo) {
                 super(usuario, clave);
