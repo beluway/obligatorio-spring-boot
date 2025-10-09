@@ -76,7 +76,7 @@ private ServicioConsultores servicioConsultores;
 
         catch(Exception ex)
         {
-             modelo.addAttribute("mensaje","Hubo un error "+ e.getMessage());
+             modelo.addAttribute("mensaje","Hubo un error "+ ex.getMessage());
            return "consultores/crear";
 
         }
