@@ -35,7 +35,7 @@ public class ControladorClientes {
     @GetMapping("/crear")
     public String clienteCrear(Model modelo, HttpSession sesion) throws Exception
     {        
-        modelo.addAttribute("Cliente", new Cliente());
+        modelo.addAttribute("cliente", new Cliente());
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "clientes/crear";        
     }
@@ -49,14 +49,13 @@ public class ControladorClientes {
     {              
          if(resultado.hasErrors()){
 
-       /*   modelo.addAttribute("errores", resultado.getFieldErrors()); */
-            attributes.addFlashAttribute("mensaje", "Errores en el formulario");
+            modelo.addAttribute("cliente", cliente);
             return "clientes/crear";
           }
 
           if(servicioClientes.obtener(cliente.getUsuario())!=null)
           {
-             attributes.addFlashAttribute("mensaje", "Ya existe el usuario");
+             modelo.addAttribute("mensaje", "Ya existe el usuario");
              return "clientes/crear";
           }
 
@@ -130,10 +129,14 @@ public class ControladorClientes {
     
 
     @PostMapping("/modificar")
-    public String procesarModificar(@ModelAttribute /*@Valid*/ Cliente cliente, @RequestParam(required = false)String clave, BindingResult resultado,RedirectAttributes attributes) throws Exception{
+    public String procesarModificar(@ModelAttribute /*@Valid*/ Cliente cliente, 
+    @RequestParam(required = false)String clave,
+     BindingResult resultado,
+     RedirectAttributes attributes, Model modelo) throws Exception{
      
         if(resultado.hasErrors())
         {
+            modelo.addAttribute("cliente", new Cliente());
             return "clientes/modificar";
         }
 

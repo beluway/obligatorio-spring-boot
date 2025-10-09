@@ -27,6 +27,8 @@ public class ControladorAreas {
     @Autowired
     private IServicioAreas servicioAreas;
 
+
+
     //CREAR ÁREA GET
     @GetMapping("/crear")
     public String crear (HttpSession sesion, Model modelo)throws Exception
@@ -56,6 +58,9 @@ public class ControladorAreas {
         return "areas/crear";
     }
 }
+
+
+
     //LISTAR ÁREAS GET
         @GetMapping("/lista")
     public String listarAreas(@ModelAttribute Area area, HttpSession sesion, Model modelo)throws Exception

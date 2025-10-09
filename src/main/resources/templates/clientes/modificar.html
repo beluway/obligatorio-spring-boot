@@ -25,24 +25,32 @@
 
             <label>Nombre:</label>
             <input type="text" th:field="*{nombre}"/>
+            <p th:errors="*{nombre}" class="error"></p>
 
             <label>Nueva Clave:</label>
         <div class="input-group">
         <input type="password" id="nuevaClave" name="nuevaClave" placeholder="Dejar vacío para no cambiar" style="width: 94%;">
         <span class="material-icons" id="toggleClave">visibility</span>
+         <p th:errors="*{nuevaClave}" class="error"></p>
         </div>
 
             <label>RUT:</label>
             <input type="text" name="rut" th:field="*{rut}" required />
+               <p th:errors="*{rut}" class="error"></p>
 
             <label>Sitio Web:</label>
             <input type="text" name="url" th:field="${cliente.url}" />
-
+             <p th:errors="*{url}" class="error"></p>
             
             <button type="submit">Guardar Cambios</button>
+
+            <p th:if="${mensaje}" th:text="${mensaje}"></p>
+
+             <a th:href="@{/clientes/lista}" id="volver">← Volver al listado</a>
+
         </form>
 
-        <a th:href="@{/clientes/lista}" id="volver">← Volver al listado</a>
+       
     </div>
     </div>
 </section>
