@@ -49,6 +49,8 @@ public class ControladorPostulantes {
         
     }
 
+
+    
     @PostMapping("/crear")
     public String postulanteCrear (@ModelAttribute @Valid Postulante postulante,  
     BindingResult resultado, 
@@ -70,7 +72,7 @@ public class ControladorPostulantes {
         }
 
         
-        if (servicioPostulaciones.MayorEdad(postulante.getFechanacimiento())==false) {
+        if (servicioPostulantes.MayorEdad(postulante.getFechanacimiento())==false) {
         atributos.addFlashAttribute("mensaje", "ATENCIÓN: No es mayor de Edad");
         return "redirect:/postulantes/crear";
         }

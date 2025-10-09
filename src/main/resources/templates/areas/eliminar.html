@@ -18,11 +18,19 @@
 
                 <label for="id">ID</label>
                 <input type="text" id="id" name="id" th:field="*{id}" readonly> 
-                
+                <p th:errors="*{id}" class="error"></p>
+
+
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" th:field="*{nombre}" readonly>
+                <p th:errors="*{nombre}" class="error"></p>
+
 
                 <button type="submit" id="eliminar">Eliminar</button>
+
+
+                 <p th:if="${mensaje}" th:text="${mensaje}"></p>
+
 
                 <!-- Modal de confirmación -->
                 <dialog id="confirmDialog" class="card">

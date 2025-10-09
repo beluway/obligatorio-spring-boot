@@ -1,4 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,5 +61,38 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
         return lista;
     }
+
+     @Override
+        public Boolean MayorEdad(LocalDate fechaNacimiento) throws Exception
+        {
+            
+            Boolean mayorDeEdad=true;
+            
+            int cantidadAños = LocalDate.now().getYear() - fechaNacimiento.getYear();
+
+            if(cantidadAños>18)
+            {
+                  return mayorDeEdad;                 
+                
+            }
+
+            else if(cantidadAños<=18)
+            {
+                if(LocalDate.now().getMonth()==fechaNacimiento.getMonth())
+                {
+                    if(LocalDate.now().getDayOfMonth()>=fechaNacimiento.getDayOfMonth())
+                    {
+                       return mayorDeEdad;    
+                    }
+
+                    return mayorDeEdad=false;
+                }  
+            }
+
+
+
+               return mayorDeEdad=false;
+        }
+
 }
 

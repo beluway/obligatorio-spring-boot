@@ -142,7 +142,7 @@ HttpSession sessionUsuario;
           //SE BORRAN TODOS LOS DATOS DE SESION
         session.invalidate();
 
-        return "home/deslogueo";
+        return "home/index";
 
     }
     

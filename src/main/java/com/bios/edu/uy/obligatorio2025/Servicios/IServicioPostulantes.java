@@ -1,5 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
@@ -13,4 +14,5 @@ public interface IServicioPostulantes {
     List<Postulante> lista() throws Exception;
     Postulante buscar(String usuario);
     public Postulante obtener (String usuario) throws Exception;
+    Boolean MayorEdad(LocalDate fechaNacimiento)  throws Exception;
 }
