@@ -1,5 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,8 @@ public class ServicioUsuarios implements IServicioUsuarios{
         {
             return repositorioUsuario.findByUsuarioAndClave(usuario, clave);
         }
+
+
+       
 
 }

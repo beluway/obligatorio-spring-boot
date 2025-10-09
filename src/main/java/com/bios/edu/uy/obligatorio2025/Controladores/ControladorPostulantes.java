@@ -69,6 +69,13 @@ public class ControladorPostulantes {
         return "redirect:/postulantes/crear";
         }
 
+        
+        if (servicioPostulaciones.MayorEdad(postulante.getFechanacimiento())==false) {
+        atributos.addFlashAttribute("mensaje", "ATENCIÓN: No es mayor de Edad");
+        return "redirect:/postulantes/crear";
+        }
+
+
         //formateo la fecha y la asigno
         LocalDate fechaFormateada =  LocalDate.parse(postulante.getFechanacimiento().toString());
 
