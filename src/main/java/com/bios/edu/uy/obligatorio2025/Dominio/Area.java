@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 
@@ -20,7 +21,7 @@ public class Area {
     private Integer id;
     
     @Column(name = "nombre", unique = true)
-    @NotNull(message = "ingrese el nombre del área")
+    @NotBlank(message = "ingrese el nombre del área")
     private String nombre;
 
     @Column(name = "asignada")
