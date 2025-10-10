@@ -62,7 +62,7 @@ public class ControladorAreas {
 
 
     //LISTAR ÁREAS GET
-        @GetMapping("/lista")
+    @GetMapping("/lista")
     public String listarAreas(@ModelAttribute Area area, HttpSession sesion, Model modelo)throws Exception
     {
         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));

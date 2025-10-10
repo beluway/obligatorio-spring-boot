@@ -18,7 +18,8 @@ public class ServicioUsuarios implements IServicioUsuarios{
         @Override
         public Usuario usuarioParaLogin(String usuario)
         {           
-            return  repositorioUsuario.findByUsuario(usuario);
+             return repositorioUsuario.findByUsuario(usuario)
+            .orElse(null);
         }
 
         @Override

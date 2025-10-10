@@ -90,6 +90,8 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
             <label for="vacantes">Cantidad de puestos vacantes</label>
             <input type="number" id="vacantes" th:field="*{cantidadVacantes}" readonly>
 
+ 
+
             <button type="submit" id="eliminar">Eliminar</button>
 
             <p id="alerta" style="color: red;"></p>

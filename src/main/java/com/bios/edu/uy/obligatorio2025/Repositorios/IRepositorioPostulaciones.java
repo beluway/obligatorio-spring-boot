@@ -14,6 +14,8 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 
 public interface IRepositorioPostulaciones extends JpaRepository<Postulacion,Postulacion.PostulacionId> {
     
+
+    
 List<Postulacion> findAllByPostulante(Postulante postulante);
 
 //SE BUSCA POR:
