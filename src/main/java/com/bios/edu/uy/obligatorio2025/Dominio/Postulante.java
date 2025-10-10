@@ -40,11 +40,11 @@ public class Postulante extends Usuario{
     private Boolean activo;
 
     @Column(name = "cedula",unique = true,nullable = false,length = 8)
-    @NotBlank(message = "Ingrese la cedula")
+    @NotNull(message = "Ingrese la cedula")
     private Long cedula;
      
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotBlank (message = "Seleccione la fecha de nacimiento")
+    @NotNull (message = "Seleccione la fecha de nacimiento")
     @PastOrPresent
     @Column(name = "fechanacimiento",nullable = false)
     private LocalDate fechanacimiento;    
@@ -71,7 +71,7 @@ public class Postulante extends Usuario{
     
     //VER SI ESTO SIRVE PARA PDF (CAMPO QUE NO VA A LA BD)
     @Transient 
-    //@NotNull (message = "Seleccione un .pdf para subirlo")
+    @NotNull (message = "Seleccione un .pdf para subirlo")
     private MultipartFile pdf;
    
   
@@ -174,10 +174,11 @@ public class Postulante extends Usuario{
     public Postulante(String usuario, String clave,  Boolean activo,
             @NotNull(message = "Ingrese la cedula") Long cedula,
             @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent LocalDate fechanacimiento,
-            @NotNull(message = "Seleccione el departamento") String departamento,
-            @NotNull(message = "Ingrese el nombre") String primerNombre, String segundoNombre,
-            @NotNull(message = "ingrese el apellido") String primerApellido,
-            @NotNull(message = "ingrese el segundo apellido") String segundoApellido) {
+            @NotBlank(message = "Seleccione el departamento") String departamento,
+            @NotBlank(message = "Ingrese el nombre") String primerNombre,
+            String segundoNombre,
+            @NotBlank(message = "ingrese el apellido") String primerApellido,
+            @NotBlank(message = "ingrese el segundo apellido") String segundoApellido) {
         super(usuario, clave);      
         this.cedula = cedula;
         this.fechanacimiento = fechanacimiento;
