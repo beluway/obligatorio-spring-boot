@@ -19,9 +19,9 @@ public interface IRepositorioConsultores extends JpaRepository<Consultor,String>
     List<Consultor> findAll();
 
 
-    
+    @Override
     @EntityGraph(type = EntityGraphType.LOAD, attributePaths = {"roles"})
-    Optional <Consultor> findByUsuario(String usuario);
+    Optional <Consultor> findById(String usuario);
 
 
 }

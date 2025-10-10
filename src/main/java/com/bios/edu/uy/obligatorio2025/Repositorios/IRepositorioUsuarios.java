@@ -16,7 +16,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Usuario;
 @Repository
 public interface IRepositorioUsuarios extends JpaRepository<Usuario,String> {
         
-  
+    Optional<Usuario> findByUsuario(String usuario);
      
     Usuario findByUsuarioAndClave(String usuario, String clave);
 
@@ -26,9 +26,9 @@ public interface IRepositorioUsuarios extends JpaRepository<Usuario,String> {
     List<Usuario> findAll();
 
 
-    
+    @Override
     @EntityGraph(type = EntityGraphType.LOAD, attributePaths = {"roles"})
-    Optional <Usuario> findByUsuario(String usuario);
+    Optional <Usuario> findById(String usuario);
 
 
 }

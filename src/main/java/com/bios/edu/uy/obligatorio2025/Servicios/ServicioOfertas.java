@@ -67,10 +67,17 @@ private IRepositorioPostulaciones respositorioPostulaciones;
 
 
     @Override
-    public List<Oferta> listaOfertasCliente(Cliente cliente)
+    public List<Oferta> listaOfertasCliente(Cliente cliente) throws Exception
     {
         return repositorioOfertas.findAllByCliente(cliente);
     }
+
+/* 
+    @Override
+    public List<Oferta> listaOfertasPostulante( Postulante postulante) throws Exception
+    {
+          return repositorioOfertas.findAllByPostulante(postulante);
+    } */
 
 
     @Override 

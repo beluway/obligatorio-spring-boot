@@ -64,20 +64,20 @@ public class Cliente extends Usuario {
         this.url = url;
     }
 
-    public Cliente(){
-        super("", "");
-    }
 
-    public Cliente(@NotNull(message = "ingrese el usuario") String usuario,
-            @Pattern(regexp = "^(?=.*[A-Z])(?=.*[!#$%&/()=?]).{6,15}$", message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial") @NotNull(message = "ingrese la clave") String clave,
+    public Cliente(@NotBlank(message = "ingrese el usuario") String usuario,
+            @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,15}$", message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial") @NotBlank(message = "ingrese la clave") String clave,
+            Boolean activo,
             @NotNull(message = "Ingrese el RUT.") @Digits(integer = 12, fraction = 0, message = "El RUT debe tener 12 dígitos") Long rut,
             @NotBlank(message = "Ingrese el nombre.") String nombre,
             @Pattern(regexp = "^www\\..*\\.com$", message = "La URL debe comenzar con www") String url) {
-        super(usuario, clave);
+        super(usuario, clave, activo);
         this.rut = rut;
         this.nombre = nombre;
         this.url = url;
     }
+
+     public Cliente(){}
 
    
 }

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
+import com.bios.edu.uy.obligatorio2025.Dominio.Usuario;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioConsultores;
 
 import jakarta.servlet.http.HttpSession;
@@ -67,6 +68,8 @@ private ServicioConsultores servicioConsultores;
 
         try
         {
+            consultor.setActivo(true);
+
             servicioConsultores.agregar(consultor);
 
             atributos.addFlashAttribute("mensaje","consultor agregado con exito");

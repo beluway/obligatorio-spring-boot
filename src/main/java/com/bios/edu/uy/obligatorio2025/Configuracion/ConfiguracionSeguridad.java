@@ -1,37 +1,71 @@
 package com.bios.edu.uy.obligatorio2025.Configuracion;
 
+import com.bios.edu.uy.obligatorio2025.Controladores.ControladorAreas;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 
 @Configuration
 @EnableWebSecurity
+public class ConfiguracionSeguridad 
+{
 
-public class ConfiguracionSeguridad {
+   
+    @Bean
+    public PasswordEncoder passwordEncoder()
+    {
+        return new BCryptPasswordEncoder();
+    }
+
+
+    @Bean
+    public SecurityFilterChain filtroSeguridad (HttpSecurity seguridadHttp) throws Exception
+    {
+       seguridadHttp
+                        .authorizeHttpRequests(authorize -> authorize.requestMatchers("/home/index").permitAll()
+                        /* .requestMatchers("/clientes/crear",
+                                                    "/clientes/modificar",
+                                                    "/clientes/eliminar",
+                                                    "/clientes/lista",
+                                                    "/clientes/ver",
+                                                    "/areas/crear",
+                                                    "/areas/eliminar",
+                                                    "/areas/lista",
+                                                    "/areas/modificar",
+                                                    "/consultores/crer",
+                                                    "/consultores/eliminar",
+                                                    "/consultores/modificar",
+                                                    "/consultores/lista",
+                                                    "/consultores/ver").hasAuthority("consultor") */
+                                .requestMatchers("/postulaciones/crear",
+                                                    "/postulaciones/eliminar",
+                                                    "/postulaciones/lista").hasAuthority("postulante")                  
+                                .requestMatchers("/ofertas/crear",
+                                                    "/ofertas/eliminar",
+                                                    "/ofertas/modificar").hasAuthority("cliente")
+                                .requestMatchers("/ofertas/**").hasAnyAuthority("postulante","cliente")  
+                                .requestMatchers("/postulaciones/**").hasAnyAuthority("cliente","postulante")
+                                .requestMatchers("/clientes/**","/areas/**","/consultores/**").hasAuthority("consultor")
+                                .requestMatchers("/ofertas/listaPorCliente").hasAuthority("cliente")    
+                                .requestMatchers("/postulantes/crear").anonymous()
+                                .requestMatchers("/clientes/ver").hasAnyAuthority("postulante","cliente")
+                                .requestMatchers("/postulantes/ver").hasAnyAuthority("postulante","cliente","consultor")
+                                .anyRequest().authenticated())                   
+                               .formLogin(login -> login.permitAll());   
+                               
+                               
+
+                               return seguridadHttp.build();
+                         
     
+                    }
 
-@Bean
-public BCryptPasswordEncoder passwordEncoder()
-{
-    return new BCryptPasswordEncoder();
-}
-
-@Bean
-public UserDetailsService authenticationManager()
-{
-
-
-
-
-
-    InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-
-    manager.createUser(USer.w);
-}
 
 
 }

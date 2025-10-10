@@ -61,6 +61,9 @@ public class ControladorClientes {
 
           try
           {
+
+            cliente.setActivo(true);
+
             servicioClientes.agregar(cliente); 
 
             attributes.addFlashAttribute("mensaje","Cliente agregado con éxito.");

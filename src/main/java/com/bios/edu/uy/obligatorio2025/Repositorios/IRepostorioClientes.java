@@ -18,9 +18,9 @@ public interface IRepostorioClientes extends JpaRepository<Cliente,String> {
     List<Cliente> findAll();
 
 
-    
+    @Override
     @EntityGraph(type = EntityGraphType.LOAD, attributePaths = {"roles"})
-    Optional <Cliente> findByUsuario(String usuario);
+    Optional <Cliente> findById(String usuario);
 
 
 }

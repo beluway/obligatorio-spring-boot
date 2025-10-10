@@ -19,5 +19,6 @@ public interface IServicioOfertas {
     Oferta obtener(Integer id) throws Exception;
     List<Oferta> listaOfertasCliente (Cliente cliente) throws Exception;
     public List<Oferta> listaOfertasVigentes() throws Exception;
+/*     List<Oferta> listaOfertasPostulante( Postulante postulante) throws Exception; */
     
 }

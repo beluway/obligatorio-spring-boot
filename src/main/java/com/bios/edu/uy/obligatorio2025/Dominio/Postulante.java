@@ -14,6 +14,7 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,9 +37,7 @@ public class Postulante extends Usuario{
     @Column(name = "cantidadPostulaciones")
     private int cantidadPostulaciones;
 
-    @Column(name = "activo")    
-    private Boolean activo;
-
+ 
     @Column(name = "cedula",unique = true,nullable = false,length = 8)
     @NotNull(message = "Ingrese la cedula")
     private Long cedula;
@@ -167,19 +166,19 @@ public class Postulante extends Usuario{
         this.segundoApellido = segundoApellido;
     }
 
- public Postulante(){
-     super("", "");
- }
 
-    public Postulante(String usuario, String clave,  Boolean activo,
-            @NotNull(message = "Ingrese la cedula") Long cedula,
+    public Postulante(@NotBlank(message = "ingrese el usuario") String usuario,
+            @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,15}$", message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial") @NotBlank(message = "ingrese la clave") String clave,
+            Boolean activo, int cantidadPostulaciones, @NotNull(message = "Ingrese la cedula") Long cedula,
             @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent LocalDate fechanacimiento,
             @NotBlank(message = "Seleccione el departamento") String departamento,
-            @NotBlank(message = "Ingrese el nombre") String primerNombre,
-            String segundoNombre,
+            @NotBlank(message = "Ingrese el nombre") String primerNombre, String segundoNombre,
             @NotBlank(message = "ingrese el apellido") String primerApellido,
-            @NotBlank(message = "ingrese el segundo apellido") String segundoApellido) {
-        super(usuario, clave);      
+            @NotBlank(message = "ingrese el segundo apellido") String segundoApellido,
+            @NotNull(message = "Seleccione un .pdf para subirlo") MultipartFile pdf) {
+        super(usuario, clave, activo);
+        
+        this.cantidadPostulaciones = cantidadPostulaciones;
         this.cedula = cedula;
         this.fechanacimiento = fechanacimiento;
         this.departamento = departamento;
@@ -187,17 +186,11 @@ public class Postulante extends Usuario{
         this.segundoNombre = segundoNombre;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
+        this.pdf = pdf;
     }
 
 
-    public Boolean getActivo() {
-        return activo;
-    }
-
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
-    }
+        public Postulante(){};
 
     
 }
