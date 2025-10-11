@@ -43,6 +43,15 @@ public class ConfiguracionSeguridad
                                                     "/consultores/modificar",
                                                     "/consultores/lista",
                                                     "/consultores/ver").hasAuthority("consultor") */
+                                .requestMatchers(
+                                                    "/home/index",      // tu página con fondo
+                                                    "/home/ingresar",   // primer paso del login
+                                                    "/home/login",      // paso de contraseña
+                                                    "/home/registro",   // página pública de registro
+                                                    "/css/**", "/js/**", "/img/**"                                                  
+                                                  ).permitAll()
+                                                    .anyRequest()
+                                                    .authenticated()               
                                 .requestMatchers("/postulaciones/crear",
                                                     "/postulaciones/eliminar",
                                                     "/postulaciones/lista").hasAuthority("postulante")                  
@@ -57,7 +66,16 @@ public class ConfiguracionSeguridad
                                 .requestMatchers("/clientes/ver").hasAnyAuthority("postulante","cliente")
                                 .requestMatchers("/postulantes/ver").hasAnyAuthority("postulante","cliente","consultor")
                                 .anyRequest().authenticated())                   
-                               .formLogin(login -> login.permitAll());   
+                               .formLogin(login -> login
+                               .loginPage("/home/login")
+                               .defaultSuccessUrl("/home/main")
+                               .permitAll())
+                               
+                               .logout(logout -> logout
+                               .logoutUrl("/home/deslogueo")
+                               .logoutSuccessUrl("home/index?logout")
+                               .permitAll()
+                               );   
                                
                                
 
