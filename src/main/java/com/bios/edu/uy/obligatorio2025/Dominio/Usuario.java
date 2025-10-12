@@ -27,12 +27,13 @@ import jakarta.validation.constraints.Pattern;
 public abstract  class Usuario {
     
     @Id
+    @Column(name = "usuario",length = 50)
     @NotBlank (message = "ingrese el usuario")
     private String usuario;
    
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,15}$",
     message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial")
-    @Column(name = "clave", nullable = false,length = 15)
+    @Column(name = "clave", nullable = false,length = 100)
     @NotBlank (message =  "ingrese la clave")
     private String clave;
 
@@ -41,6 +42,7 @@ public abstract  class Usuario {
     inverseJoinColumns = { @JoinColumn(name = "rol_nombre_rol") })
     private Set<Rol> roles;
 
+ 
     private Boolean activo;
 
 
