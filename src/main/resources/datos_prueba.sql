@@ -12,6 +12,6 @@ BEGIN
    
    INSERT INTO clientes (nombre,rut,url,usuario) 
 
-    INSERT INTO consultores(usuario,activo)
+    INSERT INTO consultores(usuario)
 
 GO
