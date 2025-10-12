@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
+import com.bios.edu.uy.obligatorio2025.Dominio.Rol;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioConsultores;
 
@@ -18,6 +19,17 @@ public class ServicioConsultores implements IServicioConsultores{
     @Override
     public void agregar (Consultor consultor) throws ExcepcionBiosWork
     {
+
+        consultor.setActivo(true);
+
+        Consultor existente=repositorioConsultores.findById(consultor.getUsuario()).orElse(null);
+
+        if(existente!=null)
+        {
+            throw new ExcepcionBiosWork("ya existe");
+        }
+        
+        consultor.getRoles().add(new Rol("consultor"));
         repositorioConsultores.save(consultor);
     }
 

@@ -75,7 +75,11 @@ public class ConfiguracionSeguridad
                                .logoutUrl("/home/deslogueo")
                                .logoutSuccessUrl("home/index?logout")
                                .permitAll()
-                               );   
+                               )
+
+                             //  .exceptionHandling(excepcion-> excepcion.authenticationEntryPoint(request,response,authExrepc))
+                               
+                               ;   
                                
                                
 

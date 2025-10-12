@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
@@ -14,13 +14,14 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 import jakarta.validation.constraints.Pattern;
 
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="tipo_usuario")
+/* @DiscriminatorColumn(name="tipo_usuario") */
+
 @Table(name="usuarios")
 
 public abstract  class Usuario {

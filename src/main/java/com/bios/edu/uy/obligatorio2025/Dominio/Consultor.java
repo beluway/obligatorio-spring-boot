@@ -1,7 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 
-import jakarta.persistence.Column;
+
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
@@ -12,8 +12,8 @@ import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name="consultores")
-@PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
-@DiscriminatorValue("Consultor")
+/* @PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
+@DiscriminatorValue("Consultor") */
 
 public class Consultor extends Usuario{
     

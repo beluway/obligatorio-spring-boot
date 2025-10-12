@@ -58,6 +58,19 @@ private IRepositorioPostulaciones respositorioPostulaciones;
         }
     }
 
+   /*  List<Oferta> findAllByPostulante(Postulante postulante)
+      {
+        List<Oferta>ofertasXPostulante = new List<Oferta>();
+
+        if(Postulacion p:repositorioPostulaciones.findByPostuante(postulante.getUsuario()))
+        {
+            ofertasXPostulante.add(p.getOferta());
+        }
+
+        return ofertasXPostulante;
+        }  */
+
+
 
     @Override
     public List<Oferta> listaOfertas() throws Exception

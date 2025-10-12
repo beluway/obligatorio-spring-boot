@@ -51,6 +51,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     }
 
 
+    //SE ELIMINAN LAS POSTULACIONES Y DESPUES LA OFERTA
     @Override 
     public void eliminarConOferta (Oferta oferta)throws ExcepcionBiosWork
     {        
@@ -61,6 +62,8 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     } 
 
 
+
+    //SE ELIMINAN LAS POSTULACIONES Y DESPUES EL POSTULANTE
     @Override 
     public void eliminarConPostulante (Postulante postulante)throws ExcepcionBiosWork
     {        

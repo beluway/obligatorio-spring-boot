@@ -23,9 +23,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="postulantes")
-@PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
+/* @PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
 @DiscriminatorValue("Postulante")
-
+ */
 
 public class Postulante extends Usuario{
     

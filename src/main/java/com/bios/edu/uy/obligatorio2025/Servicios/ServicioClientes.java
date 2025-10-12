@@ -42,6 +42,8 @@ public class ServicioClientes implements IServicioClientes  {
                 throw new ExcepcionBiosWork("El RUT debe tener 12 digitos.");
             }
 
+            cliente.getRoles().add(new Rol("cliente"));
+
             repositorioClientes.save(cliente);
 
     } 

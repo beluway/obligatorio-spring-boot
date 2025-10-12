@@ -28,8 +28,10 @@ public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer>, JpaS
     
     List<Oferta> findAllByCliente(Cliente cliente);   
 
-    
-    List<Oferta> findAllByPostulante(Postulante postulante);
+
+    //POSTULANTE: MIS OFERTAS
+    //List<Oferta> findAllByPostulante(Postulante postulante);
+   
 
     public static Specification<Oferta> ofertasVigentes()
     {
