@@ -1,7 +1,10 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +31,10 @@ HttpSession sessionUsuario;
    @Autowired
     private IServicioUsuarios servicioUsuarios;
     
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Qualifier("servicioUsuarioSession")
 
     @GetMapping("/index") 
@@ -38,16 +45,15 @@ HttpSession sessionUsuario;
     }    
 
     @GetMapping("/ingresar") 
-    public String ingresar() {
-         
-       
-        return "home/ingresar";       
+    public String ingresar(Principal usuarioLogueado)
+    {        
+             return "/home/ingresar";           
     }    
 
 
     @PostMapping("/ingresar")
     public String ingresar(String usuario, Model modelo) {
-       
+     
          //ACA VA EL ACCESO A LA CAPA DE DATOS DE USUARIO Y PREGUNTA SI EXISTE EL USUARIO   
 
         Usuario usuarioLogin = servicioUsuarios.usuarioParaLogin(usuario);
@@ -64,11 +70,12 @@ HttpSession sessionUsuario;
         else
         {   //SI NO EXISTE, SE QUEDA EN EL INDEX
             return "home/ingresar";
-        }
-      
+        }      
     }
     
-    @GetMapping("/login")
+
+
+    /* @GetMapping("/login")
     public String login(HttpSession session) {
       
        /*  //EL USUARIO YA ESTA LOGUEADO (EXISTE EN LA SESION) ??
@@ -79,11 +86,11 @@ HttpSession sessionUsuario;
         }
         */
         //SE QUEDA EN EL LOGIN (PARA INGRESAR LA CONTRASEÑA)
-         return "home/login"; 
-    }    
+      /*    return "home/login"; 
+    }     
+ */
 
-
-    @PostMapping("/login")
+  /*   @PostMapping("/login")
     public String login(@ModelAttribute Usuario usuario, Model modelo, BindingResult resultado, HttpSession sesion) {
        
         // SE BUSCA SI EXISTE EN LA CAPA USUARIO CON LOS DATOS PASADOS
@@ -91,21 +98,46 @@ HttpSession sessionUsuario;
         //SI EXISTE EL USUARIO, SE PREGUNTA DE QUE TIPO ES. 
             //DEPENDIENDO EL TIPO SE REDIRIGE A LA PÁGINA QUE LE TOQUE
 
-          Usuario usuarioLogueado = servicioUsuarios.usuarioLogueado(usuario.getUsuario(),usuario.getClave());
+        try
+        {
+            Usuario existente = servicioUsuarios.usuarioParaLogin(usuario.getUsuario());
            
 
-            if(usuarioLogueado!=null)
+
+            if(existente!=null && existente.isActivo())
             {
-              //*********************  USUARIO EN SESION (SIN PREGUNTAR EL TIPO)  *************************
-              sesion.setAttribute("usuarioLogueado", usuarioLogueado);   
+                if(passwordEncoder.matches(usuario.getClave(), existente.getClave()))
+                {
+ //*********************  USUARIO EN SESION (SIN PREGUNTAR EL TIPO)  *************************
+              sesion.setAttribute("usuarioLogueado", existente);   
 
 
-                   return "redirect:/home/main"; 
+                   return "/home/main"; 
+                }
+
+                else
+                {
+                modelo.addAttribute("mensaje", "Contraseña incorrecta");
+                }         
+             
       
             }
-      
-       return "redirect:/home/index";
-    }
+
+            else {
+            modelo.addAttribute("mensaje", "Usuario no existe o está inactivo");
+         }
+         return "/home/login";
+        }
+
+        catch (Exception ex)
+        {
+           modelo.addAttribute("mensaje","Hubo un error "+ ex.getMessage());
+           return "clientes/crear";
+        }
+        
+    } */
+
+
 
 
     /// PARA ESTA VISTA HACER MASTERPAGE

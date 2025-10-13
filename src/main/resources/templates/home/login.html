@@ -14,12 +14,12 @@
             <form th:action="@{/home/login}" method="post" th:object="${usuario}">
                 <div>
                     <label for="usuario">Usuario</label>
-                    <input type="text" name="usuario" id="usuario" th:value="${usuarioLogin}" readonly>
+                    <input type="text" name="username" id="usuario" th:value="${usuarioLogin}" readonly>
                 </div>
 
                 <div>
                     <label for="clave">Password</label>
-                    <input type="password" name="clave" id="clave">
+                    <input type="password" name="password" id="clave">
                 </div>
 
                 <div>

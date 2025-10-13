@@ -39,13 +39,13 @@ private Integer id;
     @Column(name = "fecha_Cierre", nullable = false)
     private LocalDate fechaCierre;
 
-  /*@NotNull(message = "seleccione el cliente") */
-    @ManyToOne // UN CLIENTE PUEDE TENER MUCHAS OFERTAS
+    @NotNull(message = "seleccione el cliente")
+    @ManyToOne (optional = false)
     @JoinColumn(name = "cliente",nullable = false)
     private Cliente cliente;
 
     @NotNull(message = "Ingrese una área")
-    @ManyToOne
+    @ManyToOne (optional = false)
     @JoinColumn(name = "area",nullable = false)
     private Area area;
 

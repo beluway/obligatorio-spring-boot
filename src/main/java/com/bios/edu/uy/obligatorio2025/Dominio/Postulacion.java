@@ -1,11 +1,8 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.io.Serializable;
-import java.lang.ProcessBuilder.Redirect.Type;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,18 +10,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
+
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "postulaciones")
@@ -47,14 +42,14 @@ public class Postulacion {
     //LA COLUMNA OFERTA ES UNA UNION (JOIN) CON LA TABLA OFERTA Y ADEMAS FORMA LA PK COMPUESTA    
     @NotNull
     @MapsId("idOferta")
-    @ManyToOne
+    @ManyToOne (optional = false)
     @JoinColumn(name = "oferta", nullable = false)
     private Oferta oferta;
 
     //LA COLUMNA POSTULANTE ES UNA UNION (JOIN) CON LA TABLA POSTULANTE Y ADEMAS FORMA LA PK COMPUESTA    
     @NotNull
     @MapsId("usuarioPostulante")
-    @ManyToOne //UNA POSTULACIÓN SOLO TIENE UN POSTULANTE
+    @ManyToOne (optional = false)
     @JoinColumn (name="postulante",nullable = false)
     private Postulante postulante;
 
@@ -91,12 +86,11 @@ public class Postulacion {
     }
 
 
-
     //constructor vacío
     public Postulacion(){}
 
   
-public Postulacion(PostulacionId id, @NotNull @PastOrPresent LocalDate fechaPostulacion, @NotNull Oferta oferta,
+    public Postulacion(PostulacionId id, @NotNull @PastOrPresent LocalDate fechaPostulacion, @NotNull Oferta oferta,
         @NotNull Postulante postulante) {
     this.id = id;
     this.fechaPostulacion = fechaPostulacion;

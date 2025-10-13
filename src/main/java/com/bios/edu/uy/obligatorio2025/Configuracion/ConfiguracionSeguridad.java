@@ -24,58 +24,6 @@ public class ConfiguracionSeguridad
     }
 
 
-   /*  @Bean
-    public SecurityFilterChain filtroSeguridad (HttpSecurity seguridadHttp) throws Exception
-    {
-       seguridadHttp
-                        .authorizeHttpRequests(authorize -> authorize.requestMatchers("/home/index").permitAll()
-                    
-                                .requestMatchers(
-                                                    "/home/index",      
-                                                    "/home/ingresar",   
-                                                    "/home/login",      
-                                                    "/home/registro",   
-                                                    "/css/**", "/js/**", "/img/**"                                                  
-                                                  ).permitAll()
-                                                    .anyRequest()
-                                                    .authenticated()               
-                                .requestMatchers("/postulaciones/crear",
-                                                    "/postulaciones/eliminar",
-                                                    "/postulaciones/lista").hasAuthority("postulante")                  
-                                .requestMatchers("/ofertas/crear",
-                                                    "/ofertas/eliminar",
-                                                    "/ofertas/modificar").hasAuthority("cliente")
-                                .requestMatchers("/ofertas/**").hasAnyAuthority("postulante","cliente")  
-                                .requestMatchers("/postulaciones/**").hasAnyAuthority("cliente","postulante")
-                                .requestMatchers("/clientes/**","/areas/**","/consultores/**").hasAuthority("consultor")
-                                .requestMatchers("/ofertas/listaPorCliente").hasAuthority("cliente")    
-                                .requestMatchers("/postulantes/crear").anonymous()
-                                .requestMatchers("/clientes/ver").hasAnyAuthority("postulante","cliente")
-                                .requestMatchers("/postulantes/ver").hasAnyAuthority("postulante","cliente","consultor")
-                                .anyRequest().authenticated())  
-                                                 
-                               .formLogin(login -> login
-                               .loginPage("/home/login")
-                               .defaultSuccessUrl("/home/main")
-                               .permitAll())
-                               
-                               .logout(logout -> logout
-                               .logoutUrl("/home/deslogueo")
-                               .logoutSuccessUrl("home/index?logout")
-                               .permitAll()
-                               )
-
-                             //  .exceptionHandling(excepcion-> excepcion.authenticationEntryPoint(request,response,authExrepc))
-                               
-                               ;   
-                               
-                               
-
-                               return seguridadHttp.build();
-                         
-    
-                    }
- */
 
 
     @Bean
@@ -83,7 +31,7 @@ public class ConfiguracionSeguridad
     seguridadHttp
     
         .authorizeHttpRequests(autorizar -> autorizar
-            // --- Rutas públicas ---
+            //rutas publicas
             .requestMatchers(
                 "/home/index",
                 "/home/ingresar",
@@ -92,14 +40,14 @@ public class ConfiguracionSeguridad
                 "/css/**", "/js/**", "/img/**"
             ).permitAll()
 
-            // --- Rutas de postulante ---
+            //postulante
             .requestMatchers(
                 "/postulaciones/crear",
                 "/postulaciones/eliminar",
                 "/postulaciones/lista"
             ).hasAuthority("postulante")
 
-            // --- Rutas de cliente ---
+            //cliente
             .requestMatchers(
                 "/ofertas/crear",
                 "/ofertas/eliminar",
@@ -107,7 +55,7 @@ public class ConfiguracionSeguridad
                 "/ofertas/listaPorCliente"
             ).hasAuthority("cliente")
 
-            // --- Rutas compartidas ---
+            //urls que usan todos los usuarios logueados
             .requestMatchers("/ofertas/**")
                 .hasAnyAuthority("postulante", "cliente")
             .requestMatchers("/postulaciones/**")
@@ -117,14 +65,14 @@ public class ConfiguracionSeguridad
             .requestMatchers("/postulantes/ver")
                 .hasAnyAuthority("postulante", "cliente", "consultor")
 
-            // --- Rutas de consultor ---
+            //consultor
             .requestMatchers("/clientes/**", "/areas/**", "/consultores/**")
                 .hasAuthority("consultor")
 
-            // --- Registro de postulante (solo anónimo) ---
+            //esta es publica (postulante anonimo que se autoregistra)
             .requestMatchers("/postulantes/crear").anonymous()
 
-            // --- Cualquier otra ruta requiere autenticación ---
+            //todas las demas urls piden autenticarse
             .anyRequest().authenticated()
         )
 
@@ -142,7 +90,7 @@ public class ConfiguracionSeguridad
             .logoutSuccessUrl("/home/index?logout")
             .permitAll()
         )
-        
+            //si el usuarion no esta logueado y quiere entrar a una url, queda redirigido al home/index
             .exceptionHandling(excepcion -> excepcion.authenticationEntryPoint((request,response,authException)->{
             response.sendRedirect("/bioswork/home/index");
         })

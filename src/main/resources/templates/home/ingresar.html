@@ -20,6 +20,9 @@
                 <div>
                     <button type="submit">Ingresar</button>
                 </div>
+
+                    <p th:if="${mensaje}" th:text="${mensaje}"></p>
+
                 <div class="registro-link">
                 <a th:href="@{/home/index}" class="btn-volver">Volver</a>
             </div>

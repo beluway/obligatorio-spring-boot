@@ -18,9 +18,10 @@ BEGIN
     /*pos1 76&&opPolGGgr$4*/
 
         INSERT INTO usuarios (usuario,activo,clave)
-         VALUES('consu',1,'efbffd06235e6eae148f661aa2cd17693b95c93ef091659c4428999d601534e6'), 
-                ('cli1',1,'2c8bd5f66442b46cdbb457c3e559995edabf10440d3c388b94b789d8182b831f'), 
-                ('pos1',1,'b97916712a16f70a887ebd54005c87a0d874f9cb431eb99cce2ca0fe6008c8ce');   
+
+         VALUES('consu',1,'$2a$12$WjlnNjfnJAXDgYiRLWsHl.AgJMXpIjrhSj7tyUkX82P9PfX2lVYOW'), 
+                ('cli1',1,'$2a$12$euwX2gerQniRIDs6FOese.YtV75MVR3UO643.vAuVU/2I21tvS.Wy'), 
+                ('pos1',1,'$2a$12$O4xZXO7WPApiRXnDXioUQuQme9dyILhmGjvTuIV7Nyn0KbNTVSY4m');   
         
 
 
