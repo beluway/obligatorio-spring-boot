@@ -99,7 +99,7 @@ public class ControladorClientes {
 
         try
         {
-            servicioClientes.eliminar(cliente.getUsuario());
+            servicioClientes.eliminar(cliente);
             attributes.addFlashAttribute("mensaje","Cliente eliminado con éxito");
             return "redirect:/clientes/lista";
         }

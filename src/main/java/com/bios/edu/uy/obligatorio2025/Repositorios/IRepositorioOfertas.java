@@ -54,6 +54,6 @@ public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer>, JpaS
         
     }
 
-
+        Oferta findByCliente(Cliente cliente);
    
 }

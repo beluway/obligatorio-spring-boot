@@ -2,10 +2,12 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authorization.method.AuthorizeReturnObject;
 import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionYaExiste;
+import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepostorioClientes;
 
 
@@ -15,6 +17,12 @@ public class ServicioClientes implements IServicioClientes  {
 
     @Autowired
     private IRepostorioClientes repositorioClientes;
+
+    @Autowired
+    private IRepositorioOfertas repositorioOfertas;
+
+  
+    
 
   /*   private List<clientes> clientes;
 
@@ -99,16 +107,20 @@ public class ServicioClientes implements IServicioClientes  {
 
 //* /ELIMINAR
  @Override
-   public void eliminar (String usuario) throws ExcepcionBiosWork
+   public void eliminar (Cliente usuario) throws ExcepcionBiosWork
     { 
-       /*  if (obtener(usuario)!=null) {
-            clientes.remove(obtenerPosicion(usuario));
+        //SI EL CLIENTE TIENE OFERTAS: BAJA LÓGICA (NO SE PUEDE LOGUEAR MAS PERO SE GUARDAN LAS OFERTAS)
+        if(repositorioOfertas.findByCliente(usuario)!=null)
+        {
+            obtener(usuario.getUsuario()).setActivo(false);
         }
-        else{
-            throw new Exception("El cliente no existe");
-        } */
-
-        repositorioClientes.delete(obtener(usuario));
+    
+        //SI EL CLIENTE NO TIENE OFERTAS: BAJA FÍSICA
+        else
+        {
+            repositorioClientes.delete(usuario);
+        }
+        //repositorioClientes.delete(obtener(usuario));
    } 
 
 //LISTAR

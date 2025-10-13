@@ -22,5 +22,6 @@ public interface IRepostorioClientes extends JpaRepository<Cliente,String> {
     @EntityGraph(type = EntityGraphType.LOAD, attributePaths = {"roles"})
     Optional <Cliente> findById(String usuario);
 
+    
 
 }
