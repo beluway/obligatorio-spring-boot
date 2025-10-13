@@ -55,3 +55,8 @@ nav.navegacion-principal a:hover {
     display: flex;
     flex-direction: column;
 }
+
+nav.navegacion-principal li {
+    display: flex;
+    gap: 20px; /* separación entre los enlaces */
+}
