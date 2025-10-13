@@ -1,4 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -174,20 +175,20 @@ public class ControladorClientes {
 
 
     @GetMapping("/lista")    
-    public String clientesListar(@ModelAttribute Cliente clientes, Model modelo, HttpSession sesion) throws Exception {
+    public String clientesListar(@ModelAttribute Cliente clientes, Model modelo,Principal pr) throws Exception {
        
-        if (sesion.getAttribute("usuarioLogueado") instanceof Consultor) {
+      
          //ENTRA ACA SOLO SI ES CONSULTOR
         List<Cliente> listaClientes = servicioClientes.listaClientes();
 
         modelo.addAttribute("clientes", listaClientes);
-        modelo.addAttribute("usuarioLogueado", (Consultor)sesion.getAttribute("usuarioLogueado"));
+     //   modelo.addAttribute("usuarioLogueado", (Consultor)sesion.getAttribute("usuarioLogueado"));
         
 
         return "clientes/lista";
-    }
     
-    return "home/main";
+    
+        // return "home/main";
     } 
 
 

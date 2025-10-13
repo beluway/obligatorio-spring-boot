@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
@@ -165,7 +166,7 @@ public class Postulante extends Usuario{
         this.segundoApellido = segundoApellido;
     }
 
-
+/* 
     public Postulante(@NotBlank(message = "ingrese el usuario") String usuario,
             @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,15}$", message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial") @NotBlank(message = "ingrese la clave") String clave,
             Boolean activo, int cantidadPostulaciones, @NotNull(message = "Ingrese la cedula") Long cedula,
@@ -186,10 +187,35 @@ public class Postulante extends Usuario{
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
         this.pdf = pdf;
-    }
+    } */
 
 
-        public Postulante(){};
+
+    
+
+        public Postulante(){}
+
+
+        public Postulante(@NotBlank(message = "ingrese el usuario") String usuario,
+                @NotBlank(message = "ingrese la clave") String clave, Set<Rol> roles, Boolean activo,
+                int cantidadPostulaciones, @NotNull(message = "Ingrese la cedula") Long cedula,
+                @NotNull(message = "Seleccione la fecha de nacimiento") @PastOrPresent LocalDate fechanacimiento,
+                @NotBlank(message = "Seleccione el departamento") String departamento,
+                @NotBlank(message = "Ingrese el nombre") String primerNombre, String segundoNombre,
+                @NotBlank(message = "ingrese el apellido") String primerApellido,
+                @NotBlank(message = "ingrese el segundo apellido") String segundoApellido, MultipartFile pdf) {
+                    
+            super(usuario, clave, roles, activo);
+            this.cantidadPostulaciones = cantidadPostulaciones;
+            this.cedula = cedula;
+            this.fechanacimiento = fechanacimiento;
+            this.departamento = departamento;
+            this.primerNombre = primerNombre;
+            this.segundoNombre = segundoNombre;
+            this.primerApellido = primerApellido;
+            this.segundoApellido = segundoApellido;
+            this.pdf = pdf;
+        };
 
     
 }

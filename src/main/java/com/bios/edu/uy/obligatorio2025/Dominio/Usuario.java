@@ -31,8 +31,8 @@ public abstract  class Usuario {
     @NotBlank (message = "ingrese el usuario")
     private String usuario;
    
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,15}$",
-    message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial")
+    //@Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,}$",
+    //message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial")
     @Column(name = "clave", nullable = false,length = 100)
     @NotBlank (message =  "ingrese la clave")
     private String clave;
@@ -77,8 +77,8 @@ public abstract  class Usuario {
 
 
 
-    public Usuario(@NotBlank(message = "ingrese el usuario") String usuario,
-            @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,15}$", message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial") @NotBlank(message = "ingrese la clave") String clave,
+    /* public Usuario(@NotBlank(message = "ingrese el usuario") String usuario,
+            @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,}$", message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial") @NotBlank(message = "ingrese la clave") String clave,
             Boolean activo) {
         this.usuario = usuario;
         this.clave = clave;
@@ -86,6 +86,14 @@ public abstract  class Usuario {
 
         roles = new HashSet<>();
 
+    } */
+
+    public Usuario(@NotBlank(message = "ingrese el usuario") String usuario,
+            @NotBlank(message = "ingrese la clave") String clave, Set<Rol> roles, Boolean activo) {
+        this.usuario = usuario;
+        this.clave = clave;
+        this.roles = roles;
+        this.activo = activo;
     }
 
     public Usuario()

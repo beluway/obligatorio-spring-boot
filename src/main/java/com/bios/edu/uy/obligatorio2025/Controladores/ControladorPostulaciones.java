@@ -67,7 +67,7 @@ public class ControladorPostulaciones {
 
 
       //  modelo.addAttribute("usuarioLogueado", postulanteLogueado); 
-       modelo.addAttribute("postulacion", new Postulacion());       
+        modelo.addAttribute("postulacion", new Postulacion());       
        modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaOfertasVigentesParaPostularse((Postulante)usuarioLogueado));
 
         return "postulaciones/crear";    
@@ -168,30 +168,63 @@ public class ControladorPostulaciones {
     }
 
 
+/* 
+@PostMapping("/eliminar")
+public String eliminar(
+        @RequestParam("codigoOferta") Integer codigoOferta,
+        @RequestParam("codigoPostulante") String codigoPostulante,
+        Model modelo,
+        RedirectAttributes attributes,
+        HttpSession sesion) throws Exception {
+
+    Optional<Postulacion> encontrada = servicioPostulaciones.obtener(codigoOferta, codigoPostulante);
+
+    if (!encontrada.isPresent()) {
+        modelo.addAttribute("mensaje", "La postulación no fue encontrada.");
+        return "postulaciones/eliminar";
+    }
+
+    try {
+        // Eliminar la postulación
+        servicioPostulaciones.eliminar(encontrada.get());
+
+        // Actualizar cantidad de postulaciones
+        Postulante postulanteLogueado = (Postulante) sesion.getAttribute("usuarioLogueado");
+        postulanteLogueado.setCantidadPostulaciones(
+                postulanteLogueado.getCantidadPostulaciones() - 1
+        );
+
+        attributes.addFlashAttribute("mensaje", "Postulación eliminada con éxito.");
+        return "redirect:/postulaciones/lista";
+
+    } catch (Exception ex) {
+        modelo.addAttribute("mensaje", "Error: " + ex.getMessage());
+        modelo.addAttribute("postulacion", encontrada.get()); // ⚠ Thymeleaf necesita esto
+        return "postulaciones/eliminar";
+    }
+} */
 
    
     @PostMapping("/eliminar")
-    public String eliminar (@ModelAttribute @Valid Postulacion postulacion,BindingResult resultado, Model modelo, RedirectAttributes attributes,  
+    public String eliminar (Model modelo, RedirectAttributes attributes,  
      @RequestParam("codigoOferta")Integer codigoOferta, 
-    @RequestParam("codigoPostulante")String codigoPostulante, HttpSession sesion) throws Exception 
+    @RequestParam("codigoPostulante")String codigoPostulante, Principal usuarioLogueado) throws Exception 
     {         
-        if(resultado.hasErrors())
-        {
-            return "postulaciones/eliminar";
-        }  
-
-        try
-        {
-            Optional<Postulacion> encontrada = servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
+       
+         Optional<Postulacion> encontrada = servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
             /* Optional<Postulacion> postulacionExistente = servicioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());   */
             
-            if (encontrada==null) {
-                throw new ExcepcionNoExiste("La postulación con a la Oferta "+postulacion.getOferta().getId()+"del Postulante "+
-                postulacion.getPostulante().getUsuario()+"no fue encontrada.");
-            }
+            if (!encontrada.isPresent()) {
+                throw new ExcepcionNoExiste("La postulación no se encontró");
+            } 
+
+            try
+            {
+           
+
             servicioPostulaciones.eliminar(encontrada.get());
 
-            Postulante postulanteParaActualizacionCantidadPostulaciones = (Postulante)sesion.getAttribute("usuarioLogueado");
+            Postulante postulanteParaActualizacionCantidadPostulaciones = servicioPostulantes.obtener(usuarioLogueado.getName());
 
             int cantidadNuevaPostulaciones = postulanteParaActualizacionCantidadPostulaciones.getCantidadPostulaciones()-1;
 
@@ -222,10 +255,10 @@ public class ControladorPostulaciones {
     @GetMapping("/lista")
     public String lista(Model modelo, Principal usuarioLogueado) throws Exception
     {    
-      Postulante postulanteLogueado = servicioPostulantes.obtener(usuarioLogueado.getName());          
+       // modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));        
 
 
-        modelo.addAttribute("postulacionesPostulante",  servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado));
+        modelo.addAttribute("postulacionesPostulante",  servicioPostulaciones.listaPostulacionesPorPostulante(servicioPostulantes.obtener(usuarioLogueado.getName())));
 
         return "postulaciones/lista";        
     }

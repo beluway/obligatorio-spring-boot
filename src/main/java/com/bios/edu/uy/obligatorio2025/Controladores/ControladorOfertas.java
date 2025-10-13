@@ -163,11 +163,11 @@ public class ControladorOfertas {
 
 
     @GetMapping("/listaPorCliente")
-    public String listaOfertas(Model modelo, HttpSession sesion) throws Exception {
+    public String listaOfertas(Model modelo, Principal principal) throws Exception {
        
-        List<Oferta> OfertasCliente = servicioOfertas.listaOfertasCliente((Cliente)sesion.getAttribute("usuarioLogueado"));
+        List<Oferta> OfertasCliente = servicioOfertas.listaOfertasCliente(servicioClientes.obtener(principal.getName()));
 
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+      //  modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         modelo.addAttribute("listaOfertasCliente", OfertasCliente);
 
         return "ofertas/listaPorCliente";
