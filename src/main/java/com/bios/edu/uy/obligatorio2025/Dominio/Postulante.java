@@ -70,7 +70,6 @@ public class Postulante extends Usuario{
     
     //VER SI ESTO SIRVE PARA PDF (CAMPO QUE NO VA A LA BD)
     @Transient 
-    @NotNull (message = "Seleccione un .pdf para subirlo")
     private MultipartFile pdf;
    
   

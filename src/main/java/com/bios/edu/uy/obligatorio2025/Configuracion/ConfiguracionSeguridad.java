@@ -37,7 +37,8 @@ public class ConfiguracionSeguridad
                 "/home/ingresar",
                 "/home/login",
                 "/home/registro",
-                "/css/**", "/js/**", "/img/**"
+                "/css/**", "/js/**", "/img/**",
+                "/postulantes/crear", "/postulantes/crear/**"              
             ).permitAll()
 
             //postulante

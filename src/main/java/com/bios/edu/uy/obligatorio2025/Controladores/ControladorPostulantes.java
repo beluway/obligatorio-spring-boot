@@ -59,7 +59,7 @@ public class ControladorPostulantes {
     public String postulanteCrear (@ModelAttribute @Valid Postulante postulante,  
     BindingResult resultado, 
     Model modelo, 
-     RedirectAttributes atributos) throws Exception
+    RedirectAttributes atributos) throws Exception
     {             
           if(resultado.hasErrors()){
             return "postulantes/crear";

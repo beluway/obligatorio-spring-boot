@@ -67,7 +67,7 @@ public class ControladorPostulaciones {
 
 
       //  modelo.addAttribute("usuarioLogueado", postulanteLogueado); 
-        modelo.addAttribute("postulacion", new Postulacion());       
+       modelo.addAttribute("postulacion", new Postulacion());       
        modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaOfertasVigentesParaPostularse((Postulante)usuarioLogueado));
 
         return "postulaciones/crear";    

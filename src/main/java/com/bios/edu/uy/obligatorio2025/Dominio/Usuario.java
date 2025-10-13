@@ -88,7 +88,10 @@ public abstract  class Usuario {
 
     }
 
-    public Usuario(){}
+    public Usuario()
+    {
+        this.roles = new HashSet<>();
+    }
 
  
     

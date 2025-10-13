@@ -36,9 +36,8 @@ public interface IRepositorioPostulantes extends JpaRepository<Postulante,String
     List<Postulante> findAll();
 
 
-    @Override
     @EntityGraph(type = EntityGraphType.LOAD, attributePaths = {"roles"})
-    Optional <Postulante> findById(String usuario);
+    Optional <Postulante> findByUsuario(String usuario);
 
 
 }

@@ -39,7 +39,7 @@ private ServicioConsultores servicioConsultores;
     public String consultorCrear(Model modelo, HttpSession sesion) throws Exception
     {
         modelo.addAttribute("consultor", new Consultor());
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+       // modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "consultores/crear";
         
     }

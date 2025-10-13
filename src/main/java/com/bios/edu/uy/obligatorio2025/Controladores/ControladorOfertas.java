@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import java.util.Date;
 import java.rmi.server.ExportException;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,10 +21,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 
-import com.bios.edu.uy.obligatorio2025.Servicios.IServicioAreas;
-import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
-import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
-import com.bios.edu.uy.obligatorio2025.Servicios.ServicioAreas;
+import com.bios.edu.uy.obligatorio2025.Servicios.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -31,6 +29,9 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/ofertas")
 public class ControladorOfertas {
+
+    @Autowired
+    private IServicioClientes servicioClientes;
 
    
     @Autowired
@@ -44,10 +45,11 @@ public class ControladorOfertas {
 
 
 
+
     @GetMapping("/crear")
-    public String crearOferta(@ModelAttribute Oferta ofertas, HttpSession sesion, Model modelo)
+    public String crearOferta(@ModelAttribute Oferta ofertas, Principal usuarioLogueado, Model modelo)
     {
-         modelo.addAttribute("usuarioLogueado", (Cliente)sesion.getAttribute("usuarioLogueado"));   
+      
          modelo.addAttribute("ofertas", new Oferta());       
          modelo.addAttribute("areas", servicioAreas.listaAreas());
 
@@ -57,19 +59,19 @@ public class ControladorOfertas {
 
 
     @PostMapping("/crear") 
-    public String procesarCrearOferta (@ModelAttribute @Valid Oferta ofertas, BindingResult resultado, Model modelo,HttpSession sesion)  throws Exception
+    public String procesarCrearOferta (@ModelAttribute @Valid Oferta ofertas, BindingResult resultado, Model modelo,Principal usuarioLogueado)  throws Exception
     {               
         //SE SETEA EL CLIENTE QUE CREA LA OFERTA
-        ofertas.setCliente((Cliente)sesion.getAttribute("usuarioLogueado"));
+        ofertas.setCliente(servicioClientes.obtener(usuarioLogueado.getName()));
     
         //SE SETEA LA FECHA DE HO
         ofertas.setFechaPublicacion(LocalDate.now());
 
     /*     Area areaParaOferta = servicioAreas.obtener(modelo.getAttribute("areas"));
  */
-
+/* 
         //SE TRAE EL USUARIO LOGUEADO DESDE LA SESION
-        sesion.getAttribute("usuarioLogueado");            
+        sesion.getAttribute("usuarioLogueado");             */
 
         servicioOfertas.agregar(ofertas);
 

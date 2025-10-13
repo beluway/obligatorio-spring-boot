@@ -50,7 +50,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     @Override 
     public Postulante obtener (String usuario) 
     {
-        Postulante postulanteEncontrado = respositorioPostulantes.findById(usuario).orElse(null);
+        Postulante postulanteEncontrado = respositorioPostulantes.findByUsuario(usuario).orElse(null);
 
         return postulanteEncontrado;       
     }

@@ -105,6 +105,8 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
          return listaOfertasVigentesParaPostularse;
     }    
 
+
+    
     @Override
     public Optional<Postulacion> obtener(Integer idOferta, String usuario)
     {
