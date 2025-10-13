@@ -35,30 +35,54 @@
                     <li><a th:href="@{/home/main}">Inicio</a></li>
                 
                 <!--SI ES CONSULTOR-->
-                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}">
+
+                    <li sec:authorize="hasAnyAuthority('consultor')">
+  
+           <!--      <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}"> -->
                     <a th:href="@{/consultores/lista}">Consultores</a></li>
-                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}">
+               <!--  <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}"> -->
                     <a th:href="@{/clientes/lista}">Clientes</a></li>
-                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}">
+               <!--  <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}"> -->
                     <a th:href="@{/consultores/ver}">Mi perfil</a></li>
-                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}">
+             <!--    <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}"> -->
                     <a th:href="@{/areas/lista}">Areas</a></li>
+                    </li>
+
+              
+
 
                     <!--SI ES CLIENTE-->
-                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}">
+                <li sec:authorize="hasAnyAuthority('cliente')">
+         <!-- <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}"> -->
                     <a th:href="@{/postulantes/lista}">Ver postulantes</a></li>
-                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}">
+           <!--<li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}"> -->
                     <a th:href="@{/ofertas/listaPorCliente}">Mis Ofertas</a></li>
+                </li>
 
-                    <!--SI ES POSTULANTE-->
-                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}">
+            
+
+
+                        <!--SI ES POSTULANTE-->
+                <li sec:authorize="hasAnyAuthority('postulante')">
+   <!-- <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}"> -->
                     <a th:href="@{/postulantes/ver}">Mi perfil</a></li>
-                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}">
+             <!--<li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}"> -->
                     <a th:href="@{/ofertas/lista}">Ver ofertas</a></li> 
-                <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}">
+               <!--<li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}"> -->
                     <a th:href="@{/postulaciones/lista}">Mis postulaciones</a></li> 
                     
-                       <li><a th:href="@{/home/deslogueo}">Salir</a></li>
+                </li>
+
+                
+             
+                    <!--CUALQUIER USUARIO-->
+                <li sec:authorize="hasAnyAuthority('postulante','cliente','consultor')">
+                    <li><a th:href="@{/home/deslogueo}">Salir</a></li>
+                </li>
+                   
+                
+                
+                
                 </ul>
             </nav>
 
