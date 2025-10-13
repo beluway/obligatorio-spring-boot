@@ -1,98 +1,77 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:fragment="html(titulo, contenido, estilos)">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- título dinámico -->
+
+    <!-- Título dinámico -->
     <title th:replace="${titulo}">Aplicación</title>
-    
+
     <!-- CSS global -->
     <link rel="stylesheet" th:href="@{/css/navbar.css}" />
-    
-    <!-- CSS extra opcionales que pasen las vistas hijas -->
+
+    <!-- CSS extra opcional -->
     <th:block th:replace="${estilos} ?: ~{}"></th:block>
 </head>
-<body>
 
-    
+<body>
     <div class="contenedor">
 
+        <!-- Cabecera -->
+        <header class="cabezal-principal">
+            <h1>BiosWork</h1>
+        </header>
 
- <!-- Cabecera -->   
-            <header class="cabezal-principal">
-                <h1>BiosWork</h1>
-            </header>
+        <!-- Usuario logueado -->
+        <p>
+            BIENVENID@ 
+            <span sec:authentication="name"></span>
+        </p>
 
-            <p> BIENVENID@ <span th:if="${usuarioLogueado!=null}" th:text="${usuarioLogueado.usuario}"></span></p>
+        <!-- Navegación -->
+        <nav class="navegacion-principal">
+            <ul>
+                <li><a th:href="@{/home/main}">Inicio</a></li>
 
-            <!-- Navegación -->
-            <nav class="navegacion-principal">
-                <ul>
-                <li>
-
-                    <li><a th:href="@{/home/main}">Inicio</a></li>
-                
-                <!--SI ES CONSULTOR-->
-
-                    <li sec:authorize="hasAnyAuthority('consultor')">
-  
-           <!--      <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}"> -->
-                    <a th:href="@{/consultores/lista}">Consultores</a></li>
-               <!--  <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}"> -->
-                    <a th:href="@{/clientes/lista}">Clientes</a></li>
-               <!--  <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}"> -->
-                    <a th:href="@{/consultores/ver}">Mi perfil</a></li>
-             <!--    <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Consultor)}"> -->
-                    <a th:href="@{/areas/lista}">Areas</a></li>
-                    </li>
-
-              
-
-
-                    <!--SI ES CLIENTE-->
-                <li sec:authorize="hasAnyAuthority('cliente')">
-         <!-- <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}"> -->
-                    <a th:href="@{/postulantes/lista}">Ver postulantes</a></li>
-           <!--<li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Cliente)}"> -->
-                    <a th:href="@{/ofertas/listaPorCliente}">Mis Ofertas</a></li>
+                <!-- === CONSULTOR === -->
+                <li sec:authorize="hasAuthority('consultor')">
+                    <a th:href="@{/consultores/lista}">Consultores</a>
+                    <a th:href="@{/clientes/lista}">Clientes</a>
+                    <a th:href="@{/consultores/ver}">Mi perfil</a>
+                    <a th:href="@{/areas/lista}">Áreas</a>
                 </li>
 
-            
-
-
-                        <!--SI ES POSTULANTE-->
-                <li sec:authorize="hasAnyAuthority('postulante')">
-   <!-- <li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}"> -->
-                    <a th:href="@{/postulantes/ver}">Mi perfil</a></li>
-             <!--<li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}"> -->
-                    <a th:href="@{/ofertas/lista}">Ver ofertas</a></li> 
-               <!--<li th:if="${usuarioLogueado instanceof T(com.bios.edu.uy.obligatorio2025.Dominio.Postulante)}"> -->
-                    <a th:href="@{/postulaciones/lista}">Mis postulaciones</a></li> 
-                    
+                <!-- === CLIENTE === -->
+                <li sec:authorize="hasAuthority('cliente')">
+                    <a th:href="@{/postulantes/lista}">Ver postulantes</a>
+                    <a th:href="@{/ofertas/listaPorCliente}">Mis ofertas</a>
                 </li>
 
-                
-             
-                    <!--CUALQUIER USUARIO-->
-                <li sec:authorize="hasAnyAuthority('postulante','cliente','consultor')">
-                    <li><a th:href="@{/home/deslogueo}">Salir</a></li>
+                <!-- === POSTULANTE === -->
+                <li sec:authorize="hasAuthority('postulante')">
+                    <a th:href="@{/postulantes/ver}">Mi perfil</a>
+                    <a th:href="@{/ofertas/lista}">Ver ofertas</a>
+                    <a th:href="@{/postulaciones/lista}">Mis postulaciones</a>
                 </li>
-                   
-                
-                
-                
-                </ul>
-            </nav>
 
+                <!-- === TODOS LOS USUARIOS AUTENTICADOS === -->
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/home/deslogueo}">Salir</a>
+                </li>
+
+                <!-- === USUARIOS ANÓNIMOS === -->
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/home/login}">Iniciar sesión</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Contenido dinámico -->
         <main class="contenido" th:replace="${contenido} ?: ~{}"></main>
 
-
     </div>
-
-
-   
-   
 </body>
 </html>

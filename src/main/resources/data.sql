@@ -13,9 +13,9 @@ BEGIN
             VALUES(1,1,'pibes hackers');
 
 
-    /*consu TTYy444y&&&#!!*/
-    /*cli1 mEH&&YY66%#eF*/
-    /*pos1 76&&opPolGGgr$4*/
+    /* consu TTYy444y&&&#!! */
+    /* cli1  mEH&&YY66%#eF */
+    /* pos1  76&&opPolGGgr$4 */
 
         INSERT INTO usuarios (usuario,activo,clave)
 

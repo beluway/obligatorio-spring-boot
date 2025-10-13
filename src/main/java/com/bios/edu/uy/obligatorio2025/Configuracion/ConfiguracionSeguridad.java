@@ -44,26 +44,20 @@ public class ConfiguracionSeguridad
             .requestMatchers(
                 "/postulaciones/crear",
                 "/postulaciones/eliminar",
-                "/postulaciones/lista"
-            ).hasAuthority("postulante")
+                "/postulaciones/lista").hasAuthority("postulante")
 
             //cliente
             .requestMatchers(
                 "/ofertas/crear",
                 "/ofertas/eliminar",
                 "/ofertas/modificar",
-                "/ofertas/listaPorCliente"
-            ).hasAuthority("cliente")
+                "/ofertas/listaPorCliente").hasAuthority("cliente")
 
             //urls que usan todos los usuarios logueados
-            .requestMatchers("/ofertas/**")
-                .hasAnyAuthority("postulante", "cliente")
-            .requestMatchers("/postulaciones/**")
-                .hasAnyAuthority("cliente", "postulante")
-            .requestMatchers("/clientes/ver")
-                .hasAnyAuthority("postulante", "cliente")
-            .requestMatchers("/postulantes/ver")
-                .hasAnyAuthority("postulante", "cliente", "consultor")
+            .requestMatchers("/ofertas/**").hasAnyAuthority("postulante", "cliente")
+            .requestMatchers("/postulaciones/**").hasAnyAuthority("cliente", "postulante")
+            .requestMatchers("/clientes/ver").hasAnyAuthority("postulante", "cliente")
+            .requestMatchers("/postulantes/ver").hasAnyAuthority("postulante", "cliente", "consultor")
 
             //consultor
             .requestMatchers("/clientes/**", "/areas/**", "/consultores/**")

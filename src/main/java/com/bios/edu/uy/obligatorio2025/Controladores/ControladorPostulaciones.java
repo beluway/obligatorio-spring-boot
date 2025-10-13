@@ -1,5 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -49,25 +50,25 @@ public class ControladorPostulaciones {
 
 
     @GetMapping("/crear")
-    public String crear(Model modelo, HttpSession sesion) throws Exception
+    public String crear(Model modelo, HttpSession sesion, Principal usuarioLogueado) throws Exception
     {    
         
      Postulacion postulacion = new Postulacion();
      postulacion.setOferta(new Oferta());   
 
       
-    Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
+    Postulante postulanteLogueado = servicioPostulantes.obtener(usuarioLogueado.getName());  
              
             //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
             if(postulanteLogueado.getCantidadPostulaciones()==3)
             {
                 return "redirect:/home/main";
-            }
+            } 
 
 
-        modelo.addAttribute("usuarioLogueado", postulanteLogueado); 
+      //  modelo.addAttribute("usuarioLogueado", postulanteLogueado); 
         modelo.addAttribute("postulacion", new Postulacion());       
-        modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaOfertasVigentesParaPostularse(postulanteLogueado));
+       modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaOfertasVigentesParaPostularse((Postulante)usuarioLogueado));
 
         return "postulaciones/crear";    
      
@@ -81,11 +82,18 @@ public class ControladorPostulaciones {
     BindingResult resultado, 
     Model modelo, 
     HttpSession sesion,
-    RedirectAttributes attributes) throws Exception /*  */
+    RedirectAttributes attributes, Principal usuarioLogueado) throws Exception /*  */
     {      
-  
-        Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
+                
+      //  Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
 
+        Postulante postulanteLogueado=servicioPostulantes.obtener(usuarioLogueado.getName());  
+/* 
+        if(usuarioLogueado instanceof Postulante)
+        { */
+
+
+             
         Oferta ofertaEncontrada = servicioOfertas.obtener(postulacion.getOferta().getId()); 
        
 
@@ -108,18 +116,21 @@ public class ControladorPostulaciones {
         postulacion.setOferta(ofertaEncontrada);
         postulacion.setPostulante(postulanteLogueado);
         postulacion.setFechaPostulacion(LocalDate.now());
-        
+                
+     /*    } */
+
 
         try
         {   
- 
-                String mensaje = "Se agregó la postulación correctamente";
-                attributes.addFlashAttribute("mensaje",mensaje);
-                
-                //DESPUES QUE SE POSTULA A UNA OFERTA, SE CUENTA +1, HASTA QUE SEAN 3 RESERVAS ACTUALES.
+        
+               //DESPUES QUE SE POSTULA A UNA OFERTA, SE CUENTA +1, HASTA QUE SEAN 3 RESERVAS ACTUALES.
                 postulanteLogueado.setCantidadPostulaciones(postulanteLogueado.getCantidadPostulaciones()+1);
                        
                 servicioPostulaciones.agregar(postulacion);
+
+                String mensaje = "Se agregó la postulación correctamente";
+                attributes.addFlashAttribute("mensaje",mensaje);               
+             
 
                 return "redirect:/postulaciones/lista"; // redirige al listado después de crear
             
@@ -133,6 +144,8 @@ public class ControladorPostulaciones {
         }        
 
     }
+
+
 
 @GetMapping("/eliminar")
     public String eliminar(Model modelo, HttpSession sesion,
@@ -207,12 +220,12 @@ public class ControladorPostulaciones {
      
 
     @GetMapping("/lista")
-    public String lista(Model modelo, HttpSession sesion) throws Exception
+    public String lista(Model modelo, Principal usuarioLogueado) throws Exception
     {    
-        modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));        
+      Postulante postulanteLogueado = servicioPostulantes.obtener(usuarioLogueado.getName());          
 
 
-        modelo.addAttribute("postulacionesPostulante",  servicioPostulaciones.listaPostulacionesPorPostulante((Postulante)sesion.getAttribute("usuarioLogueado")));
+        modelo.addAttribute("postulacionesPostulante",  servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado));
 
         return "postulaciones/lista";        
     }
