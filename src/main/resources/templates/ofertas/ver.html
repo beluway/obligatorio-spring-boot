@@ -10,6 +10,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 </head>
 
 <section>
+    <div id="contenedor">
 <div class="card">
     <h2>Ver Oferta</h2>
     <form th:action="@{/postulaciones/crear}" method="post">
@@ -46,6 +47,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
         
         </form>
+        </div>
     </div>
 </section>
 
