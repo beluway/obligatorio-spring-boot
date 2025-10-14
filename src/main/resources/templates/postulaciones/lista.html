@@ -27,9 +27,11 @@
                             <td th:text="${p.oferta.descripcion}"></td>
                             <td th:text="${p.oferta.fechaCierre}"></td>
                             <td> 
-                                <!--  -->
-                                <a th:href="@{/ofertas/lista(codigo=${p.id})}" class="btn">Ver más</a>
-                                <a th:href="@{/postulaciones/eliminar(codigoOferta=${p.id.idOferta}, codigoPostulante=${p.id.usuarioPostulante})}" class="btn">Eliminar</a>
+                              
+                                <a th:href="@{/ofertas/ver(codigo=${p.oferta.id})}" class="btn">Ver más</a>
+
+                                <a th:href="@{/postulaciones/eliminar(codigoOferta=${p.id.idOferta}, codigoPostulante=${p.id.usuarioPostulante})}" 
+                                   class="btn">Eliminar</a>
                             </td>
                         </tr>
                     </tbody>
@@ -38,5 +40,7 @@
         </div>
     </div>
 </section>
+</html>
+
 
 </html>
