@@ -1,5 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,8 @@ public class ControladorPostulantes {
      @Autowired
     private IServicioPostulaciones servicioPostulaciones;
 
-
+    @Autowired
+    PasswordEncoder codificador;
        
     @GetMapping("/crear")
     public String postulanteCrear(Model modelo, HttpSession sesion)
@@ -99,9 +101,11 @@ public class ControladorPostulantes {
 
         //si no existe la carpeta desitno, SE CREA        
         if (!carpetaDestino.exists()) carpetaDestino.mkdirs();
-
      
          File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString()+".pdf");
+
+         //SE CODIFICA LA CONTRASEÑA
+        postulante.setClave(codificador.encode(postulante.getClave()));
 
         try
         { 
@@ -113,10 +117,12 @@ public class ControladorPostulantes {
 
             postulante.setCantidadPostulaciones(0);
 
-
             postulante.setActivo(true);
 
+
             servicioPostulantes.agregar(postulante);  
+
+
             atributos.addFlashAttribute("mensaje", "Postulante guardado correctamente.");
             return "redirect:/postulantes/lista";
 
