@@ -20,26 +20,26 @@
 
         <form th:action="@{/clientes/modificar}" method="post" th:object="${cliente}">
             
-            <label>Nombre de Usuario</label>
-            <input type="text" th:field="*{usuario}" readonly/>
+            <label for="usuario">Nombre de Usuario</label>
+            <input type="text" id="usuario" th:field="*{usuario}" readonly />
 
-            <label>Nombre:</label>
-            <input type="text" th:field="*{nombre}"/>
+            <label for="nombre">Nombre:</label>
+            <input type="text" th:field="*{nombre}" id="nombre"/>
             <p th:errors="*{nombre}" class="error"></p>
 
-            <label>Nueva Clave:</label>
+            <label for="nuevaClave">Nueva Clave:</label>
         <div class="input-group">
-        <input type="password" id="nuevaClave" name="nuevaClave" placeholder="Dejar vacío para no cambiar" style="width: 94%;">
+        <input type="password" id="nuevaClave" name="nuevaClave" placeholder="Dejar vacío para no cambiar"/>
         <span class="material-icons" id="toggleClave">visibility</span>
-         <p th:errors="*{nuevaClave}" class="error"></p>
+         <p th:errors="*{clave}" class="error"></p>
         </div>
 
-            <label>RUT:</label>
-            <input type="text" name="rut" th:field="*{rut}" required />
+            <label for="rut">RUT:</label>
+            <input type="text" id="rut" th:field="*{rut}" required />
                <p th:errors="*{rut}" class="error"></p>
 
-            <label>Sitio Web:</label>
-            <input type="text" name="url" th:field="${cliente.url}" />
+            <label for="url">Sitio Web:</label>
+            <input type="text" id="url" th:field="*{url}" />
              <p th:errors="*{url}" class="error"></p>
             
         

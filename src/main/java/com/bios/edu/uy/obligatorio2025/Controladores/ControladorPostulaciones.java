@@ -50,7 +50,7 @@ public class ControladorPostulaciones {
 
 
     @GetMapping("/crear")
-    public String crear(Model modelo, HttpSession sesion, Principal usuarioLogueado) throws Exception
+    public String crear(Model modelo, Principal usuarioLogueado) throws Exception
     {    
         
      Postulacion postulacion = new Postulacion();
@@ -65,10 +65,9 @@ public class ControladorPostulaciones {
                 return "redirect:/home/main";
             } 
 
-
-      //  modelo.addAttribute("usuarioLogueado", postulanteLogueado); 
-        modelo.addAttribute("postulacion", new Postulacion());       
-       modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaOfertasVigentesParaPostularse((Postulante)usuarioLogueado));
+        modelo.addAttribute("postulacion", new Postulacion());
+        modelo.addAttribute("usuarioLogueado", postulanteLogueado);       
+       modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaOfertasVigentesParaPostularse(/*(Postulante)usuarioLogueado*/postulanteLogueado));
 
         return "postulaciones/crear";    
      
@@ -148,11 +147,11 @@ public class ControladorPostulaciones {
 
 
 @GetMapping("/eliminar")
-    public String eliminar(Model modelo, HttpSession sesion,
+    public String eliminar(Model modelo, Principal usuarioLogueado,
     @RequestParam("codigoOferta")Integer codigoOferta, 
     @RequestParam("codigoPostulante")String codigoPostulante) throws Exception
     {  
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado")); 
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName())); 
         
         Optional<Postulacion> encontrada= servicioPostulaciones.obtener(codigoOferta,codigoPostulante);
 
@@ -245,8 +244,9 @@ public String eliminar(
 
 
      @GetMapping("/ver")
-     public String ver(Model modelo, HttpSession sesion) throws Exception
+     public String ver(Model modelo, Principal usuarioLogueado) throws Exception
      {
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
         return "postulaciones/ver";     
      }
 

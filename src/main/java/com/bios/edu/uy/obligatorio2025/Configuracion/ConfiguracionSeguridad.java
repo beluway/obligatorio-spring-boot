@@ -57,7 +57,7 @@ public class ConfiguracionSeguridad
             //urls que usan todos los usuarios logueados
             .requestMatchers("/ofertas/**").hasAnyAuthority("postulante", "cliente")
             .requestMatchers("/postulaciones/**").hasAnyAuthority("cliente", "postulante")
-            .requestMatchers("/clientes/ver").hasAnyAuthority("postulante", "cliente")
+            .requestMatchers("/clientes/ver").hasAnyAuthority("postulante", "cliente","consultor")
             .requestMatchers("/postulantes/ver").hasAnyAuthority("postulante", "cliente", "consultor")
 
             //consultor

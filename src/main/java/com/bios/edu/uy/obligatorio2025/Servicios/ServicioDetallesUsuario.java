@@ -65,7 +65,13 @@ public class ServicioDetallesUsuario implements UserDetailsService{
        {
             roles.add(new SimpleGrantedAuthority(r.getNombreRol()));
        }
-       
+
+       //Para mostrar en consola los roles del usuario logueado
+       /*System.out.println("Usuario encontrado: " + usuario.getUsuario());
+        for (Rol r : usuario.getRoles()) {
+        System.out.println(" → Rol: [" + r.getNombreRol() + "]");
+        }*/
+
         return new User(usuario.getUsuario(), usuario.getClave(), usuario.isActivo(),true,true,true,roles);
             
     } 

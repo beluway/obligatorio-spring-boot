@@ -1,5 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.rmi.server.ExportException;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,16 +40,19 @@ public class ControladorPostulantes {
      @Autowired
     private IServicioPostulaciones servicioPostulaciones;
 
+    @Autowired
+    PasswordEncoder codificador;
+
 
        
     @GetMapping("/crear")
-    public String postulanteCrear(Model modelo, HttpSession sesion)
+    public String postulanteCrear(Model modelo, Principal usuarioLogueado)
     {            
         modelo.addAttribute("postulante", new Postulante());
 
-         Object usuario = sesion.getAttribute("usuarioLogueado");
-        if (usuario != null) {
-            modelo.addAttribute("usuarioLogueado", usuario);
+         Postulante postulanteLogueado = servicioPostulantes.obtener(usuarioLogueado.getName());
+        if (postulanteLogueado != null) {
+            modelo.addAttribute("usuarioLogueado", postulanteLogueado);
         }
         return "postulantes/crear";
         
@@ -115,6 +120,7 @@ public class ControladorPostulantes {
 
 
             postulante.setActivo(true);
+            postulante.setClave(codificador.encode(postulante.getClave()));
 
             servicioPostulantes.agregar(postulante);  
             atributos.addFlashAttribute("mensaje", "Postulante guardado correctamente.");
@@ -135,9 +141,9 @@ public class ControladorPostulantes {
 
     @GetMapping("/eliminar")
 
-    public String postulanteEliminar(Model modelo, HttpSession sesion) 
+    public String postulanteEliminar(Model modelo, Principal usuarioLogueado) throws Exception
     {    
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
         return "postulantes/eliminar";
 
     }
@@ -156,13 +162,13 @@ public class ControladorPostulantes {
     
     
     @GetMapping("/modificar")
-    public String postulanteModificar(Model modelo, HttpSession sesion, String usuario) 
+    public String postulanteModificar(Model modelo, Principal usuarioLogueado, String usuario) 
     {      
         Postulante postulante = servicioPostulantes.buscar(usuario);
         
         modelo.addAttribute("postulante", postulante);
 
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));    
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName())); 
         
         return "postulantes/modificar";
     }
@@ -175,9 +181,9 @@ public class ControladorPostulantes {
     
 
     @GetMapping("/ver")    
-    public String postulanteVer(Model modelo, HttpSession sesion) 
+    public String postulanteVer(Model modelo, Principal usuarioLogueado) throws Exception
     {
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
 
         return "postulantes/ver";
     }   
@@ -206,12 +212,12 @@ public class ControladorPostulantes {
 
     
     @GetMapping("/lista")
-    public String lista(Model modelo, HttpSession sesion) throws Exception {
+    public String lista(Model modelo, Principal usuarioLogueado) throws Exception {
        
         List<Postulante> listaPostulantes = servicioPostulantes.lista();
         
         //SE SACA LA LISTA DE POSTULANTES DE LA BD 
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("listaPostulantes", listaPostulantes.toArray());
 
 

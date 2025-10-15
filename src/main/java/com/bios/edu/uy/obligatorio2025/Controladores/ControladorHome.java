@@ -3,37 +3,63 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+//import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+//import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioConsultores;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioUsuarios;
-
-import jakarta.servlet.http.HttpSession;
+//import com.bios.edu.uy.obligatorio2025.Servicios.ServicioClientes;
+//import com.bios.edu.uy.obligatorio2025.Servicios.ServicioPostulantes;
+//import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
 @RequestMapping("/home")
 public class ControladorHome {
-   
 
-HttpSession sessionUsuario;
+/*     private final Servicios.ServicioPostulantes servicioPostulantes;
+
+    private final Servicios.ServicioClientes servicioClientes;
+    private final Servicios.ServicioConsultores servicioConsultores; */
+    
+   
 
    
    @Autowired
     private IServicioUsuarios servicioUsuarios;
-    
+
+    @Autowired
+    private IServicioClientes servicioClientes;
+
+    @Autowired
+    private IServicioPostulantes servicioPostulantes;
+
+    @Autowired
+    private IServicioConsultores servicioConsultores;
     
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+/*     ControladorHome(Servicios.ServicioClientes servicioClientes, Servicios.ServicioPostulantes servicioPostulantes) {
+        this.servicioClientes = servicioClientes;
+        this.servicioPostulantes = servicioPostulantes;
+    } */
+
+        ControladorHome(IServicioClientes servicioClientes, IServicioPostulantes servicioPostulantes, IServicioConsultores servicioConsultores) {
+        this.servicioClientes = servicioClientes;
+        this.servicioPostulantes = servicioPostulantes;
+        this.servicioConsultores = servicioConsultores;
+    }
 
     @Qualifier("servicioUsuarioSession")
 
@@ -45,8 +71,9 @@ HttpSession sessionUsuario;
     }    
 
     @GetMapping("/ingresar") 
-    public String ingresar(Principal usuarioLogueado)
+    public String ingresar()
     {        
+           
              return "/home/ingresar";           
     }    
 
@@ -142,18 +169,18 @@ HttpSession sessionUsuario;
 
     /// PARA ESTA VISTA HACER MASTERPAGE
     @GetMapping("/main") 
-    public String main(Model modelo, HttpSession sesion) {
+    public String main(Model modelo, Principal usuarioLogueado) throws Exception {
         
-             if (sesion.getAttribute("usuarioLogueado") instanceof Consultor) {
-                modelo.addAttribute("usuarioLogueado", (Consultor)sesion.getAttribute("usuarioLogueado"));
+             if (usuarioLogueado instanceof Consultor) {
+                modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
              }
 
-           if (sesion.getAttribute("usuarioLogueado") instanceof Cliente) {
-                modelo.addAttribute("usuarioLogueado", (Cliente)sesion.getAttribute("usuarioLogueado"));
+           if (usuarioLogueado instanceof Cliente) {
+                modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
              }
 
-             if (sesion.getAttribute("usuarioLogueado") instanceof Postulante) {
-                modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));
+             if (usuarioLogueado instanceof Postulante) {
+                modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
              }
 
             /*modelo.addAttribute("Cliente", sesion.getAttribute("usuarioLogueado") instanceof Cliente);
@@ -166,13 +193,14 @@ HttpSession sessionUsuario;
     }
     
     @GetMapping("/deslogueo")
-    public String deslogueo(Model modelo,HttpSession session) {
+    public String deslogueo(Model modelo,Principal usuarioLogueado) throws Exception{
              
-               //SE ELIMINA LA SESIÓN DE USUARIO
-        session.removeAttribute("usuarioLogueado");
+        //SE ELIMINA LA SESIÓN DE USUARIO
+        usuarioLogueado=null;
+        modelo.addAttribute("usuarioLogueado", usuarioLogueado);
 
           //SE BORRAN TODOS LOS DATOS DE SESION
-        session.invalidate();
+        //session.invalidate();
 
         return "home/index";
 
