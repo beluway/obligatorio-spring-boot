@@ -3,6 +3,7 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authorization.method.AuthorizeReturnObject;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
@@ -20,6 +21,9 @@ public class ServicioClientes implements IServicioClientes  {
 
     @Autowired
     private IRepositorioOfertas repositorioOfertas;
+
+    @Autowired
+    PasswordEncoder codificador;
 
   
     
@@ -47,6 +51,8 @@ public class ServicioClientes implements IServicioClientes  {
             }
 
             cliente.getRoles().add(new Rol("cliente"));
+
+            cliente.setClave(codificador.encode(cliente.getClave()));
 
             repositorioClientes.save(cliente);
 
@@ -77,31 +83,54 @@ public class ServicioClientes implements IServicioClientes  {
         //ESTO ESTA BIEN ??? 
 
         // Si algún campo vino vacío, conservamos el valor anterior
-        if (clienteActualizado.getUsuario() == null || clienteActualizado.getUsuario().isBlank()) {
+        /*if (clienteActualizado.getUsuario() == null || clienteActualizado.getUsuario().isBlank()) {
             clienteActualizado.setUsuario(existente.getUsuario());
-        }
-        if (clienteActualizado.getNombre() == null || clienteActualizado.getNombre().isBlank()) {
+        }*/
+        /* if (clienteActualizado.getNombre() == null || clienteActualizado.getNombre().isBlank()) {
             clienteActualizado.setNombre(existente.getNombre());
-        }
-        if (clienteActualizado.getClave() == null || clienteActualizado.getClave().isBlank()) {
+        } */
+        /*if (clienteActualizado.getClave() == null || clienteActualizado.getClave().isBlank()) {
             clienteActualizado.setClave(existente.getClave());
-        }
-        if (clienteActualizado.getRut() == null || clienteActualizado.getRut().toString().isBlank()) {
+        }*/
+       /*  if (clienteActualizado.getRut() == null || clienteActualizado.getRut().toString().isBlank()) {
             clienteActualizado.setRut(existente.getRut());
         }
         if (clienteActualizado.getUrl() == null || clienteActualizado.getUrl().isBlank()) {
             clienteActualizado.setUrl(existente.getUrl());
-        }
+        } */
 
-        
-
-        if (nuevaClave != null && !nuevaClave.isBlank()) {
+        //actualizamos la clave solo si se ingresó una nueva
+        /* if (nuevaClave != null && !nuevaClave.isBlank()) {
         clienteActualizado.setClave(nuevaClave);
         } else {
         clienteActualizado.setClave(existente.getClave());
-        }
+        } */
 
-        repositorioClientes.save(clienteActualizado);
+        // Usuario no se modifica !!
+        /* clienteActualizado.setUsuario(existente.getUsuario());
+
+        repositorioClientes.save(clienteActualizado); */
+
+    if (clienteActualizado.getNombre() == null || clienteActualizado.getNombre().isBlank()) {
+        clienteActualizado.setNombre(existente.getNombre());
+    }
+    if (clienteActualizado.getRut() == null) {
+        clienteActualizado.setRut(existente.getRut());
+    }
+    if (clienteActualizado.getUrl() == null || clienteActualizado.getUrl().isBlank()) {
+        clienteActualizado.setUrl(existente.getUrl());
+    }
+
+    if (nuevaClave != null && !nuevaClave.isBlank()) {
+        clienteActualizado.setClave(nuevaClave);
+    } else {
+        clienteActualizado.setClave(codificador.encode(existente.getClave()));
+        //postulante.setClave(codificador.encode(postulante.getClave()));
+    }
+
+    clienteActualizado.setUsuario(existente.getUsuario());
+
+    repositorioClientes.save(clienteActualizado);
 
    }
 
@@ -133,6 +162,15 @@ public class ServicioClientes implements IServicioClientes  {
 
           return lista;
     } 
+    
+ @Override
+    public List<Cliente> listarActivos() {
+    return repositorioClientes.findByActivoTrue();
+}
+
+public boolean existePorUrl(String url) {
+    return repositorioClientes.existsByUrl(url);
+}
 
 //OBTENER
     @Override
@@ -142,20 +180,6 @@ public class ServicioClientes implements IServicioClientes  {
            
         return clienteEncontrado; 
     }
-
-    @Override
-    public List<Cliente> listarActivos() throws ExcepcionBiosWork {
-      
-           return repositorioClientes.findByActivoTrue();
-
-    } 
-
-
-    @Override
-    public boolean existePorUrl(String url) {
-     
-            return repositorioClientes.existsByUrl(url);
-
-    } 
+ 
 
 } 

@@ -1,4 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
-import com.bios.edu.uy.obligatorio2025.Dominio.Usuario;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioConsultores;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,10 +35,10 @@ private ServicioConsultores servicioConsultores;
     }
 
     @GetMapping("/crear")
-    public String consultorCrear(Model modelo, HttpSession sesion) throws Exception
+    public String consultorCrear(Model modelo, Principal usuarioLogueado) throws Exception
     {
         modelo.addAttribute("consultor", new Consultor());
-       // modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
         return "consultores/crear";
         
     }
@@ -104,7 +103,9 @@ private ServicioConsultores servicioConsultores;
 
     @GetMapping("/eliminar")
 
-    public String consultorEliminar(@ModelAttribute Consultor consultor) {
+    public String consultorEliminar(@ModelAttribute Consultor consultor, Principal usuarioLogueado, Model modelo) throws Exception {
+
+        modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
       
         return "consultores/eliminar";
 
@@ -118,10 +119,10 @@ private ServicioConsultores servicioConsultores;
     
     
     @GetMapping("/modificar")
-    public String consultorModificar(Model modelo, HttpSession sesion) {
+    public String consultorModificar(Model modelo, Principal usuarioLogueado) throws Exception{
       
         modelo.addAttribute("consultor", new Consultor());
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
         return "consultores/modificar";
     }
     
@@ -137,16 +138,16 @@ private ServicioConsultores servicioConsultores;
     
 
     @GetMapping("/ver")    
-    public String consultorVer(Model modelo, HttpSession sesion) {
+    public String consultorVer(Model modelo, Principal usuarioLogueado) throws Exception{
        
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
         return "consultores/ver";
     }   
 
     @GetMapping("/lista")
-    public String consultoresLista(@ModelAttribute Consultor consultor, Model modelo, HttpSession sesion){
+    public String consultoresLista(@ModelAttribute Consultor consultor, Model modelo, Principal usuarioLogueado)throws Exception{
 
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
 
         List<Consultor> consultores = servicioConsultores.listaConsultores();
         modelo.addAttribute("consultores", consultores);

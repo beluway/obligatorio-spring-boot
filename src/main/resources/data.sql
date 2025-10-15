@@ -42,8 +42,6 @@ BEGIN
             INSERT INTO ofertas (id,cantidad_vacantes,descripcion,fecha_cierre,fecha_publicacion,titulo,area,cliente)
             VALUES(1,10,'habia una vez','2025-11-18',NOW(),'nada',1,'cli1');
 
-            INSERT INTO postulaciones(fecha_postulacion,oferta,postulante)
-            VALUES (NOW(),1,'pos1');
             
             INSERT INTO roles (nombre_rol)
             VALUES ('cliente'),

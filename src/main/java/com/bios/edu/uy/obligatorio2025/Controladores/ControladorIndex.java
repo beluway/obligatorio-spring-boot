@@ -20,7 +20,6 @@ public class ControladorIndex {
     @GetMapping("/index") 
     public String index() {
          
-       
         return "index";       
     }    
 

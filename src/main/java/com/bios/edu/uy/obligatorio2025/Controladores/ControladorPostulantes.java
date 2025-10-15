@@ -40,20 +40,16 @@ public class ControladorPostulantes {
      @Autowired
     private IServicioPostulaciones servicioPostulaciones;
 
-    @Autowired
-    PasswordEncoder codificador;
+
+       @Autowired
+       PasswordEncoder codificador; 
+
+
        
     @GetMapping("/crear")
-    public String postulanteCrear(Model modelo, HttpSession sesion)
-    {            
-        modelo.addAttribute("postulante", new Postulante());
-
-         Object usuario = sesion.getAttribute("usuarioLogueado");
-        if (usuario != null) {
-            modelo.addAttribute("usuarioLogueado", usuario);
-        }
-        return "postulantes/crear";
-        
+    public String postulanteCrear()
+    {          
+           return "postulantes/crear";        
     }
 
 
@@ -102,13 +98,8 @@ public class ControladorPostulantes {
 
         //si no existe la carpeta desitno, SE CREA        
         if (!carpetaDestino.exists()) carpetaDestino.mkdirs();
-
      
          File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString()+".pdf");
-
-
-        postulante.setClave(codificador.encode(postulante.getClave()));
-
 
         try
         { 
@@ -120,10 +111,12 @@ public class ControladorPostulantes {
 
             postulante.setCantidadPostulaciones(0);
 
-
             postulante.setActivo(true);
+            postulante.setClave(codificador.encode(postulante.getClave()));
 
             servicioPostulantes.agregar(postulante);  
+
+
             atributos.addFlashAttribute("mensaje", "Postulante guardado correctamente.");
             return "redirect:/postulantes/lista";
 
@@ -142,9 +135,9 @@ public class ControladorPostulantes {
 
     @GetMapping("/eliminar")
 
-    public String postulanteEliminar(Model modelo, HttpSession sesion) 
+    public String postulanteEliminar(Model modelo, Principal usuarioLogueado) throws Exception
     {    
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
         return "postulantes/eliminar";
 
     }
@@ -163,40 +156,30 @@ public class ControladorPostulantes {
     
     
     @GetMapping("/modificar")
-    public String postulanteModificar(Model modelo,Principal principal) 
+    public String postulanteModificar(Model modelo, HttpSession sesion, String usuario) 
     {      
-        Postulante postulante = servicioPostulantes.buscar(principal.getName());
+        Postulante postulante = servicioPostulantes.buscar(usuario);
         
-        modelo.addAttribute("usuarioLogueado", postulante);      
+        modelo.addAttribute("postulante", postulante);
+
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));    
         
         return "postulantes/modificar";
     }
 
     
     @PostMapping("/modificar")
-    public String postulanteModificar(@ModelAttribute @Valid Postulante postulante, BindingResult resultado,
-    Model modelo, 
-    RedirectAttributes atributos) throws Exception
-    {             
-            modelo.addAttribute("usuarioLogueado", postulante);
-
-          if(resultado.hasErrors()){
-            return "postulantes/modificar";
-          }
-          
-        postulante.setClave(codificador.encode(postulante.getClave()));
-
-          servicioPostulantes.modificar(postulante);
-
+    public String postulanteModificar(@ModelAttribute @Valid Postulante postulante, Model modelo, BindingResult resultado) {
+       
         return "redirect:/postulantes/modificar";
     }
 
     
 
     @GetMapping("/ver")    
-    public String postulanteVer(Model modelo, HttpSession sesion) 
+    public String postulanteVer(Model modelo, Principal usuarioLogueado) throws Exception
     {
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
 
         return "postulantes/ver";
     }   
@@ -225,12 +208,12 @@ public class ControladorPostulantes {
 
     
     @GetMapping("/lista")
-    public String lista(Model modelo, HttpSession sesion) throws Exception {
+    public String lista(Model modelo, Principal usuarioLogueado) throws Exception {
        
         List<Postulante> listaPostulantes = servicioPostulantes.lista();
         
         //SE SACA LA LISTA DE POSTULANTES DE LA BD 
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("listaPostulantes", listaPostulantes.toArray());
 
 

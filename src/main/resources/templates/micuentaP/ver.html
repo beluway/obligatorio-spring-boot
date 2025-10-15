@@ -17,24 +17,24 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
 
         <label for="id">Usuario</label>
-        <input type="text" id="usuario" name="usuario" th:field="${usuarioLogueado.usuario}" readonly > 
+        <input type="text" id="usuario" name="usuario" th:value="${usuarioLogueado.usuario}" readonly > 
    
 
          <label for="clave">Clave</label>
-        <input type="password" id="clave" name="clave" th:field="${usuarioLogueado.clave}">
+        <input type="password" id="clave" name="clave" th:value="${usuarioLogueado.clave}">
        
         <label for="cedula">Cédula</label>
-        <input type="text" id="cedula" name="cedula" th:field="${usuarioLogueado.cedula}" >
+        <input type="text" id="cedula" name="cedula" th:value="${usuarioLogueado.cedula}" >
         <p th:errors="*{cedula}" class="error"></p>
 
         <label for="fechanacimiento">Fecha Nacimiento</label>
-        <input type="date" id="fechanacimiento" name="fechanacimiento" th:field="${usuarioLogueado.fechanacimiento}" >
+        <input type="date" id="fechanacimiento" name="fechanacimiento" th:value="${usuarioLogueado.fechanacimiento}" >
 
          <!-- Departamento -->
                 <div>
                     <label for="departamento">Departamento</label>
 
-                   <select id="departamento" name="departamento" th:field="${usuarioLogueado.departamento}">
+                   <select id="departamento" name="departamento" th:value="${usuarioLogueado.departamento}">
                 
                         <option value="">Seleccione un departamento</option>
                         <option value="artigas">Artigas</option>
@@ -62,12 +62,12 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
 
         <label for="area">Primer Nombre</label>
-        <input type="text" name="primerNombre" id="primerNombre" th:field="${usuarioLogueado.primerNombre}" >
+        <input type="text" name="primerNombre" id="primerNombre" th:value="${usuarioLogueado.primerNombre}" >
           <p th:errors="*{primerNombre}" class="error"></p>
 
 
         <label for="cliente">Segundo Nombre </label>
-        <input type="text" name="segundoNombre" id="segundoNombre" th:field="${usuarioLogueado.segundoNombre}" >
+        <input type="text" name="segundoNombre" id="segundoNombre" th:value="${usuarioLogueado.segundoNombre}" >
         <p th:errors="*{segundoNombre}" class="error"></p>
 
         <label for="primerApellido">Primer Apellido</label>
@@ -75,7 +75,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         <p th:errors="*{primerApellido}" class="error"></p>
 
         <label for="segundoApellido">Segundo Apellido</label>
-        <input type="text" id="segundoApellido" name="segundoApellido" th:field="${usuarioLogueado.segundoApellido}" >
+        <input type="text" id="segundoApellido" name="segundoApellido" th:value="${usuarioLogueado.segundoApellido}" >
         <p th:errors="*{segundoApellido}" class="error"></p>
         
         <button type="submit" id="postularse">Modificar</button>

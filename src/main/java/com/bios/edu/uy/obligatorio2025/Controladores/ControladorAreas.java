@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioAreas;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioConsultores;
 
-
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -27,13 +27,14 @@ public class ControladorAreas {
     @Autowired
     private IServicioAreas servicioAreas;
 
-
+    @Autowired
+    private IServicioConsultores servicioConsultores;
 
     //CREAR ÁREA GET
     @GetMapping("/crear")
-    public String crear (HttpSession sesion, Model modelo)throws Exception
+    public String crear (Principal usuarioLogueado, Model modelo)throws Exception
     {
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("area",new Area());
         return "areas/crear";
     }
@@ -63,9 +64,9 @@ public class ControladorAreas {
 
     //LISTAR ÁREAS GET
     @GetMapping("/lista")
-    public String listarAreas(@ModelAttribute Area area, HttpSession sesion, Model modelo)throws Exception
+    public String listarAreas(@ModelAttribute Area area, Principal usuarioLogueado, Model modelo)throws Exception
     {
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
 
         List<Area> areas = servicioAreas.listaAreas();
         modelo.addAttribute("areas", areas);
@@ -74,9 +75,9 @@ public class ControladorAreas {
 
     //MODIFICAR ÁREA GET
     @GetMapping("/modificar")
-    public String modificarArea(Area area, Model modelo, HttpSession sesion) throws Exception
+    public String modificarArea(Area area, Model modelo, Principal usuarioLogueado) throws Exception
     {
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
 
 
         Area areaEncontrada = servicioAreas.obtener(area.getId());
@@ -112,9 +113,9 @@ public class ControladorAreas {
 
         //ELIMINAR ÁREA GET
     @GetMapping("/eliminar")
-    public String eliminarArea(Area area, Model modelo, HttpSession sesion) throws Exception
+    public String eliminarArea(Area area, Model modelo, Principal usuarioLogueado) throws Exception
     {
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
 
         Area areaEncontrada = servicioAreas.obtener(area.getId());
 

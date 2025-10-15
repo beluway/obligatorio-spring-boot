@@ -1,13 +1,9 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
-import java.util.Date;
-import java.rmi.server.ExportException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.hibernate.type.descriptor.java.LocalDateJavaType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
-import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 
 import com.bios.edu.uy.obligatorio2025.Servicios.*;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
@@ -47,10 +41,11 @@ public class ControladorOfertas {
 
 
     @GetMapping("/crear")
-    public String crearOferta(@ModelAttribute Oferta ofertas, Principal usuarioLogueado, Model modelo)
+    public String crearOferta(@ModelAttribute Oferta ofertas, Principal usuarioLogueado, Model modelo) throws Exception
     {
       
-         modelo.addAttribute("ofertas", new Oferta());       
+         modelo.addAttribute("ofertas", new Oferta());    
+         modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
          modelo.addAttribute("areas", servicioAreas.listaAreas());
 
         return "ofertas/crear";        
@@ -81,10 +76,11 @@ public class ControladorOfertas {
 
     @GetMapping("/eliminar")
 
-    public String eliminarOferta(Model modelo,@RequestParam Integer codigo) throws Exception{
+    public String eliminarOferta(Model modelo,@RequestParam Integer codigo, Principal usuarioLogueado) throws Exception{
       
         Oferta oferta = servicioOfertas.obtener(codigo);
 
+        modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("oferta", oferta);
 
         return "ofertas/eliminar";
@@ -105,7 +101,7 @@ public class ControladorOfertas {
     
     
     @GetMapping("/modificar")
-    public String modificarOferta(Model modelo, @RequestParam Integer codigo) throws Exception {
+    public String modificarOferta(Model modelo, @RequestParam Integer codigo, Principal usuarioLogueado) throws Exception {
       
         Oferta oferta = servicioOfertas.obtener(codigo);
 
@@ -120,6 +116,7 @@ public class ControladorOfertas {
         //muestro todas las áreas que hay para elegir
         List<Area> areas = servicioAreas.listaAreas();
 
+        modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("oferta", oferta);
         modelo.addAttribute("areas", areas);
         
@@ -138,9 +135,10 @@ public class ControladorOfertas {
     
 
     @GetMapping("/ver")    
-    public String verOferta(@RequestParam Integer codigo, Model modelo) throws Exception {
+    public String verOferta(@RequestParam Integer codigo, Model modelo, Principal usuarioLogueado) throws Exception {
 
        Oferta oferta = servicioOfertas.obtener(codigo);
+       modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
        modelo.addAttribute("oferta", oferta);
 
         return "ofertas/ver";
@@ -148,7 +146,7 @@ public class ControladorOfertas {
 
 
     @GetMapping("/lista")    
-    public String listarOfertas(Model modelo, HttpSession sesion) throws Exception {
+    public String listarOfertas(Model modelo, Principal usuarioLogueado) throws Exception {
        //ACA SE SACA LA LISTA DESDE LA BASE DE DATOS
 
         LocalDate fechaActual = LocalDate.now();
@@ -156,18 +154,17 @@ public class ControladorOfertas {
         List<Oferta> ofertas = servicioOfertas.listaOfertasVigentes();
 
         modelo.addAttribute("ofertas", ofertas);
-         modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
 
         return "ofertas/lista"; //nombre de la vista
     } 
 
 
     @GetMapping("/listaPorCliente")
-    public String listaOfertas(Model modelo, Principal principal) throws Exception {
+    public String listaOfertas(Model modelo, Principal usuarioLogueado) throws Exception {
        
-        List<Oferta> OfertasCliente = servicioOfertas.listaOfertasCliente(servicioClientes.obtener(principal.getName()));
-
-      //  modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        List<Oferta> OfertasCliente = servicioOfertas.listaOfertasCliente(servicioClientes.obtener(usuarioLogueado.getName()));
+        modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("listaOfertasCliente", OfertasCliente);
 
         return "ofertas/listaPorCliente";

@@ -1,54 +1,70 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
- 
- th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
-
+      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Cliente</title>
-       <link rel="stylesheet" th:href="@{/css/crud.css}">
-
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 
 <section>
     <div id="contenedor">
-    <div class="card">
-        <h2>Eliminar Cliente</h2>
+        <div class="card">
+            <h2>Eliminar Cliente</h2>
 
-        <form th:action="@{/clientes/{id}/eliminar(id=${cliente.id})}" method="post">
-            
+            <form th:action="@{/clientes/eliminar}" method="post">
+                <input type="hidden" name="usuario" th:value="${cliente.usuario}" />
 
                 <label>Nombre:</label>
-                <input type="text" th:value="${cliente.nombre}" />
+                <input type="text" th:value="${cliente.nombre}" readonly />
 
                 <label>RUT:</label>
-                <input type="text" th:value="${cliente.rut}" />
+                <input type="text" th:value="${cliente.rut}" readonly />
 
                 <label>Sitio Web:</label>
-                <input type="text" th:value="${cliente.urlSitioWeb}" />
+                <input type="text" th:value="${cliente.url}" readonly />
 
-                <label>Estado:</label>
-                <input type="text" th:value="${cliente.activo ? 'Activo' : 'Inactivo'}" />
+                <p>Estado: <span th:text="${cliente.activo ? 'Activo' : 'Inactivo'}"></span></p>
 
                 <label>N° Ofertas Publicadas:</label>
-                <input type="text" th:value="${cliente.ofertas.size()}" />
-            
+                <input type="text" th:value="${cantidadOfertas}" readonly />
 
-            <div th:if="${cliente.ofertas.size() > 0}" class="alert-warning">
-                ⚠️ Si este cliente tiene ofertas publicadas. Se realizará una <strong>baja lógica</strong>.
-            </div>
-            <div th:if="${cliente.ofertas.size() == 0}" class="alert-success">
-                ✅ Se eliminará definitivamente del sistema.
-            </div>
+                <div th:if="${cantidadOfertas > 0}" class="alert-warning">
+                    ⚠️ Este cliente tiene ofertas publicadas. Se realizará una <strong>baja lógica</strong>.
+                </div>
+                <div th:if="${cantidadOfertas == 0}" class="alert-success">
+                    ✅ Se eliminará definitivamente del sistema.
+                </div>
 
-      
+                <button type="submit" class="btn-danger" 
+                        th:text="${cantidadOfertas > 0 ? 'Confirmar Baja Lógica' : 'Confirmar Eliminación'}">
+                </button>
+            </form>
 
-            <button type="submit">Confirmar Eliminación</button>
-        </form>
-
-        <a th:href="@{/clientes}" id="volver">← Volver al listado</a>
+            <a th:href="@{/clientes/lista}" id="volver">← Volver al listado</a>
+        </div>
     </div>
-    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const form = document.querySelector('form');
+        const clienteNombre = /*[[${cliente.nombre}]]*/ 'este cliente';
+        const cantidadOfertas = /*[[${cantidadOfertas}]]*/ 0;
+
+        form.addEventListener('submit', function(e) {
+            let mensaje;
+            if (cantidadOfertas > 0) {
+                mensaje = `⚠️ El cliente "${clienteNombre}" tiene ofertas publicadas.\nSe realizará una baja lógica.\n\n¿Confirmar?`;
+            } else {
+                mensaje = `¿Está seguro de eliminar definitivamente al cliente "${clienteNombre}"?`;
+            }
+
+            if (!confirm(mensaje)) {
+                e.preventDefault();
+            }
+        });
+        /*]]>*/
+    </script>
 </section>
 </html>
