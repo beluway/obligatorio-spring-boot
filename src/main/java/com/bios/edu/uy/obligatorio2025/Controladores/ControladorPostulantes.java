@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +49,7 @@ public class ControladorPostulantes {
     @GetMapping("/crear")
     public String postulanteCrear(Model modelo, Principal usuarioLogueado)
     {            
-        modelo.addAttribute("postulante", new Postulante());
+         modelo.addAttribute("postulante", new Postulante());
 
          Postulante postulanteLogueado = servicioPostulantes.obtener(usuarioLogueado.getName());
         if (postulanteLogueado != null) {
@@ -104,9 +105,11 @@ public class ControladorPostulantes {
 
         //si no existe la carpeta desitno, SE CREA        
         if (!carpetaDestino.exists()) carpetaDestino.mkdirs();
-
      
          File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString()+".pdf");
+
+         //SE CODIFICA LA CONTRASEÑA
+        postulante.setClave(codificador.encode(postulante.getClave()));
 
         try
         { 
@@ -118,11 +121,12 @@ public class ControladorPostulantes {
 
             postulante.setCantidadPostulaciones(0);
 
-
             postulante.setActivo(true);
             postulante.setClave(codificador.encode(postulante.getClave()));
 
             servicioPostulantes.agregar(postulante);  
+
+
             atributos.addFlashAttribute("mensaje", "Postulante guardado correctamente.");
             return "redirect:/postulantes/lista";
 
@@ -164,7 +168,7 @@ public class ControladorPostulantes {
     @GetMapping("/modificar")
     public String postulanteModificar(Model modelo, Principal usuarioLogueado, String usuario) 
     {      
-        Postulante postulante = servicioPostulantes.buscar(usuario);
+        Postulante postulante = servicioPostulantes.obtener(usuario);
         
         modelo.addAttribute("postulante", postulante);
 
@@ -174,8 +178,16 @@ public class ControladorPostulantes {
     }
     
     @PostMapping("/modificar")
-    public String postulanteModificar(@ModelAttribute @Valid Postulante postulante, Model modelo, BindingResult resultado) {
-       
+    public String postulanteModificar(@ModelAttribute @Valid Postulante postulante, BindingResult resultado,
+    Model modelo, 
+    RedirectAttributes atributos) throws Exception
+    {             
+          if(resultado.hasErrors()){
+            return "postulantes/crear";
+          }
+          
+          servicioPostulantes.modificar(postulante);
+
         return "redirect:/postulantes/modificar";
     }
     

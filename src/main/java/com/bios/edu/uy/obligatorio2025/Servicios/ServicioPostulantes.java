@@ -57,12 +57,14 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
 
     @Override
-    public Postulante buscar(String usuario)
+    public Postulante buscar(Postulante postulante)
     {
-        Postulante postulanteEncontrado = respositorioPostulantes.buscarPostulante(usuario);
-
-        return postulanteEncontrado;
+           return respositorioPostulantes
+            .findByUsuario(postulante.getUsuario())
+            .orElse(null);
     }
+ 
+
 
      @Override 
     public List<Postulante> lista() throws Exception

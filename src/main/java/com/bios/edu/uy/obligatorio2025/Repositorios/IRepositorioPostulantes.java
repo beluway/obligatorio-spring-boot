@@ -15,20 +15,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Usuario;
 
 
 public interface IRepositorioPostulantes extends JpaRepository<Postulante,String>{
-    
-     //Usuario findByUsuario (String usuario);    
-
-    /*  @NativeQuery
-     Postulante Postulante 
- */
-
-
- //@Query("select * from usuarios u inner join postulantes p on u.usuario = p.usuario")
- 
-
- @Query(value="select u from usuarios u inner join postulantes p where u.usuario = p.usuario",nativeQuery = true)
- Postulante buscarPostulante (@Param("usuario")String usuario);
- 
+     
 
 
     @Override
