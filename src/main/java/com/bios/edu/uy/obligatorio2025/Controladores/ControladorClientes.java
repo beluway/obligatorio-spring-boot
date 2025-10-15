@@ -3,47 +3,55 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
-import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
+import com.bios.edu.uy.obligatorio2025.Dominio.Usuario.Crear;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
-
-import jakarta.servlet.http.HttpSession;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
+import com.bios.edu.uy.obligatorio2025.Servicios.ServicioOfertas;
 import jakarta.validation.Valid;
+
 
 @Controller
 @RequestMapping("/clientes")
 
 public class ControladorClientes {
 
-   
-/*    
-    @Autowired
-    private IRepostorioClientes repositorioClientes; */
+    //private final Servicios.ServicioOfertas servicioOfertas;
 
     @Autowired
-    private IServicioClientes servicioClientes;
+    private final IServicioClientes servicioClientes;
+
+    private final IServicioOfertas servicioOfertas;
+
+    ControladorClientes(/*Servicios.*/IServicioOfertas servicioOfertas, IServicioClientes servicioClientes) {
+        this.servicioOfertas = servicioOfertas;
+        this.servicioClientes = servicioClientes;
+    }
 
     @GetMapping("/crear")
-    public String clienteCrear(Model modelo, HttpSession sesion) throws Exception
+    public String clienteCrear(Model modelo, Principal usuarioLogueado) throws Exception
     {        
+        modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("cliente", new Cliente());
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
         return "clientes/crear";        
     }
 
     //ACA VA FLASH ATTRIBUTES Y REDIRECT 
     @PostMapping("/crear")
-    public String clienteProcesarCrear (@ModelAttribute @Valid Cliente cliente, 
+    public String clienteProcesarCrear (@ModelAttribute @Validated(Crear.class) Cliente cliente, 
     BindingResult resultado,
     Model modelo,   
     RedirectAttributes attributes) throws Exception 
@@ -53,6 +61,12 @@ public class ControladorClientes {
             modelo.addAttribute("cliente", cliente);
             return "clientes/crear";
           }
+
+          // 🔹 Verificar si ya existe la URL
+    if (servicioClientes.existePorUrl(cliente.getUrl())) {
+        resultado.rejectValue("url", "error.url", "Ya existe un cliente con esa URL.");
+        return "clientes/crear";
+    }
 
           if(servicioClientes.obtener(cliente.getUsuario())!=null)
           {
@@ -81,43 +95,67 @@ public class ControladorClientes {
 
 
     @GetMapping("/eliminar")
-    public String clienteEliminar(Model modelo, HttpSession sesion) {
-      
+    public String clienteEliminar(@RequestParam String usuario,Model modelo, Principal usuarioLogueado) throws Exception {
      
         //ENTRA ACA SOLO SI ES CONSULTOR
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
-        return "clientes/eliminar";
+        //modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
+
+    // Buscar el cliente
+    Cliente cliente = servicioClientes.obtener(usuario);
+
+    if (cliente == null) {
+        modelo.addAttribute("mensaje", "Cliente no encontrado.");
+        return "clientes/lista";
+    }
+
+    //carga la cantidad de ofertas que tiene ese cliente
+    int cantidadOfertas = servicioOfertas.listaOfertasCliente(cliente).size();
+    modelo.addAttribute("cantidadOfertas", cantidadOfertas);
+
+    modelo.addAttribute("cliente", cliente);
+    return "clientes/eliminar";
 
     }
 
     @PostMapping("/eliminar")
-    public String clienteEliminar(@ModelAttribute @Valid Cliente cliente, Model modelo, BindingResult resultado, RedirectAttributes attributes) throws Exception  {
+    public String clienteEliminar(@RequestParam String usuario, Model modelo, RedirectAttributes attributes) throws Exception  
+    {
               
-        if(resultado.hasErrors())
-        {
-            return "clientes/eliminar";
-        }
+    // Buscar el cliente
+    Cliente clienteEncontrado = servicioClientes.obtener(usuario);
 
-        try
-        {
-            servicioClientes.eliminar(cliente);
-            attributes.addFlashAttribute("mensaje","Cliente eliminado con éxito");
-            return "redirect:/clientes/lista";
-        }
-        catch(Exception ex)
-        {
-            modelo.addAttribute("mensaje", "Hubo un error "+ex.getMessage());
+    if (clienteEncontrado == null) {
+        attributes.addFlashAttribute("error", "Cliente no encontrado.");
+        return "redirect:/clientes/lista";
+    }
 
-            return "clientes/eliminar";
+    try {
+        // Si tiene ofertas → baja lógica
+        if (!servicioOfertas.listaOfertasCliente(clienteEncontrado).isEmpty()) {
+            clienteEncontrado.setActivo(false);
+            servicioClientes.modificar(clienteEncontrado, null);
+            attributes.addFlashAttribute("exito", "Cliente dado de baja (baja lógica) porque tiene ofertas publicadas.");
+        } else {
+            // Sin ofertas → eliminación definitiva
+            servicioClientes.eliminar(clienteEncontrado);
+            attributes.addFlashAttribute("exito", "Cliente eliminado definitivamente.");
         }
-    }    
+    } catch (Exception ex) {
+        attributes.addFlashAttribute("error", "Hubo un error al eliminar el cliente: " + ex.getMessage());
+    }
+
+    return "redirect:/clientes/lista";
+    }
+
+
+       
     
 
     @GetMapping("/modificar")
-    public String clienteModificar(@RequestParam String usuario,Model modelo, HttpSession sesion) throws Exception {
+    public String clienteModificar(@RequestParam String usuario,Model modelo, Principal usuarioLogueado) throws Exception {
 
          //ENTRA ACA SOLO SI ES CONSULTOR
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
 
         Cliente cliente = servicioClientes.obtener(usuario);
 
@@ -133,24 +171,35 @@ public class ControladorClientes {
     
 
     @PostMapping("/modificar")
-    public String procesarModificar(@ModelAttribute /*@Valid*/ Cliente cliente, 
-    @RequestParam(required = false)String clave,
+    public String procesarModificar(@ModelAttribute @Valid Cliente cliente, 
+    @RequestParam(required = false)String nuevaClave,
      BindingResult resultado,
      RedirectAttributes attributes, Model modelo) throws Exception{
      
+    Cliente clienteExistente = servicioClientes.obtener(cliente.getUsuario());
+
+        if (clienteExistente == null){
+            modelo.addAttribute("mensaje", "cliente no encontrado");
+            return "clientes/modificar";
+        }
+
         if(resultado.hasErrors())
         {
-            modelo.addAttribute("cliente", new Cliente());
+            modelo.addAttribute("cliente", cliente);
+            modelo.addAttribute("mensaje", "Corrija los errores");
             return "clientes/modificar";
         }
 
         try
         {
         // Si se ingresó una nueva clave, la reemplaza
-        if (clave != null && !clave.isBlank()) {
-            cliente.setClave(clave);
-        }
-        servicioClientes.modificar(cliente,clave);
+        /*if (nuevaClave != null && !nuevaClave.isBlank()) {
+            clienteExistente.setClave(nuevaClave);
+        }*/
+
+        // llama al servicio que maneja clave opcional
+        servicioClientes.modificar(cliente, nuevaClave);
+
         attributes.addFlashAttribute("exito", "Cliente modificado correctamente");
 
              return "redirect:/clientes/lista";
@@ -162,12 +211,11 @@ public class ControladorClientes {
         }
     }
     
-    
 
     @GetMapping("/ver")    
-    public String clienteVer(@RequestParam String usuario, Model modelo, HttpSession sesion) throws Exception {
+    public String clienteVer(@RequestParam String usuario, Model modelo, Principal usuarioLogueado) throws Exception {
        
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         Cliente cliente = servicioClientes.obtener(usuario);
         modelo.addAttribute("cliente", cliente);
         return "clientes/ver";
@@ -175,16 +223,15 @@ public class ControladorClientes {
 
 
     @GetMapping("/lista")    
-    public String clientesListar(@ModelAttribute Cliente clientes, Model modelo,Principal pr) throws Exception {
+    public String clientesListar(@ModelAttribute Cliente clientes, Model modelo,Principal usuarioLogueado) throws Exception {
        
       
          //ENTRA ACA SOLO SI ES CONSULTOR
-        List<Cliente> listaClientes = servicioClientes.listaClientes();
-
+         //Muestro solo los clientes que están activos (no tiene baja lógica)
+        List<Cliente> listaClientes = servicioClientes.listarActivos();
+        modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("clientes", listaClientes);
-     //   modelo.addAttribute("usuarioLogueado", (Consultor)sesion.getAttribute("usuarioLogueado"));
         
-
         return "clientes/lista";
     
     

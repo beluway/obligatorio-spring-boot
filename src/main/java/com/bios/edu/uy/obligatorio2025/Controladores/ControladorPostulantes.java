@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.rmi.server.ExportException;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -41,6 +43,8 @@ public class ControladorPostulantes {
 
     @Autowired
     PasswordEncoder codificador;
+
+
        
     @GetMapping("/crear")
     public String postulanteCrear()
@@ -111,7 +115,7 @@ public class ControladorPostulantes {
             postulante.setCantidadPostulaciones(0);
 
             postulante.setActivo(true);
-
+            postulante.setClave(codificador.encode(postulante.getClave()));
 
             servicioPostulantes.agregar(postulante);  
 
@@ -134,9 +138,9 @@ public class ControladorPostulantes {
 
     @GetMapping("/eliminar")
 
-    public String postulanteEliminar(Model modelo, HttpSession sesion) 
+    public String postulanteEliminar(Model modelo, Principal usuarioLogueado) throws Exception
     {    
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
         return "postulantes/eliminar";
 
     }
@@ -155,13 +159,13 @@ public class ControladorPostulantes {
     
     
     @GetMapping("/modificar")
-    public String postulanteModificar(Model modelo, HttpSession sesion, String usuario) 
+    public String postulanteModificar(Model modelo, Principal usuarioLogueado, String usuario) 
     {      
-       /*  Postulante postulante = servicioPostulantes.buscar(usuario);
+        Postulante postulante = servicioPostulantes.obtener(usuario);
         
         modelo.addAttribute("postulante", postulante);
 
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));     */
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName())); 
         
         return "postulantes/modificar";
     }
@@ -184,9 +188,9 @@ public class ControladorPostulantes {
     
 
     @GetMapping("/ver")    
-    public String postulanteVer(Model modelo, HttpSession sesion) 
+    public String postulanteVer(Model modelo, Principal usuarioLogueado) throws Exception
     {
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
 
         return "postulantes/ver";
     }   
@@ -215,12 +219,12 @@ public class ControladorPostulantes {
 
     
     @GetMapping("/lista")
-    public String lista(Model modelo, HttpSession sesion) throws Exception {
+    public String lista(Model modelo, Principal usuarioLogueado) throws Exception {
        
         List<Postulante> listaPostulantes = servicioPostulantes.lista();
         
         //SE SACA LA LISTA DE POSTULANTES DE LA BD 
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));
+        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("listaPostulantes", listaPostulantes.toArray());
 
 

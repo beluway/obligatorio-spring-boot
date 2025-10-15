@@ -27,7 +27,7 @@ public class Cliente extends Usuario {
    
     @Column(name = "rut", nullable = false, length = 12, unique = true)
     @NotNull(message = "Ingrese el RUT.")
-    @Digits(integer =  12, fraction = 0, message = "El RUT debe tener 12 dígitos")    
+    @Digits(integer =  12, fraction = 0, message = "El RUT debe tener 12 dígitos.")    
     private Long rut;
 
     @Column(name = "nombre", nullable = false, length = 15)
@@ -36,7 +36,7 @@ public class Cliente extends Usuario {
    
    @Pattern(
     regexp = "^www\\..*\\.com$",
-    message = "La URL debe comenzar con www")
+    message = "La URL debe comenzar con www y debe terminar con .com, además no puede repetirse.")
     @Column(name="url", unique = true)
     private String url;
 
@@ -82,7 +82,7 @@ public class Cliente extends Usuario {
      public Cliente(){}
 
      public Cliente(@NotBlank(message = "ingrese el usuario") String usuario,
-            @NotBlank(message = "ingrese la clave") String clave, Set<Rol> roles, Boolean activo,
+            @NotBlank(message = "ingrese la clave") String clave, Set<Rol> roles, boolean activo,
             @NotNull(message = "Ingrese el RUT.") @Digits(integer = 12, fraction = 0, message = "El RUT debe tener 12 dígitos") Long rut,
             @NotBlank(message = "Ingrese el nombre.") String nombre,
             @Pattern(regexp = "^www\\..*\\.com$", message = "La URL debe comenzar con www") String url) {
