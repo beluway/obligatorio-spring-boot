@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
+   th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Postulante</title>
 
-    <link rel="stylesheet" th:href="@{/css/crud.css}">
+   <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
 
-<body>
-<section>
+
+ <section>
     <div id="contenedor">
         <div class="card">
 
@@ -128,5 +129,5 @@
         </div>
     </div>
 </section>
-</body>
+
 </html>

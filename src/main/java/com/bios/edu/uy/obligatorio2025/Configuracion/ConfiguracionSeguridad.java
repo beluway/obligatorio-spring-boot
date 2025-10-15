@@ -17,22 +17,24 @@ public class ConfiguracionSeguridad {
         return new BCryptPasswordEncoder();
     }
 
-    //la puta madre
-
     @Bean
     public SecurityFilterChain filtroSeguridad(HttpSecurity seguridadHttp) throws Exception {
-    seguridadHttp
-    
-        .authorizeHttpRequests(autorizar -> autorizar
-            //rutas publicas
-            .requestMatchers(
-                "/home/index",
-                "/home/ingresar",
-                "/home/login",
-                "/home/registro",
-                "/css/**", "/js/**", "/img/**",
-                "/postulantes/crear", "/postulantes/crear/**"              
-            ).permitAll()
+
+        seguridadHttp
+            .authorizeHttpRequests(autorizar -> autorizar
+
+                // === RUTAS PÚBLICAS (acceso libre) ===
+                .requestMatchers(
+                    "/home/index",
+                    "/home/ingresar",
+                    "/home/login",
+                    "/home/registro",
+                    "/css/**",
+                    "/js/**",
+                    "/img/**",
+                    "/postulantes/crear",
+                    "/postulantes/crear/**"
+                ).permitAll()
 
                 // === POSTULANTE ===
                 .requestMatchers(
@@ -62,12 +64,9 @@ public class ConfiguracionSeguridad {
                     "/consultores/**"
                 ).hasAuthority("consultor")
 
-            //esta es publica (postulante anonimo que se autoregistra)
-            .requestMatchers("/postulantes/crear").anonymous()
-
-            //todas las demas urls piden autenticarse
-            .anyRequest().authenticated()
-        )
+                // === TODAS LAS DEMÁS URLs REQUIEREN AUTENTICACIÓN ===
+                .anyRequest().authenticated()
+            )
 
             // --- Configuración del formulario de login ---
             .formLogin(login -> login

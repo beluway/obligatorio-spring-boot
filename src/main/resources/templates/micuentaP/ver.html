@@ -13,7 +13,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     <div id="contenedor">
 <div class="card">
     <h2>Ver Oferta</h2>
-    <form th:action="@{/postulantes/modificar}" method="post" th:object="${usuarioLogueado}">
+    <form th:action="@{/micuentaP/ver}" method="post" th:object="${usuarioLogueado}">
 
 
         <label for="id">Usuario</label>

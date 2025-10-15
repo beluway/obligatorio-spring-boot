@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioPostulantes;
 
@@ -46,12 +47,11 @@ public class ControladorPostulantes {
 
 
        
-    @GetMapping("/crear")
-    public String postulanteCrear()
-    {          
-           return "postulantes/crear";        
-    }
-
+   @GetMapping("/crear")
+public String postulanteCrear(Model modelo) {
+    modelo.addAttribute("postulante", new Postulante());
+    return "postulantes/crear";
+}
 
     
     @PostMapping("/crear")
@@ -156,25 +156,41 @@ public class ControladorPostulantes {
     
     
     @GetMapping("/modificar")
-    public String postulanteModificar(Model modelo, HttpSession sesion, String usuario) 
+    public String postulanteModificar(Model modelo, Principal principal) 
     {      
-        Postulante postulante = servicioPostulantes.buscar(usuario);
+        Postulante postulante = servicioPostulantes.buscar(principal.getName());
         
         modelo.addAttribute("postulante", postulante);
 
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));    
+       // modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));    
         
         return "postulantes/modificar";
     }
 
     
     @PostMapping("/modificar")
-    public String postulanteModificar(@ModelAttribute @Valid Postulante postulante, Model modelo, BindingResult resultado) {
-       
-        return "redirect:/postulantes/modificar";
-    }
+   public String modificarPostulante(
+            @ModelAttribute @Valid Postulante postulante,
+            BindingResult resultado,
+            Model modelo,
+            RedirectAttributes atributos) throws ExcepcionBiosWork {
 
-    
+        if (resultado.hasErrors()) {
+            modelo.addAttribute("usuarioLogueado", postulante);
+            return "postulantes/ver"; // queda en la misma página si hay errores
+        }
+
+        // Codificar clave
+        postulante.setClave(codificador.encode(postulante.getClave()));
+        servicioPostulantes.modificar(postulante);
+
+        // Recargar los datos actualizados
+        modelo.addAttribute("usuarioLogueado", postulante);
+        atributos.addFlashAttribute("mensaje", "Datos modificados correctamente");
+
+        return "postulantes/ver"; // sigue en ver.html
+
+     }
 
     @GetMapping("/ver")    
     public String postulanteVer(Model modelo, Principal usuarioLogueado) throws Exception
