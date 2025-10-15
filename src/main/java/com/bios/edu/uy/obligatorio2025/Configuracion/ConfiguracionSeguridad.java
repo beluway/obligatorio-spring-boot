@@ -1,101 +1,94 @@
 package com.bios.edu.uy.obligatorio2025.Configuracion;
 
-import com.bios.edu.uy.obligatorio2025.Controladores.ControladorAreas;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
 @Configuration
 @EnableWebSecurity
-public class ConfiguracionSeguridad 
-{
+public class ConfiguracionSeguridad {
 
-   
     @Bean
-    public PasswordEncoder passwordEncoder()
-    {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
-
-
     @Bean
     public SecurityFilterChain filtroSeguridad(HttpSecurity seguridadHttp) throws Exception {
-    seguridadHttp
-    
-        .authorizeHttpRequests(autorizar -> autorizar
-            //rutas publicas
-            .requestMatchers(
-                "/home/index",
-                "/home/ingresar",
-                "/home/login",
-                "/home/registro",
-                "/css/**", "/js/**", "/img/**",
-                "/postulantes/crear", "/postulantes/crear/**"              
-            ).permitAll()
 
-            //postulante
-            .requestMatchers(
-                "/postulaciones/crear",
-                "/postulaciones/eliminar",
-                "/postulaciones/lista").hasAuthority("postulante")
+        seguridadHttp
+            .authorizeHttpRequests(autorizar -> autorizar
 
-            //cliente
-            .requestMatchers(
-                "/ofertas/crear",
-                "/ofertas/eliminar",
-                "/ofertas/modificar",
-                "/ofertas/listaPorCliente").hasAuthority("cliente")
+                // === RUTAS PÚBLICAS (acceso libre) ===
+                .requestMatchers(
+                    "/home/index",
+                    "/home/ingresar",
+                    "/home/login",
+                    "/home/registro",
+                    "/css/**",
+                    "/js/**",
+                    "/img/**",
+                    "/postulantes/crear",
+                    "/postulantes/crear/**"
+                ).permitAll()
 
-            //urls que usan todos los usuarios logueados
-            .requestMatchers("/ofertas/**").hasAnyAuthority("postulante", "cliente")
-            .requestMatchers("/postulaciones/**").hasAnyAuthority("cliente", "postulante")
-            .requestMatchers("/clientes/ver").hasAnyAuthority("postulante", "cliente","consultor")
-            .requestMatchers("/postulantes/ver").hasAnyAuthority("postulante", "cliente", "consultor")
+                // === POSTULANTE ===
+                .requestMatchers(
+                    "/postulaciones/crear",
+                    "/postulaciones/eliminar",
+                    "/postulaciones/lista"
+                ).hasAuthority("postulante")
 
-            //consultor
-            .requestMatchers("/clientes/**", "/areas/**", "/consultores/**")
-                .hasAuthority("consultor")
+                // === CLIENTE ===
+                .requestMatchers(
+                    "/ofertas/crear",
+                    "/ofertas/eliminar",
+                    "/ofertas/modificar",
+                    "/ofertas/listaPorCliente"
+                ).hasAuthority("cliente")
 
-            //esta es publica (postulante anonimo que se autoregistra)
-            .requestMatchers("/postulantes/crear").anonymous()
+                // === URLs accesibles para usuarios logueados ===
+                .requestMatchers("/ofertas/**").hasAnyAuthority("postulante", "cliente")
+                .requestMatchers("/postulaciones/**").hasAnyAuthority("cliente", "postulante")
+                .requestMatchers("/clientes/ver").hasAnyAuthority("postulante", "cliente", "consultor")
+                .requestMatchers("/postulantes/ver").hasAnyAuthority("postulante", "cliente", "consultor")
 
-            //todas las demas urls piden autenticarse
-            .anyRequest().authenticated()
-        )
+                // === CONSULTOR ===
+                .requestMatchers(
+                    "/clientes/**",
+                    "/areas/**",
+                    "/consultores/**"
+                ).hasAuthority("consultor")
 
-        // --- Configuración del formulario de login ---
-        .formLogin(login -> login
-            
-            .loginPage("/home/login")
-            .defaultSuccessUrl("/home/main", true)
-            .permitAll()
-        )
+                // === TODAS LAS DEMÁS URLs REQUIEREN AUTENTICACIÓN ===
+                .anyRequest().authenticated()
+            )
 
-        // --- Configuración del logout ---
-        .logout(logout -> logout
-            .logoutUrl("/home/deslogueo")
-            .logoutSuccessUrl("/home/index?logout")
-            .permitAll()
-        )
-            //si el usuarion no esta logueado y quiere entrar a una url, queda redirigido al home/index
-            .exceptionHandling(excepcion -> excepcion.authenticationEntryPoint((request,response,authException)->{
-            response.sendRedirect("/bioswork/home/index");
-        })
-        )
+            // --- Configuración del formulario de login ---
+            .formLogin(login -> login
+                .loginPage("/home/login")              // tu formulario personalizado
+                .defaultSuccessUrl("/home/main", true) // redirección tras login exitoso
+                .permitAll()
+            )
 
-        ;
+            // --- Configuración del logout ---
+            .logout(logout -> logout
+                .logoutUrl("/home/deslogueo")
+                .logoutSuccessUrl("/home/index?logout")
+                .permitAll()
+            )
 
-    return seguridadHttp.build();
+            // --- Manejo de excepciones (acceso denegado o no autenticado) ---
+            .exceptionHandling(excepcion -> excepcion
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.sendRedirect("/bioswork/home/index");
+                })
+            );
+
+        return seguridadHttp.build();
+    }
 }
-
-
-}
-
