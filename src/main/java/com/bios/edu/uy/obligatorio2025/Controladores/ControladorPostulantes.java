@@ -43,16 +43,9 @@ public class ControladorPostulantes {
     PasswordEncoder codificador;
        
     @GetMapping("/crear")
-    public String postulanteCrear(Model modelo, HttpSession sesion)
-    {            
-     /*    modelo.addAttribute("postulante", new Postulante());
-
-         Object usuario = sesion.getAttribute("usuarioLogueado");
-        if (usuario != null) {
-            modelo.addAttribute("usuarioLogueado", usuario);
-        } */
-        return "postulantes/crear";
-        
+    public String postulanteCrear()
+    {          
+           return "postulantes/crear";        
     }
 
 
@@ -182,6 +175,8 @@ public class ControladorPostulantes {
             return "postulantes/crear";
           }
           
+        postulante.setClave(codificador.encode(postulante.getClave()));
+
           servicioPostulantes.modificar(postulante);
 
         return "redirect:/postulantes/modificar";

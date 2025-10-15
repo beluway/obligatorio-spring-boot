@@ -37,9 +37,13 @@ public class ConfiguracionSeguridad
                 "/home/ingresar",
                 "/home/login",
                 "/home/registro",
-                "/css/**", "/js/**", "/img/**",
-                "/postulantes/crear", "/postulantes/crear/**"              
+                "/css/**", 
+                "/js/**", 
+                "/img/**",
+                "/postulantes/crear", 
+                "/postulantes/crear/**"              
             ).permitAll()
+
 
             //postulante
             .requestMatchers(
@@ -65,10 +69,10 @@ public class ConfiguracionSeguridad
                 .hasAuthority("consultor")
 
             //esta es publica (postulante anonimo que se autoregistra)
-            .requestMatchers("/postulantes/crear").anonymous()
+       
 
             //todas las demas urls piden autenticarse
-            .anyRequest().authenticated()
+           .anyRequest().authenticated()
         )
 
         // --- Configuración del formulario de login ---

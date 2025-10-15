@@ -18,7 +18,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
         <label for="id">Usuario</label>
         <input type="text" id="usuario" name="usuario" th:value="${usuarioLogueado.usuario}" readonly > 
-        <input type="hidden" name="usuarioLogueado.id" th:value="${usuarioLogueado.usuario}">
+   
 
          <label for="clave">Clave</label>
         <input type="password" id="clave" name="clave" th:value="${usuarioLogueado.clave}">
@@ -78,14 +78,19 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         <input type="text" id="segundoApellido" name="segundoApellido" th:value="${usuarioLogueado.segundoApellido}" >
         <p th:errors="*{segundoApellido}" class="error"></p>
         
-
-
-
         <button type="submit" id="postularse">Modificar</button>
 
         <p th:text="${mensaje}" class="alert alert-success"></p>
 
         </form>
+
+         <form th:action="@{/postulantes/eliminar}" method="post" th:object="${usuarioLogueado}">        
+             <input type="hidden" name="usuarioLogueado.id" th:value="${usuarioLogueado.usuario}">
+
+                 <button type="submit" id="eliminar">Eliminar mi fucking cuenta</button>
+
+         </form>
+
         </div>
     </div>
 </section>
