@@ -3,7 +3,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Usuario.Crear;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
-import com.bios.edu.uy.obligatorio2025.Servicios.ServicioOfertas;
+
 import jakarta.validation.Valid;
 
 
@@ -118,7 +118,9 @@ public class ControladorClientes {
     }
 
     @PostMapping("/eliminar")
-    public String clienteEliminar(@RequestParam String usuario, Model modelo, RedirectAttributes attributes) throws Exception  
+    public String clienteEliminar(@RequestParam String usuario, 
+    Model modelo, 
+    RedirectAttributes attributes) throws Exception  
     {
               
     // Buscar el cliente
@@ -129,18 +131,22 @@ public class ControladorClientes {
         return "redirect:/clientes/lista";
     }
 
-    try {
-        // Si tiene ofertas → baja lógica
+    try 
+    {
+      /*   // Si tiene ofertas → baja lógica
         if (!servicioOfertas.listaOfertasCliente(clienteEncontrado).isEmpty()) {
             clienteEncontrado.setActivo(false);
             servicioClientes.modificar(clienteEncontrado, null);
             attributes.addFlashAttribute("exito", "Cliente dado de baja (baja lógica) porque tiene ofertas publicadas.");
         } else {
             // Sin ofertas → eliminación definitiva
+            
+        } */
+
             servicioClientes.eliminar(clienteEncontrado);
-            attributes.addFlashAttribute("exito", "Cliente eliminado definitivamente.");
-        }
-    } catch (Exception ex) {
+            attributes.addFlashAttribute("exito", "Cliente eliminado.");
+    }
+     catch (Exception ex) {
         attributes.addFlashAttribute("error", "Hubo un error al eliminar el cliente: " + ex.getMessage());
     }
 
@@ -198,7 +204,7 @@ public class ControladorClientes {
         }*/
 
         // llama al servicio que maneja clave opcional
-        servicioClientes.modificar(cliente, nuevaClave);
+        servicioClientes.modificar(cliente);
 
         attributes.addFlashAttribute("exito", "Cliente modificado correctamente");
 

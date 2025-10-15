@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+ 
+th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Mi Cuenta</title>
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
+</head>
+
+<section>
+    <div id="contenedor">
+<div class="card">
+    <h2>Mi cuenta</h2>
+    <form th:action="@{/micuentaC/ver}" method="post" th:object="${usuarioLogueado}">
+
+
+        <label for="id">Usuario</label>
+        <input type="text" id="usuario" name="usuario" th:field="*{usuario}" readonly > 
+   
+
+         <label for="clave">Clave</label>
+        <input type="password" id="clave" name="clave" th:field="*{clave}">
+       
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" th:field="*{nombre}" >
+        <p th:errors="*{nombre}" class="error"></p>
+      
+        <label for="rut">Rut</label>
+        <input type="text" id="rut" name="rut" th:field="*{rut}" >
+        <p th:errors="*{rut}" class="error"></p>
+
+        <label for="url">Url</label>
+        <input type="text" id="url" name="url" th:field="*{url}" ></input>
+        <p th:errors="*{url}" class="error"></p>
+      
+        <button type="submit" id="modificar">Modificar</button>
+
+        <p th:text="${mensaje}" class="alert alert-success"></p>
+
+        </form>
+
+         <form th:action="@{/cliente/eliminar}" method="post" th:object="${usuarioLogueado}">        
+             <input type="hidden" name="usuarioLogueado.id" th:value="${usuarioLogueado.usuario}">
+
+                 <button type="submit" id="eliminar">Eliminar mi fucking cuenta</button>
+
+         </form>
+
+        </div>
+    </div>
+</section>
+
+
+
+</html>
+

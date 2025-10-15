@@ -2,15 +2,15 @@ package com.bios.edu.uy.obligatorio2025.Controladores;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.web.exchanges.HttpExchange.Session;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,14 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.Area;
-import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
+
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion.PostulacionId;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
-import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
+
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;

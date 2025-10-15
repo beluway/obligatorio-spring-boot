@@ -30,7 +30,7 @@ public class Cliente extends Usuario {
     @Digits(integer =  12, fraction = 0, message = "El RUT debe tener 12 dígitos.")    
     private Long rut;
 
-    @Column(name = "nombre", nullable = false, length = 15)
+    @Column(name = "nombre", nullable = false, length = 50)
     @NotBlank(message = "Ingrese el nombre.")
     private String nombre;
    

@@ -9,7 +9,7 @@ import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 public interface IServicioClientes {
 
     void agregar(Cliente cliente) throws ExcepcionBiosWork;
-    void modificar (Cliente cliente, String nuevaClave) throws ExcepcionBiosWork;
+    void modificar (Cliente clienteActualizado) throws ExcepcionBiosWork;
     void eliminar (Cliente usuario) throws ExcepcionBiosWork;
     Cliente obtener (String usuario) throws Exception;
     List<Cliente>listaClientes() throws ExcepcionBiosWork;

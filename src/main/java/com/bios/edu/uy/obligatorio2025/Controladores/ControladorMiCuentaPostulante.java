@@ -26,8 +26,8 @@ public class ControladorMiCuentaPostulante {
     
 
 
-@Autowired
-private IServicioPostulantes servicioPostulantes;
+  @Autowired
+  private IServicioPostulantes servicioPostulantes;
 
   @Autowired
   PasswordEncoder codificador; 
@@ -54,7 +54,7 @@ private IServicioPostulantes servicioPostulantes;
 
         if (resultado.hasErrors()) {
             modelo.addAttribute("usuarioLogueado", postulante);
-            return "postulantes/ver"; // queda en la misma página si hay errores
+            return "micuentaP/ver"; // queda en la misma página si hay errores
         }
 
         // Codificar clave
@@ -66,7 +66,7 @@ private IServicioPostulantes servicioPostulantes;
         modelo.addAttribute("usuarioLogueado", postulante);
         atributos.addFlashAttribute("mensaje", "Datos modificados correctamente");
 
-        return "redirect:/home/main"; 
+        return "redirect:/micuentaP/ver"; 
 
      }
         

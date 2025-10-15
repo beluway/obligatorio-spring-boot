@@ -2,6 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Rol;
@@ -15,6 +16,10 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     //SE INYECTA EL REPOSITORIO POSTULANTES EN EL SERVICIO POSTULANTES
     @Autowired
     private IRepositorioPostulantes respositorioPostulantes;
+
+    
+       @Autowired
+       PasswordEncoder codificador; 
 
 
      @Override 
@@ -30,6 +35,8 @@ public class ServicioPostulantes  implements IServicioPostulantes{
             }
 
             postulante.getRoles().add(new Rol("postulante"));
+            postulante.setActivo(true);
+            postulante.setClave(codificador.encode(postulante.getClave()));
 
           respositorioPostulantes.save(postulante);
     }
@@ -37,6 +44,11 @@ public class ServicioPostulantes  implements IServicioPostulantes{
      @Override 
     public void modificar (Postulante postulante) throws ExcepcionBiosWork
     {
+
+        postulante.getRoles().add(new Rol("postulante"));
+        postulante.setActivo(true);
+        postulante.setClave(codificador.encode(postulante.getClave()));
+
         respositorioPostulantes.save(postulante);
     }
 

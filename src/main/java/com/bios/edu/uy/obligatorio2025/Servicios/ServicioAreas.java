@@ -41,6 +41,7 @@ public class ServicioAreas implements IServicioAreas{
         
     }
 
+    
 //LISTAR
     //devuelve listado de areas
     @Override
@@ -49,6 +50,8 @@ public class ServicioAreas implements IServicioAreas{
         return repositorioAreas.findAll();
 
     }
+
+    
 
 //OBTENER
     //si devuelve null es porque no la encontró
@@ -64,6 +67,8 @@ public class ServicioAreas implements IServicioAreas{
         return areaEncontrada;
     
     }
+
+
 
      @Override
      public void modificar(Area area) throws ExcepcionBiosWork

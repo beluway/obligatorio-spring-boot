@@ -54,6 +54,7 @@ public class ServicioClientes implements IServicioClientes  {
 
             cliente.setClave(codificador.encode(cliente.getClave()));
 
+
             repositorioClientes.save(cliente);
 
     } 
@@ -76,9 +77,9 @@ public class ServicioClientes implements IServicioClientes  {
     
 //MODIFICAR
  @Override
-  public void modificar (Cliente clienteActualizado, String nuevaClave) throws ExcepcionBiosWork
+  public void modificar (Cliente clienteActualizado) throws ExcepcionBiosWork
     { 
-         Cliente existente = obtener(clienteActualizado.getUsuario());
+         //Cliente existente = obtener(clienteActualizado.getUsuario());
 
         //ESTO ESTA BIEN ??? 
 
@@ -110,7 +111,7 @@ public class ServicioClientes implements IServicioClientes  {
         /* clienteActualizado.setUsuario(existente.getUsuario());
 
         repositorioClientes.save(clienteActualizado); */
-
+/* 
     if (clienteActualizado.getNombre() == null || clienteActualizado.getNombre().isBlank()) {
         clienteActualizado.setNombre(existente.getNombre());
     }
@@ -119,20 +120,28 @@ public class ServicioClientes implements IServicioClientes  {
     }
     if (clienteActualizado.getUrl() == null || clienteActualizado.getUrl().isBlank()) {
         clienteActualizado.setUrl(existente.getUrl());
-    }
+    } */
 
-    if (nuevaClave != null && !nuevaClave.isBlank()) {
+    //LA CLAVE YA SE VERIFICA EN EL DOMINIO QUE NO SEA NULA
+
+    /* if (nuevaClave != null && !nuevaClave.isBlank()) {
         clienteActualizado.setClave(nuevaClave);
-    } else {
+    } 
+    else 
+    {
         clienteActualizado.setClave(codificador.encode(existente.getClave()));
         //postulante.setClave(codificador.encode(postulante.getClave()));
-    }
+    } */
 
-    clienteActualizado.setUsuario(existente.getUsuario());
+    clienteActualizado.setClave(clienteActualizado.getClave());
+
+   // clienteActualizado.setUsuario(existente.getUsuario());
 
     repositorioClientes.save(clienteActualizado);
 
    }
+
+   
 
 //* /ELIMINAR
  @Override

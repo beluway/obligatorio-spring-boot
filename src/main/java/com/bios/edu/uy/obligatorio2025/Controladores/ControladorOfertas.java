@@ -125,7 +125,10 @@ public class ControladorOfertas {
     
 
     @PostMapping("/modificar")
-    public String procesarModificarOferta(@ModelAttribute @Valid Oferta ofertas, Model modelo, @RequestParam Integer codigo,BindingResult resultado) throws Exception {
+    public String procesarModificarOferta(@ModelAttribute @Valid Oferta ofertas, 
+    BindingResult resultado,
+    Model modelo, 
+    @RequestParam Integer codigo) throws Exception {
 
         Oferta oferta = servicioOfertas.obtener(codigo);
         modelo.addAttribute("oferta", oferta);

@@ -12,7 +12,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 <section>
     <div id="contenedor">
 <div class="card">
-    <h2>Ver Oferta</h2>
+    <h2>Mi cuenta</h2>
     <form th:action="@{/micuentaP/ver}" method="post" th:object="${usuarioLogueado}">
 
 
@@ -63,22 +63,21 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
         <label for="area">Primer Nombre</label>
         <input type="text" name="primerNombre" id="primerNombre" th:value="${usuarioLogueado.primerNombre}" >
-          <p th:errors="*{primerNombre}" class="error"></p>
-
+        <p th:errors="*{primerNombre}" class="error"></p>
 
         <label for="cliente">Segundo Nombre </label>
         <input type="text" name="segundoNombre" id="segundoNombre" th:value="${usuarioLogueado.segundoNombre}" >
         <p th:errors="*{segundoNombre}" class="error"></p>
 
         <label for="primerApellido">Primer Apellido</label>
-        <input id="primerApellido" name="primerApellido" th:text="${usuarioLogueado.primerApellido}" ></input>
+        <input id="primerApellido" name="primerApellido" th:value="${usuarioLogueado.primerApellido}" ></input>
         <p th:errors="*{primerApellido}" class="error"></p>
 
         <label for="segundoApellido">Segundo Apellido</label>
         <input type="text" id="segundoApellido" name="segundoApellido" th:value="${usuarioLogueado.segundoApellido}" >
         <p th:errors="*{segundoApellido}" class="error"></p>
         
-        <button type="submit" id="postularse">Modificar</button>
+        <button type="submit" id="modificar">Modificar</button>
 
         <p th:text="${mensaje}" class="alert alert-success"></p>
 

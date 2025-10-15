@@ -47,8 +47,8 @@ private ServicioConsultores servicioConsultores;
 
     @PostMapping("/crear")
     public String consultorCrear (@ModelAttribute @Valid Consultor consultor,
-    Model modelo, 
     BindingResult resultado,
+    Model modelo, 
     RedirectAttributes atributos ) throws Exception
     {           
 

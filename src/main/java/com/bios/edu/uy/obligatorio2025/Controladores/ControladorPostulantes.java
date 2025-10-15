@@ -18,17 +18,16 @@ import com.bios.edu.uy.obligatorio2025.Servicios.ServicioPostulantes;
 
 import org.springframework.ui.Model;
 
-import jakarta.servlet.http.HttpSession;
+
 import jakarta.validation.Valid;
 
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.File;
-import java.rmi.server.ExportException;
+
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 
 @Controller
@@ -41,9 +40,6 @@ public class ControladorPostulantes {
      @Autowired
     private IServicioPostulaciones servicioPostulaciones;
 
-
-       @Autowired
-       PasswordEncoder codificador; 
 
 
        
@@ -110,10 +106,7 @@ public String postulanteCrear(Model modelo) {
             atributos.addFlashAttribute("mensaje","archivo subido !");
 
             postulante.setCantidadPostulaciones(0);
-
-            postulante.setActivo(true);
-            postulante.setClave(codificador.encode(postulante.getClave()));
-
+         
             servicioPostulantes.agregar(postulante);  
 
 
@@ -180,10 +173,8 @@ public String postulanteCrear(Model modelo) {
             return "postulantes/ver"; // queda en la misma página si hay errores
         }
 
-        // Codificar clave
-        postulante.setClave(codificador.encode(postulante.getClave()));
-        servicioPostulantes.modificar(postulante);
-
+       
+      
         // Recargar los datos actualizados
         modelo.addAttribute("usuarioLogueado", postulante);
         atributos.addFlashAttribute("mensaje", "Datos modificados correctamente");
