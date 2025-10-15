@@ -1,5 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.rmi.server.ExportException;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,7 +40,8 @@ public class ControladorPostulantes {
      @Autowired
     private IServicioPostulaciones servicioPostulaciones;
 
-
+    @Autowired
+    PasswordEncoder codificador;
        
     @GetMapping("/crear")
     public String postulanteCrear(Model modelo, HttpSession sesion)
@@ -103,6 +106,10 @@ public class ControladorPostulantes {
      
          File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString()+".pdf");
 
+
+        postulante.setClave(codificador.encode(postulante.getClave()));
+
+
         try
         { 
             pdf.transferTo(archivoDestino);
@@ -156,22 +163,34 @@ public class ControladorPostulantes {
     
     
     @GetMapping("/modificar")
-    public String postulanteModificar(Model modelo, HttpSession sesion, String usuario) 
+    public String postulanteModificar(Model modelo,Principal principal) 
     {      
-        Postulante postulante = servicioPostulantes.buscar(usuario);
+        Postulante postulante = servicioPostulantes.buscar(principal.getName());
         
-        modelo.addAttribute("postulante", postulante);
-
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));    
+        modelo.addAttribute("usuarioLogueado", postulante);      
         
         return "postulantes/modificar";
     }
+
     
     @PostMapping("/modificar")
-    public String postulanteModificar(@ModelAttribute @Valid Postulante postulante, Model modelo, BindingResult resultado) {
-       
+    public String postulanteModificar(@ModelAttribute @Valid Postulante postulante, BindingResult resultado,
+    Model modelo, 
+    RedirectAttributes atributos) throws Exception
+    {             
+            modelo.addAttribute("usuarioLogueado", postulante);
+
+          if(resultado.hasErrors()){
+            return "postulantes/modificar";
+          }
+          
+        postulante.setClave(codificador.encode(postulante.getClave()));
+
+          servicioPostulantes.modificar(postulante);
+
         return "redirect:/postulantes/modificar";
     }
+
     
 
     @GetMapping("/ver")    

@@ -6,6 +6,7 @@ import java.util.Set;
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -34,16 +35,16 @@ public abstract  class Usuario {
     //@Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,}$",
     //message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial")
     @Column(name = "clave", nullable = false,length = 100)
-    @NotBlank (message =  "ingrese la clave")
+    @NotBlank (message =  "ingrese la clave",groups = Crear.class)
     private String clave;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = { @JoinColumn(name = "usuario_nombre_usuario") }, 
     inverseJoinColumns = { @JoinColumn(name = "rol_nombre_rol") })
     private Set<Rol> roles;
 
- 
-    private Boolean activo;
+    @Column(name = "activo", nullable = false)
+    private boolean activo;
 
 
     public String getUsuario() {
@@ -73,6 +74,9 @@ public abstract  class Usuario {
      public Set<Rol> getRoles() {
         return this.roles;
     }
+
+    public interface Crear {}
+    public interface Modificar {}
 
 
 

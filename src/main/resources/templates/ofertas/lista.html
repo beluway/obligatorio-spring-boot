@@ -1,5 +1,6 @@
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
 
 <head>
@@ -8,69 +9,51 @@
 </head>
 
 <section>
-    <div class="card">
-    <form action="" th:object="${ofertas}">
-        <h2>Listado de Ofertas Laborales</h2>
-        <table>
-            <tr>
-                <th>Título</th><th>Descripción</th><th>Área</th><th>Acciones</th>
-            </tr>
-            <tr th:each="o : ${ofertas}">
-                <td th:text="${o.titulo}"></td>
-                <td th:text="${o.descripcion}"></td>
-                <td th:text="${o.area}"></td>
-                    <td>
-                        <a th:href="@{/ofertas/ver(codigo=${o.codigo})}" class="btn">Ver más</a>
-                        <a th:href="@{/ofertas/modificar(o.codigo)}" class="btn">Modificar</a>
-                        <a th:href="@{/ofertas/eliminar(codigo=${o.})}" class="btn">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-    </div>
-</section>
-</html>-->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+    <div id="contenedor">
+        <div class="card">
+            <h2>Listado de Ofertas Laborales</h2>
 
- th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+            <div style="text-align: center; margin-bottom: 10px;">
+            
+                <a th:href="@{/ofertas/crear}" class="btn"
+                   sec:authorize="hasAnyAuthority('cliente','consultor')">Agregar</a>
 
-<head>
-    <title>Listado de Ofertas</title>
-    <link rel="stylesheet" th:href="@{/css/listas.css}">
-</head>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th>Área</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="o : ${ofertas}">
+                            <td th:text="${o.titulo}"></td>
+                            <td th:text="${o.descripcion}"></td>
+                            <td th:text="${o.area.nombre}"></td>
+                            <td>
+                            
+                                <a th:href="@{/ofertas/ver(codigo=${o.id})}" class="btn">Ver más</a>
 
-<section>
-        <div id="contenedor">
-    <div class="card">
-        <h2>Listado de Ofertas Laborales</h2>
-                 <div style="text-align: center; margin-bottom: 10px;">
-        <a th:href="@{/ofertas/crear}" class="btn">Agregar</a>
-        <table>
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Descripción</th>
-                    <th>Área</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="o : ${ofertas}">
-                    <td th:text="${o.titulo}"></td>
-                    <td th:text="${o.descripcion}"></td>
-                    <td th:text="${o.area.nombre}"></td>
-                    <td>
-                        <a th:href="@{/ofertas/ver(codigo=${o.id})}" class="btn">Ver más</a>
-                        <a th:href="@{/ofertas/modificar(codigo=${o.id})}" class="btn">Modificar</a>
-                        <a th:href="@{/ofertas/eliminar(codigo=${o.id})}" class="btn">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                             
+                                <a th:href="@{/ofertas/modificar(codigo=${o.id})}"
+                                   class="btn"
+                                   sec:authorize="hasAnyAuthority('cliente','consultor')">
+                                   Modificar
+                                </a>
+
+                                <a th:href="@{/ofertas/eliminar(codigo=${o.id})}"
+                                   class="btn"
+                                   sec:authorize="hasAnyAuthority('cliente','consultor')">
+                                   Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </section>
 </html>
-

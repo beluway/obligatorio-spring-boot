@@ -13,14 +13,14 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 </head>
 
 <section>
-<form th:action="@{/postulantes/modificar}" method="post" th:object="${Postulante}">
+<form th:action="@{/postulantes/modificar}" method="post" th:object="${postulante}">
 
       <div>
            <label for="usuario">Usuario</label>
            
             <!-- <input type="text" th:field="*{usuario}" readonly> -->
 
-                <input type="text" th:field="usuario" id="usuario" readonly>
+                <input type="text" th:field="*{usuario}" id="usuario" readonly>
         </div>
 
         <div>
@@ -28,7 +28,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
             <!-- <input type="text" th:field="*{primerNombre}"> -->
 
-            <input type="text" th:field="primerNombre" id="primerNombre">
+            <input type="text" th:field="*{primerNombre}" id="primerNombre">
         </div>
 
         <div>
@@ -36,7 +36,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
         <!--     <input type="text" th:field="*{segundoNombre}">
  -->
-            <input type="text" th:field="segundoNombre" id="segundoNombre">
+            <input type="text" th:field="*{segundoNombre}" id="segundoNombre">
 
         </div>
 
@@ -45,7 +45,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
            <!--  <input type="text" th:field="*{primerApellido}"> -->
 
-             <input type="text" th:field="primerApellido" id="primerApellido">
+             <input type="text" th:field="*{primerApellido}" id="primerApellido">
         </div>
 
         <div>
@@ -53,7 +53,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
         <!--<input type="text" th:field="*{segundoApellido}">-->
 
-             <input type="text" th:field="segundoApellido" id="segundoApellido">
+             <input type="text" th:field="*{segundoApellido}" id="segundoApellido">
         </div>
 
         <div>
@@ -61,7 +61,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
           <!--   <input type="date" th:field="*{fechanacimiento}"> -->
 
-            <input type="date" th:field="fechanacimiento" id="fechanacimiento">
+            <input type="date" th:field="*{fechanacimiento}" id="fechanacimiento">
         </div>
 
         <div>

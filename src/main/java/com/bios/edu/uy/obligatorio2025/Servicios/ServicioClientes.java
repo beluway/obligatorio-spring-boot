@@ -141,6 +141,21 @@ public class ServicioClientes implements IServicioClientes  {
         Cliente clienteEncontrado = repositorioClientes.findById(usuario).orElse(null);
            
         return clienteEncontrado; 
+    }
+
+    @Override
+    public List<Cliente> listarActivos() throws ExcepcionBiosWork {
+      
+           return repositorioClientes.findByActivoTrue();
+
+    } 
+
+
+    @Override
+    public boolean existePorUrl(String url) {
+     
+            return repositorioClientes.existsByUrl(url);
+
     } 
 
 } 

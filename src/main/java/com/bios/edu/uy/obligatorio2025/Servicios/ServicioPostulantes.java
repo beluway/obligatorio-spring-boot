@@ -59,10 +59,12 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     @Override
     public Postulante buscar(String usuario)
     {
-        Postulante postulanteEncontrado = respositorioPostulantes.buscarPostulante(usuario);
-
-        return postulanteEncontrado;
+           return respositorioPostulantes
+            .findByUsuario(usuario)
+            .orElse(null);
     }
+ 
+
 
      @Override 
     public List<Postulante> lista() throws Exception

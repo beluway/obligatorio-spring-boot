@@ -11,7 +11,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 
 public interface IRepostorioClientes extends JpaRepository<Cliente,String> {
-    
+
 
     @Override
     @EntityGraph(type = EntityGraphType.LOAD, attributePaths = {"roles"})
@@ -22,6 +22,11 @@ public interface IRepostorioClientes extends JpaRepository<Cliente,String> {
     @EntityGraph(type = EntityGraphType.LOAD, attributePaths = {"roles"})
     Optional <Cliente> findById(String usuario);
 
-    
+
+    List<Cliente> findByActivoTrue();
+
+    boolean existsByUrl(String url);
+
+
 
 }

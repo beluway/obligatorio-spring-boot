@@ -17,6 +17,9 @@ BEGIN
     /* cli1  mEH&&YY66%#eF */
     /* pos1  76&&opPolGGgr$4 */
 
+       /* pos1  7TT56Y&&pPolGGgr$4 */
+
+
         INSERT INTO usuarios (usuario,activo,clave)
 
          VALUES('consu',1,'$2a$12$WjlnNjfnJAXDgYiRLWsHl.AgJMXpIjrhSj7tyUkX82P9PfX2lVYOW'), 

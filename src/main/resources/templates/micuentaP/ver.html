@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+ 
+th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Mi Cuenta</title>
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
+</head>
+
+<section>
+    <div id="contenedor">
+<div class="card">
+    <h2>Ver Oferta</h2>
+    <form th:action="@{/postulantes/modificar}" method="post" th:object="${usuarioLogueado}">
+
+
+        <label for="id">Usuario</label>
+        <input type="text" id="usuario" name="usuario" th:field="${usuarioLogueado.usuario}" readonly > 
+   
+
+         <label for="clave">Clave</label>
+        <input type="password" id="clave" name="clave" th:field="${usuarioLogueado.clave}">
+       
+        <label for="cedula">Cédula</label>
+        <input type="text" id="cedula" name="cedula" th:field="${usuarioLogueado.cedula}" >
+        <p th:errors="*{cedula}" class="error"></p>
+
+        <label for="fechanacimiento">Fecha Nacimiento</label>
+        <input type="date" id="fechanacimiento" name="fechanacimiento" th:field="${usuarioLogueado.fechanacimiento}" >
+
+         <!-- Departamento -->
+                <div>
+                    <label for="departamento">Departamento</label>
+
+                   <select id="departamento" name="departamento" th:field="${usuarioLogueado.departamento}">
+                
+                        <option value="">Seleccione un departamento</option>
+                        <option value="artigas">Artigas</option>
+                        <option value="canelones">Canelones</option>
+                        <option value="cerro-largo">Cerro Largo</option>
+                        <option value="colonia">Colonia</option>
+                        <option value="durazno">Durazno</option>
+                        <option value="flores">Flores</option>
+                        <option value="florida">Florida</option>
+                        <option value="lavalleja">Lavalleja</option>
+                        <option value="maldonado">Maldonado</option>
+                        <option value="montevideo" selected>Montevideo</option>
+                        <option value="paysandu">Paysandú</option>
+                        <option value="río-negro">Río Negro</option>
+                        <option value="rivera">Rivera</option>
+                        <option value="rocha">Rocha</option>
+                        <option value="salto">Salto</option>
+                        <option value="san-josé">San José</option>
+                        <option value="soriano">Soriano</option>
+                        <option value="tacuarembó">Tacuarembó</option>
+                        <option value="treinta-y-tres">Treinta y Tres</option>
+                    </select>
+                 
+                </div>
+
+
+        <label for="area">Primer Nombre</label>
+        <input type="text" name="primerNombre" id="primerNombre" th:field="${usuarioLogueado.primerNombre}" >
+          <p th:errors="*{primerNombre}" class="error"></p>
+
+
+        <label for="cliente">Segundo Nombre </label>
+        <input type="text" name="segundoNombre" id="segundoNombre" th:field="${usuarioLogueado.segundoNombre}" >
+        <p th:errors="*{segundoNombre}" class="error"></p>
+
+        <label for="primerApellido">Primer Apellido</label>
+        <input id="primerApellido" name="primerApellido" th:text="${usuarioLogueado.primerApellido}" ></input>
+        <p th:errors="*{primerApellido}" class="error"></p>
+
+        <label for="segundoApellido">Segundo Apellido</label>
+        <input type="text" id="segundoApellido" name="segundoApellido" th:field="${usuarioLogueado.segundoApellido}" >
+        <p th:errors="*{segundoApellido}" class="error"></p>
+        
+        <button type="submit" id="postularse">Modificar</button>
+
+        <p th:text="${mensaje}" class="alert alert-success"></p>
+
+        </form>
+
+         <form th:action="@{/postulantes/eliminar}" method="post" th:object="${usuarioLogueado}">        
+             <input type="hidden" name="usuarioLogueado.id" th:value="${usuarioLogueado.usuario}">
+
+                 <button type="submit" id="eliminar">Eliminar mi fucking cuenta</button>
+
+         </form>
+
+        </div>
+    </div>
+</section>
+
+
+
+</html>
+

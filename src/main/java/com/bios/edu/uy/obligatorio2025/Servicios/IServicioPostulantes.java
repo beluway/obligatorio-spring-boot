@@ -11,8 +11,9 @@ public interface IServicioPostulantes {
     void agregar (Postulante postulante) throws Exception;
     void modificar (Postulante postulante) throws Exception;
     void eliminar (String usuario) throws Exception;
-    List<Postulante> lista() throws Exception;
-    Postulante buscar(String usuario);
+    List<Postulante> lista() throws Exception;   
     public Postulante obtener (String usuario) throws Exception;
     Boolean MayorEdad(LocalDate fechaNacimiento)  throws Exception;
+    Postulante buscar(String usuario) throws Exception;
+
 }

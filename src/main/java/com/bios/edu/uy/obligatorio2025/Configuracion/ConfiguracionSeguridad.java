@@ -59,7 +59,8 @@ public class ConfiguracionSeguridad
             .requestMatchers("/postulaciones/**").hasAnyAuthority("cliente", "postulante")
             .requestMatchers("/clientes/ver").hasAnyAuthority("postulante", "cliente")
             .requestMatchers("/postulantes/ver").hasAnyAuthority("postulante", "cliente", "consultor")
-
+            .requestMatchers("/clientes/ver").hasAnyAuthority("postulante", "cliente", "consultor")
+            
             //consultor
             .requestMatchers("/clientes/**", "/areas/**", "/consultores/**")
                 .hasAuthority("consultor")
