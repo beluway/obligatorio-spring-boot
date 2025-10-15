@@ -14,7 +14,7 @@ public interface IServicioClientes {
     Cliente obtener (String usuario) throws Exception;
     List<Cliente>listaClientes() throws Exception;
     List<Cliente> listarActivos() throws Exception;
-    
+     boolean existePorUrl(String url) throws Exception;
     //////CON PAGINACIÓN
 
   // org.springframework.data.domain.Page <clientes> listar (Pageable pageable);
