@@ -12,7 +12,7 @@ public interface IServicioPostulantes {
     void modificar (Postulante postulante) throws Exception;
     void eliminar (String usuario) throws Exception;
     List<Postulante> lista() throws Exception;
-    Postulante buscar(String usuario);
+    Postulante buscar(Postulante postulante) throws Exception;
     public Postulante obtener (String usuario) throws Exception;
     Boolean MayorEdad(LocalDate fechaNacimiento)  throws Exception;
 }

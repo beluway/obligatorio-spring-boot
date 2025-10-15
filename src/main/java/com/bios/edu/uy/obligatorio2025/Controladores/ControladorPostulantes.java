@@ -45,12 +45,12 @@ public class ControladorPostulantes {
     @GetMapping("/crear")
     public String postulanteCrear(Model modelo, HttpSession sesion)
     {            
-        modelo.addAttribute("postulante", new Postulante());
+     /*    modelo.addAttribute("postulante", new Postulante());
 
          Object usuario = sesion.getAttribute("usuarioLogueado");
         if (usuario != null) {
             modelo.addAttribute("usuarioLogueado", usuario);
-        }
+        } */
         return "postulantes/crear";
         
     }
@@ -164,18 +164,26 @@ public class ControladorPostulantes {
     @GetMapping("/modificar")
     public String postulanteModificar(Model modelo, HttpSession sesion, String usuario) 
     {      
-        Postulante postulante = servicioPostulantes.buscar(usuario);
+       /*  Postulante postulante = servicioPostulantes.buscar(usuario);
         
         modelo.addAttribute("postulante", postulante);
 
-        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));    
+        modelo.addAttribute("usuarioLogueado", sesion.getAttribute("usuarioLogueado"));     */
         
         return "postulantes/modificar";
     }
     
     @PostMapping("/modificar")
-    public String postulanteModificar(@ModelAttribute @Valid Postulante postulante, Model modelo, BindingResult resultado) {
-       
+    public String postulanteModificar(@ModelAttribute @Valid Postulante postulante, BindingResult resultado,
+    Model modelo, 
+    RedirectAttributes atributos) throws Exception
+    {             
+          if(resultado.hasErrors()){
+            return "postulantes/crear";
+          }
+          
+          servicioPostulantes.modificar(postulante);
+
         return "redirect:/postulantes/modificar";
     }
     
