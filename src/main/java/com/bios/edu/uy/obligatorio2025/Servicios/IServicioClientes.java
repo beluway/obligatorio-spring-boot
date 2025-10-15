@@ -12,9 +12,10 @@ public interface IServicioClientes {
     void modificar (Cliente cliente, String nuevaClave) throws ExcepcionBiosWork;
     void eliminar (Cliente usuario) throws ExcepcionBiosWork;
     Cliente obtener (String usuario) throws Exception;
-    List<Cliente>listaClientes() throws Exception;
-    List<Cliente> listarActivos() throws Exception;
-     boolean existePorUrl(String url) throws Exception;
+    List<Cliente>listaClientes() throws ExcepcionBiosWork;
+    List<Cliente> listarActivos() throws ExcepcionBiosWork;
+    boolean existePorUrl(String url);
+
     //////CON PAGINACIÓN
 
   // org.springframework.data.domain.Page <clientes> listar (Pageable pageable);

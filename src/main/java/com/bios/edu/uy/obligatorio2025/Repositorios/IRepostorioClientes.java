@@ -22,11 +22,12 @@ public interface IRepostorioClientes extends JpaRepository<Cliente,String> {
     @EntityGraph(type = EntityGraphType.LOAD, attributePaths = {"roles"})
     Optional <Cliente> findById(String usuario);
 
+  
 
     List<Cliente> findByActivoTrue();
 
     boolean existsByUrl(String url);
 
-  
+   
 
 }

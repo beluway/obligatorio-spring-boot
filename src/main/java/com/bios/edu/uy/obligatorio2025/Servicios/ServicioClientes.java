@@ -179,7 +179,8 @@ public boolean existePorUrl(String url) {
         Cliente clienteEncontrado = repositorioClientes.findById(usuario).orElse(null);
            
         return clienteEncontrado; 
-    }
- 
+    } 
+     
+   
 
 } 

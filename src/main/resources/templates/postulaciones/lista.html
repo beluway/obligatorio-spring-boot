@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"
+<html lang="es" xmlns:th="http://www.thymeleaf.org/"
       th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
 
 <head>
@@ -7,33 +7,37 @@
     <link rel="stylesheet" th:href="@{/css/listas.css}">
 </head>
 
-    <section>
-      <div class="card">
-        <h2>Listado de Postulaciones de (nombre usuario)</h2>
-                 <div style="text-align: center; margin-bottom: 10px;">
-    <!--     <a th:href="@{/postulaciones/crear}" class="btn">Agregar</a> -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Descripción</th>             
-                    <th>Fecha Cierre</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="p : ${postulacionesPostulante}">
-                    <td th:text="${p.oferta.titulo}"></td>
-                    <td th:text="${p.oferta.descripcion}"></td>
-                    <td th:text="${p.oferta.fechaCierre}"></td>
-                    <td>
-                        <a th:href="@{/postulaciones/ver(codigo=${p.id})}" class="btn">Ver más</a>                      
-                        <a th:href="@{/postulaciones/eliminar(codigoOferta=${p.id.idOferta}, codigoPostulante=${p.id.usuarioPostulante})}" class="btn">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<section>
+    <div id="contenedor">
+        <div class="card">
+            <h2>Mis Postulaciones</h2>
+            <div style="text-align: center; margin-bottom: 10px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th>Fecha Cierre</th>
+                            <th>Acciones</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p : ${postulacionesPostulante}">
+                            <td th:text="${p.oferta.titulo}"></td>
+                            <td th:text="${p.oferta.descripcion}"></td>
+                            <td th:text="${p.oferta.fechaCierre}"></td>
+                            <td> 
+
+                                <a th:href="@{/ofertas/ver(codigo=${p.oferta.id})}" class="btn">Ver más</a>
+
+                                <a th:href="@{/postulaciones/eliminar(codigoOferta=${p.id.idOferta}, codigoPostulante=${p.id.usuarioPostulante})}" 
+                                   class="btn">Eliminar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-    
-
+</section>
 </html>
