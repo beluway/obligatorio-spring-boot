@@ -120,7 +120,7 @@ public class ControladorMiCuentaCliente  {
             catch (Exception ex) {
             modelo.addAttribute("mensaje", "Error " + ex.getMessage());
 
-            return "micuentaP/ver";
+            return "micuentaC/ver";
             }                
       }
 
