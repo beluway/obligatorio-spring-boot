@@ -1,21 +1,21 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
  
 > 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Ver postulante</title>
 </head>
 <body>
-
+ -->
 <!--  <form th:action="@{/postulantes/modificar}" method="post" th:object="${postulante}"> -->
-    <form method="post" th:object="${postulante}" onsubmit="return accionEliminar_Modificar(this)">
+  <!--   <form method="post" th:object="${postulante}" onsubmit="return accionEliminar_Modificar(this)">
 
       <div>
            <label for="usuario">Usuario</label>
            
-        ACA ESTAN LOS POSTULANTES
+        ACA ESTAN LOS POSTULANTES -->
 
             <!--
             <input type="text" th:field="*{usuario}" readonly>
@@ -24,12 +24,12 @@
 
             <!-- <input type="text" th:field="*{usuario}"> -->
 
-              <input type="text" name="usuario" id="usuario" readonly>
+      <!--         <input type="text" name="usuario" id="usuario" readonly>
 
         </div>
 
         <div>
-            <label for="primernombre">Primer Nombre</label>
+            <label for="primernombre">Primer Nombre</label> -->
 
             <!--
                 <input type="text" th:field="*{primernombre}" readonly>
@@ -37,60 +37,60 @@
 
             <!-- <input type="text" th:field="*{primernombre}"> -->
 
-             <input type="text" name="primernombre" id="primernombre" readonly>
+           <!--   <input type="text" name="primernombre" id="primernombre" readonly>
 
 
         </div>
 
         <div>
-            <label for="segundoNombre"> Segundo Nombre</label>
+            <label for="segundoNombre"> Segundo Nombre</label> -->
 
             <!--
             
             <input type="text" th:field="*{segundoNombre}" readonly>
             -->
 
-            <input type="text" name="segundoNombre" id="primernomnbre" readonly>
+         <!--    <input type="text" name="segundoNombre" id="primernomnbre" readonly>
 
         </div>
 
         <div>
-            <label for="primerApellido"> Primer Apellido </label>
+            <label for="primerApellido"> Primer Apellido </label> -->
 
             <!--
              <input type="text" th:field="*{primerApellido}" readonly>
             -->
 
-            <input type="text" name="primerApellido" id="primerApellido" readonly>
+           <!--  <input type="text" name="primerApellido" id="primerApellido" readonly>
 
         </div>
 
         <div>
-            <label for="segundoApellido"> Segundo Apellido</label>
+            <label for="segundoApellido"> Segundo Apellido</label> -->
 
             <!--
             
             <input type="text" th:field="*{segundoApellido}" readonly>
             -->
-            <input type="text" name="segundoApellido" id="segundoApellido" readonly> 
+           <!--  <input type="text" name="segundoApellido" id="segundoApellido" readonly> 
         </div>
 
         <div>
-            <label for="fechanacimiento"> Fecha Nacimiento </label>
+            <label for="fechanacimiento"> Fecha Nacimiento </label> -->
 
             <!--
               <input type="date" th:field="*{fechanacimiento}" readonly>
             -->
 
-            <input type="date" name="fechanacimiento" id="fechanacimiento readonly">
+           <!--  <input type="date" name="fechanacimiento" id="fechanacimiento readonly">
         </div>
 
         <div>   
 
-            <label for="fechanacimiento"> Departamento</label>
+            <label for="fechanacimiento"> Departamento</label> -->
          <!--<span th:text="*{departamento}" aria-readonly="true"></span>-->   
            
-            <input type="text" name="departamento" id="departamento" readonly>
+            <!-- <input type="text" name="departamento" id="departamento" readonly>
            
         </div>      
 
@@ -101,18 +101,18 @@
         </div>
 
         <div>
-                          <!--ESTE BOTON MODIFICA-->
-            <input type="submit" value="modificar" name="accionEnBoton">
+                        -->   <!--ESTE BOTON MODIFICA-->
+            <!-- <input type="submit" value="modificar" name="accionEnBoton"> -->
 
                             <!--ESTE BOTON ELIMINA-->
-            <input type="submit" value="eliminar" name="accionEnBoton">                        
+           <!--  <input type="submit" value="eliminar" name="accionEnBoton">                        
                                                
         </div>
 
-    </form>            
+    </form> -->            
 
 
-<script>
+<!-- <script>
     function accionEliminar_Modificar(formularioEliminar_Modificar_Postulante)
     {   
         //SE ENCUENTRA EL ELEMENTO BOTON EN EL FORMULARIO Y SI ES DE TIPO SUBMIT (ENVIO)
@@ -130,12 +130,78 @@
             return true;
 
     }
+</script> -->
+
+<!-- </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Postulante</title>
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
+</head>
+<section>
+    <div id="contenedor">
+        <div class="card">
+            <h2>Postulante</h2>
+
+            <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+            <form th:action="@{/postulantes/ver}" method="post" th:object="${postulante}" onsubmit="return confirmarEliminar(this)">
+
+                <input type="hidden" th:field="*{usuario}"/>
+
+                <label>Usuario</label>
+                <input type="text" th:field="*{usuario}" readonly/>
+
+                <label>Primer Nombre</label>
+                <input type="text" th:field="*{primerNombre}" readonly/>
+
+                <label>Segundo Nombre</label>
+                <input type="text" th:field="*{segundoNombre}" readonly/>
+
+                <label>Primer Apellido</label>
+                <input type="text" th:field="*{primerApellido}" readonly/>
+
+                <label>Segundo Apellido</label>
+                <input type="text" th:field="*{segundoApellido}" readonly/>
+
+                <label>Fecha de Nacimiento</label>
+                <input type="date" th:field="*{fechanacimiento}" readonly/>
+
+                <label>Departamento</label>
+                <input type="text" th:field="*{departamento}" readonly/>
+
+                <label>CV</label>
+                <a th:href="@{|/pdf/${postulante.usuario}.pdf|}" target="_blank">Ver CV</a>
+
+                <div style="margin-top:15px;">
+                    <button type="submit" name="accion" value="btn_modificar" sec:authorize="hasAuthority('admin')">Modificar</button>
+                    <button type="submit" name="accion" value="btn_eliminar" sec:authorize="hasAuthority('admin')">Eliminar</button>
+                    <a th:href="@{/postulantes/lista}"><button type="button">Volver</button></a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+function confirmarEliminar(form) {
+    const accion = document.activeElement.value;
+    if (accion === 'btn_eliminar') {
+        return confirm('¿Está seguro que desea eliminar este postulante?');
+    }
+    return true;
+}
 </script>
-
-
-
-
-
-</body>
 </html>
+
+
 

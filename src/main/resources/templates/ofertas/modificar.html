@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
  
 th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
@@ -24,11 +24,11 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
         <label for="fecha_pub">Fecha de publicación</label>
         <input type="text" id="fecha_pub" name="fecha_pub" th:field="*{fechaPublicacion}" readonly>
-         <p th:errors="*{fecha_pub}" class="error"></p>
+         <p th:errors="*{fechaPublicacion}" class="error"></p>
 
         <label for="fecha_cierre">Fecha de cierre</label>
         <input type="date" id="fecha_cierre" name="fecha_cierre" th:field="*{fechaCierre}">
-        <p th:errors="*{fecha_cierre}" class="error"></p>
+        <p th:errors="*{fechaCierre}" class="error"></p>
 
         <div>
             <label for="area">Área</label>
@@ -59,7 +59,71 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     </div>
     <div>
 </section>
+</html> -->
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Oferta</title>
+    <link rel="stylesheet" th:href="@{/css/crud.css}">
+</head>
 
+<section>
+    <div id="contenedor">
+        <div class="card">
+            <h2>Modificar Oferta</h2>
+            <div>
+                <p class="aviso">Solo se puede modificar la fecha de cierre</p>
 
+                <p th:if="${exito}" class="exito" th:text="${exito}"></p>
+
+                <p th:if="${error}" class="error" th:text="${error}"></p>
+            </div>
+            
+            
+
+            <form th:action="@{/ofertas/modificar}" method="post" th:object="${oferta}">
+                <input type="hidden" th:field="*{id}" />
+
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" th:field="*{titulo}" readonly>
+                <p th:errors="*{titulo}" class="error"></p>
+
+                <label for="fecha_pub">Fecha de publicación</label>
+                <input type="text" id="fecha_pub" th:field="*{fechaPublicacion}" readonly>
+                <p th:errors="*{fechaPublicacion}" class="error"></p>
+
+                <label for="fecha_cierre">Fecha de cierre</label>
+                <input type="date" id="fecha_cierre" th:field="*{fechaCierre}">
+                <p th:errors="*{fechaCierre}" class="error"></p>
+
+                <label for="area">Área</label>
+                <select id="area" th:field="*{area.nombre}" disabled>
+                    <option th:each="a : ${areas}" th:value="${a.nombre}" th:text="${a.nombre}"></option>
+                </select>
+                <p th:errors="*{area.nombre}" class="error"></p>
+
+                <label for="cliente">Publicado por:</label>
+                <input type="text" id="cliente" th:field="*{cliente.nombre}" readonly>
+
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" th:field="*{descripcion}" readonly></textarea>
+
+                <label for="vacantes">Vacantes</label>
+                <input type="number" id="vacantes" th:field="*{cantidadVacantes}" readonly>
+
+                <!-- Solo visible si el usuario tiene rol cliente -->
+                <button type="submit" sec:authorize="hasAuthority('cliente')">Modificar</button>
+
+                <p th:if="${mensaje}" th:text="${mensaje}" class="alert-success"></p>
+
+                <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
+            </form>
+        </div>
+    </div>
+</section>
 </html>

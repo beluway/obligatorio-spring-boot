@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
@@ -101,40 +102,55 @@ public class ControladorOfertas {
     
     
     @GetMapping("/modificar")
-    public String modificarOferta(Model modelo, @RequestParam Integer codigo, Principal usuarioLogueado) throws Exception {
-      
-        Oferta oferta = servicioOfertas.obtener(codigo);
+public String mostrarFormularioModificar(@RequestParam("codigo") Integer codigo,
+                                         Model modelo,
+                                         Principal usuarioLogueado) throws Exception {
+    Oferta oferta = servicioOfertas.obtener(codigo);
 
-        if (oferta ==null) {
-            return "redirect:/ofertas/lista"; // no existe la vista
-        }
+    if (oferta == null) {
+        return "redirect:/ofertas/lista";
+    }
 
-        if (oferta.getArea() == null) {
-        oferta.setArea(new Area()); // inicializar área para evitar null
-        }
+    if (oferta.getArea() == null) {
+        oferta.setArea(new Area());
+    }
 
-        //muestro todas las áreas que hay para elegir
-        List<Area> areas = servicioAreas.listaAreas();
+    List<Area> areas = servicioAreas.listaAreas();
 
-        modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
-        modelo.addAttribute("oferta", oferta);
-        modelo.addAttribute("areas", areas);
-        
+    modelo.addAttribute("oferta", oferta);
+    modelo.addAttribute("areas", areas);
+    modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
+
+    return "ofertas/modificar";
+}
+
+@PostMapping("/modificar")
+public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta oferta,
+                                      BindingResult resultado,
+                                      Model modelo,
+                                      RedirectAttributes attributes) throws Exception {
+
+    if (resultado.hasErrors()) {
+        modelo.addAttribute("areas", servicioAreas.listaAreas());
         return "ofertas/modificar";
     }
-    
 
-    @PostMapping("/modificar")
-    public String procesarModificarOferta(@ModelAttribute @Valid Oferta ofertas, 
-    BindingResult resultado,
-    Model modelo, 
-    @RequestParam Integer codigo) throws Exception {
-
-        Oferta oferta = servicioOfertas.obtener(codigo);
-        modelo.addAttribute("oferta", oferta);
-       
-        return "redirect:/ofertas/modificar";
+    Oferta ofertaEncontrada = servicioOfertas.obtener(oferta.getId());
+    if (ofertaEncontrada == null) {
+        attributes.addFlashAttribute("error", "La oferta no existe.");
+        return "redirect:/ofertas/lista";
     }
+
+    // Solo modificamos el campo permitido
+    ofertaEncontrada.setFechaCierre(oferta.getFechaCierre());
+
+    servicioOfertas.modificar(ofertaEncontrada);
+
+    attributes.addFlashAttribute("exito", "Oferta modificada correctamente.");
+
+    return "redirect:/ofertas/lista";
+}
+
     
 
     @GetMapping("/ver")    

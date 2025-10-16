@@ -184,10 +184,19 @@ public String postulanteCrear(Model modelo) {
      }
 
     @GetMapping("/ver")    
-    public String postulanteVer(Model modelo, Principal usuarioLogueado) throws Exception
+    public String postulanteVer(@RequestParam String usuario,Model modelo, Principal usuarioLogueado, RedirectAttributes attributes) throws Exception
     {
         modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
 
+        Postulante postulanteEncontrado= servicioPostulantes.buscar(usuario);
+
+        if (postulanteEncontrado ==null) {
+            attributes.addAttribute("error","El postulante con usuario "+usuario+" no existe.");
+            return "redirect:/postulantes/lista"; // si no existe
+        }
+
+        //si existe el postulante lo agrego al modelo
+            modelo.addAttribute("postulante", postulanteEncontrado);
         return "postulantes/ver";
     }   
 
