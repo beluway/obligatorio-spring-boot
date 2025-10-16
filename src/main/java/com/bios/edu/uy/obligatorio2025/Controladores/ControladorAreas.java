@@ -128,6 +128,7 @@ public class ControladorAreas {
         return "areas/eliminar";
     }
     
+    
     //ELIMINAR ÁREA POST
     @PostMapping("/eliminar")
     public String procesarEliminarArea(@ModelAttribute @Valid Area area,BindingResult resultado, Model modelo, RedirectAttributes attributes) throws Exception{

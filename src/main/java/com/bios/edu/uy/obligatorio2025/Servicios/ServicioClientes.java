@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionYaExiste;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepostorioClientes;
@@ -76,72 +77,43 @@ public class ServicioClientes implements IServicioClientes  {
     } */
     
 //MODIFICAR
- @Override
-  public void modificar (Cliente clienteActualizado) throws ExcepcionBiosWork
-    { 
-         //Cliente existente = obtener(clienteActualizado.getUsuario());
-
-        //ESTO ESTA BIEN ??? 
-
-        // Si algún campo vino vacío, conservamos el valor anterior
-        /*if (clienteActualizado.getUsuario() == null || clienteActualizado.getUsuario().isBlank()) {
-            clienteActualizado.setUsuario(existente.getUsuario());
-        }*/
-        /* if (clienteActualizado.getNombre() == null || clienteActualizado.getNombre().isBlank()) {
-            clienteActualizado.setNombre(existente.getNombre());
-        } */
-        /*if (clienteActualizado.getClave() == null || clienteActualizado.getClave().isBlank()) {
-            clienteActualizado.setClave(existente.getClave());
-        }*/
-       /*  if (clienteActualizado.getRut() == null || clienteActualizado.getRut().toString().isBlank()) {
-            clienteActualizado.setRut(existente.getRut());
-        }
-        if (clienteActualizado.getUrl() == null || clienteActualizado.getUrl().isBlank()) {
-            clienteActualizado.setUrl(existente.getUrl());
-        } */
-
-        //actualizamos la clave solo si se ingresó una nueva
-        /* if (nuevaClave != null && !nuevaClave.isBlank()) {
-        clienteActualizado.setClave(nuevaClave);
-        } else {
-        clienteActualizado.setClave(existente.getClave());
-        } */
-
-        // Usuario no se modifica !!
-        /* clienteActualizado.setUsuario(existente.getUsuario());
-
-        repositorioClientes.save(clienteActualizado); */
-/* 
-    if (clienteActualizado.getNombre() == null || clienteActualizado.getNombre().isBlank()) {
-        clienteActualizado.setNombre(existente.getNombre());
-    }
-    if (clienteActualizado.getRut() == null) {
-        clienteActualizado.setRut(existente.getRut());
-    }
-    if (clienteActualizado.getUrl() == null || clienteActualizado.getUrl().isBlank()) {
-        clienteActualizado.setUrl(existente.getUrl());
-    } */
-
-    //LA CLAVE YA SE VERIFICA EN EL DOMINIO QUE NO SEA NULA
-
-    /* if (nuevaClave != null && !nuevaClave.isBlank()) {
-        clienteActualizado.setClave(nuevaClave);
-    } 
-    else 
+  @Override 
+    public void modificar (Cliente  nuevo) throws ExcepcionBiosWork
     {
-        clienteActualizado.setClave(codificador.encode(existente.getClave()));
-        //postulante.setClave(codificador.encode(postulante.getClave()));
-    } */
 
-             clienteActualizado.getRoles().add(new Rol("postulante"));
-            clienteActualizado.setActivo(true);
-            clienteActualizado.setClave(codificador.encode(clienteActualizado.getClave()));
+          nuevo.setActivo(true);
 
-   // clienteActualizado.setUsuario(existente.getUsuario());
 
-    repositorioClientes.save(clienteActualizado);
+          //ESTE ES PARA: SACAR EL ROL, Y LA CONTRASEÑA GUARDADA EN CASO DE QUE NO SE CAMBIE LA CONTRASEÑA
+          Cliente existe = repositorioClientes.findById(nuevo.getUsuario()).orElse(null);
 
-   }
+
+          if(nuevo.getClave().isEmpty()||nuevo.getClave().isBlank())
+          {
+            nuevo.setClave(existe.getClave());
+          }
+
+          else
+          {
+             nuevo.setClave(codificador.encode(nuevo.getClave()));
+          }
+
+          if(existe==null)
+          {
+            throw new ExcepcionNoExiste("el postulante no existe");
+          }
+
+         nuevo.getRoles().clear();
+
+         for(Rol r : existe.getRoles())
+         {
+            nuevo.getRoles().add(r);
+         }
+                  
+
+        repositorioClientes.save(nuevo);
+    }
+
 
    
 

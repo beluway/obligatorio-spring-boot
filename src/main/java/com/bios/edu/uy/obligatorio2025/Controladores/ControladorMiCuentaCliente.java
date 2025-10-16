@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
@@ -51,35 +52,45 @@ public class ControladorMiCuentaCliente  {
     
 
     @PostMapping("/ver") 
-    public String modificarCliente(
-            @ModelAttribute @Valid Cliente cliente,
-            BindingResult resultado,
-            Model modelo,
-            RedirectAttributes atributos) throws Exception {
+   public String procesarModificar(@ModelAttribute @Valid Cliente cliente, 
+    @RequestParam(required = false)String nuevaClave,
+     BindingResult resultado,
+     RedirectAttributes attributes, Model modelo) throws Exception{
+     
+    Cliente clienteExistente = servicioClientes.obtener(cliente.getUsuario());
 
-            /*if (resultado.hasErrors()) {
-            modelo.addAttribute("usuarioLogueado", cliente);
-            return "micuentaC/ver"; // queda en la misma página si hay errores
-            } */
+        if (clienteExistente == null){
+            modelo.addAttribute("mensaje", "cliente no encontrado");
+            return "micuentaC/ver";
+        }
 
+        if(resultado.hasErrors())
+        {
+            modelo.addAttribute("cliente", cliente);
+            modelo.addAttribute("mensaje", "Corrija los errores");
+            return "clientes/modificar";
+        }
 
-         if(resultado.hasErrors()){
-             return "micuentaC/ver";
-          }
+        try
+        {
+        // Si se ingresó una nueva clave, la reemplaza
+        /*if (nuevaClave != null && !nuevaClave.isBlank()) {
+            clienteExistente.setClave(nuevaClave);
+        }*/
 
-
-        // Codificar clave
-        cliente.setActivo(true);
-        cliente.setClave(codificador.encode(cliente.getClave()));
+        // llama al servicio que maneja clave opcional
         servicioClientes.modificar(cliente);
 
-        // Recargar los datos actualizados
-        modelo.addAttribute("usuarioLogueado", cliente);
-        atributos.addFlashAttribute("mensaje", "Datos modificados correctamente");
+        attributes.addFlashAttribute("exito", "Cliente modificado correctamente");
 
-        return "redirect:/micuentaC/ver"; 
+             return "redirect:/micuentaC/ver";
+        }
 
-     }
+        catch (Exception ex)
+        {
+           return "micuentaC/ver";
+        }
+    }
         
 
 }

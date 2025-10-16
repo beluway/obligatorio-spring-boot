@@ -2,11 +2,14 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Rol;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioConsultores;
 
 @Service
@@ -15,7 +18,10 @@ public class ServicioConsultores implements IServicioConsultores{
     @Autowired
     private IRepositorioConsultores repositorioConsultores;
 
-    
+     @Autowired
+     PasswordEncoder codificador;    
+
+
     @Override
     public void agregar (Consultor consultor) throws ExcepcionBiosWork
     {
@@ -35,14 +41,39 @@ public class ServicioConsultores implements IServicioConsultores{
 
 
     @Override
-    public void modificar(Consultor consultor) throws ExcepcionBiosWork
+    public void modificar(Consultor nuevo) throws ExcepcionBiosWork
     {
-        try {
-            repositorioConsultores.save(obtener(consultor.getUsuario()));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        nuevo.setActivo(true);
+
+
+          //ESTE ES PARA: SACAR EL ROL, Y LA CONTRASEÑA GUARDADA EN CASO DE QUE NO SE CAMBIE LA CONTRASEÑA
+          Consultor existe = repositorioConsultores.findById(nuevo.getUsuario()).orElse(null);
+
+
+          if(nuevo.getClave().isEmpty()||nuevo.getClave().isBlank())
+          {
+            nuevo.setClave(existe.getClave());
+          }
+
+          else
+          {
+             nuevo.setClave(codificador.encode(nuevo.getClave()));
+          }
+
+          if(existe==null)
+          {
+            throw new ExcepcionNoExiste("el postulante no existe");
+          }
+
+         nuevo.getRoles().clear();
+
+         for(Rol r : existe.getRoles())
+         {
+            nuevo.getRoles().add(r);
+         }
+                  
+
+        repositorioConsultores.save(nuevo);
     }
 
 
