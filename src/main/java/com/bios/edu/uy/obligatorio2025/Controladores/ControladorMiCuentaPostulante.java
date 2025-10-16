@@ -61,8 +61,8 @@ public class ControladorMiCuentaPostulante {
         Postulante postulanteEnBD = servicioPostulantes.obtener(postulante.getUsuario());
 
         // Codificar clave
-        postulanteEnBD.setActivo(true);
-        postulanteEnBD.setClave(codificador.encode(postulante.getClave()));
+      /*   postulanteEnBD.setActivo(true);
+        postulanteEnBD.setClave(codificador.encode(postulante.getClave())); */
         servicioPostulantes.modificar(postulante);
 
         // Recargar los datos actualizados

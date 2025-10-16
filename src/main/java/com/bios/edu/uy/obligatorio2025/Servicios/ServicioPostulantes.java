@@ -44,28 +44,40 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
     
      @Override 
-    public void modificar (Postulante postulante) throws ExcepcionBiosWork
+    public void modificar (Postulante  nuevo) throws ExcepcionBiosWork
     {
 
-          postulante.setActivo(true);
+          nuevo.setActivo(true);
 
-          Postulante existe = respositorioPostulantes.findById(postulante.getUsuario()).orElse(null);
+
+          //ESTE ES PARA: SACAR EL ROL, Y LA CONTRASEÑA GUARDADA EN CASO DE QUE NO SE CAMBIE LA CONTRASEÑA
+          Postulante existe = respositorioPostulantes.findById(nuevo.getUsuario()).orElse(null);
+
+
+          if(nuevo.getClave().isEmpty()||nuevo.getClave().isBlank())
+          {
+            nuevo.setClave(existe.getClave());
+          }
+
+          else
+          {
+             nuevo.setClave(codificador.encode(nuevo.getClave()));
+          }
 
           if(existe==null)
           {
             throw new ExcepcionNoExiste("el postulante no existe");
           }
 
-         postulante.getRoles().clear();
+         nuevo.getRoles().clear();
 
          for(Rol r : existe.getRoles())
          {
-            postulante.getRoles().add(r);
+            nuevo.getRoles().add(r);
          }
-             
-       postulante.setClave(codificador.encode(postulante.getClave()));
+                  
 
-        respositorioPostulantes.save(postulante);
+        respositorioPostulantes.save(nuevo);
     }
 
 

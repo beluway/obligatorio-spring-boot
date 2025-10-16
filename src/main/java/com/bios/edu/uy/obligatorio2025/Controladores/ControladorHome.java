@@ -64,10 +64,17 @@ public class ControladorHome {
     @Qualifier("servicioUsuarioSession")
 
     @GetMapping("/index") 
-    public String index() {
+    public String index() throws Exception{
          
-       
-        return "home/index";       
+       try{
+                   
+       }
+       catch(Exception ex)
+       {
+        
+       }
+        
+         return "home/index";   
     }    
 
     @GetMapping("/ingresar") 
