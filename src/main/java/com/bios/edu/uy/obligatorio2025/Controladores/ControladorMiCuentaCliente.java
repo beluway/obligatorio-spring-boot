@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
-
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 
 import jakarta.validation.Valid;
@@ -92,5 +93,36 @@ public class ControladorMiCuentaCliente  {
         }
     }
         
+
+      @PostMapping("/eliminar")
+      public String eliminar (Model modelo, RedirectAttributes attributes,  
+       @RequestParam("codigoCliente")String codigoPostulante, 
+       Principal usuarioLogueado) throws Exception 
+      {         
+       
+         Cliente encontrado = servicioClientes.obtener(codigoPostulante);
+            /* Optional<Postulacion> postulacionExistente = servicioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());   */
+            
+            if (encontrado==null) {
+
+                throw new ExcepcionNoExiste("El postulante no se encontró");              
+            } 
+
+            try
+            {
+           
+              servicioClientes.eliminar(encontrado.getUsuario());        
+
+              attributes.addFlashAttribute("mensaje","Postulación eliminada con éxito.");
+              return "redirect:/home/index";
+
+            } 
+            catch (Exception ex) {
+            modelo.addAttribute("mensaje", "Error " + ex.getMessage());
+
+            return "micuentaP/ver";
+            }                
+      }
+
 
 }

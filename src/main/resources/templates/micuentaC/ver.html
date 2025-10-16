@@ -41,8 +41,11 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
         </form>
 
-         <form th:action="@{/cliente/eliminar}" method="post" th:object="${usuarioLogueado}">        
-             <input type="hidden" name="usuarioLogueado.id" th:value="${usuarioLogueado.usuario}">
+
+        <!--/////////////////////////////////////////////////////////////////////////////////////////////////-->
+         <form th:action="@{/micuentaC/eliminar}" method="post" th:object="${usuarioLogueado}"> 
+
+           <input type="hidden" name="codigoCliente" th:value="${usuarioLogueado.usuario}">
 
                  <button type="submit" id="eliminar">Eliminar mi fucking cuenta</button>
 

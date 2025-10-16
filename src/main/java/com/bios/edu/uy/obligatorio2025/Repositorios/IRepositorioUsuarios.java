@@ -30,5 +30,8 @@ public interface IRepositorioUsuarios extends JpaRepository<Usuario,String> {
     @EntityGraph(type = EntityGraphType.LOAD, attributePaths = {"roles"})
     Optional <Usuario> findById(String usuario);
 
+    
+    //PRE LOGUEO SOLO PARA USUARIOS ACTIVOS
+    Optional<Usuario> findByUsuarioAndActivoTrue(String usuario);
 
 }

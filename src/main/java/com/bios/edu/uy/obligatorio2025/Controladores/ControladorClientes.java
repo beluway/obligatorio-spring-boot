@@ -143,7 +143,7 @@ public class ControladorClientes {
             
         } */
 
-            servicioClientes.eliminar(clienteEncontrado);
+            servicioClientes.eliminar(clienteEncontrado.getUsuario());
             attributes.addFlashAttribute("exito", "Cliente eliminado.");
     }
      catch (Exception ex) {

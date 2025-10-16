@@ -1,14 +1,18 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 
 import java.security.Principal;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
 
 import jakarta.validation.Valid;
@@ -73,7 +77,39 @@ public class ControladorMiCuentaPostulante {
 
      }
         
+/* 
+      <input type="hidden" name="codigoOferta" th:value="*{id.idOferta}" />
+                <input type="hidden" name="codigoPostulante" th:value="*{id.usuarioPostulante}" />      */
 
+      @PostMapping("/eliminar")
+      public String eliminar (Model modelo, RedirectAttributes attributes,  
+       @RequestParam("codigoPostulante")String codigoPostulante, 
+       Principal usuarioLogueado) throws Exception 
+      {         
+       
+         Postulante encontrado = servicioPostulantes.obtener(codigoPostulante);
+            /* Optional<Postulacion> postulacionExistente = servicioPostulaciones.findByOfertaAndPostulante(postulacion.getOferta(),postulacion.getPostulante());   */
+            
+            if (encontrado==null) {
+
+                throw new ExcepcionNoExiste("El postulante no se encontró");              
+            } 
+
+            try
+            {
+           
+              servicioPostulantes.eliminar(encontrado.getUsuario());        
+
+              attributes.addFlashAttribute("mensaje","Postulación eliminada con éxito.");
+              return "redirect:/home/index";
+
+            } 
+            catch (Exception ex) {
+            modelo.addAttribute("mensaje", "Error " + ex.getMessage());
+
+            return "micuentaP/ver";
+            }                
+      }
 
 
 }

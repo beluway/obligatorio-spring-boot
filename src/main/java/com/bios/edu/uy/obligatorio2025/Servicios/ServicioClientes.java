@@ -119,20 +119,29 @@ public class ServicioClientes implements IServicioClientes  {
 
 //* /ELIMINAR
  @Override
-   public void eliminar (Cliente usuario) throws ExcepcionBiosWork
+   public void eliminar (String usuario) throws ExcepcionBiosWork
     { 
-        //SI EL CLIENTE TIENE OFERTAS: BAJA LÓGICA (NO SE PUEDE LOGUEAR MAS PERO SE GUARDAN LAS OFERTAS)
-        if(repositorioOfertas.findByCliente(usuario)!=null)
-        {
-            obtener(usuario.getUsuario()).setActivo(false);
-        }
-    
-        //SI EL CLIENTE NO TIENE OFERTAS: BAJA FÍSICA
-        else
-        {
-            repositorioClientes.delete(usuario);
-        }
-        //repositorioClientes.delete(obtener(usuario));
+
+       // Cliente clienteenBD = repositorioClientes.findById(usuario).orElse(null);
+
+       Cliente clienteEnBD = repositorioClientes.findById(usuario).orElse(null);
+       
+       List<Oferta> ofertasDelCliente = repositorioOfertas.findAllByCliente(clienteEnBD);
+       
+       if(ofertasDelCliente.size()>0)
+       {
+            clienteEnBD.setActivo(false);
+
+            repositorioClientes.save(clienteEnBD);
+       }
+       
+       else
+       {
+        repositorioClientes.delete(clienteEnBD);
+       }        
+      
+
+
    } 
 
 //LISTAR

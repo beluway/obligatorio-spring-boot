@@ -4,10 +4,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Rol;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
+import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulantes;
 
 
@@ -18,9 +21,11 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     @Autowired
     private IRepositorioPostulantes respositorioPostulantes;
 
-    
-       @Autowired
-       PasswordEncoder codificador; 
+    @Autowired
+    private IRepositorioPostulaciones repositorioPostulaciones;
+
+    @Autowired
+    PasswordEncoder codificador; 
 
 
      @Override 
@@ -81,11 +86,26 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     }
 
 
-     @Override 
+    @Override 
     public void eliminar (String usuario) throws ExcepcionBiosWork
     {
-        respositorioPostulantes.delete(obtener(usuario));
+
+        Postulante postualnteBD = respositorioPostulantes.findById(usuario).orElse(null);
+
+        List<Postulacion> postulaciones = repositorioPostulaciones.findAllByPostulante(postualnteBD);
+
+        if(postulaciones.size()>0)
+        {
+            for(Postulacion P : postulaciones)
+            {
+                repositorioPostulaciones.delete(P);
+            }
+        }
+
+        respositorioPostulantes.delete(postualnteBD);
     }
+
+
 
     @Override 
     public Postulante obtener (String usuario) 
