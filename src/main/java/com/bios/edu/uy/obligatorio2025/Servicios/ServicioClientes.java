@@ -50,8 +50,8 @@ public class ServicioClientes implements IServicioClientes  {
                 throw new ExcepcionBiosWork("El RUT debe tener 12 digitos.");
             }
 
-            cliente.getRoles().add(new Rol("cliente"));
-
+            cliente.getRoles().add(new Rol("postulante"));
+            cliente.setActivo(true);
             cliente.setClave(codificador.encode(cliente.getClave()));
 
 
@@ -133,7 +133,9 @@ public class ServicioClientes implements IServicioClientes  {
         //postulante.setClave(codificador.encode(postulante.getClave()));
     } */
 
-    clienteActualizado.setClave(clienteActualizado.getClave());
+             clienteActualizado.getRoles().add(new Rol("postulante"));
+            clienteActualizado.setActivo(true);
+            clienteActualizado.setClave(codificador.encode(clienteActualizado.getClave()));
 
    // clienteActualizado.setUsuario(existente.getUsuario());
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Rol;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulantes;
 
 
@@ -41,13 +42,28 @@ public class ServicioPostulantes  implements IServicioPostulantes{
           respositorioPostulantes.save(postulante);
     }
 
+    
      @Override 
     public void modificar (Postulante postulante) throws ExcepcionBiosWork
     {
 
-        postulante.getRoles().add(new Rol("postulante"));
-        postulante.setActivo(true);
-        postulante.setClave(codificador.encode(postulante.getClave()));
+          postulante.setActivo(true);
+
+          Postulante existe = respositorioPostulantes.findById(postulante.getUsuario()).orElse(null);
+
+          if(existe==null)
+          {
+            throw new ExcepcionNoExiste("el postulante no existe");
+          }
+
+         postulante.getRoles().clear();
+
+         for(Rol r : existe.getRoles())
+         {
+            postulante.getRoles().add(r);
+         }
+             
+       postulante.setClave(codificador.encode(postulante.getClave()));
 
         respositorioPostulantes.save(postulante);
     }

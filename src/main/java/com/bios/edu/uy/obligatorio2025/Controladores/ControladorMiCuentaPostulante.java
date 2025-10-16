@@ -52,14 +52,17 @@ public class ControladorMiCuentaPostulante {
             Model modelo,
             RedirectAttributes atributos) throws Exception {
 
-        if (resultado.hasErrors()) {
-            modelo.addAttribute("usuarioLogueado", postulante);
-            return "micuentaP/ver"; // queda en la misma página si hay errores
-        }
+            if (resultado.hasErrors()) {
+                modelo.addAttribute("usuarioLogueado", postulante);
+                return "micuentaP/ver"; // queda en la misma página si hay errores
+            }
+
+
+        Postulante postulanteEnBD = servicioPostulantes.obtener(postulante.getUsuario());
 
         // Codificar clave
-        postulante.setActivo(true);
-        postulante.setClave(codificador.encode(postulante.getClave()));
+        postulanteEnBD.setActivo(true);
+        postulanteEnBD.setClave(codificador.encode(postulante.getClave()));
         servicioPostulantes.modificar(postulante);
 
         // Recargar los datos actualizados
