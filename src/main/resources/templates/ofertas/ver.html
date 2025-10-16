@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
  
-th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+
 
 <head>
     <meta charset="UTF-8" />
@@ -40,13 +40,13 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         <label for="vacantes">Cantidad de puestos vacantes</label>
         <input type="number" id="vacantes" name="vacantes" th:value="${oferta.cantidadVacantes}" readonly>
 
-        <button type="submit" id="postularse">Postularse</button>
+        <button type="submit" id="postularse" sec:authorize="hasAuthority('postulante')">Postularse</button>
 
         <p th:text="${mensaje}" class="alert alert-success"></p>
 
         <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
-        
         </form>
         </div>
     </div>
 </section>
+</html>
