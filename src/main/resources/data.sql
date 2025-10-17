@@ -24,7 +24,8 @@ BEGIN
 
          VALUES('consu',1,'$2a$12$WjlnNjfnJAXDgYiRLWsHl.AgJMXpIjrhSj7tyUkX82P9PfX2lVYOW'), 
                 ('cli1',1,'$2a$12$euwX2gerQniRIDs6FOese.YtV75MVR3UO643.vAuVU/2I21tvS.Wy'), 
-                ('pos1',1,'$2a$12$O4xZXO7WPApiRXnDXioUQuQme9dyILhmGjvTuIV7Nyn0KbNTVSY4m');   
+                ('pos1',1,'$2a$12$O4xZXO7WPApiRXnDXioUQuQme9dyILhmGjvTuIV7Nyn0KbNTVSY4m'),
+                ('admin',1,'$2a$12$b3mCSR2Ba3ZP8yvAZqWfUuvtivbkAMBEmVUhhfrWNUxZEvam6qUYq');   
         
 
 
