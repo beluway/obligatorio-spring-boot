@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-
- th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+    th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
 
 <head>
     <title>Listado de Postulantes</title>
@@ -9,63 +8,66 @@
 </head>
 
 <section>
-        <div id="contenedor">
-    <div class="card">
-        <h2>Listado de Postulantes</h2>
+    <div id="contenedor">
+        <div class="card">
+            <h2>Listado de Postulantes</h2>
 
-                <form id="formularioBusqueda">
-            <div>
-                <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="código o descripción"> <input type="submit" value="Buscar">
+            <form id="formularioBusqueda">
+                <div>
+                    <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="código o descripción">
+                    <input type="submit" value="Buscar">
+                </div>
+            </form>
+
+            <div style="text-align: center; margin-bottom: 10px;">
+                <a th:href="@{/postulantes/crear}" class="btn">Agregar</a>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Usuario</th>
+                            <th>Primer nombre</th>
+                            <th>Primer Apellido</th>
+                            <th>Fecha de nacimiento</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p : ${listaPostulantes}">
+                            <td th:text="${p.cedula}">59340394</td>
+                            <td th:text="${p.usuario}">pos1</td>
+                            <td th:text="${p.primerNombre}">armando</td>
+                            <td th:text="${p.primerApellido}">carpa</td>
+                            <td th:text="${p.fechanacimiento}">1980-01-01</td>
+                            <td>
+                                <a th:href="@{/postulantes/ver(usuario=${p.usuario})}" class="btn">Ver</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </form>
 
-                 <div style="text-align: center; margin-bottom: 10px;">
-        <a th:href="@{/postulantes/crear}" class="btn">Agregar</a>
-        <table>
-            <thead>
-                <tr>
-                    <th>Cédula</th>
-                    <th>Usuario</th>
-                    <th>Primer nombre</th>
-                    <th>Primer Apellido</th>
-                    <th>Fecha de nacimiento</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="p : ${listaPostulantes}" >
-                    <td th:text="${p.cedula}"></td>
-                    <td th:text="${p.usuario}"></td>
-                    <td th:text="${p.primerNombre}"></td>
-                    <td th:text="${p.primerApellido}"></td>
-                    <td th:text="${p.fechanacimiento}"></td>
-                    <td>
-                        <a th:href="@{/postulantes/ver(usuario=${p.usuario})}" class="btn">Ver</a>
-                    </td>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Obtener la referencia al formulario de búsqueda
+                    const formularioBusqueda = document.getElementById('formularioBusqueda');
+                    const criterioInput = document.getElementById('criterio');
 
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                    // Detectar el evento 'search' (cuando se toca la ❌)
+                    formularioBusqueda.addEventListener('search', function() {
+                        if (!criterioInput.value) {
+                            // Si el campo está vacío, enviamos el formulario.
+                            formularioBusqueda.submit();
+                        }
+                    });
+
+                    // Foco automático
+                    criterioInput.focus();
+                    criterioInput.select();
+                });
+            </script>
+        </div>
     </div>
 </section>
-<script>
 
-    const formularioBusqueda = document.getElementById('formularioBusqueda');
-    formularioBusqueda.addEventListener('search', ()=>{
-        if (!document.getElementById('criterio').value) {
-            window.location = '/bioswork/postulantes/lista';
-        }});
-
-
-
-    /* document.getElementById('formularioBusqueda').addEventListener('search', function() {
-        if (!document.getElementById('criterio').value) {
-            window.location = '/bioswork/postulantes/lista';
-        }
-    }); */
-
-    document.getElementById('criterio').focus();
-    document.getElementById('criterio').select();
-</script>
 </html>

@@ -123,4 +123,13 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     }
 
        
+
+       
+   /*  @Override
+    public List<Postulacion> buscarPorCriterio(String criterio) {
+        return repositorioOfertas.findAll().stream()
+                 .filter(p -> p.getTitulo().toLowerCase().contains(criterio.toLowerCase()) ||
+                                p.getDescripcion().toLowerCase().contains(criterio.toLowerCase()))
+                 .toList();
+    }  */
 }

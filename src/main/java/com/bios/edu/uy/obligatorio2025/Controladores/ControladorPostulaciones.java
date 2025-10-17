@@ -2,7 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Controladores;
 
 import java.security.Principal;
 import java.time.LocalDate;
-
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -252,12 +252,24 @@ public String eliminar(
      
 
     @GetMapping("/lista")
-    public String lista(Model modelo, Principal usuarioLogueado) throws Exception
+    public String lista(String criterio, 
+    Model modelo, 
+    Principal usuarioLogueado) throws Exception
     {    
        // modelo.addAttribute("usuarioLogueado", (Postulante)sesion.getAttribute("usuarioLogueado"));        
 
+        List<Postulacion> listaPostulacionesPorCliente = servicioPostulaciones.listaPostulacionesPorPostulante(servicioPostulantes.obtener(usuarioLogueado.getName()));
 
-        modelo.addAttribute("postulacionesPostulante",  servicioPostulaciones.listaPostulacionesPorPostulante(servicioPostulantes.obtener(usuarioLogueado.getName())));
+        if(criterio!=null&&!criterio.isEmpty())
+        {
+            /* listaPostulacionesPorCliente = servicioPostulaciones.buscarPorCriterio(criterio); */
+        }
+        else
+        {
+            listaPostulacionesPorCliente = servicioPostulaciones.listaPostulacionesPorPostulante(servicioPostulantes.obtener(usuarioLogueado.getName()));
+        }
+
+        modelo.addAttribute("postulacionesPostulante", listaPostulacionesPorCliente);
 
         return "postulaciones/lista";        
     }

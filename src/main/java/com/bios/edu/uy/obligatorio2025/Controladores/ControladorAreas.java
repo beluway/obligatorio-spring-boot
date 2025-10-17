@@ -64,11 +64,21 @@ public class ControladorAreas {
 
     //LISTAR ÁREAS GET
     @GetMapping("/lista")
-    public String listarAreas(@ModelAttribute Area area, Principal usuarioLogueado, Model modelo)throws Exception
+    public String listarAreas(String criterio, @ModelAttribute Area area, Principal usuarioLogueado, Model modelo)throws Exception
     {
         modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
 
         List<Area> areas = servicioAreas.listaAreas();
+
+        if(criterio!=null&&!criterio.isEmpty())
+        {
+            areas = servicioAreas.buscarPorCriterio(criterio);
+        }
+        else
+        {
+            areas = servicioAreas.listaAreas();
+        }
+
         modelo.addAttribute("areas", areas);
         return "areas/lista";
     }

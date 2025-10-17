@@ -34,7 +34,7 @@ BEGIN
 
 
             INSERT INTO consultores(usuario)
-            VALUES ('consu');
+            VALUES ('consu'),('admin');
 
 
             INSERT INTO postulantes(cantidad_postulaciones,cedula,departamento,fechanacimiento,primer_apellido,primer_nombre,segundo_apellido,segundo_nombre,usuario)
@@ -54,7 +54,8 @@ BEGIN
                 VALUES
                     ('cli1', 'cliente'),
                     ('consu', 'consultor'),        
-                    ('pos1', 'postulante'); 
+                    ('pos1', 'postulante'),
+                    ('admin','consultor'); 
 
                 INSERT INTO logs(fecha_hora, mensaje)
                 VALUES (NOW(), 'Datos iniciales cargados.');

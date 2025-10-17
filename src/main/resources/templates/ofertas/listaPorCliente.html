@@ -12,7 +12,15 @@
         <div id="contenedor">
     <div class="card">
         <h2>Listado de Ofertas Laborales</h2>
-                 <div style="text-align: center; margin-bottom: 10px;">
+
+
+        <form id="formularioBusqueda">
+            <div>
+                <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="código o descripción"> <input type="submit" value="Buscar">
+            </div>
+        </form>
+
+        <div style="text-align: center; margin-bottom: 10px;">
         <a th:href="@{/ofertas/crear}" class="btn">Agregar</a>
         <table>
             <thead>

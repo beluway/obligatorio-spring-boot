@@ -109,7 +109,17 @@ private IRepositorioPostulaciones respositorioPostulaciones;
          List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes());
    
          return listaOfertasVigentes;
-    }    
+    }
+
+    @Override
+    public List<Oferta> buscarPorCriterio(String criterio) {
+        return repositorioOfertas.findAll().stream()
+                 .filter(p -> p.getTitulo().toLowerCase().contains(criterio.toLowerCase()) ||
+                                p.getDescripcion().toLowerCase().contains(criterio.toLowerCase()))
+                 .toList();
+    } 
+    
+    
           
 
 }

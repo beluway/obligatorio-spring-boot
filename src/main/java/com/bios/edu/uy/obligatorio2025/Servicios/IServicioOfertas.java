@@ -20,5 +20,6 @@ public interface IServicioOfertas {
     List<Oferta> listaOfertasCliente (Cliente cliente) throws Exception;
     public List<Oferta> listaOfertasVigentes() throws Exception;
 /*     List<Oferta> listaOfertasPostulante( Postulante postulante) throws Exception; */
+    List<Oferta> buscarPorCriterio(String criterio) throws Exception;
     
 }

@@ -16,6 +16,13 @@
     <div class="card">
         <div style="text-align: center; margin-bottom: 10px;">
         <h2>Listado de Consultores</h2>
+
+        <form id="formularioBusqueda">
+            <div>
+                <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="código o descripción"> <input type="submit" value="Buscar">
+            </div>
+        </form>
+
         <a th:href="@{/consultores/crear}" class="btn">Agregar</a>
         <table>
             <thead>
