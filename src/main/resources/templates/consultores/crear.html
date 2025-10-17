@@ -35,6 +35,10 @@
                     <button type="submit" id="crear">Crear</button>
                 </div>
 
+                <div>
+                    <a th:href="@{/consultores/lista}">Volver al listado</a>
+                </div>
+
                       <p th:if="${mensaje}" th:text="${mensaje}"></p>
             </form>
         </div>

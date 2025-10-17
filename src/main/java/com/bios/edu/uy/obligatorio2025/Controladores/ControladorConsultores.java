@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -138,8 +139,11 @@ private ServicioConsultores servicioConsultores;
     
 
     @GetMapping("/ver")    
-    public String consultorVer(Model modelo, Principal usuarioLogueado) throws Exception{
+    public String consultorVer(@RequestParam String usuario, Model modelo, Principal usuarioLogueado) throws Exception{
        
+        Consultor consultor = servicioConsultores.obtener(usuario);
+        modelo.addAttribute("consultor", consultor);
+
         modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
         return "consultores/ver";
     }   

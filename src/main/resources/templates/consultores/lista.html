@@ -27,11 +27,6 @@
             <tbody>
                 <tr th:each="c : ${consultores}">
                     <td th:text="${c.usuario}"></td>
-                    <td>
-                        <a th:href="@{/consultores/ver(usuario=${c.usuario})}" class="btn">Ver más</a>
-                        <a th:href="@{/consultores/modificar(usuario=${c.usuario})}" class="btn">Modificar</a>
-                        <a th:href="@{/consultores/eliminar(usuario=${c.usuario})}" class="btn">Eliminar</a>
-                    </td>
                 </tr>
             </tbody>
         </table>

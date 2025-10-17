@@ -224,9 +224,18 @@ public String postulanteCrear(Model modelo) {
 
     
     @GetMapping("/lista")
-    public String lista(Model modelo, Principal usuarioLogueado) throws Exception {
+    public String lista(String criterio,Model modelo, Principal usuarioLogueado) throws Exception {
        
         List<Postulante> listaPostulantes = servicioPostulantes.lista();
+
+            if (criterio != null && !criterio.isEmpty()) {
+                listaPostulantes = servicioPostulantes.buscarPorCriterio(criterio);
+            }
+            else {
+                listaPostulantes = servicioPostulantes.lista();
+            }
+
+
         
         //SE SACA LA LISTA DE POSTULANTES DE LA BD 
         modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
