@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioPostulantes;
 
@@ -40,7 +42,8 @@ public class ControladorPostulantes {
      @Autowired
     private IServicioPostulaciones servicioPostulaciones;
 
-
+    @Autowired
+    private IServicioOfertas servicioOfertas;
 
        
    @GetMapping("/crear")
@@ -243,6 +246,8 @@ public String postulanteCrear(Model modelo) {
        
         List<Postulante> listaPostulantes = servicioPostulantes.lista();
 
+
+
             if (criterio != null && !criterio.isEmpty()) {
                 listaPostulantes = servicioPostulantes.buscarPorCriterio(criterio);
             }
@@ -261,5 +266,20 @@ public String postulanteCrear(Model modelo) {
 
     }
 
+
+    @GetMapping("/listaPostulantesPorOferta")
+    public String listaPostulantesPorOferta(Model modelo, 
+    Principal usuarrioLogueado, 
+    @RequestParam("id")Integer id)  throws Exception
+    {   
+        Oferta ofertaEncontrada = servicioOfertas.obtener(id);
+
+        List<Postulante> listaOfertas = servicioPostulantes.listaPostulantesPorOferta(ofertaEncontrada);        
+
+        modelo.addAttribute("lista", listaOfertas);
+
+        return "/listaPorCliente";
+    }
+    
 
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Rol;
@@ -124,6 +125,18 @@ public class ServicioPostulantes  implements IServicioPostulantes{
             .orElse(null);
     }
  
+
+    
+    @Override 
+    public List<Postulante> listaPostulantesPorOferta(Oferta oferta) throws ExcepcionBiosWork
+    {
+       // ArrayList<postulantes> lista = new ArrayList<>();
+
+       List<Postulante> lista = respositorioPostulantes.findAllByOferta(oferta);
+
+        return lista;
+    }
+
 
 
      @Override 

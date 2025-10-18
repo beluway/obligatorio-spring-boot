@@ -148,6 +148,14 @@ public class ControladorAreas {
         }
 
         try{
+
+            if(area.getAsignada()==true)
+            {
+                return "areas/lista";
+
+                //return "areas/eliminar";
+            }
+
             servicioAreas.eliminar(area);
 
             attributes.addFlashAttribute("mensaje","Área eliminada con éxito.");
