@@ -13,7 +13,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     <div id="contenedor">
 <div class="card">
     <h2>Mi cuenta</h2>
-    <form th:action="@{/micuentaConsu/ver}" method="post" th:object="${usuarioLogueado}">
+    <form th:action="@{/micuentaConsu/ver}" method="post" th:object="${consultor}">
 
         <label for="id">Usuario</label>
         <input type="text" id="usuario" name="usuario" th:field="*{usuario}" readonly > 
@@ -32,9 +32,9 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
         </form>
         <!--/////////////////////////////////////////////////////////////////////////////////////////////////-->
-         <form th:action="@{/micuentaConsu/eliminar}" method="post" th:object="${usuarioLogueado}"> 
+         <form th:action="@{/micuentaConsu/eliminar}" method="post" th:object="${consultor}"> 
 
-           <input type="hidden" name="usuario" th:value="${usuarioLogueado.usuario}">
+           <input type="hidden" name="usuario" th:value="${consultor.usuario}">
 
                  <button type="submit" id="eliminar">Eliminar mi cuenta</button>
 

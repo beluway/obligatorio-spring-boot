@@ -38,7 +38,7 @@ public class ControladorMiCuentaConsultor {
 
         consultor.setClave("");        
 
-        modelo.addAttribute("usuarioLogueado", consultor);
+        modelo.addAttribute("consultor", consultor);
 
         return "/micuentaConsu/ver";
 
