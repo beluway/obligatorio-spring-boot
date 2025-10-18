@@ -12,5 +12,6 @@ public interface IServicioAreas {
     void eliminar (Area area) throws ExcepcionBiosWork;
     void modificar (Area area) throws ExcepcionBiosWork;
     Area obtener(Integer id) throws Exception;
+    List<Area> buscarPorCriterio(String criterio);
 
 }

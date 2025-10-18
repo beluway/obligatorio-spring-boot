@@ -32,6 +32,8 @@ private Integer id;
     @Column(name = "fechaPublicacion", nullable = false)
     private LocalDate fechaPublicacion; 
     
+    
+
     @NotNull
     @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -60,6 +62,8 @@ private Integer id;
     @NotNull(message = "Ingrese la cantidad de puestos vacantes")
     @Min(0)
     private Integer cantidadVacantes;
+
+
 
 /*     @OneToMany(mappedBy = "oferta", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Postulacion> postulaciones = new ArrayList<>();

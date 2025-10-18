@@ -163,10 +163,15 @@ public class ServicioPostulantes  implements IServicioPostulantes{
                 }  
             }
 
-
-
                return mayorDeEdad=false;
         }
+
+
+     public List<Postulante> buscarPorCriterio(String criterio) {
+        return respositorioPostulantes.findAll().stream()
+                .filter(p -> p.getUsuario().toLowerCase().contains(criterio.toLowerCase()))
+                .toList();
+     }
 
 }
 

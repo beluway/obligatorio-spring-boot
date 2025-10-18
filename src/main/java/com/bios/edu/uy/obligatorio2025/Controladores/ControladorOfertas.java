@@ -165,12 +165,22 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
 
 
     @GetMapping("/lista")    
-    public String listarOfertas(Model modelo, Principal usuarioLogueado) throws Exception {
+    public String listarOfertas(String criterio, Model modelo, Principal usuarioLogueado) throws Exception {
        //ACA SE SACA LA LISTA DESDE LA BASE DE DATOS
 
         LocalDate fechaActual = LocalDate.now();
 
         List<Oferta> ofertas = servicioOfertas.listaOfertasVigentes();
+
+        if(criterio!=null && !criterio.isEmpty())
+        {
+            ofertas =servicioOfertas.buscarPorCriterio(criterio);
+        }
+        else
+        {
+            ofertas = servicioOfertas.listaOfertasVigentes();
+        }
+
 
         modelo.addAttribute("ofertas", ofertas);
         modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));

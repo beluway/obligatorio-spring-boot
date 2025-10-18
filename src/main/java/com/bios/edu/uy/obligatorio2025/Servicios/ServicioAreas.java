@@ -68,7 +68,7 @@ public class ServicioAreas implements IServicioAreas{
     
     }
 
-
+    
 
      @Override
      public void modificar(Area area) throws ExcepcionBiosWork
@@ -84,6 +84,12 @@ public class ServicioAreas implements IServicioAreas{
          repositorioAreas.save(area);
      }
 
+     @Override
+     public List<Area> buscarPorCriterio(String criterio) {
+       return repositorioAreas.findAll().stream()
+                .filter(a -> a.getNombre().toLowerCase().contains(criterio.toLowerCase()))
+                .toList();
+     }
+     
+     }
 
- 
- }

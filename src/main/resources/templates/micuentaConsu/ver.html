@@ -15,39 +15,28 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     <h2>Mi cuenta</h2>
     <form th:action="@{/micuentaConsu/ver}" method="post" th:object="${usuarioLogueado}">
 
-
         <label for="id">Usuario</label>
         <input type="text" id="usuario" name="usuario" th:field="*{usuario}" readonly > 
-   
+        <p th:errors="*{usuario}" class="error"></p>
 
          <label for="clave">Clave</label>
         <input type="password" id="clave" name="clave" th:field="*{clave}">
-       
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" th:field="*{nombre}" >
-        <p th:errors="*{nombre}" class="error"></p>
+        <p th:errors="*{clave}" class="error"></p>
       
-        <label for="rut">Rut</label>
-        <input type="text" id="rut" name="rut" th:field="*{rut}" >
-        <p th:errors="*{rut}" class="error"></p>
+        <p th:if="${exito}"
+        th:text="${exito}" class="exito"></p>
 
-        <label for="url">Url</label>
-        <input type="text" id="url" name="url" th:field="*{url}" ></input>
-        <p th:errors="*{url}" class="error"></p>
-      
         <button type="submit" id="modificar">Modificar</button>
 
         <p th:text="${mensaje}" class="alert alert-success"></p>
 
         </form>
-
-
         <!--/////////////////////////////////////////////////////////////////////////////////////////////////-->
          <form th:action="@{/micuentaConsu/eliminar}" method="post" th:object="${usuarioLogueado}"> 
 
-           <input type="hidden" name="codigoCliente" th:value="${usuarioLogueado.usuario}">
+           <input type="hidden" name="usuario" th:value="${usuarioLogueado.usuario}">
 
-                 <button type="submit" id="eliminar">Eliminar mi fucking cuenta</button>
+                 <button type="submit" id="eliminar">Eliminar mi cuenta</button>
 
          </form>
 
@@ -55,7 +44,4 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     </div>
 </section>
 
-
-
 </html>
-

@@ -12,6 +12,13 @@
     <div id="contenedor">
     <div class="card">
         <h2>Listado de Áreas</h2>
+
+        <form id="formularioBusqueda">
+            <div>
+                <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="código o descripción"> <input type="submit" value="Buscar">
+            </div>
+        </form>
+
         <div style="text-align: right; margin-bottom: 10px;">
         <a th:href="@{/areas/crear}" class="btn">Agregar</a>
     </div>

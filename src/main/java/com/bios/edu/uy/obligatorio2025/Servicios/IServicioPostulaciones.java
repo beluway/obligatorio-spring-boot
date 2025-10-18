@@ -22,5 +22,6 @@ public interface IServicioPostulaciones {
     List<Postulacion> listaPostulacionesPorOferta (Oferta oferta) throws Exception;
     void eliminarConOferta (Oferta oferta) throws Exception;
     void eliminarConPostulante (Postulante postulante) throws Exception;
+    /* List<Oferta> buscarPorCriterio(String criterio); */
    
 }
