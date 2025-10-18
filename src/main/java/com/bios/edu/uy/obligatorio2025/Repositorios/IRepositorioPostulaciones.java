@@ -30,8 +30,7 @@ Optional<Postulacion> findById_IdOfertaAndId_UsuarioPostulante(Integer idOferta,
 //PARA HACER LA BAJA FISICA, PRIMERO SE ELIMINAN TODAS ESTAS POSTULACIONES, Y DESPUES LA OFERTA
 List<Postulacion> findAllByOferta(Oferta oferta);
 
-
-
+List<Postulacion> findByOferta(Oferta oferta);
 
 }
 

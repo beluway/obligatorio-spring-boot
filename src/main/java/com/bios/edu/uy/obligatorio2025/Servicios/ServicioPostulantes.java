@@ -1,6 +1,8 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -126,7 +128,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     }
  
 
-    
+
     @Override 
     public List<Postulante> listaPostulantesPorOferta(Oferta oferta) throws ExcepcionBiosWork
     {
@@ -178,6 +180,16 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
                return mayorDeEdad=false;
         }
+
+
+    @Override 
+    public List<Postulante> listaPostulacionesPorOferta (Oferta oferta)
+    {
+        List<Postulacion> postulaciones = repositorioPostulaciones.findByOferta(oferta);
+
+        List<Postulante> listaPostulantes = postulaciones.stream().map(Postulacion::getPostulante).collect(Collectors.toList());
+            return listaPostulantes;
+    }
 
 
      public List<Postulante> buscarPorCriterio(String criterio) {

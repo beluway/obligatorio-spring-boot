@@ -19,7 +19,6 @@ public interface IServicioPostulaciones {
     List<Postulacion> listaPostulacionesPorPostulante(Postulante postulante) throws Exception;
     public List<Oferta> listaOfertasVigentesParaPostularse(Postulante postulante) throws Exception;
     public Optional<Postulacion> obtener(Integer idOferta, String usuario) throws Exception;
-    List<Postulacion> listaPostulacionesPorOferta (Oferta oferta) throws Exception;
     void eliminarConOferta (Oferta oferta) throws Exception;
     void eliminarConPostulante (Postulante postulante) throws Exception;
     /* List<Oferta> buscarPorCriterio(String criterio); */

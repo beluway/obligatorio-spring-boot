@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -116,11 +118,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
 
     // SE SACAN TODAS LAS POSTULACIONES POR OFERTA
     //PARA HACER LA BAJA FISICA, PRIMERO SE ELIMINAN TODAS ESTAS POSTULACIONES, Y DESPUES LA OFERTA
-    @Override 
-    public List<Postulacion> listaPostulacionesPorOferta (Oferta oferta)
-    {
-        return  repositorioPostulaciones.findAllByOferta(oferta);
-    }
+   
 
        
 
