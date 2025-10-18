@@ -13,49 +13,92 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     <div id="contenedor">
 <div class="card">
     <h2>Mi cuenta</h2>
-    <form th:action="@{/micuentaConsu/ver}" method="post" th:object="${usuarioLogueado}">
-
+    <form th:action="@{/micuentaC/ver}" method="post" th:object="${cliente}">
+        <p th:if="${aviso}" th:text="${aviso}" class="aviso"></p>
 
         <label for="id">Usuario</label>
-        <input type="text" id="usuario" name="usuario" th:field="*{usuario}" readonly > 
+        <input type="text" id="usuario" name="usuario" th:field="*{usuario}" readonly >
+        <p th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}" class="error-simple"></p> 
    
 
          <label for="clave">Clave</label>
-        <input type="password" id="clave" name="clave" th:field="*{clave}">
+        <input type="password" id="clave" name="clave" th:field="*{clave}" placeholder="Dejar vacío si no desea modificar la clave">
+        <p th:if="${#fields.hasErrors('clave')}" th:errors="*{clave}" class="error-simple"></p>
        
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" name="nombre" th:field="*{nombre}" >
-        <p th:errors="*{nombre}" class="error"></p>
+        <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error-simple"></p>
       
         <label for="rut">Rut</label>
         <input type="text" id="rut" name="rut" th:field="*{rut}" >
-        <p th:errors="*{rut}" class="error"></p>
+        <p th:if="${#fields.hasErrors('rut')}" th:errors="*{rut}" class="error-simple"></p>
 
-        <label for="url">Url</label>
+        <label for="url">Sitio Web</label>
         <input type="text" id="url" name="url" th:field="*{url}" ></input>
-        <p th:errors="*{url}" class="error"></p>
+        <p th:if="${#fields.hasErrors('url')}" th:errors="*{url}" class="error-simple"></p>
+
+        <label>N° Ofertas Publicadas:</label>
+                <input type="text" th:value="${cantidadOfertas}" readonly />
       
         <button type="submit" id="modificar">Modificar</button>
 
-        <p th:text="${mensaje}" class="alert alert-success"></p>
+        <p th:if="${error}" th:text="${error}" class="error"></p>
+        <p th:if="${exito}" th:text="${exito}" class="exito"></p>
 
         </form>
 
 
         <!--/////////////////////////////////////////////////////////////////////////////////////////////////-->
-         <form th:action="@{/micuentaConsu/eliminar}" method="post" th:object="${usuarioLogueado}"> 
+         <form id="form-eliminar" th:action="@{/micuentaC/eliminar}" method="post" th:object="${cliente}"> 
 
-           <input type="hidden" name="codigoCliente" th:value="${usuarioLogueado.usuario}">
-
-                 <button type="submit" id="eliminar">Eliminar mi fucking cuenta</button>
-
-         </form>
-
+           <input type="hidden" name="codigoCliente" th:value="${cliente.usuario}">
+           <br><hr>
+            <div th:if="${cantidadOfertas > 0}" >
+                    ⚠️ Este cliente tiene ofertas publicadas. Se realizará una <strong>baja lógica</strong>.
+                </div>
+                <div th:if="${cantidadOfertas == 0}" >
+                    ✅ Se eliminará definitivamente del sistema.
+                </div>
+                 <button type="submit" id="eliminar">Eliminar mi cuenta</button>
+        </form>
+                    <!-- Modal de confirmación -->
+                <!-- <dialog id="confirmDialog" class="card">
+                    <h3>Confirmar eliminación</h3>
+                    <p>¿Está seguro de que desea eliminar el cliente permanentemente?</p>
+                    <div style="margin-top: 1em;">
+                        <button type="button" id="confirmYes">Sí, eliminar</button>
+                        <button type="button" id="confirmNo">Cancelar</button>
+                    </div>
+                </dialog> -->
         </div>
     </div>
 </section>
 
+<!-- <script>
+  const btn = document.getElementById('eliminar');
+    const form = document.getElementById('form-eliminar');
+    const dialog = document.getElementById('confirmDialog');
+    const confirmYes = document.getElementById('confirmYes');
+    const confirmNo = document.getElementById('confirmNo');
 
+    if (!window.HTMLDialogElement) {
+  alert("Tu navegador no soporta el elemento <dialog>");
+}
+
+    btn.addEventListener('click', function (event) {
+        event.preventDefault();
+        dialog.showModal(); // abre el modal
+    });
+
+    confirmYes.addEventListener('click', () => {
+        dialog.close();
+        form.submit(); // solo acá se envía
+    });
+
+    confirmNo.addEventListener('click', () => {
+        dialog.close(); // cierra sin enviar
+    });
+</script> -->
 
 </html>
 

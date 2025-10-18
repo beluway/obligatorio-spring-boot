@@ -113,7 +113,7 @@ button:hover {
     padding:10px;
     border-radius:8px; 
     margin-bottom:15px;
-    border: 1px solid #c3e6cb;
+    border: 1px solid #771a1a;
     text-align: center;
 }
 
@@ -133,7 +133,13 @@ button:hover {
     border-radius:8px; 
     margin-bottom:15px;
     border: 1px solid #c3e6cb;
-    text-align: center;}
+    text-align: center;
+}
+.error-simple {
+    color: #ee2b25;
+    font-size: 13px;
+    margin-top: 5px;
+}
 
 /* === Animación === */
 @keyframes fadeIn {
