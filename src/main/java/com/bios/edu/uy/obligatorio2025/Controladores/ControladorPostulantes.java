@@ -140,6 +140,14 @@ public String postulanteCrear(Model modelo) {
     BindingResult resultado, 
     Model modelo) throws Exception 
     {
+
+        File pdfPostulante = new File("C:/ArchivosSubidos/"+postulante.getCedula()+".pdf");
+
+        if(pdfPostulante.exists())
+        {
+            pdfPostulante.delete();
+        }
+
          servicioPostulaciones.eliminarConPostulante(postulante);
          
          servicioPostulantes.eliminar(postulante.getUsuario());
