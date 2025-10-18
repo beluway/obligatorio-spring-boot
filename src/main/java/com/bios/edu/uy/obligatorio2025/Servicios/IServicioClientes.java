@@ -11,7 +11,7 @@ public interface IServicioClientes {
     void agregar(Cliente cliente) throws ExcepcionBiosWork;
     void modificar (Cliente clienteActualizado) throws ExcepcionBiosWork;
     void eliminar (String usuario) throws ExcepcionBiosWork;
-    Cliente obtener (String usuario) throws Exception;
+    Cliente obtener (String usuario) throws ExcepcionBiosWork;
     List<Cliente>listaClientes() throws ExcepcionBiosWork;
     List<Cliente> listarActivos() throws ExcepcionBiosWork;
     boolean existePorUrl(String url);
