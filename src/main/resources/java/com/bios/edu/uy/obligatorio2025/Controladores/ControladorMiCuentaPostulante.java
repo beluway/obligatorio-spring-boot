@@ -43,7 +43,7 @@ public class ControladorMiCuentaPostulante {
 
         postulante.setClave("");        
 
-        modelo.addAttribute("postulante", postulante);
+        modelo.addAttribute("usuarioLogueado", postulante);
 
         return "/micuentaP/ver";
     }
@@ -57,15 +57,20 @@ public class ControladorMiCuentaPostulante {
             RedirectAttributes atributos) throws Exception {
 
             if (resultado.hasErrors()) {
-                modelo.addAttribute("postulante", postulante);
+                modelo.addAttribute("usuarioLogueado", postulante);
                 return "micuentaP/ver"; // queda en la misma página si hay errores
             }
 
 
+       // Postulante postulanteEnBD = servicioPostulantes.obtener(postulante.getUsuario());
+
+        // Codificar clave
+      /*   postulanteEnBD.setActivo(true);
+        postulanteEnBD.setClave(codificador.encode(postulante.getClave())); */
         servicioPostulantes.modificar(postulante);
 
         // Recargar los datos actualizados
-        modelo.addAttribute("postulante", postulante);
+        modelo.addAttribute("usuarioLogueado", postulante);
         atributos.addFlashAttribute("mensaje", "Datos modificados correctamente");
 
         return "redirect:/micuentaP/ver"; 

@@ -13,28 +13,28 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     <div id="contenedor">
 <div class="card">
     <h2>Mi cuenta</h2>
-    <form th:action="@{/micuentaP/ver}" method="post" th:object="${usuarioLogueado}">
+    <form th:action="@{/micuentaP/ver}" method="post" th:object="${postulante}">
 
 
         <label for="id">Usuario</label>
-        <input type="text" id="usuario" name="usuario" th:value="${usuarioLogueado.usuario}" readonly > 
+        <input type="text" id="usuario" name="usuario" th:value="${postulante.usuario}" readonly > 
    
 
          <label for="clave">Clave</label>
-        <input type="password" id="clave" name="clave" th:value="${usuarioLogueado.clave}">
+        <input type="password" id="clave" name="clave" th:value="${postulante.clave}">
        
         <label for="cedula">Cédula</label>
-        <input type="text" id="cedula" name="cedula" th:value="${usuarioLogueado.cedula}" >
+        <input type="text" id="cedula" name="cedula" th:value="${postulante.cedula}" >
         <p th:errors="*{cedula}" class="error"></p>
 
         <label for="fechanacimiento">Fecha Nacimiento</label>
-        <input type="date" id="fechanacimiento" name="fechanacimiento" th:value="${usuarioLogueado.fechanacimiento}" >
+        <input type="date" id="fechanacimiento" name="fechanacimiento" th:value="${postulante.fechanacimiento}" >
 
          <!-- Departamento -->
                 <div>
                     <label for="departamento">Departamento</label>
 
-                   <select id="departamento" name="departamento" th:value="${usuarioLogueado.departamento}">
+                   <select id="departamento" name="departamento" th:value="${postulante.departamento}">
                 
                         <option value="">Seleccione un departamento</option>
                         <option value="artigas">Artigas</option>
@@ -62,19 +62,19 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
 
         <label for="area">Primer Nombre</label>
-        <input type="text" name="primerNombre" id="primerNombre" th:value="${usuarioLogueado.primerNombre}" >
+        <input type="text" name="primerNombre" id="primerNombre" th:value="${postulante.primerNombre}" >
         <p th:errors="*{primerNombre}" class="error"></p>
 
         <label for="cliente">Segundo Nombre </label>
-        <input type="text" name="segundoNombre" id="segundoNombre" th:value="${usuarioLogueado.segundoNombre}" >
+        <input type="text" name="segundoNombre" id="segundoNombre" th:value="${postulante.segundoNombre}" >
         <p th:errors="*{segundoNombre}" class="error"></p>
 
         <label for="primerApellido">Primer Apellido</label>
-        <input id="primerApellido" name="primerApellido" th:value="${usuarioLogueado.primerApellido}" ></input>
+        <input id="primerApellido" name="primerApellido" th:value="${postulante.primerApellido}" ></input>
         <p th:errors="*{primerApellido}" class="error"></p>
 
         <label for="segundoApellido">Segundo Apellido</label>
-        <input type="text" id="segundoApellido" name="segundoApellido" th:value="${usuarioLogueado.segundoApellido}" >
+        <input type="text" id="segundoApellido" name="segundoApellido" th:value="${postulante.segundoApellido}" >
         <p th:errors="*{segundoApellido}" class="error"></p>
         
         <button type="submit" id="modificar">Modificar</button>
@@ -92,10 +92,10 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
                 <input type="hidden" name="codigoPostulante" th:value="*{id.usuarioPostulante}" />   -->
 
         
-         <form th:action="@{/micuentaP/eliminar}" method="post" th:object="${usuarioLogueado}">        
+         <form th:action="@{/micuentaP/eliminar}" method="post" th:object="${postulante}">        
             
             
-            <input type="hidden" name="codigoPostulante" th:value="${usuarioLogueado.usuario}">
+            <input type="hidden" name="codigoPostulante" th:value="${postulante.usuario}">
 
                  <button type="submit" id="eliminar">Eliminar mi fucking cuenta</button>
 

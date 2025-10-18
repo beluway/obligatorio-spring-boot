@@ -87,6 +87,7 @@ public String postulanteCrear(Model modelo) {
 
         postulante.setFechanacimiento(fechaFormateada);
 
+
         //ACA OBTENGO LA CARPETA DE DESTINO
         
         File  carpetaDestino= new File("C:/ArchivosSubidos");
@@ -139,14 +140,6 @@ public String postulanteCrear(Model modelo) {
     BindingResult resultado, 
     Model modelo) throws Exception 
     {
-
-        File pdfPostulante = new File("C:/ArchivosSubidos/"+postulante.getCedula()+".pdf");
-
-        if(pdfPostulante.exists())
-        {
-            pdfPostulante.delete();
-        }
-
          servicioPostulaciones.eliminarConPostulante(postulante);
          
          servicioPostulantes.eliminar(postulante.getUsuario());
@@ -204,14 +197,6 @@ public String postulanteCrear(Model modelo) {
 
         //si existe el postulante lo agrego al modelo
             modelo.addAttribute("postulante", postulanteEncontrado);
-
-            // Verificar si el archivo PDF existe
-            File archivoPDF = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getCedula() + ".pdf");
-            if (archivoPDF.exists()) {
-                modelo.addAttribute("cvDisponible", true);
-            } else {
-                modelo.addAttribute("cvDisponible", false);
-            }
         return "postulantes/ver";
     }   
 
