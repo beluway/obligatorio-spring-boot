@@ -31,8 +31,7 @@ private Integer id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fechaPublicacion", nullable = false)
     private LocalDate fechaPublicacion; 
-    
-    
+      
 
     @NotNull
     @Future

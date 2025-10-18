@@ -65,9 +65,14 @@ public class ControladorOfertas {
 
     /*     Area areaParaOferta = servicioAreas.obtener(modelo.getAttribute("areas"));
  */
-/* 
+/*          
+            
+
         //SE TRAE EL USUARIO LOGUEADO DESDE LA SESION
         sesion.getAttribute("usuarioLogueado");             */
+
+
+        ofertas.getArea().setAsignada(true);
 
         servicioOfertas.agregar(ofertas);
 

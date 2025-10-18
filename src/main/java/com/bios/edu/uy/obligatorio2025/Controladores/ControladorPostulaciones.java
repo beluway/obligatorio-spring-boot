@@ -78,8 +78,7 @@ public class ControladorPostulaciones {
     public String crear (
     @ModelAttribute @Valid Postulacion postulacion, 
     BindingResult resultado, 
-    Model modelo, 
-    HttpSession sesion,
+    Model modelo,   
     RedirectAttributes attributes, Principal usuarioLogueado) throws Exception /*  */
     {      
                 
