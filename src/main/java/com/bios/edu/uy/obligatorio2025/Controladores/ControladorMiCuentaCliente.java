@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
-import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 
