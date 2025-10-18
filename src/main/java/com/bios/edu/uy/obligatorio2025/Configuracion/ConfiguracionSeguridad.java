@@ -48,7 +48,8 @@ public class ConfiguracionSeguridad {
                     "/ofertas/crear",
                     "/ofertas/eliminar",
                     "/ofertas/modificar",
-                    "/ofertas/listaPorCliente"
+                    "/ofertas/listaPorCliente",
+                    "/pdf/**"
                 ).hasAuthority("cliente")
 
                 // === URLs accesibles para usuarios logueados ===

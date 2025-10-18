@@ -150,8 +150,8 @@
         <div class="card">
             <h2>Postulante</h2>
 
-            <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
-            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <div th:if="${mensaje}" class="exito" th:text="${mensaje}"></div>
+            <div th:if="${error}" class="error" th:text="${error}"></div>
 
             <form th:action="@{/postulantes/ver}" method="post" th:object="${postulante}" onsubmit="return confirmarEliminar(this)">
 
@@ -178,8 +178,15 @@
                 <label>Departamento</label>
                 <input type="text" th:field="*{departamento}" readonly/>
 
-                <label>CV</label>
-                <a th:href="@{|/pdf/${postulante.usuario}.pdf|}" target="_blank">Ver CV</a>
+            <div th:if="${cvDisponible}" >
+            <label>Currículum</label>
+            <a id="cv" th:href="@{|/pdf/${postulante.cedula}.pdf|}" target="_blank">Ver CV</a> 
+            </div>
+
+        <div th:unless="${cvDisponible}">
+            <label>Currículum</label>
+            <span class="erro-simple">📄 CV no disponible</span>
+        </div>
 
                 <div style="margin-top:15px;">
                     <button type="submit" name="accion" value="btn_modificar" sec:authorize="hasAuthority('admin')">Modificar</button>

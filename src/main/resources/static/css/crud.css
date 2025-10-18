@@ -141,6 +141,16 @@ button:hover {
     margin-top: 5px;
 }
 
+#cv {
+    color: #ffffff;
+    background-color: #6c757d;
+    padding: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 20px; /* sin !important */
+    display: inline-block; /* evita problemas de anchura */
+}
+
 /* === Animación === */
 @keyframes fadeIn {
     from {opacity: 0; transform: translateY(-10px);}

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
-import com.bios.edu.uy.obligatorio2025.Servicios.ServicioConsultores;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioConsultores;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ControladorConsultores {
  
 @Autowired
-private ServicioConsultores servicioConsultores;
+private IServicioConsultores servicioConsultores;
 
   @GetMapping("/main")
     public String consultorCrear()

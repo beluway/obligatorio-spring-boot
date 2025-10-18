@@ -41,8 +41,8 @@ public class ControladorMiCuentaPostulante {
 
         Postulante postulante= servicioPostulantes.obtener(usuarioLogueado.getName());
 
-        postulante.setClave("");        
-
+        postulante.setClave("");      
+          
         modelo.addAttribute("usuarioLogueado", postulante);
 
         return "/micuentaP/ver";
@@ -62,11 +62,6 @@ public class ControladorMiCuentaPostulante {
             }
 
 
-       // Postulante postulanteEnBD = servicioPostulantes.obtener(postulante.getUsuario());
-
-        // Codificar clave
-      /*   postulanteEnBD.setActivo(true);
-        postulanteEnBD.setClave(codificador.encode(postulante.getClave())); */
         servicioPostulantes.modificar(postulante);
 
         // Recargar los datos actualizados

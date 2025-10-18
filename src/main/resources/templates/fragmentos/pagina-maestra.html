@@ -57,11 +57,6 @@
                     <a th:href="@{/postulaciones/lista}">Mis postulaciones</a>
                 </li>
 
-                
-                <!-- === POSTULANTE Y CLIENTE === -->
-                <li sec:authorize="hasAnyAuthority('postulante','cliente')">
-                    <a th:href="@{/micuenta/ver}"></a>
-                </li>
 
                 <!-- === TODOS LOS USUARIOS AUTENTICADOS === -->
                 <li sec:authorize="isAuthenticated()">
