@@ -77,11 +77,18 @@ public class ConfiguracionSeguridad {
             )
 
             // --- Configuración del logout ---
-            .logout(logout -> logout
+            /* .logout(logout -> logout
                 .logoutUrl("/home/deslogueo")
                 .logoutSuccessUrl("/home/index?logout")
                 .permitAll()
-            )
+            ) */
+                .logout(logout -> logout
+                .logoutUrl("/home/deslogueo")
+                .logoutSuccessUrl("/home/index?logout")
+                .invalidateHttpSession(true) 
+                .clearAuthentication(true)   
+                .deleteCookies("JSESSIONID") 
+                .permitAll())
 
             // --- Manejo de excepciones (acceso denegado o no autenticado) ---
             .exceptionHandling(excepcion -> excepcion

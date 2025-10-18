@@ -58,6 +58,15 @@
                 </li>
 
 
+                  <li sec:authorize="isAuthenticated()">
+                    <!-- Formulario invisible para enviar el POST -->
+                    <form th:action="@{/home/deslogueo}" method="post" id="logoutForm" style="display:none;"></form>
+
+                    <!-- Enlace visible que ejecuta el form -->
+                    <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Salir</a>
+                </li>
+
+
                 <!-- === TODOS LOS USUARIOS AUTENTICADOS === -->
                 <li sec:authorize="isAuthenticated()">
                     <a th:href="@{/home/deslogueo}">Salir</a>
