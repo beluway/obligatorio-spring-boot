@@ -3,6 +3,7 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -199,7 +200,9 @@ public class ControladorHome {
             return "home/main";
     }
     
-    @GetMapping("/deslogueo")
+
+    
+/*     @GetMapping("/deslogueo")
     public String deslogueo(Model modelo,Principal usuarioLogueado) throws Exception{
              
         //SE ELIMINA LA SESIÓN DE USUARIO
@@ -207,11 +210,11 @@ public class ControladorHome {
         modelo.addAttribute("usuarioLogueado", usuarioLogueado);
 
           //SE BORRAN TODOS LOS DATOS DE SESION
-        //session.invalidate();
-
+        //Session.invalidate();
+        SecurityContextHolder.clearContext();
         return "home/index";
 
-    }
+    } */
     
 
 }

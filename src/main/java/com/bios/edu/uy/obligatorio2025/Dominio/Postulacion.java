@@ -86,19 +86,6 @@ public class Postulacion {
     }
 
 
-    //constructor vacío
-    public Postulacion(){}
-
-  
-    public Postulacion(PostulacionId id, @NotNull @PastOrPresent LocalDate fechaPostulacion, @NotNull Oferta oferta,
-        @NotNull Postulante postulante) {
-    this.id = id;
-    this.fechaPostulacion = fechaPostulacion;
-    this.oferta = oferta;
-    this.postulante = postulante;
-   } 
-
-
          
    @Embeddable
    public static class PostulacionId implements Serializable{
@@ -120,11 +107,22 @@ public class Postulacion {
     
     public void setIdOferta(Integer idOferta) {
         this.idOferta = idOferta;
-    }
-    
-   
-    
+    }    
+       
    }    
+
+
+    //constructor vacío
+    public Postulacion(){}
+
+  
+    public Postulacion(PostulacionId id, @NotNull @PastOrPresent LocalDate fechaPostulacion, @NotNull Oferta oferta,
+        @NotNull Postulante postulante) {
+    this.id = id;
+    this.fechaPostulacion = fechaPostulacion;
+    this.oferta = oferta;
+    this.postulante = postulante;
+   } 
 
 }
 
