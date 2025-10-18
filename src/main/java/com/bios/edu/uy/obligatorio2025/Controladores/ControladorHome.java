@@ -3,7 +3,7 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,22 +47,8 @@ public class ControladorHome {
 
     @Autowired
     private IServicioConsultores servicioConsultores;
-    
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+     
 
-/*     ControladorHome(Servicios.ServicioClientes servicioClientes, Servicios.ServicioPostulantes servicioPostulantes) {
-        this.servicioClientes = servicioClientes;
-        this.servicioPostulantes = servicioPostulantes;
-    } */
-
-        ControladorHome(IServicioClientes servicioClientes, IServicioPostulantes servicioPostulantes, IServicioConsultores servicioConsultores) {
-        this.servicioClientes = servicioClientes;
-        this.servicioPostulantes = servicioPostulantes;
-        this.servicioConsultores = servicioConsultores;
-    }
-
-    @Qualifier("servicioUsuarioSession")
 
     @GetMapping("/index") 
     public String index() throws Exception{

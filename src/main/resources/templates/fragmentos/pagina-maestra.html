@@ -27,6 +27,8 @@
 
         <!-- Usuario logueado -->
         <p>
+           
+       
             BIENVENID@ 
             <span sec:authentication="name"></span>
         </p>
@@ -64,13 +66,7 @@
 
                     <!-- Enlace visible que ejecuta el form -->
                     <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Salir</a>
-                </li>
-
-
-                <!-- === TODOS LOS USUARIOS AUTENTICADOS === -->
-                <li sec:authorize="isAuthenticated()">
-                    <a th:href="@{/home/deslogueo}">Salir</a>
-                </li>
+                </li>             
 
                 <!-- === USUARIOS ANÓNIMOS === -->
                 <li sec:authorize="isAnonymous()">
