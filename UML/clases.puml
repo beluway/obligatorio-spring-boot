@@ -1,0 +1,637 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class ConfiguracionSeguridad {
+  +passwordEncoder(): PasswordEncoder
+  +filtroSeguridad(seguridadHttp: HttpSecurity): SecurityFilterChain
+}
+
+class ControladorAreas {
+  -servicioAreas: IServicioAreas
+  -servicioConsultores: IServicioConsultores
+  --
+  +crear(usuarioLogueado: Principal, modelo: Model): String
+  +procesarCrear(area: Area, resultado: BindingResult, modelo: Model, attributes: RedirectAttributes): String
+  +listarAreas(criterio: String, area: Area, usuarioLogueado: Principal, modelo: Model): String
+  +modificarArea(area: Area, modelo: Model, usuarioLogueado: Principal): String
+  +procesarModificarArea(area: Area, resultado: BindingResult, modelo: Model, attributes: RedirectAttributes): String
+  +eliminarArea(area: Area, modelo: Model, usuarioLogueado: Principal): String
+  +procesarEliminarArea(area: Area, resultado: BindingResult, modelo: Model, attributes: RedirectAttributes): String
+}
+
+class ControladorClientes {
+  -servicioClientes: IServicioClientes
+  -servicioOfertas: IServicioOfertas
+  --
+  ~ControladorClientes(servicioOfertas: IServicioOfertas, servicioClientes: IServicioClientes)
+  +clienteCrear(modelo: Model, usuarioLogueado: Principal): String
+  +clienteProcesarCrear(cliente: Cliente, resultado: BindingResult, modelo: Model, attributes: RedirectAttributes): String
+  +clienteEliminar(usuario: String, modelo: Model, usuarioLogueado: Principal): String
+  +clienteEliminar(usuario: String, modelo: Model, attributes: RedirectAttributes): String
+  +clienteModificar(usuario: String, modelo: Model, usuarioLogueado: Principal): String
+  +procesarModificar(cliente: Cliente, nuevaClave: String, resultado: BindingResult, attributes: RedirectAttributes, modelo: Model): String
+  +clienteVer(usuario: String, modelo: Model, usuarioLogueado: Principal): String
+  +clientesListar(clientes: Cliente, modelo: Model, usuarioLogueado: Principal): String
+  +cargarTituloEjemplo(): String
+}
+
+class ControladorConsultores {
+  -servicioConsultores: ServicioConsultores
+  --
+  +consultorCrear(): String
+  +consultorCrear(modelo: Model, usuarioLogueado: Principal): String
+  +consultorCrear(consultor: Consultor, resultado: BindingResult, modelo: Model, atributos: RedirectAttributes): String
+  +consultorEliminar(consultor: Consultor, usuarioLogueado: Principal, modelo: Model): String
+  +consultorEliminar(consultor: Consultor, resultado: BindingResult, modelo: Model): String
+  +consultorModificar(modelo: Model, usuarioLogueado: Principal): String
+  +consultorModificar(consultor: Consultor, resultado: BindingResult, modelo: Model): String
+  +consultorVer(usuario: String, modelo: Model, usuarioLogueado: Principal): String
+  +consultoresLista(consultor: Consultor, modelo: Model, usuarioLogueado: Principal): String
+}
+
+class ControladorHome {
+  -servicioUsuarios: IServicioUsuarios
+  -servicioClientes: IServicioClientes
+  -servicioPostulantes: IServicioPostulantes
+  -servicioConsultores: IServicioConsultores
+  -passwordEncoder: PasswordEncoder
+  --
+  ~ControladorHome(servicioClientes: IServicioClientes, servicioPostulantes: IServicioPostulantes, servicioConsultores: IServicioConsultores)
+  +index(): String
+  +ingresar(): String
+  +ingresar(usuario: String, modelo: Model): String
+  +main(modelo: Model, usuarioLogueado: Principal): String
+  +deslogueo(modelo: Model, usuarioLogueado: Principal): String
+}
+
+class ControladorIndex {
+  +index(): String
+}
+
+class ControladorMiCuentaCliente {
+  -servicioClientes: IServicioClientes
+  ~codificador: PasswordEncoder
+  --
+  +ver(usuarioLogueado: Principal, modelo: Model): String
+  +procesarModificar(cliente: Cliente, nuevaClave: String, resultado: BindingResult, attributes: RedirectAttributes, modelo: Model): String
+  +eliminar(modelo: Model, attributes: RedirectAttributes, codigoPostulante: String, usuarioLogueado: Principal): String
+}
+
+class ControladorMiCuentaConsultor {
+  -servicioConsultores: IServicioConsultores
+  ~codificador: PasswordEncoder
+  --
+  +ver(usuarioLogueado: Principal, modelo: Model): String
+  +procesarModificar(consultor: Consultor, nuevaClave: String, resultado: BindingResult, attributes: RedirectAttributes, modelo: Model, usuario: String): String
+  +eliminar(modelo: Model, attributes: RedirectAttributes, usuario: String, usuarioLogueado: Principal): String
+}
+
+class ControladorMiCuentaPostulante {
+  -servicioPostulantes: IServicioPostulantes
+  ~codificador: PasswordEncoder
+  --
+  +ver(usuarioLogueado: Principal, modelo: Model): String
+  +modificarPostulante(postulante: Postulante, resultado: BindingResult, modelo: Model, atributos: RedirectAttributes): String
+  +eliminar(modelo: Model, attributes: RedirectAttributes, codigoPostulante: String, usuarioLogueado: Principal): String
+}
+
+class ControladorOfertas {
+  -servicioClientes: IServicioClientes
+  -servicioOfertas: IServicioOfertas
+  -servicioPostulaciones: IServicioPostulaciones
+  -servicioAreas: IServicioAreas
+  --
+  +crearOferta(ofertas: Oferta, usuarioLogueado: Principal, modelo: Model): String
+  +procesarCrearOferta(ofertas: Oferta, resultado: BindingResult, modelo: Model, usuarioLogueado: Principal): String
+  +eliminarOferta(modelo: Model, codigo: Integer, usuarioLogueado: Principal): String
+  +procesarEliminarOferta(oferta: Oferta, resultado: BindingResult, modelo: Model): String
+  +mostrarFormularioModificar(codigo: Integer, modelo: Model, usuarioLogueado: Principal): String
+  +procesarModificarOferta(oferta: Oferta, resultado: BindingResult, modelo: Model, attributes: RedirectAttributes): String
+  +verOferta(codigo: Integer, modelo: Model, usuarioLogueado: Principal): String
+  +listarOfertas(criterio: String, modelo: Model, usuarioLogueado: Principal): String
+  +listaOfertas(modelo: Model, usuarioLogueado: Principal): String
+}
+
+class ControladorPostulaciones {
+  -servicioPostulaciones: IServicioPostulaciones
+  -servicioOfertas: IServicioOfertas
+  -servicioPostulantes: IServicioPostulantes
+  --
+  +crear(modelo: Model, usuarioLogueado: Principal): String
+  +crear(postulacion: Postulacion, resultado: BindingResult, modelo: Model, sesion: HttpSession, attributes: RedirectAttributes, usuarioLogueado: Principal): String
+  +eliminar(modelo: Model, usuarioLogueado: Principal, codigoOferta: Integer, codigoPostulante: String): String
+  +eliminar(modelo: Model, attributes: RedirectAttributes, codigoOferta: Integer, codigoPostulante: String, usuarioLogueado: Principal): String
+  +ver(modelo: Model, usuarioLogueado: Principal): String
+  +lista(criterio: String, modelo: Model, usuarioLogueado: Principal): String
+}
+
+class ControladorPostulantes {
+  -servicioPostulantes: ServicioPostulantes
+  -servicioPostulaciones: IServicioPostulaciones
+  --
+  +postulanteCrear(modelo: Model): String
+  +postulanteCrear(postulante: Postulante, resultado: BindingResult, modelo: Model, atributos: RedirectAttributes): String
+  +postulanteEliminar(modelo: Model, usuarioLogueado: Principal): String
+  +postulanteEliminar(postulante: Postulante, resultado: BindingResult, modelo: Model): String
+  +postulanteModificar(modelo: Model, principal: Principal): String
+  +modificarPostulante(postulante: Postulante, resultado: BindingResult, modelo: Model, atributos: RedirectAttributes): String
+  +postulanteVer(usuario: String, modelo: Model, usuarioLogueado: Principal, attributes: RedirectAttributes): String
+  +postulanteVer(postulantes: Postulante, resultado: BindingResult, accion: String): String
+  +lista(criterio: String, modelo: Model, usuarioLogueado: Principal): String
+}
+
+class Area {
+  -id: Integer
+  -nombre: String
+  -asignada: Boolean = false
+  --
+  +Area()
+  +Area(id: Integer, nombre: String, asignada: Boolean)
+  +setId(id: Integer): void
+  +getId(): Integer
+  +getNombre(): String
+  +setNombre(nombre: String): void
+  +getAsignada(): Boolean
+  +setAsignada(asignada: Boolean): void
+  +toString(): String
+}
+
+class Cliente {
+  -rut: Long
+  -nombre: String
+  -url: String
+  --
+  +Cliente()
+  +Cliente(usuario: String, clave: String, roles: Set<Rol>, activo: boolean, rut: Long, nombre: String, url: String)
+  +getRut(): Long
+  +setRut(rut: Long): void
+  +getNombre(): String
+  +setNombre(nombre: String): void
+  +getUrl(): String
+  +setUrl(url: String): void
+}
+
+class Consultor {
+  +Consultor()
+  +Consultor(usuario: String, clave: String, roles: Set<Rol>, activo: Boolean)
+}
+
+class Oferta {
+  -id: Integer
+  -fechaPublicacion: LocalDate
+  -fechaCierre: LocalDate
+  -cliente: Cliente
+  -area: Area
+  -descripcion: String
+  -titulo: String
+  -cantidadVacantes: Integer
+  --
+  +Oferta()
+  +Oferta(id: Integer, fechaPublicacion: LocalDate, fechaCierre: LocalDate, cliente: Cliente, descripcion: String, titulo: String, area: Area, cantidadVacantes: Integer)
+  +Oferta(id: Integer, fechaPublicacion: LocalDate, fechaCierre: LocalDate, cliente: Cliente, area: Area, descripcion: String, titulo: String, cantidadVacantes: Integer, postulaciones: List<Postulacion>)
+  +getId(): Integer
+  +setId(id: Integer): void
+  +getFechaPublicacion(): LocalDate
+  +setFechaPublicacion(fechaPublicacion: LocalDate): void
+  +getFechaCierre(): LocalDate
+  +setFechaCierre(fechaCierre: LocalDate): void
+  +getCliente(): Cliente
+  +setCliente(cliente: Cliente): void
+  +getDescripcion(): String
+  +setDescripcion(descripcion: String): void
+  +getTitulo(): String
+  +setArea(area: Area): void
+  +getArea(): Area
+  +setTitulo(titulo: String): void
+  +getCantidadVacantes(): Integer
+  +setCantidadVacantes(cantidadVacantes: Integer): void
+  +toString(): String
+}
+
+class Postulacion {
+  -id: PostulacionId
+  -fechaPostulacion: LocalDate
+  -oferta: Oferta
+  -postulante: Postulante
+  --
+  +Postulacion()
+  +Postulacion(id: PostulacionId, fechaPostulacion: LocalDate, oferta: Oferta, postulante: Postulante)
+  +getId(): PostulacionId
+  +setId(id: PostulacionId): void
+  +getFechaPostulacion(): LocalDate
+  +setFechaPostulacion(fechaPostulacion: LocalDate): void
+  +getOferta(): Oferta
+  +setOferta(oferta: Oferta): void
+  +getPostulante(): Postulante
+  +setPostulante(postulante: Postulante): void
+}
+
+class PostulacionId {
+  -usuarioPostulante: String
+  -idOferta: Integer
+  --
+  +getUsuarioPostulante(): String
+  +setUsuarioPostulante(usuarioPostulante: String): void
+  +getIdOferta(): Integer
+  +setIdOferta(idOferta: Integer): void
+}
+
+class Postulante {
+  -cantidadPostulaciones: int
+  -cedula: Long
+  -fechanacimiento: LocalDate
+  -departamento: String
+  -primerNombre: String
+  -segundoNombre: String
+  -primerApellido: String
+  -segundoApellido: String
+  -pdf: MultipartFile
+  --
+  +Postulante()
+  +Postulante(usuario: String, clave: String, roles: Set<Rol>, activo: Boolean, cantidadPostulaciones: int, cedula: Long, fechanacimiento: LocalDate, departamento: String, primerNombre: String, segundoNombre: String, primerApellido: String, segundoApellido: String, pdf: MultipartFile)
+  +getCedula(): Long
+  +setCedula(cedula: Long): void
+  +getFechanacimiento(): LocalDate
+  +setFechanacimiento(fechanacimiento: LocalDate): void
+  +getDepartamento(): String
+  +setDepartamento(departamento: String): void
+  +getPdf(): MultipartFile
+  +setPdf(pdf: MultipartFile): void
+  +getCantidadPostulaciones(): int
+  +setCantidadPostulaciones(cantidadPostulaciones: int): void
+  +getPrimerNombre(): String
+  +setPrimerNombre(primerNombre: String): void
+  +getSegundoNombre(): String
+  +setSegundoNombre(segundoNombre: String): void
+  +getPrimerApellido(): String
+  +setPrimerApellido(primerApellido: String): void
+  +getSegundoApellido(): String
+  +setSegundoApellido(segundoApellido: String): void
+}
+
+class Rol {
+  -nombreRol: String
+  --
+  +Rol()
+  +Rol(nombreRol: String)
+  +getNombreRol(): String
+  +setNombreRol(nombreRol: String): void
+}
+
+abstract class Usuario {
+  -usuario: String
+  -clave: String
+  -roles: Set<Rol>
+  -activo: boolean
+  --
+  +Usuario(usuario: String, clave: String, roles: Set<Rol>, activo: Boolean)
+  +Usuario()
+  +getUsuario(): String
+  +setUsuario(usuario: String): void
+  +getClave(): String
+  +setClave(clave: String): void
+  +isActivo(): boolean
+  +setActivo(activo: boolean): void
+  +getRoles(): Set<Rol>
+}
+
+interface Crear {
+}
+
+interface Modificar {
+}
+
+class ExcepcionBiosWork {
+  +ExcepcionBiosWork()
+  +ExcepcionBiosWork(mensaje: String)
+  +ExcepcionBiosWork(mensaje: String, excepcionInterna: Exception)
+}
+
+class ExcepcionNoExiste {
+  +ExcepcionNoExiste()
+  +ExcepcionNoExiste(mensaje: String)
+  +ExcepcionNoExiste(mensaje: String, excepcionInterna: Exception)
+}
+
+class ExcepcionTieneVinculos {
+  +ExcepcionTieneVinculos()
+  +ExcepcionTieneVinculos(mensaje: String)
+  +ExcepcionTieneVinculos(mensaje: String, excepcionInterna: Exception)
+}
+
+class ExcepcionYaExiste {
+  +ExcepcionYaExiste()
+  +ExcepcionYaExiste(mensaje: String)
+  +ExcepcionYaExiste(mensaje: String, excepcionInterna: Exception)
+}
+
+class Obligatorio2025Application {
+  +{static} main(args: String[]): void
+}
+
+interface IRepositorioAreas {
+  ~findByNombre(nombre: String): Optional<Area>
+}
+
+interface IRepositorioConsultores {
+  ~findAll(): List<Consultor>
+  ~findById(usuario: String): Optional<Consultor>
+}
+
+interface IRepositorioOfertas {
+  ~findAllByOrderByAreaAsc(): List<Oferta>
+  ~findAllByCliente(cliente: Cliente): List<Oferta>
+  +{static} ofertasVigentes(): Specification<Oferta>
+  ~findByCliente(cliente: Cliente): Oferta
+}
+
+interface IRepositorioPostulaciones {
+  ~findAllByPostulante_Usuario(usuario: String): List<Postulacion>
+  ~findAllByPostulante(postulante: Postulante): List<Postulacion>
+  ~findById_IdOfertaAndId_UsuarioPostulante(idOferta: Integer, usuarioPostulante: String): Optional<Postulacion>
+  ~findAllByOferta(oferta: Oferta): List<Postulacion>
+}
+
+interface IRepositorioPostulantes {
+  ~findAll(): List<Postulante>
+  ~findByUsuario(usuario: String): Optional<Postulante>
+}
+
+interface IRepositorioUsuarios {
+  ~findByUsuario(usuario: String): Optional<Usuario>
+  ~findByUsuarioAndClave(usuario: String, clave: String): Usuario
+  ~findAll(): List<Usuario>
+  ~findById(usuario: String): Optional<Usuario>
+  ~findByUsuarioAndActivoTrue(usuario: String): Optional<Usuario>
+}
+
+interface IRepostorioClientes {
+  ~findAll(): List<Cliente>
+  ~findByActivoTrue(): List<Cliente>
+  ~existsByUrl(url: String): boolean
+}
+
+interface IServicioAreas {
+  ~listaAreas(): List<Area>
+  ~agregar(area: Area): void
+  ~eliminar(area: Area): void
+  ~modificar(area: Area): void
+  ~obtener(id: Integer): Area
+  ~buscarPorCriterio(criterio: String): List<Area>
+}
+
+interface IServicioClientes {
+  ~agregar(cliente: Cliente): void
+  ~modificar(clienteActualizado: Cliente): void
+  ~eliminar(usuario: String): void
+  ~obtener(usuario: String): Cliente
+  ~listaClientes(): List<Cliente>
+  ~listarActivos(): List<Cliente>
+  ~existePorUrl(url: String): boolean
+}
+
+interface IServicioConsultores {
+  ~agregar(consultor: Consultor): void
+  ~modificar(consultor: Consultor): void
+  ~eliminar(usuario: String): void
+  ~listaConsultores(): List<Consultor>
+  ~obtener(usuario: String): Consultor
+}
+
+interface IServicioOfertas {
+  ~agregar(oferta: Oferta): void
+  ~modificar(oferta: Oferta): void
+  ~eliminar(codigo: Integer): void
+  ~listaOfertas(): List<Oferta>
+  ~obtener(id: Integer): Oferta
+  ~listaOfertasCliente(cliente: Cliente): List<Oferta>
+  +listaOfertasVigentes(): List<Oferta>
+  ~buscarPorCriterio(criterio: String): List<Oferta>
+}
+
+interface IServicioPostulaciones {
+  ~agregar(postulacion: Postulacion): void
+  ~modificar(postulacion: Postulacion): void
+  ~eliminar(postulacion: Postulacion): void
+  ~listaPostulaciones(): List<Postulacion>
+  ~listaPostulacionesPorPostulante(postulante: Postulante): List<Postulacion>
+  +listaOfertasVigentesParaPostularse(postulante: Postulante): List<Oferta>
+  +obtener(idOferta: Integer, usuario: String): Optional<Postulacion>
+  ~listaPostulacionesPorOferta(oferta: Oferta): List<Postulacion>
+  ~eliminarConOferta(oferta: Oferta): void
+  ~eliminarConPostulante(postulante: Postulante): void
+}
+
+interface IServicioPostulantes {
+  ~agregar(postulante: Postulante): void
+  ~modificar(postulante: Postulante): void
+  ~eliminar(usuario: String): void
+  ~lista(): List<Postulante>
+  +obtener(usuario: String): Postulante
+  ~MayorEdad(fechaNacimiento: LocalDate): Boolean
+  ~buscar(usuario: String): Postulante
+  ~buscarPorCriterio(criterio: String): List<Postulante>
+}
+
+interface IServicioUsuarios {
+  ~usuarioParaLogin(usuario: String): Usuario
+  ~usuarioLogueado(usuario: String, clave: String): Usuario
+}
+
+class ServicioAreas {
+  -repositorioAreas: IRepositorioAreas
+  --
+  +agregar(area: Area): void
+  +eliminar(area: Area): void
+  +listaAreas(): List<Area>
+  +obtener(id: Integer): Area
+  +modificar(area: Area): void
+  +buscarPorCriterio(criterio: String): List<Area>
+}
+
+class ServicioClientes {
+  -repositorioClientes: IRepostorioClientes
+  -repositorioOfertas: IRepositorioOfertas
+  ~codificador: PasswordEncoder
+  --
+  +agregar(cliente: Cliente): void
+  +modificar(nuevo: Cliente): void
+  +eliminar(usuario: String): void
+  +listaClientes(): List<Cliente>
+  +listarActivos(): List<Cliente>
+  +existePorUrl(url: String): boolean
+  +obtener(usuario: String): Cliente
+}
+
+class ServicioConsultores {
+  -repositorioConsultores: IRepositorioConsultores
+  ~codificador: PasswordEncoder
+  --
+  +agregar(consultor: Consultor): void
+  +modificar(nuevo: Consultor): void
+  +eliminar(usuario: String): void
+  +listaConsultores(): List<Consultor>
+  +obtener(usuario: String): Consultor
+}
+
+class ServicioDetallesUsuario {
+  -repositorioUsuarios: IRepositorioUsuarios
+  -repositorioConsultores: IRepositorioConsultores
+  -repositorioPostulantes: IRepositorioPostulantes
+  -repositorioClientes: IRepostorioClientes
+  --
+  +loadUserByUsername(username: String): UserDetails
+}
+
+class ServicioOfertas {
+  -repositorioOfertas: IRepositorioOfertas
+  -respositorioPostulaciones: IRepositorioPostulaciones
+  --
+  +agregar(oferta: Oferta): void
+  +modificar(oferta: Oferta): void
+  +eliminar(id: Integer): void
+  +listaOfertas(): List<Oferta>
+  +listaOfertasCliente(cliente: Cliente): List<Oferta>
+  +obtener(id: Integer): Oferta
+  +listaOfertasVigentes(): List<Oferta>
+  +buscarPorCriterio(criterio: String): List<Oferta>
+}
+
+class ServicioPostulaciones {
+  -repositorioPostulaciones: IRepositorioPostulaciones
+  -repositorioOfertas: IRepositorioOfertas
+  --
+  +agregar(postulacion: Postulacion): void
+  +modificar(postulacion: Postulacion): void
+  +eliminar(postulacion: Postulacion): void
+  +eliminarConOferta(oferta: Oferta): void
+  +eliminarConPostulante(postulante: Postulante): void
+  +listaPostulaciones(): List<Postulacion>
+  +listaPostulacionesPorPostulante(postulante: Postulante): List<Postulacion>
+  +listaOfertasVigentesParaPostularse(postulante: Postulante): List<Oferta>
+  +obtener(idOferta: Integer, usuario: String): Optional<Postulacion>
+  +listaPostulacionesPorOferta(oferta: Oferta): List<Postulacion>
+}
+
+class ServicioPostulantes {
+  -respositorioPostulantes: IRepositorioPostulantes
+  -repositorioPostulaciones: IRepositorioPostulaciones
+  ~codificador: PasswordEncoder
+  --
+  +agregar(postulante: Postulante): void
+  +modificar(nuevo: Postulante): void
+  +eliminar(usuario: String): void
+  +obtener(usuario: String): Postulante
+  +buscar(usuario: String): Postulante
+  +lista(): List<Postulante>
+  +MayorEdad(fechaNacimiento: LocalDate): Boolean
+  +buscarPorCriterio(criterio: String): List<Postulante>
+}
+
+class ServicioUsuarios {
+  -repositorioUsuario: IRepositorioUsuarios
+  --
+  +usuarioParaLogin(usuario: String): Usuario
+  +usuarioLogueado(usuario: String, clave: String): Usuario
+}
+
+class UtilidadesArchivos {
+  +{static} guardarImagen(datos: byte[], directorio: String, nombreArchivo: String, formato: String): void
+  +{static} main(rutaArchivo: String): void
+}
+
+class Obligatorio2025ApplicationTests {
+  ~contextLoads(): void
+}
+
+ControladorAreas *-- IServicioAreas
+ControladorAreas *-- IServicioConsultores
+ControladorAreas ..> Area
+ControladorClientes *-- IServicioClientes
+ControladorClientes *-- IServicioOfertas
+ControladorClientes ..> Cliente
+ControladorConsultores *-- ServicioConsultores
+ControladorConsultores ..> Consultor
+ControladorHome *-- IServicioUsuarios
+ControladorHome *-- IServicioClientes
+ControladorHome *-- IServicioPostulantes
+ControladorHome *-- IServicioConsultores
+ControladorMiCuentaCliente *-- IServicioClientes
+ControladorMiCuentaCliente ..> Cliente
+ControladorMiCuentaConsultor *-- IServicioConsultores
+ControladorMiCuentaConsultor ..> Consultor
+ControladorMiCuentaPostulante *-- IServicioPostulantes
+ControladorMiCuentaPostulante ..> Postulante
+ControladorOfertas *-- IServicioClientes
+ControladorOfertas *-- IServicioOfertas
+ControladorOfertas *-- IServicioPostulaciones
+ControladorOfertas *-- IServicioAreas
+ControladorOfertas ..> Oferta
+ControladorPostulaciones *-- IServicioPostulaciones
+ControladorPostulaciones *-- IServicioOfertas
+ControladorPostulaciones *-- IServicioPostulantes
+ControladorPostulaciones ..> Postulacion
+ControladorPostulantes *-- ServicioPostulantes
+ControladorPostulantes *-- IServicioPostulaciones
+ControladorPostulantes ..> Postulante
+Cliente --|> Usuario
+Consultor --|> Usuario
+Oferta *-- Cliente
+Oferta *-- Area
+Postulacion *-- PostulacionId
+Postulacion *-- Oferta
+Postulacion *-- Postulante
+Postulante --|> Usuario
+Usuario o-- Rol
+ExcepcionNoExiste --|> ExcepcionBiosWork
+ExcepcionTieneVinculos --|> ExcepcionBiosWork
+ExcepcionYaExiste --|> ExcepcionBiosWork
+IRepositorioOfertas ..> Cliente
+IRepositorioOfertas ..> Oferta
+IRepositorioPostulaciones ..> Postulante
+IRepositorioPostulaciones ..> Oferta
+IRepositorioUsuarios ..> Usuario
+IServicioAreas ..> Area
+IServicioClientes ..> Cliente
+IServicioConsultores ..> Consultor
+IServicioOfertas ..> Oferta
+IServicioOfertas ..> Cliente
+IServicioPostulaciones ..> Postulacion
+IServicioPostulaciones ..> Postulante
+IServicioPostulaciones ..> Oferta
+IServicioPostulantes ..> Postulante
+IServicioUsuarios ..> Usuario
+ServicioAreas ..|> IServicioAreas
+ServicioAreas *-- IRepositorioAreas
+ServicioAreas ..> Area
+ServicioClientes ..|> IServicioClientes
+ServicioClientes *-- IRepostorioClientes
+ServicioClientes *-- IRepositorioOfertas
+ServicioClientes ..> Cliente
+ServicioConsultores ..|> IServicioConsultores
+ServicioConsultores *-- IRepositorioConsultores
+ServicioConsultores ..> Consultor
+ServicioDetallesUsuario *-- IRepositorioUsuarios
+ServicioDetallesUsuario *-- IRepositorioConsultores
+ServicioDetallesUsuario *-- IRepositorioPostulantes
+ServicioDetallesUsuario *-- IRepostorioClientes
+ServicioOfertas ..|> IServicioOfertas
+ServicioOfertas *-- IRepositorioOfertas
+ServicioOfertas *-- IRepositorioPostulaciones
+ServicioOfertas ..> Oferta
+ServicioOfertas ..> Cliente
+ServicioPostulaciones ..|> IServicioPostulaciones
+ServicioPostulaciones *-- IRepositorioPostulaciones
+ServicioPostulaciones *-- IRepositorioOfertas
+ServicioPostulaciones ..> Postulacion
+ServicioPostulaciones ..> Oferta
+ServicioPostulaciones ..> Postulante
+ServicioPostulantes ..|> IServicioPostulantes
+ServicioPostulantes *-- IRepositorioPostulantes
+ServicioPostulantes *-- IRepositorioPostulaciones
+ServicioPostulantes ..> Postulante
+ServicioUsuarios ..|> IServicioUsuarios
+ServicioUsuarios *-- IRepositorioUsuarios
+ServicioUsuarios ..> Usuario
+@enduml
