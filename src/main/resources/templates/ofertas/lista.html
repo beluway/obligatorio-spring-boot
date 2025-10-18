@@ -19,10 +19,10 @@
                 <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="código o descripción"> <input type="submit" value="Buscar">
             </div>
         </form>
-
-        <form id="postulacionActiva">
-            <input type="radio" name="postulacionActiva" th:checked="${postulacionActiva}"> Postulación activa
-            <input type="radio" name="postulacionActiva" th:checked="${postulacionInactiva}"> Postulación no activa
+        <br>
+        <form id="postulacionActiva" sec:authorize="hasAnyAuthority('postulante')">
+            <input type="radio" name="postulacionActiva" th:checked="${postulacionActiva}"> Me postulé
+            <input type="radio" name="postulacionActiva" th:checked="${postulacionInactiva}"> No me postulé
         </form>
 
 
