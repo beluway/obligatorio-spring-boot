@@ -137,7 +137,6 @@ private Integer id;
     //Hibernate necesita un constructor público vacío en todas las entidades (@Entity). Esto es obligatorio para poder instanciarlas al leer datos desde la base de datos.
     public Oferta(){}
 
-
   
 /*     public List<Postulacion> getPostulaciones() { return postulaciones; }
     public void setPostulaciones(List<Postulacion> postulaciones) { this.postulaciones = postulaciones; } */
@@ -182,15 +181,5 @@ private Integer id;
                 + ", cliente=" + cliente + ", descripcion=" + descripcion + ", titulo=" + titulo + ", area=" + area
                 + ", cantidadVacantes=" + cantidadVacantes + "]";
     }
-
-   
-
-   /*  @Embeddable
-    private class OfertaFK implements Serializable {
-    
-        @Column(name = "nombre", nullable = false)
-        private String nombre;
-        
-    } */
     
 }
