@@ -23,7 +23,7 @@ public interface IRepositorioPostulantes extends JpaRepository<Postulante,String
     @EntityGraph(type = EntityGraphType.LOAD, attributePaths = {"roles"})
     Optional <Postulante> findByUsuario(String usuario);
 
-    List<Postulante> findAllByOferta(Oferta oferta);
+    /* List<Postulante> findAllByOferta(Oferta oferta); */
     
 
 }

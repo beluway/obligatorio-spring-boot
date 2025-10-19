@@ -119,8 +119,13 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     // SE SACAN TODAS LAS POSTULACIONES POR OFERTA
     //PARA HACER LA BAJA FISICA, PRIMERO SE ELIMINAN TODAS ESTAS POSTULACIONES, Y DESPUES LA OFERTA
    
-
-       
+@Override
+        public List<Postulante> obtenerPostulantesPorOferta(Integer idOferta) {
+        return repositorioPostulaciones.findByOferta_Id(idOferta)
+                .stream()
+                .map(Postulacion::getPostulante)
+                .collect(Collectors.toList());
+    }
 
        
    /*  @Override

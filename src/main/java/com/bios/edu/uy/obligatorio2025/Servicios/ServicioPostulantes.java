@@ -129,7 +129,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
  
 
 
-    @Override 
+  /*   @Override 
     public List<Postulante> listaPostulantesPorOferta(Oferta oferta) throws ExcepcionBiosWork
     {
        // ArrayList<postulantes> lista = new ArrayList<>();
@@ -137,7 +137,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
        List<Postulante> lista = respositorioPostulantes.findAllByOferta(oferta);
 
         return lista;
-    }
+    } */
 
 
 
@@ -182,14 +182,14 @@ public class ServicioPostulantes  implements IServicioPostulantes{
         }
 
 
-    @Override 
+   /*  @Override 
     public List<Postulante> listaPostulacionesPorOferta (Oferta oferta)
     {
         List<Postulacion> postulaciones = repositorioPostulaciones.findByOferta(oferta);
 
         List<Postulante> listaPostulantes = postulaciones.stream().map(Postulacion::getPostulante).collect(Collectors.toList());
             return listaPostulantes;
-    }
+    } */
 
 
      public List<Postulante> buscarPorCriterio(String criterio) {

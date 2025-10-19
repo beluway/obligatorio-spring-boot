@@ -22,5 +22,6 @@ public interface IServicioPostulaciones {
     void eliminarConOferta (Oferta oferta) throws Exception;
     void eliminarConPostulante (Postulante postulante) throws Exception;
     /* List<Oferta> buscarPorCriterio(String criterio); */
+     List<Postulante> obtenerPostulantesPorOferta(Integer idOferta) throws ExcepcionBiosWork;
    
 }

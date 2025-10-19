@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+<head>
+  <meta charset="UTF-8">
+  <title>Postulantes de la oferta</title>
+  <link rel="stylesheet" th:href="@{/css/crud.css}">
+</head>
+
+<section>
+  <div id="contenedor">
+    <div class="card">
+      <h2>Postulantes de la oferta</h2>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Cédula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Departamento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="p : ${postulantes}">
+            <td th:text="${p.cedula}"></td>
+            <td th:text="${p.primerNombre}"></td>
+            <td th:text="${p.primerApellido}"></td>
+            <td th:text="${p.departamento}"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <a th:href="@{/ofertas/lista}" class="btn">Volver</a>
+    </div>
+  </div>
+</section>
+</html>

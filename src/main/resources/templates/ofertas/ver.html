@@ -44,7 +44,10 @@
 
         <p th:text="${mensaje}" class="alert alert-success"></p>
 
-         <a th:href="@{/postulantes/listaPostulantesPorOferta(id=${o.id})}" class="btn">Ver postulantes</a> 
+        <!--  <a th:href="@{/postulantes/listaPostulantesPorOferta(id=${o.id})}" class="btn">Ver postulantes</a>  -->
+          <a th:href="@{/postulaciones/ofertas/{id}/postulantes(id=${oferta.id})}" 
+         class="btn btn-secondary">
+            Ver postulantes </a>
 
         <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
         </form>

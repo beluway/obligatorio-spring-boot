@@ -32,5 +32,8 @@ List<Postulacion> findAllByOferta(Oferta oferta);
 
 List<Postulacion> findByOferta(Oferta oferta);
 
+// 🔹 Busca todas las postulaciones de una oferta
+    List<Postulacion> findByOferta_Id(Integer idOferta);
+
 }
 

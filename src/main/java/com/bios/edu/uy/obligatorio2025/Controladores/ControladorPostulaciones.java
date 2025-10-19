@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion.PostulacionId;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
@@ -272,6 +274,21 @@ public String eliminar(
 
         return "postulaciones/lista";        
     }
+
+    @GetMapping("/ofertas/{id}/postulantes")
+public String verPostulantesDeOferta(@PathVariable Integer id, Model modelo) throws ExcepcionBiosWork {
+
+    //obtenemos la lista de postulantes desde el servicio
+    List<Postulante> postulantes = servicioPostulaciones.obtenerPostulantesPorOferta(id);
+
+    //la agregamos al modelo
+    modelo.addAttribute("postulantes", postulantes);
+
+    // Pasamos también el id de la oferta por si lo necesitamos en la vista
+    modelo.addAttribute("idOferta", id);
+
+    return "ofertas/postulantes"; // nombre de tu vista
+}
 
 
 }

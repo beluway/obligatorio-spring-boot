@@ -17,8 +17,8 @@ public interface IServicioPostulantes {
     Boolean MayorEdad(LocalDate fechaNacimiento)  throws Exception;
     Postulante buscar(String usuario) throws Exception;
     List<Postulante> buscarPorCriterio(String criterio) throws ExcepcionBiosWork;
-    List<Postulante> listaPostulantesPorOferta(Oferta oferta) throws ExcepcionBiosWork;
-    List<Postulante> listaPostulacionesPorOferta (Oferta oferta) throws ExcepcionBiosWork;
+   /*  List<Postulante> listaPostulantesPorOferta(Oferta oferta) throws ExcepcionBiosWork;
+    List<Postulante> listaPostulacionesPorOferta (Oferta oferta) throws ExcepcionBiosWork; */
     
 
 }

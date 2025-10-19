@@ -267,7 +267,7 @@ public String postulanteCrear(Model modelo) {
     }
 
 
-    @GetMapping("/listaPostulantesPorOferta")
+  /*   @GetMapping("/listaPostulantesPorOferta")
     public String listaPostulantesPorOferta(Model modelo, 
     Principal usuarrioLogueado, 
     @RequestParam("id")Integer id)  throws Exception
@@ -279,7 +279,7 @@ public String postulanteCrear(Model modelo) {
         modelo.addAttribute("lista", listaOfertas);
 
         return "/listaPorCliente";
-    }
+    } */
     
 
 }
