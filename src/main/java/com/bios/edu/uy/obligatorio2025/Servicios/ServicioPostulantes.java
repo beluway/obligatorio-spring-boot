@@ -140,7 +140,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     } */
 
 
-
+    
      @Override 
     public List<Postulante> lista() throws Exception
     {
@@ -185,7 +185,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
    /*  @Override 
     public List<Postulante> listaPostulacionesPorOferta (Oferta oferta)
     {
-        List<Postulacion> postulaciones = repositorioPostulaciones.findByOferta(oferta);
+        List<Postulante> postulantes = repositorioPostulaciones.findPostulantesByOfertaId(oferta.getId());
 
         List<Postulante> listaPostulantes = postulaciones.stream().map(Postulacion::getPostulante).collect(Collectors.toList());
             return listaPostulantes;
