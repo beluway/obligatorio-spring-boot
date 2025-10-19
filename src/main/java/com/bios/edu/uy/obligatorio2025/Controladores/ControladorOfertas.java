@@ -2,6 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Controladores;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import org.springframework.ui.Model;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
-
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Servicios.*;
 import jakarta.validation.Valid;
 
@@ -164,6 +165,13 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
        Oferta oferta = servicioOfertas.obtener(codigo);
        modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
        modelo.addAttribute("oferta", oferta);
+
+        // 🔹 Verificar si el usuario ya se postuló
+        String usuario = usuarioLogueado.getName();
+        Optional<Postulacion> postulacion = servicioPostulaciones.obtener(codigo, usuario);
+
+        boolean yaPostulado = postulacion.isPresent();
+        modelo.addAttribute("yaPostulado", yaPostulado);
 
         return "ofertas/ver";
     }   

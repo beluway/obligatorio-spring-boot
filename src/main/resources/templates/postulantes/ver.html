@@ -180,18 +180,26 @@
 
             <div th:if="${cvDisponible}" >
             <label>Currículum</label>
-            <a id="cv" th:href="@{|/pdf/${postulante.cedula}.pdf|}" target="_blank">Ver CV</a> 
+            <a id="cv" class="cv" th:href="@{|/pdf/${postulante.cedula}.pdf|}" target="_blank">Ver CV</a> 
             </div>
 
         <div th:unless="${cvDisponible}">
             <label>Currículum</label>
-            <span class="erro-simple">📄 CV no disponible</span>
+            <span class="error-simple">📄 CV no disponible</span>
         </div>
 
                 <div style="margin-top:15px;">
-                    <button type="submit" name="accion" value="btn_modificar" sec:authorize="hasAuthority('admin')">Modificar</button>
-                    <button type="submit" name="accion" value="btn_eliminar" sec:authorize="hasAuthority('admin')">Eliminar</button>
-                    <a th:href="@{/postulantes/lista}"><button type="button">Volver</button></a>
+                    <button type="submit" name="accion" value="btn_modificar" sec:authorize="hasAnyAuthority('admin','postulante')">Modificar</button>
+                    <button type="submit" name="accion" value="btn_eliminar" sec:authorize="hasAnyAuthority('admin','postulante')">Eliminar</button>
+                    <!-- <a th:href="@{/postulantes/lista}" sec:authorize="hasAuthority('postulante')"></a> -->
+                     <a th:if="${idOferta != null}" th:href="@{/postulaciones/ofertas/{id}/postulantes(id=${idOferta})}" sec:authorize="hasAuthority('cliente')">
+                    <button type="button">Volver al listado</button></a>
+
+                    <!-- Si no vino desde una oferta, volver a la lista general -->
+                    <a th:if="${idOferta == null}" th:href="@{/postulantes/lista}">
+                    <button type="button">Volver</button>
+                    </a>
+
                 </div>
 
             </form>

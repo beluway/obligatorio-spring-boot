@@ -194,7 +194,7 @@ public String postulanteCrear(Model modelo) {
      }
 
     @GetMapping("/ver")    
-    public String postulanteVer(@RequestParam String usuario,Model modelo, Principal usuarioLogueado, RedirectAttributes attributes) throws Exception
+    public String postulanteVer(@RequestParam String usuario,@RequestParam(required = false) Integer idOferta,Model modelo, Principal usuarioLogueado, RedirectAttributes attributes) throws Exception
     {
         modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
 
@@ -215,6 +215,12 @@ public String postulanteCrear(Model modelo) {
             } else {
                 modelo.addAttribute("cvDisponible", false);
             }
+
+                // ✅ Si vino desde una oferta, lo pasamos a la vista
+            if (idOferta != null) {
+                modelo.addAttribute("idOferta", idOferta);
+            }
+
         return "postulantes/ver";
     }   
 

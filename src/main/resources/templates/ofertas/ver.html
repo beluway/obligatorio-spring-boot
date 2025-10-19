@@ -40,14 +40,27 @@
         <label for="vacantes">Cantidad de puestos vacantes</label>
         <input type="number" id="vacantes" name="vacantes" th:value="${oferta.cantidadVacantes}" readonly>
 
-        <button type="submit" id="postularse" sec:authorize="hasAuthority('postulante')">Postularse</button>
+        <!-- 🔹 Si NO está postulado, mostrar el botón de postularse -->
+        <button type="submit" id="postularse" sec:authorize="hasAuthority('postulante')" th:if="${!yaPostulado}">Postularse</button>
 
-        <p th:text="${mensaje}" class="alert alert-success"></p>
+            <!-- 🔹 Si YA está postulado mostra botón de eliminar postulación -->
+    <a th:if="${yaPostulado}"
+       th:href="@{/postulaciones/eliminar(codigoOferta=${oferta.id}, codigoPostulante=${#authentication.name})}">
+        <button type="button" class="btn btn-danger">
+            Eliminar postulación
+        </button>
+    </a>
+
+    <!-- confirmación de eliminación de postulación -->
+    <a th:if="${yaPostulado}"
+   th:href="@{/postulaciones/eliminar(codigoOferta=${oferta.id}, codigoPostulante=${#authentication.name})}"
+   onclick="return confirm('¿Seguro que deseas eliminar tu postulación a esta oferta?');">
+    
+
+        <p th:if="${mensaje}" th:text="${mensaje}" class="exito"></p>
 
         <!--  <a th:href="@{/postulantes/listaPostulantesPorOferta(id=${o.id})}" class="btn">Ver postulantes</a>  -->
-          <a th:href="@{/postulaciones/ofertas/{id}/postulantes(id=${oferta.id})}" 
-         class="btn btn-secondary">
-            Ver postulantes </a>
+          <a th:href="@{/postulaciones/ofertas/{id}/postulantes(id=${oferta.id})}"class="cv" sec:authorize="hasAuthority('cliente')">Ver postulantes </a>
 
         <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
         </form>

@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>Postulantes de la oferta</title>
   <link rel="stylesheet" th:href="@{/css/crud.css}">
+  <link rel="stylesheet" th:href="@{/css/listas.css}">
 </head>
 
 <section>
@@ -12,21 +13,21 @@
     <div class="card">
       <h2>Postulantes de la oferta</h2>
 
-      <table class="table table-striped">
+      <table>
         <thead>
           <tr>
             <th>Cédula</th>
             <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Departamento</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr th:each="p : ${postulantes}">
             <td th:text="${p.cedula}"></td>
             <td th:text="${p.primerNombre}"></td>
-            <td th:text="${p.primerApellido}"></td>
-            <td th:text="${p.departamento}"></td>
+            <td>
+                <a th:href="@{/postulantes/ver/{usuario}(usuario=${postulante.usuario}, idOferta=${idOferta})}"> class="btn">Ver más</a>
+            </td>
           </tr>
         </tbody>
       </table>
