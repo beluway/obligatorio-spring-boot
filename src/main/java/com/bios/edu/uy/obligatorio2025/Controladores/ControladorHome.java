@@ -28,11 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/home")
 public class ControladorHome {
 
-/*     private final Servicios.ServicioPostulantes servicioPostulantes;
-
-    private final Servicios.ServicioClientes servicioClientes;
-    private final Servicios.ServicioConsultores servicioConsultores; */
-    
    
 
    
@@ -94,69 +89,6 @@ public class ControladorHome {
         }      
     }
     
-
-
-    /* @GetMapping("/login")
-    public String login(HttpSession session) {
-      
-       /*  //EL USUARIO YA ESTA LOGUEADO (EXISTE EN LA SESION) ??
-        if(session.getAttribute("usuarioLogueado")==null)    
-        {   
-            //NO, REDIRIGE AL INDEX
-            return "redirect:/home/index";
-        }
-        */
-        //SE QUEDA EN EL LOGIN (PARA INGRESAR LA CONTRASEÑA)
-      /*    return "home/login"; 
-    }     
- */
-
-  /*   @PostMapping("/login")
-    public String login(@ModelAttribute Usuario usuario, Model modelo, BindingResult resultado, HttpSession sesion) {
-       
-        // SE BUSCA SI EXISTE EN LA CAPA USUARIO CON LOS DATOS PASADOS
-
-        //SI EXISTE EL USUARIO, SE PREGUNTA DE QUE TIPO ES. 
-            //DEPENDIENDO EL TIPO SE REDIRIGE A LA PÁGINA QUE LE TOQUE
-
-        try
-        {
-            Usuario existente = servicioUsuarios.usuarioParaLogin(usuario.getUsuario());
-           
-
-
-            if(existente!=null && existente.isActivo())
-            {
-                if(passwordEncoder.matches(usuario.getClave(), existente.getClave()))
-                {
- //*********************  USUARIO EN SESION (SIN PREGUNTAR EL TIPO)  *************************
-              sesion.setAttribute("usuarioLogueado", existente);   
-
-
-                   return "/home/main"; 
-                }
-
-                else
-                {
-                modelo.addAttribute("mensaje", "Contraseña incorrecta");
-                }         
-             
-      
-            }
-
-            else {
-            modelo.addAttribute("mensaje", "Usuario no existe o está inactivo");
-         }
-         return "/home/login";
-        }
-
-        catch (Exception ex)
-        {
-           modelo.addAttribute("mensaje","Hubo un error "+ ex.getMessage());
-           return "clientes/crear";
-        }
-        
-    } */
 
 
 
