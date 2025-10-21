@@ -61,28 +61,32 @@ public class ServicioPostulantes  implements IServicioPostulantes{
           //ESTE ES PARA: SACAR EL ROL, Y LA CONTRASEÑA GUARDADA EN CASO DE QUE NO SE CAMBIE LA CONTRASEÑA
           Postulante existe = respositorioPostulantes.findById(nuevo.getUsuario()).orElse(null);
 
-
-          if(nuevo.getClave().isEmpty()||nuevo.getClave().isBlank())
-          {
-            nuevo.setClave(existe.getClave());
-          }
-
-          else
-          {
-             nuevo.setClave(codificador.encode(nuevo.getClave()));
-          }
-
           if(existe==null)
           {
             throw new ExcepcionNoExiste("el postulante no existe");
           }
 
-         nuevo.getRoles().clear();
+
+        //SI CONTRASEÑA NO SE VA A CAMBIAR:
+          if(nuevo.getClave().isEmpty()||nuevo.getClave().isBlank())
+          {
+            nuevo.setClave(existe.getClave());
+          }
+
+          //SI LA CLAVE QUE LLE
+          else if(!nuevo.getClave().equals(existe.getClave()))
+          {
+             nuevo.setClave(codificador.encode(existe.getClave()));
+          }
+
+        
+/* 
+        nuevo.getRoles().clear();
 
          for(Rol r : existe.getRoles())
          {
             nuevo.getRoles().add(r);
-         }
+         }  */
                   
 
         respositorioPostulantes.save(nuevo);
