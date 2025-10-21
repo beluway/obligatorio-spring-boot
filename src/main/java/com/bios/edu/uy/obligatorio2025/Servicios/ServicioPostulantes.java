@@ -16,6 +16,8 @@ import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulantes;
 
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class ServicioPostulantes  implements IServicioPostulantes{
@@ -51,7 +53,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     }
 
     
-     @Override 
+    @Override 
     public void modificar (Postulante  nuevo) throws ExcepcionBiosWork
     {
 
@@ -61,32 +63,28 @@ public class ServicioPostulantes  implements IServicioPostulantes{
           //ESTE ES PARA: SACAR EL ROL, Y LA CONTRASEÑA GUARDADA EN CASO DE QUE NO SE CAMBIE LA CONTRASEÑA
           Postulante existe = respositorioPostulantes.findById(nuevo.getUsuario()).orElse(null);
 
-          if(existe==null)
-          {
-            throw new ExcepcionNoExiste("el postulante no existe");
-          }
 
-
-        //SI CONTRASEÑA NO SE VA A CAMBIAR:
           if(nuevo.getClave().isEmpty()||nuevo.getClave().isBlank())
           {
             nuevo.setClave(existe.getClave());
           }
 
-          //SI LA CLAVE QUE LLE
-          else if(!nuevo.getClave().equals(existe.getClave()))
+          else
           {
-             nuevo.setClave(codificador.encode(existe.getClave()));
+             nuevo.setClave(codificador.encode(nuevo.getClave()));
           }
 
-        
-/* 
-        nuevo.getRoles().clear();
+          if(existe==null)
+          {
+            throw new ExcepcionNoExiste("el postulante no existe");
+          }
+
+         nuevo.getRoles().clear();
 
          for(Rol r : existe.getRoles())
          {
             nuevo.getRoles().add(r);
-         }  */
+         }
                   
 
         respositorioPostulantes.save(nuevo);
@@ -201,6 +199,17 @@ public class ServicioPostulantes  implements IServicioPostulantes{
                 .filter(p -> p.getUsuario().toLowerCase().contains(criterio.toLowerCase()))
                 .toList();
      }
+
+
+ 
+     @Override
+     @Transactional
+     public void actualizarCantidad(String usuario, int cantidad) throws Exception
+     {
+        respositorioPostulantes.actualizarCantidadPostulaciones(usuario, cantidad);
+     }
+
+
 
 }
 

@@ -19,6 +19,7 @@ public interface IServicioPostulantes {
     List<Postulante> buscarPorCriterio(String criterio) throws ExcepcionBiosWork;
    /*  List<Postulante> listaPostulantesPorOferta(Oferta oferta) throws ExcepcionBiosWork;
     List<Postulante> listaPostulacionesPorOferta (Oferta oferta) throws ExcepcionBiosWork; */
+      void actualizarCantidad(String usuario, int cantidad) throws Exception;
     
 
 }

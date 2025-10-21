@@ -24,4 +24,5 @@ public interface IServicioPostulaciones {
     /* List<Oferta> buscarPorCriterio(String criterio); */
      List<Postulante> obtenerPostulantesPorOferta(Integer idOferta) throws ExcepcionBiosWork;
    
+   
 }

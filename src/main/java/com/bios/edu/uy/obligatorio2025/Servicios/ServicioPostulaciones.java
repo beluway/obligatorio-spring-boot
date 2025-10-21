@@ -20,6 +20,8 @@ import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 
+import jakarta.transaction.Transactional;
+
 
 
 
@@ -36,6 +38,10 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     @Override 
     public void agregar (Postulacion postulacion) throws ExcepcionBiosWork
     {
+
+
+
+
         repositorioPostulaciones.save(postulacion);
     }
 
@@ -135,4 +141,9 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
                                 p.getDescripcion().toLowerCase().contains(criterio.toLowerCase()))
                  .toList();
     }  */
+
+
+
+   
+
 }

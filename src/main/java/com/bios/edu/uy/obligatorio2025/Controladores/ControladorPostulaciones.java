@@ -60,20 +60,7 @@ public class ControladorPostulaciones {
 
      //SE OBTIENE EL POSTULANTE LOGUEADO
     Postulante postulanteLogueado = servicioPostulantes.obtener(usuarioLogueado.getName());  
-             
-   
-
-
-            //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
-           /*  if(listaPostulaciones.size()==3)
-            {
-                return "redirect:/home/main";
-            }  */
-/* 
-            if(postulanteLogueado.getCantidadPostulaciones()==3)
-            {
-                return "redirect:/home/main";
-            }   */
+                
 
         modelo.addAttribute("postulacion", new Postulacion());
         modelo.addAttribute("usuarioLogueado", postulanteLogueado);       
@@ -100,10 +87,8 @@ public class ControladorPostulaciones {
     List<Postulacion> listaPostulaciones = servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado);
 
 
-
-
-//**** ESTE METODDO LO QUE HACE ES D */
- //DE TODAS LAS POSTULACIONES
+    //**** ESTE METODDO LO QUE HACE ES DESCONTAR 1 SEGUN LA CANTIDAD DE POSTULACIONES VENCIDAS.*/
+    //DE TODAS LAS POSTULACIONES
     for(Postulacion P : listaPostulaciones)
     {
 
@@ -112,32 +97,28 @@ public class ControladorPostulaciones {
            int cantidadPostulacionesActulizadasPorOfertasVencidas = P.getPostulante().getCantidadPostulaciones();
            P.getPostulante().setCantidadPostulaciones(cantidadPostulacionesActulizadasPorOfertasVencidas-1);
 
-           servicioPostulantes.modificar(postulanteLogueado);      
+
+           //SE ACTUALIZA LA CANTIDAD DE POSTULACIONES
+          servicioPostulantes.actualizarCantidad(usuarioLogueado.getName(), cantidadPostulacionesActulizadasPorOfertasVencidas);  
                      
       /*   servicioPostulaciones.eliminar(P); */
         }
     }
 
 
-
     //SI EL POSTULANTE LOGJUEADO TIENE 3 POSTULACIONES
     if(postulanteLogueado.getCantidadPostulaciones()==3)
     {
-                return "redirect:/home/main";
+
+        /// mensajito que diga: "ya alcanzó las 3 postulaciones"
+                return "redirect:/postulaciones/lista";
     }  
 
+
+    //SI LA CANTIDAD DE POSTULACIONES DE MENOR A 3, SE POSTULA
     else
     {
-
-
-
-       
-/* 
-        if(usuarioLogueado instanceof Postulante)
-        { */
-
-
-             
+                    
         Oferta ofertaEncontrada = servicioOfertas.obtener(postulacion.getOferta().getId()); 
        
 
@@ -165,15 +146,24 @@ public class ControladorPostulaciones {
 
 
         try
-        {   
-        
+        {          
                 
                 servicioPostulaciones.agregar(postulacion);
 
+
+               int cantidadPostulacionesActulizadasPorOfertasVencidas = postulanteLogueado.getCantidadPostulaciones()+1;
+
+
                //DESPUES QUE SE POSTULA A UNA OFERTA, SE CUENTA +1, HASTA QUE SEAN 3 RESERVAS ACTUALES.
-                postulanteLogueado.setCantidadPostulaciones(postulanteLogueado.getCantidadPostulaciones()+1);
+
+                //postulanteLogueado.setCantidadPostulaciones(postulanteLogueado.getCantidadPostulaciones()+1);
                    
-                servicioPostulantes.modificar(postulanteLogueado);
+                //CORRESPONDE CON LA ACTUALIZACION DE LA CANTIDAD DE POSTULACIONES
+             // servicioPostulantes.modificar(postulanteLogueado);
+
+
+
+              servicioPostulantes.actualizarCantidad(postulanteLogueado.getUsuario(),cantidadPostulacionesActulizadasPorOfertasVencidas);
 
                 String mensaje = "Se agregó la postulación correctamente";
                 attributes.addFlashAttribute("mensaje",mensaje);               
@@ -326,6 +316,7 @@ public String eliminar(
 
         return "postulaciones/lista";        
     }
+
 
     @GetMapping("/ofertas/{id}/postulantes")
 public String verPostulantesDeOferta(@PathVariable Integer id, Model modelo) throws ExcepcionBiosWork {
