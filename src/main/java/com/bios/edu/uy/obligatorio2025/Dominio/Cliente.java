@@ -2,6 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.util.Set;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
@@ -17,8 +18,6 @@ import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "clientes")
-/* @PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
-@DiscriminatorValue("Cliente") */
 
 public class Cliente extends Usuario {
        
@@ -26,18 +25,18 @@ public class Cliente extends Usuario {
 
    
     @Column(name = "rut", nullable = false, length = 12, unique = true)
-    @NotNull(message = "Ingrese el RUT.")
-    @Digits(integer =  12, fraction = 0, message = "El RUT debe tener 12 dígitos.")    
+    @NotNull(message = "{NotNull.cliente.rut}")
+    @Digits(integer =  12, fraction = 0, message = "{Digits.cliente.rut}")    
     private Long rut;
 
     @Column(name = "nombre", nullable = false, length = 50)
-    @NotBlank(message = "Ingrese el nombre.")
+    @NotBlank(message = "{NotBlank.cliente.nombre}")
     private String nombre;
    
    @Pattern(
-    regexp = "^www\\..*\\.com$",
-    message = "La URL debe comenzar con www y debe terminar con .com, además no puede repetirse.")
-    @Column(name="url", unique = true)
+    regexp = "^$|^www\\..*\\.com$", // acepta vacío o URL válida
+    message = "{Pattern.cliente.url}")
+    @Column(name="url",nullable = true)
     private String url;
 
     public Long getRut() {
@@ -64,28 +63,13 @@ public class Cliente extends Usuario {
         this.url = url;
     }
 
-
-    /* public Cliente(@NotBlank(message = "ingrese el usuario") String usuario,
-            @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,15}$", message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial") @NotBlank(message = "ingrese la clave") String clave,
-            Boolean activo,
-            @NotNull(message = "Ingrese el RUT.") @Digits(integer = 12, fraction = 0, message = "El RUT debe tener 12 dígitos") Long rut,
-            @NotBlank(message = "Ingrese el nombre.") String nombre,
-            @Pattern(regexp = "^www\\..*\\.com$", message = "La URL debe comenzar con www") String url) {
-        super(usuario, clave, activo);
-        this.rut = rut;
-        this.nombre = nombre;
-        this.url = url;
-    } */
-
-
-    
      public Cliente(){}
 
      public Cliente(@NotBlank(message = "ingrese el usuario") String usuario,
             @NotBlank(message = "ingrese la clave") String clave, Set<Rol> roles, boolean activo,
             @NotNull(message = "Ingrese el RUT.") @Digits(integer = 12, fraction = 0, message = "El RUT debe tener 12 dígitos") Long rut,
             @NotBlank(message = "Ingrese el nombre.") String nombre,
-            @Pattern(regexp = "^www\\..*\\.com$", message = "La URL debe comenzar con www") String url) {
+            String url) {
         super(usuario, clave, roles, activo);
         this.rut = rut;
         this.nombre = nombre;

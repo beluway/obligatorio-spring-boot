@@ -62,16 +62,24 @@ public class ControladorClientes {
             return "clientes/crear";
           }
 
+          if (cliente.getUrl() != null && !cliente.getUrl().isBlank()) {
           // 🔹 Verificar si ya existe la URL
+    if (cliente.getUrl() != null && !cliente.getUrl().isBlank()) {
     if (servicioClientes.existePorUrl(cliente.getUrl())) {
         resultado.rejectValue("url", "error.url", "Ya existe un cliente con esa URL.");
         return "clientes/crear";
     }
+}
+}
 
           if(servicioClientes.obtener(cliente.getUsuario())!=null)
           {
              modelo.addAttribute("mensaje", "Ya existe el usuario");
              return "clientes/crear";
+          }
+          else if(servicioClientes.obtener(cliente.getUsuario())==null){
+            modelo.addAttribute("mensaje", "Ingrese un nombre de usuario");
+            return "clientes/crear";
           }
 
           try
@@ -96,9 +104,6 @@ public class ControladorClientes {
 
     @GetMapping("/eliminar")
     public String clienteEliminar(@RequestParam String usuario,Model modelo, Principal usuarioLogueado) throws Exception {
-     
-        //ENTRA ACA SOLO SI ES CONSULTOR
-        //modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
 
     // Buscar el cliente
     Cliente cliente = servicioClientes.obtener(usuario);
@@ -133,15 +138,6 @@ public class ControladorClientes {
 
     try 
     {
-      /*   // Si tiene ofertas → baja lógica
-        if (!servicioOfertas.listaOfertasCliente(clienteEncontrado).isEmpty()) {
-            clienteEncontrado.setActivo(false);
-            servicioClientes.modificar(clienteEncontrado, null);
-            attributes.addFlashAttribute("exito", "Cliente dado de baja (baja lógica) porque tiene ofertas publicadas.");
-        } else {
-            // Sin ofertas → eliminación definitiva
-            
-        } */
 
             servicioClientes.eliminar(clienteEncontrado.getUsuario());
             attributes.addFlashAttribute("exito", "Cliente eliminado.");

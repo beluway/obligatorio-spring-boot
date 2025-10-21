@@ -28,13 +28,13 @@ public abstract  class Usuario {
     
     @Id
     @Column(name = "usuario",length = 50)
-    @NotBlank (message = "ingrese el usuario")
+    @NotBlank (message = "{NotBlank.usuario.usuario}", groups = Crear.class)
     private String usuario;
    
     //@Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,}$",
     //message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial")
     @Column(name = "clave", nullable = false,length = 100)
-    @NotBlank (message =  "ingrese la clave",groups = Crear.class)
+    @NotBlank (message =  "{NotBlank.usuario.clave}",groups = Crear.class)
     private String clave;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -75,10 +75,6 @@ public abstract  class Usuario {
     }
 
     public interface Crear {}
-    public interface Modificar {}
-
-
-
 
     /* public Usuario(@NotBlank(message = "ingrese el usuario") String usuario,
             @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!#$%&/()=?]).{6,}$", message = "La clave debe tener entre 6 y 15 caracteres, al menos una mayúscula y un caracter especial") @NotBlank(message = "ingrese la clave") String clave,

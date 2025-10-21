@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -123,11 +124,11 @@ public class ControladorAreas {
 
         //ELIMINAR ÁREA GET
     @GetMapping("/eliminar")
-    public String eliminarArea(Area area, Model modelo, Principal usuarioLogueado) throws Exception
+    public String eliminarArea(@RequestParam("id") Integer id, Model modelo, Principal usuarioLogueado) throws Exception
     {
         modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
 
-        Area areaEncontrada = servicioAreas.obtener(area.getId());
+        Area areaEncontrada = servicioAreas.obtener(id);
 
         if (areaEncontrada!=null) {
             modelo.addAttribute("area", areaEncontrada);
@@ -141,25 +142,38 @@ public class ControladorAreas {
     
     //ELIMINAR ÁREA POST
     @PostMapping("/eliminar")
-    public String procesarEliminarArea(@ModelAttribute @Valid Area area,BindingResult resultado, Model modelo, RedirectAttributes attributes) throws Exception{
-
-        if (resultado.hasErrors()) {
-            return "areas/eliminar";
-        }
+    public String procesarEliminarArea(@RequestParam("id") Integer id, Model modelo, RedirectAttributes attributes) throws Exception{
 
         try{
 
-            if(area.getAsignada()==true)
-            {
-                return "areas/lista";
+            Area area = servicioAreas.obtener(id);
 
-                //return "areas/eliminar";
+            if (area == null) {
+
+                modelo.addAttribute("error", "El área no existe.");
+                 modelo.addAttribute("area",area);
+                return "areas/eliminar";
             }
 
-            servicioAreas.eliminar(area);
+            if(area.getAsignada()==true)
+            
+            {   
+                modelo.addAttribute("error", "No es posible borrar un área ya asignada.");
+                modelo.addAttribute("area",area);
+                return "areas/eliminar";
+
+            
+
+            }
+            else{
+                servicioAreas.eliminar(area);
 
             attributes.addFlashAttribute("mensaje","Área eliminada con éxito.");
             return "redirect:/areas/lista";
+                
+            
+            }
+            
         }catch(Exception e){
             modelo.addAttribute("mensaje","Hubo un error "+ e.getMessage());
             return "areas/lista";

@@ -15,65 +15,27 @@
     <div id="contenedor">
      <div class="card">
             <h2>Eliminar Área</h2>
-            <form th:action="@{/areas/eliminar}" method="post" th:object="${area}">
+            <form th:action="@{/areas/eliminar(id=${area.id})}" id="form" method="post" th:object="${area}">
 
-                <p th:text="${mensaje}"></p>
+                <p th:if="${error}" th:text="${error}" class="error"></p>
 
                 <label for="id">ID</label>
                 <input type="text" id="id" name="id" th:field="*{id}" readonly> 
                 <p th:errors="*{id}" class="error"></p>
 
-
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" th:field="*{nombre}" readonly>
                 <p th:errors="*{nombre}" class="error"></p>                  
 
-                <button type="submit" id="eliminar">Eliminar</button>
+                <button type="submit" id="modificar">Eliminar</button>
 
 
                  <p th:if="${mensaje}" th:text="${mensaje}"></p>
                 <a th:href="@{/areas/lista}" id="volver">Volver al listado</a>
             </form>
-            <!-- Modal de confirmación -->
-                <dialog id="confirmDialog" class="card">
-                    <h3>Confirmar eliminación</h3>
-                    <p>¿Está seguro de que desea eliminar esta área permanentemente?</p>
-                    <div style="margin-top: 1em;">
-                        <button type="button" id="confirmYes">Sí, eliminar</button>
-                        <button type="button" id="confirmNo">Cancelar</button>
-                    </div>
-                </dialog>
         </div>
     </div>
 </section>
-
-    <script>
-
-
-    const btn = document.getElementById('eliminar');
-    const form = document.querySelector('form');
-    const dialog = document.getElementById('confirmDialog');
-    const confirmYes = document.getElementById('confirmYes');
-    const confirmNo = document.getElementById('confirmNo');
-
-    if (!window.HTMLDialogElement) {
-  alert("Tu navegador no soporta el elemento <dialog>");
-}
-
-    btn.addEventListener('click', function (event) {
-        event.preventDefault();
-        dialog.showModal(); // abre el modal
-    });
-
-    confirmYes.addEventListener('click', () => {
-        dialog.close();
-        form.submit(); // solo acá se envía
-    });
-
-    confirmNo.addEventListener('click', () => {
-        dialog.close(); // cierra sin enviar
-    });
-</script>  
 
  </body>
 </html>

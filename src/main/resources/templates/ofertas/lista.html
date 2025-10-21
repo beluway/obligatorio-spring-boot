@@ -14,15 +14,16 @@
             <h2>Listado de Ofertas Laborales</h2>
 
 
-<form id="formularioBusqueda">
+<form id="formularioBusqueda" th:action="@{ofertas/lista}">
             <div>
                 <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="código o descripción"> <input type="submit" value="Buscar">
             </div>
         </form>
         <br>
-        <form id="postulacionActiva" sec:authorize="hasAnyAuthority('postulante')">
-            <input type="radio" name="postulacionActiva" th:checked="${postulacionActiva}"> Me postulé
-            <input type="radio" name="postulacionActiva" th:checked="${postulacionInactiva}"> No me postulé
+
+        <form id="postulacionActiva" th:action="@{/postulaciones/listaFiltro}" sec:authorize="hasAnyAuthority('postulante')">
+            <input type="radio" name="estado"  value="postuladas" th:checked="${}"> Postulada
+            <input type="radio" name="estado" value="sinPostular" th:checked="${estado == 'sinPostular'}"> Sin postular
         </form>
 
 

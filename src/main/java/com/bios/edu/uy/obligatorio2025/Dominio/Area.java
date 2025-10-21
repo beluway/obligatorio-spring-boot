@@ -1,7 +1,5 @@
 package com.bios.edu.uy.obligatorio2025.Dominio;
 
-import org.springframework.boot.context.properties.bind.DefaultValue;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +16,7 @@ public class Area {
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Integer id;
 
-    @NotBlank(message = "Ingrese el nombre del área")
+    @NotBlank(message = "{NotBlank.area.nombre}")
     @Column(name = "nombre", unique = true)
     private String nombre;
 
