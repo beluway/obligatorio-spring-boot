@@ -82,6 +82,32 @@ button {
     cursor: pointer;
     transition: background 0.3s ease;
 }
+/* === Botones === */
+.card .btn {
+    display: inline-block;
+    margin-right: 6px; /* espacio entre botones */
+    padding: 6px 12px;
+    background-color: #4e73df;
+    color: white;
+    border-radius: 6px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+#eliminar{
+    margin-top: 10px;
+    
+}
+
+.card .btn:last-child {
+    margin-right: 0; /* quita margen del último */
+}
+
+.card .btn:hover {
+    background-color: #2e59d9;
+}
+
 
 button:hover {
     background: #2e59d9;

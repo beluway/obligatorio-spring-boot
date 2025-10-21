@@ -26,18 +26,6 @@ public class ServicioClientes implements IServicioClientes  {
     @Autowired
     PasswordEncoder codificador;
 
-  
-    
-
-  /*   private List<clientes> clientes;
-
-    public ServicioClientes(IServicioOfertas servicioOfertas){
-
-        clientes = new ArrayList<>();
-
-        clientes.add(new clientes("user1", "1234", 123456789012L, "Cliente 1", null, servicioOfertas.listaOfertas())); */
-  /*   } */
-
 //AGREGAR
  @Override
    public void agregar(Cliente cliente) throws ExcepcionBiosWork
@@ -60,21 +48,6 @@ public class ServicioClientes implements IServicioClientes  {
 
     } 
 
-    //OBTENER POS
-   /*  private int obtenerPosicion(String usuario) {
-        int posicion = -1;
-
-        for (int i = 0; i < clientes.size(); i++) {
-            if (clientes.get(i).getUsuario() == usuario) {
-                posicion = i;
-
-                break;
-            }
-        }
-
-        return posicion;
-
-    } */
     
 //MODIFICAR
   @Override 
@@ -161,6 +134,7 @@ public class ServicioClientes implements IServicioClientes  {
 }
 
 public boolean existePorUrl(String url) {
+    if (url == null || url.isBlank()) return false;
     return repositorioClientes.existsByUrl(url);
 }
 
