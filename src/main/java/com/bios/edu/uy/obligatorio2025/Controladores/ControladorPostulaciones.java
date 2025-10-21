@@ -208,6 +208,8 @@ public class ControladorPostulaciones {
         return "redirect:/postulaciones/lista";        
     }
 
+
+
    
     @PostMapping("/eliminar")
     public String eliminar (Model modelo, RedirectAttributes attributes,  
@@ -257,6 +259,8 @@ public class ControladorPostulaciones {
 
      
 
+
+
     @GetMapping("/lista")
     public String lista(String criterio, 
     Model modelo, 
@@ -283,7 +287,7 @@ public class ControladorPostulaciones {
     
 
     @GetMapping("/ofertas/{id}/postulantes")
-public String verPostulantesDeOferta(@PathVariable Integer id, Model modelo) throws ExcepcionBiosWork {
+public String verPostulantesDeOferta(@PathVariable Integer id, Model modelo) throws Exception {
 
     //obtenemos la lista de postulantes desde el servicio
     List<Postulante> postulantes = servicioPostulaciones.obtenerPostulantesPorOferta(id);

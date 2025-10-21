@@ -14,7 +14,7 @@ public interface IServicioClientes {
     Cliente obtener (String usuario) throws ExcepcionBiosWork;
     List<Cliente>listaClientes() throws ExcepcionBiosWork;
     List<Cliente> listarActivos() throws ExcepcionBiosWork;
-    boolean existePorUrl(String url);
+    boolean existePorUrl(String url) throws ExcepcionBiosWork;
 
     //////CON PAGINACIÓN
 

@@ -113,7 +113,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
 
     @Override 
-    public Postulante obtener (String usuario) 
+    public Postulante obtener (String usuario) throws ExcepcionBiosWork
     {
         Postulante postulanteEncontrado = respositorioPostulantes.findByUsuario(usuario).orElse(null);
 
@@ -122,7 +122,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
 
     @Override
-    public Postulante buscar(String usuario)
+    public Postulante buscar(String usuario)  throws ExcepcionBiosWork
     {
            return respositorioPostulantes
             .findByUsuario(usuario)
@@ -144,7 +144,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
     
      @Override 
-    public List<Postulante> lista() throws Exception
+    public List<Postulante> lista() throws ExcepcionBiosWork
     {
        // ArrayList<postulantes> lista = new ArrayList<>();
 
@@ -154,7 +154,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     }
 
      @Override
-        public Boolean MayorEdad(LocalDate fechaNacimiento) throws Exception
+        public Boolean MayorEdad(LocalDate fechaNacimiento) throws ExcepcionBiosWork
         {
             
             Boolean mayorDeEdad=true;
@@ -194,7 +194,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     } */
 
 
-     public List<Postulante> buscarPorCriterio(String criterio) {
+     public List<Postulante> buscarPorCriterio(String criterio) throws ExcepcionBiosWork{
         return respositorioPostulantes.findAll().stream()
                 .filter(p -> p.getUsuario().toLowerCase().contains(criterio.toLowerCase()))
                 .toList();
@@ -204,7 +204,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
  
      @Override
      @Transactional
-     public void actualizarCantidad(String usuario, int cantidad) throws Exception
+     public void actualizarCantidad(String usuario, int cantidad) throws ExcepcionBiosWork
      {
         respositorioPostulantes.actualizarCantidadPostulaciones(usuario, cantidad);
      }

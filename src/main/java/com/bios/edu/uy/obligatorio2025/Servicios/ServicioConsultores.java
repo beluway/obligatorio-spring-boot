@@ -90,7 +90,7 @@ public class ServicioConsultores implements IServicioConsultores{
 
 
     @Override
-    public List<Consultor>listaConsultores() {
+    public List<Consultor>listaConsultores() throws ExcepcionBiosWork {
          //ArrayList<consultores> lista = new ArrayList<>();
 
         List<Consultor> lista = repositorioConsultores.findAll();
@@ -100,7 +100,7 @@ public class ServicioConsultores implements IServicioConsultores{
     
 
     @Override
-    public Consultor obtener(String usuario) throws Exception
+    public Consultor obtener(String usuario) throws ExcepcionBiosWork
     {
         Consultor consultorEncontrado = repositorioConsultores.findById(usuario).orElse(null);
 

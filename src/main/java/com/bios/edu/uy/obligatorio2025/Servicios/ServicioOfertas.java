@@ -81,14 +81,14 @@ private IRepositorioPostulaciones respositorioPostulaciones;
 
 
     @Override
-    public List<Oferta> listaOfertas() throws Exception
-    {
+    public List<Oferta> listaOfertas() throws ExcepcionBiosWork
+     {
         return repositorioOfertas.findAll();
     }
 
 
     @Override
-    public List<Oferta> listaOfertasCliente(Cliente cliente) throws Exception
+    public List<Oferta> listaOfertasCliente(Cliente cliente) throws ExcepcionBiosWork
     {
         return repositorioOfertas.findAllByCliente(cliente);
     }
@@ -102,7 +102,7 @@ private IRepositorioPostulaciones respositorioPostulaciones;
 
 
     @Override 
-    public Oferta obtener(Integer id) throws Exception
+    public Oferta obtener(Integer id) throws ExcepcionBiosWork
     {  
 
       Oferta ofertaEncontrada =  repositorioOfertas.findById(id).orElse(null);         
@@ -112,7 +112,7 @@ private IRepositorioPostulaciones respositorioPostulaciones;
 
 
     @Override
-    public List<Oferta> listaOfertasVigentes()
+    public List<Oferta> listaOfertasVigentes() throws ExcepcionBiosWork
     {
          List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes());
    
@@ -120,7 +120,7 @@ private IRepositorioPostulaciones respositorioPostulaciones;
     }
 
     @Override
-    public List<Oferta> buscarPorCriterio(String criterio) {
+    public List<Oferta> buscarPorCriterio(String criterio) throws ExcepcionBiosWork {
         return repositorioOfertas.findAll().stream()
                  .filter(p -> p.getTitulo().toLowerCase().contains(criterio.toLowerCase()) ||
                                 p.getDescripcion().toLowerCase().contains(criterio.toLowerCase()))
