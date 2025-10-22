@@ -68,7 +68,9 @@ public class Postulante extends Usuario{
     @Transient 
     private MultipartFile pdf;
    
-  
+    @Transient
+    private MultipartFile imagen;
+
     public Long getCedula() {
         return cedula;
     }
@@ -108,6 +110,16 @@ public class Postulante extends Usuario{
     public void setPdf(MultipartFile pdf) {
         this.pdf = pdf;
     }
+
+
+    public MultipartFile getImagen() {
+            return imagen;
+    }
+
+
+    public void setImagen(MultipartFile imagen) {
+            this.imagen = imagen;
+    };
 
 
     public int getCantidadPostulaciones() {
@@ -173,7 +185,7 @@ public class Postulante extends Usuario{
                 @NotBlank(message = "Seleccione el departamento") String departamento,
                 @NotBlank(message = "Ingrese el nombre") String primerNombre, String segundoNombre,
                 @NotBlank(message = "ingrese el apellido") String primerApellido,
-                @NotBlank(message = "ingrese el segundo apellido") String segundoApellido, MultipartFile pdf) {
+                @NotBlank(message = "ingrese el segundo apellido") String segundoApellido, MultipartFile pdf, MultipartFile imagen) {
                     
             super(usuario, clave, roles, activo);
             this.cantidadPostulaciones = cantidadPostulaciones;
@@ -185,7 +197,11 @@ public class Postulante extends Usuario{
             this.primerApellido = primerApellido;
             this.segundoApellido = segundoApellido;
             this.pdf = pdf;
-        };
+            this.imagen = imagen;
+        }
+
+
+      
 
     
 }

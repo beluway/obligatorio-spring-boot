@@ -110,10 +110,18 @@
                        th:errors="*{departamento}" class="error"></p>
                 </div>
 
+
+                <!--IMAGEN-->
+                <div>
+                    <label for="imagen">Subir Imagen (opcional)</label>
+                    <input type="file" name="imagen" id="imagen" accept="image/*" />
+                      <p class="error" th:if="${errorImagen}" th:text="${errorImagen}"></p>
+                </div>
+
                 <!-- PDF -->
                 <div>
                     <label for="pdf">Subir CV (PDF)</label>
-                    <input type="file" id="pdf" th:field="*{pdf}" accept="application/pdf" required>
+                    <input type="file" name="pdf" id="pdf" accept="application/pdf" required>
                     <p class="error" th:if="${errorPdf}" th:text="${errorPdf}"></p>
                 </div>
 

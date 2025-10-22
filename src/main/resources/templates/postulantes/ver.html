@@ -183,10 +183,10 @@
             <a id="cv" class="cv" th:href="@{|/pdf/${postulante.cedula}.pdf|}" target="_blank">Ver CV</a> 
             </div>
 
-        <div th:unless="${cvDisponible}">
-            <label>Currículum</label>
-            <span class="error-simple">📄 CV no disponible</span>
-        </div>
+            <div th:unless="${cvDisponible}">
+                <label>Currículum</label>
+                <span class="error-simple">📄 CV no disponible</span>
+            </div>
 
                 <div style="margin-top:15px;">
                     <button type="submit" name="accion" value="btn_modificar" sec:authorize="hasAnyAuthority('admin','postulante')">Modificar</button>
