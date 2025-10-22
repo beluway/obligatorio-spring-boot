@@ -1,11 +1,13 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +26,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.groups.Default;
 
 import java.io.File;
-
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
 
@@ -64,11 +66,10 @@ public String postulanteCrear(Model modelo) {
 
     MultipartFile imagen = postulante.getImagen();
 
-    // Validación del PDF
-/*     if (pdf == null || pdf.isEmpty()) {
-        modelo.addAttribute("errorPdf", "Debe subir un archivo PDF");
-        return "postulantes/crear";
-    } */
+    if (!imagen.isEmpty()) {
+        postulante.setTieneImagen(true);
+    }
+
         // Validar tipo MIME del archivo
     if (!"application/pdf".equalsIgnoreCase(pdf.getContentType())) {
         modelo.addAttribute("errorPdf", "El archivo debe ser un PDF válido");
@@ -200,21 +201,16 @@ public String postulanteCrear(Model modelo) {
 
 
 
-    @GetMapping("/ver")    
+    /* @GetMapping("/ver")    
     public String postulanteVer(@RequestParam String usuario,@RequestParam(required = false) Integer idOferta,Model modelo, Principal usuarioLogueado, RedirectAttributes attributes) throws Exception
     {
         modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
         Postulante postulanteEncontrado= servicioPostulantes.buscar(usuario);
 
-        /* Postulante postulanteEncontrado= servicioPostulantes.obtener(usuario); */
-
         if (postulanteEncontrado ==null) {
             attributes.addAttribute("error","El postulante con usuario "+usuario+" no existe.");
             return "redirect:/postulantes/lista"; // si no existe
         }
-
-        //si existe el postulante lo agrego al modelo
-            modelo.addAttribute("postulante", postulanteEncontrado);
 
             // Verificar si el archivo PDF existe
             File archivoPDF = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getCedula() + ".pdf");
@@ -223,14 +219,55 @@ public String postulanteCrear(Model modelo) {
             } else {
                 modelo.addAttribute("cvDisponible", false);
             }
+             // Verificar si existe la imagen
+            File imagen = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getUsuario() + ".jpeg");
+            postulanteEncontrado.setTieneImagen(imagen.exists());
 
-                // ✅ Si vino desde una oferta, lo pasamos a la vista
+                // Si vino desde una oferta, lo pasamos a la vista
             if (idOferta != null) {
                 modelo.addAttribute("idOferta", idOferta);
             }
+            //si existe el postulante lo agrego al modelo
+            modelo.addAttribute("postulante", postulanteEncontrado);
 
         return "postulantes/ver";
-    }   
+    }    */
+        @GetMapping("/ver")    
+public String postulanteVer(
+        @RequestParam String usuario,
+        @RequestParam(required = false) Integer idOferta,
+        Model modelo,
+        Principal usuarioLogueado,
+        RedirectAttributes attributes) throws Exception {
+
+    // Usuario logueado
+    modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
+
+    // Buscar el postulante
+    Postulante postulanteEncontrado = servicioPostulantes.buscar(usuario);
+    if (postulanteEncontrado == null) {
+        attributes.addFlashAttribute("error", "El postulante con usuario " + usuario + " no existe.");
+        return "redirect:/postulantes/lista";
+    }
+
+    // Verificar si existe el PDF
+    File archivoPDF = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getCedula() + ".pdf");
+    modelo.addAttribute("cvDisponible", archivoPDF.exists());
+
+    // Verificar si existe la imagen
+    File imagen = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getUsuario() + ".jpeg");
+    modelo.addAttribute("tieneImagen", imagen.exists());
+
+    // Si vino desde una oferta, pasarlo a la vista
+    if (idOferta != null) {
+        modelo.addAttribute("idOferta", idOferta);
+    }
+
+    // Agregar postulante al modelo
+    modelo.addAttribute("postulante", postulanteEncontrado);
+
+    return "postulantes/ver";
+}
 
 
     
@@ -279,5 +316,6 @@ public String postulanteCrear(Model modelo) {
         return "postulantes/lista";
 
     }
+
 
 }
