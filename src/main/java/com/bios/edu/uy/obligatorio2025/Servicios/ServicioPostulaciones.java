@@ -37,19 +37,8 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     @Override 
     public void agregar (Postulacion postulacion) throws ExcepcionBiosWork
     {
-
-
-
-
         repositorioPostulaciones.save(postulacion);
     }
-
-    @Override 
-    public void modificar (Postulacion postulacion)throws ExcepcionBiosWork
-    {
-
-    }
-
 
     @Override 
     public void eliminar (Postulacion postulacion)throws ExcepcionBiosWork
@@ -74,6 +63,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     @Override 
     public void eliminarConPostulante (Postulante postulante)throws ExcepcionBiosWork
     {        
+
         for(Postulacion p: repositorioPostulaciones.findAllByPostulante(postulante))
         {
             repositorioPostulaciones.delete(p);
@@ -89,14 +79,14 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
         return lista;
     }
 
-    
+    //lista de postulaciones que tiene un postulante
     @Override
     public List<Postulacion> listaPostulacionesPorPostulante(Postulante postulante) throws ExcepcionBiosWork
     { 
        return repositorioPostulaciones.findAllByPostulante(postulante);
     }
 
-
+    //lista de ofertas vigentes que están disponibles para postularse (no se haya postulado ya)
     @Override
     public List<Oferta> listaOfertasVigentesParaPostularse(Postulante postulante) throws ExcepcionBiosWork
     {      
@@ -131,7 +121,8 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
                 .map(Postulacion::getPostulante)
                 .collect(Collectors.toList());
     }
-
+//Buscar por criterio recibe el string criterio y filtra por coincidencias en el titulo de oferta 
+//y descipcion que es lo que generalmente el postulante recuerda 
     @Override
     public List<Postulacion> buscarPorCriterio(String criterio)  {
         return repositorioPostulaciones.findAll().stream()

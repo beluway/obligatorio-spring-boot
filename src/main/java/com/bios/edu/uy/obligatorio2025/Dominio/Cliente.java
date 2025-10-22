@@ -2,7 +2,6 @@ package com.bios.edu.uy.obligatorio2025.Dominio;
 
 import java.util.Set;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;

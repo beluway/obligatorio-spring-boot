@@ -6,8 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -20,13 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-import com.bios.edu.uy.obligatorio2025.Servicios.ServicioPostulantes;
-
 @Controller
 public class ControladorPdf {
 
-    @Autowired
-    private ServicioPostulantes servicioPostulante;
 
    @GetMapping("/pdf/{nombreArchivo:.+}")
 public ResponseEntity<Resource> verPdf(@PathVariable String nombreArchivo) throws IOException {

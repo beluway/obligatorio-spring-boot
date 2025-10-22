@@ -5,11 +5,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Formulario Oferta Laboral</title>
-     <!-- CSS global -->
-    
-    
-    <!-- CSS extra opcionales que pasen las vistas hijas -->
+    <title>Crear Oferta Laboral</title>
     <link rel="stylesheet" href="/bioswork/css/crud.css">
 </head>
 
@@ -19,23 +15,18 @@
     <div class="card">
     
 <form th:action="@{/ofertas/crear}" method="post" th:object="${ofertas}">
-
-        <!--Es necesario preguntar usuario? No sería el que está navegando en el sitio?-->
               
        <div>
            <label for="titulo"> Título </label>
            <input type="text" name="titulo" id="titulo">
-           <p th:errors="*{titulo}" class="error"></p>
+           <p th:errors="*{titulo}" class="error-simple"></p>
                
        </div>           
        
         <div>
           <label for="descripcion"> Descripción </label>
-          <!-- 
-              <input type="text" th:field="*{descripcion}" multiple>  
-          -->
           <textarea rows="5" cols="50" th:field="*{descripcion}"></textarea>
-             <p th:errors="*{descripcion}" class="error"></p>
+             <p th:errors="*{descripcion}" class="error-simple"></p>
 
 
         </div>
@@ -52,13 +43,13 @@
         <div>
             <label for="fechaCierre">Fecha Cierre</label>
             <input type="date" name="fechaCierre" id="fechaCierre">
-            <p th:errors="*{fechaCierre}" class="error"></p>
+            <p th:errors="*{fechaCierre}" class="error-simple"></p>
         </div>
 
         <div>
             <label for="cantidadVacantes"> Cantidad Vacantes</label>
             <input type="number" name="cantidadVacantes" id="cantidadVacantes">
-            <p th:errors="*{cantidadVacantes}" class="error"></p>
+            <p th:errors="*{cantidadVacantes}" class="error-simple"></p>
         </div>
 
 

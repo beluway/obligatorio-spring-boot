@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
-import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
-import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
+import com.bios.edu.uy.obligatorio2025.Dominio.Usuario.Crear;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioPostulantes;
 
@@ -22,8 +21,7 @@ import org.springframework.ui.Model;
 
 
 import jakarta.validation.Valid;
-
-
+import jakarta.validation.groups.Default;
 
 import java.io.File;
 
@@ -42,9 +40,6 @@ public class ControladorPostulantes {
      @Autowired
     private IServicioPostulaciones servicioPostulaciones;
 
-    @Autowired
-    private IServicioOfertas servicioOfertas;
-
        
    @GetMapping("/crear")
 public String postulanteCrear(Model modelo) {
@@ -54,7 +49,7 @@ public String postulanteCrear(Model modelo) {
 
     
     @PostMapping("/crear")
-    public String postulanteCrear (@ModelAttribute @Valid Postulante postulante,  
+    public String postulanteCrear (@ModelAttribute @Validated({Default.class, Crear.class}) Postulante postulante,  
     BindingResult resultado, 
     Model modelo, 
     RedirectAttributes atributos) throws Exception
@@ -68,10 +63,10 @@ public String postulanteCrear(Model modelo) {
           MultipartFile pdf = postulante.getPdf();
 
     // Validación del PDF
-    if (pdf == null || pdf.isEmpty()) {
+/*     if (pdf == null || pdf.isEmpty()) {
         modelo.addAttribute("errorPdf", "Debe subir un archivo PDF");
         return "postulantes/crear";
-    }
+    } */
         // Validar tipo MIME del archivo
     if (!"application/pdf".equalsIgnoreCase(pdf.getContentType())) {
         modelo.addAttribute("errorPdf", "El archivo debe ser un PDF válido");
@@ -79,8 +74,8 @@ public String postulanteCrear(Model modelo) {
     }
 
         
-        if (servicioPostulantes.MayorEdad(postulante.getFechanacimiento())==false) {
-        modelo.addAttribute("mensaje", "ATENCIÓN: No es mayor de Edad");
+        if (!servicioPostulantes.MayorEdad(postulante.getFechanacimiento())) {
+        modelo.addAttribute("error", "ATENCIÓN: No es mayor de Edad");
         return "/postulantes/crear";
         }
 
@@ -110,10 +105,6 @@ public String postulanteCrear(Model modelo) {
             postulante.setCantidadPostulaciones(0);
          
             servicioPostulantes.agregar(postulante);  
-
-
-            atributos.addFlashAttribute("mensaje", "Postulante guardado correctamente.");
-            return "redirect:/postulantes/lista";
 
         }
 
@@ -165,7 +156,7 @@ public String postulanteCrear(Model modelo) {
     @GetMapping("/modificar")
     public String postulanteModificar(Model modelo, Principal principal)   throws Exception
     {      
-        Postulante postulante = servicioPostulantes.buscar(principal.getName());
+        Postulante postulante = servicioPostulantes.obtener(principal.getName());
         
         modelo.addAttribute("postulante", postulante);
 
@@ -206,8 +197,9 @@ public String postulanteCrear(Model modelo) {
     public String postulanteVer(@RequestParam String usuario,@RequestParam(required = false) Integer idOferta,Model modelo, Principal usuarioLogueado, RedirectAttributes attributes) throws Exception
     {
         modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
-
         Postulante postulanteEncontrado= servicioPostulantes.buscar(usuario);
+
+        /* Postulante postulanteEncontrado= servicioPostulantes.obtener(usuario); */
 
         if (postulanteEncontrado ==null) {
             attributes.addAttribute("error","El postulante con usuario "+usuario+" no existe.");
