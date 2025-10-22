@@ -132,7 +132,7 @@ public class ServicioClientes implements IServicioClientes  {
     return repositorioClientes.findByActivoTrue();
 }
 
-public boolean existePorUrl(String url) throws ExcepcionBiosWork {
+public boolean existePorUrl(String url) {
     if (url == null || url.isBlank()) return false;
     return repositorioClientes.existsByUrl(url);
 }
