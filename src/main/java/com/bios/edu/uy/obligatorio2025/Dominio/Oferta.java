@@ -39,34 +39,28 @@ private Integer id;
     @Column(name = "fecha_Cierre", nullable = false)
     private LocalDate fechaCierre;
 
-    @NotNull(message = "seleccione el cliente")
+    @NotNull(message = "{NotBlank.usuario.usuario}")
     @ManyToOne (optional = false)
     @JoinColumn(name = "cliente",nullable = false)
     private Cliente cliente;
 
-    @NotNull(message = "Ingrese una área")
+    @NotNull(message = "{NotBlank.area.nombre}")
     @ManyToOne (optional = false)
     @JoinColumn(name = "area",nullable = false)
     private Area area;
 
     @Column(name = "descripcion",nullable = false, length = 4000)
-    @NotBlank(message = "Ingrese una descripción")
+    @NotBlank(message = "{NotBlank.oferta.descripcion}")
     private String descripcion; 
     
     @Column(name="titulo",nullable = false, length = 100)
-    @NotBlank(message = "Ingrese el título")
+    @NotBlank(message = "{NotBlank.oferta.titulo}")
     private String titulo;    
 
     @Column(name="cantidadVacantes",nullable = false)
-    @NotNull(message = "Ingrese la cantidad de puestos vacantes")
+    @NotNull(message = "NotNull.oferta.cantidadVacantes")
     @Min(0)
     private Integer cantidadVacantes;
-
-
-
-/*     @OneToMany(mappedBy = "oferta", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Postulacion> postulaciones = new ArrayList<>();
- */
 
     public Integer getId() {
         return id;
@@ -136,10 +130,6 @@ private Integer id;
     //constructor vacío para que JPA pueda hacer la consulta en la bd
     //Hibernate necesita un constructor público vacío en todas las entidades (@Entity). Esto es obligatorio para poder instanciarlas al leer datos desde la base de datos.
     public Oferta(){}
-
-  
-/*     public List<Postulacion> getPostulaciones() { return postulaciones; }
-    public void setPostulaciones(List<Postulacion> postulaciones) { this.postulaciones = postulaciones; } */
 
     public Oferta(Integer id, @NotNull LocalDate fechaPublicacion, @NotNull @Future LocalDate fechaCierre,
             Cliente cliente, @NotBlank(message = "Ingrese una descripción") String descripcion,

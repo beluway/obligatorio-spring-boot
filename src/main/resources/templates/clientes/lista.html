@@ -10,45 +10,48 @@
 
 <section>
     <div id="contenedor">
-    <div class="card">
-        <h2>Listado de Clientes</h2>
+<div id="contenedor">
+        <div class="card">
+            <h2>Listado de Clientes</h2>
 
-        <form id="formularioBusqueda">
-            <div>
-                <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="código o descripción"> <input type="submit" value="Buscar">
+            <form id="formularioBusqueda" method="get">
+                <div>
+                    <input type="search" name="criterio"
+                           th:value="${param.criterio}"
+                           id="criterio"
+                           placeholder="código o descripción">
+                    <input type="submit" value="Buscar">
+                </div>
+            </form>
+
+            <div style="text-align: right; margin-bottom: 10px;">
+                <a th:href="@{/clientes/crear}" class="btn">Agregar</a>
             </div>
-        </form>
 
-        <div style="text-align: right; margin-bottom: 10px;">
-        <a th:href="@{/clientes/crear}" class="btn">Agregar</a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>RUT</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="c : ${clientes}">
+                        <td th:text="${c.nombre}"></td>
+                        <td th:text="${c.rut}"></td>
+                        <td>
+                            <a th:href="@{/clientes/ver(usuario=${c.usuario})}" class="btn">Ver más</a>
+                            <a th:href="@{/clientes/modificar(usuario=${c.usuario})}" class="btn">Modificar</a>
+                            <a th:href="@{/clientes/eliminar(usuario=${c.usuario})}" class="btn">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>RUT</th>
-                    <!--<th>Sitio Web</th>-->
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="c : ${clientes}">
-                    <td th:text="${c.nombre}"></td>
-                    <td th:text="${c.rut}"></td>
-                    <!--<td th:text="${c.sitioWeb}"></td>-->
-                    <td>
-                        <a th:href="@{/clientes/ver(usuario=${c.usuario})}" class="btn">Ver más</a>
-                        <a th:href="@{/clientes/modificar(usuario=${c.usuario})}" class="btn">Modificar</a>
-                        <a th:href="@{/clientes/eliminar(usuario=${c.usuario})}" class="btn">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    </div>
-</section>
-<script>
-                document.addEventListener('DOMContentLoaded', function() {
+    <script>
+               document.addEventListener('DOMContentLoaded', function() {
                     // Obtener la referencia al formulario de búsqueda
                     const formularioBusqueda = document.getElementById('formularioBusqueda');
                     const criterioInput = document.getElementById('criterio');
@@ -66,4 +69,5 @@
                     criterioInput.select();
                 });
             </script>
+</section>
 </html>

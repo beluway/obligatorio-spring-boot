@@ -13,22 +13,26 @@
         <div class="card">
             <h2>Listado de Ofertas Laborales</h2>
 
+            
+            <form id="formularioBusqueda" th:action="@{/ofertas/lista}" method="get">
+                <div>
+                    <input type="search" name="criterio" th:value="${param.criterio}" id="criterio"
+                           placeholder="código o descripción">
+                    <input type="submit" value="Buscar">
+                </div>
+            </form>
 
-<form id="formularioBusqueda" th:action="@{ofertas/lista}">
-            <div>
-                <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="código o descripción"> <input type="submit" value="Buscar">
-            </div>
-        </form>
-        <br>
+            <br>
 
-        <form id="postulacionActiva" th:action="@{/postulaciones/listaFiltro}" sec:authorize="hasAnyAuthority('postulante')">
-            <input type="radio" name="estado"  value="postuladas" th:checked="${estado=='postulado'}"> Postulada
-            <input type="radio" name="estado" value="sinPostular" th:checked="${estado == 'sinPostular'}"> Sin postular
-        </form>
-
+           
+            <form id="postulacionActiva" th:action="@{/postulaciones/listaFiltro}"
+                  sec:authorize="hasAnyAuthority('postulante')" method="get">
+                <input type="radio" name="estado" value="postulado" th:checked="${estado=='postulado'}"> Postulada
+                <input type="radio" name="estado" value="sinPostular" th:checked="${estado == 'sinPostular'}"> Sin postular
+                <input type="radio" name="estado" value="todas" th:checked="${estado == 'todas'}"> Todas
+            </form>
 
             <div style="text-align: center; margin-bottom: 10px;">
-            
                 <a th:href="@{/ofertas/crear}" class="btn"
                    sec:authorize="hasAnyAuthority('cliente','consultor')">Agregar</a>
 
@@ -47,26 +51,46 @@
                             <td th:text="${o.descripcion}"></td>
                             <td th:text="${o.area.nombre}"></td>
                             <td>
-                            
                                 <a th:href="@{/ofertas/ver(codigo=${o.id})}" class="btn">Ver más</a>
 
-                             
-                                <a th:href="@{/ofertas/modificar(codigo=${o.id})}"
-                                   class="btn"
-                                   sec:authorize="hasAnyAuthority('cliente','consultor')">
-                                   Modificar
-                                </a>
+                                <a th:href="@{/ofertas/modificar(codigo=${o.id})}" class="btn"
+                                   sec:authorize="hasAnyAuthority('cliente','consultor')">Modificar</a>
 
-                                <a th:href="@{/ofertas/eliminar(codigo=${o.id})}"
-                                   class="btn"
-                                   sec:authorize="hasAnyAuthority('cliente','consultor')">
-                                   Eliminar
-                                </a>
+                                <a th:href="@{/ofertas/eliminar(codigo=${o.id})}" class="btn"
+                                   sec:authorize="hasAnyAuthority('cliente','consultor')">Eliminar</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+         
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const formularioBusqueda = document.getElementById('formularioBusqueda');
+                    const criterioInput = document.getElementById('criterio');
+
+                    // Detectar cuando se limpia el campo con la "x"
+                    criterioInput.addEventListener('search', function() {
+                        if (!criterioInput.value) {
+                            formularioBusqueda.submit();
+                        }
+                    });
+
+                    // Foco automático
+                    criterioInput.focus();
+                    criterioInput.select();
+
+                    //enviar formulario de radio automáticamente
+            const radios = document.querySelectorAll('input[name="estado"]');
+            radios.forEach(radio => {
+            radio.addEventListener('change', function() {
+            document.getElementById('postulacionActiva').submit();
+        });
+    });
+                });
+            </script>
+
         </div>
     </div>
 </section>
