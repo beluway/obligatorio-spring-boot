@@ -132,17 +132,12 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
                 .collect(Collectors.toList());
     }
 
-       
-   /*  @Override
-    public List<Postulacion> buscarPorCriterio(String criterio) {
-        return repositorioOfertas.findAll().stream()
-                 .filter(p -> p.getTitulo().toLowerCase().contains(criterio.toLowerCase()) ||
-                                p.getDescripcion().toLowerCase().contains(criterio.toLowerCase()))
+    @Override
+    public List<Postulacion> buscarPorCriterio(String criterio)  {
+        return repositorioPostulaciones.findAll().stream()
+                 .filter(p -> p.getOferta().getTitulo().toLowerCase().contains(criterio.toLowerCase()) ||
+                                p.getOferta().getDescripcion().toLowerCase().contains(criterio.toLowerCase()))
                  .toList();
-    }  */
-
-
-
-   
+    } 
 
 }

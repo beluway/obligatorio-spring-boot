@@ -16,12 +16,8 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 
 
 public interface IRepositorioPostulaciones extends JpaRepository<Postulacion,Postulacion.PostulacionId> {
-    
 
- 
-
-
- @Query("SELECT p.postulante FROM Postulacion p WHERE p.oferta.id = :idOferta")
+@Query("SELECT p.postulante FROM Postulacion p WHERE p.oferta.id = :idOferta")
 List<Postulante> findPostulantesByOfertaId(@Param("idOferta") Integer idOferta);    
 
 List<Postulacion> findAllByPostulante_Usuario(String usuario);

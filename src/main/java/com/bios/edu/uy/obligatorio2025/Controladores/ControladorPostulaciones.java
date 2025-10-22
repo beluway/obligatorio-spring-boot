@@ -2,8 +2,10 @@ package com.bios.edu.uy.obligatorio2025.Controladores;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,15 +26,12 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion.PostulacionId;
-import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
 
-import ch.qos.logback.core.joran.conditional.ElseAction;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
@@ -272,7 +271,7 @@ public class ControladorPostulaciones {
 
         if(criterio!=null&&!criterio.isEmpty())
         {
-            /* listaPostulacionesPorCliente = servicioPostulaciones.buscarPorCriterio(criterio); */
+            listaPostulacionesPorCliente = servicioPostulaciones.buscarPorCriterio(criterio);
         }
         else
         {
@@ -300,6 +299,45 @@ public String verPostulantesDeOferta(@PathVariable Integer id, Model modelo) thr
 
     return "ofertas/postulantes"; // nombre de tu vista
 }
+
+    @GetMapping("/listaFiltro")
+    public String listaFiltro(String estado,
+    Model modelo, 
+    Principal usuarioLogueado) throws Exception
+    {    
+        Postulante postulante = servicioPostulantes.obtener(usuarioLogueado.getName());
+        //creo un nuevo List de ofertas y lo inicializo
+        List<Oferta> ofertasFiltradas = new ArrayList<>();
+        switch (estado) {
+            case "postulado":
+            //obtengo postulaciones de ese usuario postulante
+                List<Postulacion> postulaciones = servicioPostulaciones.listaPostulacionesPorPostulante(postulante);
+            //recorro postulaciones y por cada una obtengo las ofertas y las agrego a la lista
+                for (Postulacion post : postulaciones) {
+                    ofertasFiltradas.add(post.getOferta());
+                }
+                //agrego a la vista esta lista de ofertas recién creada
+                modelo.addAttribute("ofertas", ofertasFiltradas);
+                break;
+        case "sinPostular":
+                List<Oferta> ofertasTodas = servicioOfertas.listaOfertasVigentes();
+                List<Postulacion> postulacionesHechas = servicioPostulaciones.listaPostulacionesPorPostulante(postulante);
+                List<Oferta> ofertasPostuladas = new ArrayList<>();
+                for (Postulacion post : postulacionesHechas) {
+                    ofertasPostuladas.add(post.getOferta());
+                }
+                ofertasFiltradas = ofertasTodas.stream()
+                .filter(oferta -> !ofertasPostuladas.contains(oferta)).collect(Collectors.toList());
+                modelo.addAttribute("ofertas", ofertasFiltradas);
+                break;
+            default:
+            modelo.addAttribute("ofertas", servicioOfertas.listaOfertasVigentes());
+                break;
+        }
+
+           return "ofertas/lista";
+    }
+
 
 
 }

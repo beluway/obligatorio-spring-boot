@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org/"
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
 
 <head>
-    <title>LISTA</title>
+    <title>Mis Postulaciones</title>
     <link rel="stylesheet" th:href="@{/css/listas.css}">
 </head>
 
@@ -11,6 +11,16 @@
     <div id="contenedor">
         <div class="card">
             <h2>Mis Postulaciones</h2>
+            <form id="formularioBusqueda" th:action="@{/postulaciones/lista}" method="get">
+                <div>
+                    <input type="search" name="criterio" th:value="${param.criterio}" id="criterio"
+                           placeholder="Buscar por título o descripción">
+                    <input type="submit" value="Buscar">
+                </div>
+            </form>
+
+            <br>
+
             <div style="text-align: center; margin-bottom: 10px;">
                 <table>
                     <thead>
@@ -27,14 +37,30 @@
                             <td th:text="${p.oferta.descripcion}"></td>
                             <td th:text="${p.oferta.fechaCierre}"></td>
                             <td> 
-
                                 <a th:href="@{/ofertas/ver(codigo=${p.oferta.id})}" class="btn">Ver más</a>
-
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+            <!--SCRIPT PARA RESETEAR LA BÚSQUEDA AL BORRAR -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const formularioBusqueda = document.getElementById('formularioBusqueda');
+                    const criterioInput = document.getElementById('criterio');
+
+                    // Si se borra el texto con la "x", se reinicia la búsqueda
+                    criterioInput.addEventListener('search', function() {
+                        if (!criterioInput.value) {
+                            formularioBusqueda.submit();
+                        }
+                    });
+
+                    criterioInput.focus();
+                    criterioInput.select();
+                });
+            </script>
         </div>
     </div>
 </section>

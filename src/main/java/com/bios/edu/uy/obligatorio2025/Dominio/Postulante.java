@@ -19,47 +19,39 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="postulantes")
-/* @PrimaryKeyJoinColumn(name="usuario", referencedColumnName = "usuario")
-@DiscriminatorValue("Postulante")
- */
 
 public class Postulante extends Usuario{
-    
-    //ESTE ES EL NOMBRE COMPLETO COMPUESTO EMBEBIDO
-/*     @Embedded
-    public NombreCompleto nombreCompleto;
- */
 
     @Column(name = "cantidadPostulaciones")
     private int cantidadPostulaciones;
 
  
     @Column(name = "cedula",unique = true,nullable = false,length = 8)
-    @NotNull(message = "Ingrese la cedula")
+    @NotNull(message = "{NotNull.postulante.cedula}")
     private Long cedula;
      
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull (message = "Seleccione la fecha de nacimiento")
+    @NotNull (message = "{NotNull.postulante.fechaNacimiento}")
     @PastOrPresent
     @Column(name = "fechanacimiento",nullable = false)
     private LocalDate fechanacimiento;    
 
     @Column(name="departamento",length = 20,nullable = false)
-    @NotBlank (message = "Seleccione el departamento")
+    @NotBlank (message = "{NotBlank.postulante.departamento}")
     private String departamento;
          
     @Column(name = "primerNombre", nullable = false, length = 15)
-    @NotBlank(message = "Ingrese el nombre")
+    @NotBlank(message = "{NotBlank.postulante.primerNombre}")
     private String primerNombre;
 
     @Column(name = "segundoNombre",nullable = true, length = 15)
     private String segundoNombre; 
 
-    @NotBlank(message = "ingrese el apellido")
+    @NotBlank(message = "{NotBlank.postulante.primerApellido}")
     @Column(name="primerApellido", nullable = false,length=15)
     private String primerApellido;
 
-    @NotBlank(message = "ingrese el segundo apellido")
+    @NotBlank(message = "{NotBlank.postulante.segundoApellido}")
     @Column(name="segundoApellido", nullable = false,length=15)
     private String segundoApellido;   
 
