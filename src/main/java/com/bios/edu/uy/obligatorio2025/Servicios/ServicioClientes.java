@@ -35,10 +35,13 @@ public class ServicioClientes implements IServicioClientes  {
             if (clienteExiste != null) {
                 throw new ExcepcionYaExiste("El cliente ya existe.");
                 
-            }else if (cliente.getRut().toString().length() != 12) {
+            }
+            if (cliente.getRut()!=null) {
+                if ( cliente.getRut()!=null&&cliente.getRut().toString().length() != 12 ) {
                 throw new ExcepcionBiosWork("El RUT debe tener 12 digitos.");
             }
-
+            }
+            
             cliente.getRoles().add(new Rol("postulante"));
             cliente.setActivo(true);
             cliente.setClave(codificador.encode(cliente.getClave()));
@@ -119,8 +122,6 @@ public class ServicioClientes implements IServicioClientes  {
  @Override
      public List<Cliente>listaClientes()
     {
-        //  ArrayList<clientes> lista = new ArrayList<>();
-
             List<Cliente> lista = repositorioClientes.findAll();
 
           return lista;
@@ -143,6 +144,15 @@ public boolean existePorUrl(String url) {
         Cliente clienteEncontrado = repositorioClientes.findById(usuario).orElse(null);
            
         return clienteEncontrado; 
+    }
+
+
+    @Override
+    public List<Cliente> buscarPorCriterio(String criterio) {
+             
+        return repositorioClientes.findAll().stream()
+                .filter(c -> c.getNombre().toLowerCase().contains(criterio.toLowerCase()))
+                .toList();
     } 
      
    

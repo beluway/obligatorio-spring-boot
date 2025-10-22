@@ -47,4 +47,23 @@
     </div>
     </div>
 </section>
+<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Obtener la referencia al formulario de búsqueda
+                    const formularioBusqueda = document.getElementById('formularioBusqueda');
+                    const criterioInput = document.getElementById('criterio');
+
+                    // Detectar el evento 'search' (cuando se toca la x)
+                    formularioBusqueda.addEventListener('search', function() {
+                        if (!criterioInput.value) {
+                            // Si el campo está vacío, enviamos el formulario.
+                            formularioBusqueda.submit();
+                        }
+                    });
+
+                    // Foco automático
+                    criterioInput.focus();
+                    criterioInput.select();
+                });
+            </script>
 </html>

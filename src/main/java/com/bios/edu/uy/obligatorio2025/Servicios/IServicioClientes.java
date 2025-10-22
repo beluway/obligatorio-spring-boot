@@ -15,10 +15,7 @@ public interface IServicioClientes {
     List<Cliente>listaClientes() throws ExcepcionBiosWork;
     List<Cliente> listarActivos() throws ExcepcionBiosWork;
     boolean existePorUrl(String url);
-
-    //////CON PAGINACIÓN
-
-  // org.springframework.data.domain.Page <clientes> listar (Pageable pageable);
+    List<Cliente> buscarPorCriterio(String criterio);
 
 
 }

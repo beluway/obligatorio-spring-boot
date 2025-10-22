@@ -22,7 +22,7 @@
         <br>
 
         <form id="postulacionActiva" th:action="@{/postulaciones/listaFiltro}" sec:authorize="hasAnyAuthority('postulante')">
-            <input type="radio" name="estado"  value="postuladas" th:checked="${}"> Postulada
+            <input type="radio" name="estado"  value="postuladas" th:checked="${estado=='postulado'}"> Postulada
             <input type="radio" name="estado" value="sinPostular" th:checked="${estado == 'sinPostular'}"> Sin postular
         </form>
 

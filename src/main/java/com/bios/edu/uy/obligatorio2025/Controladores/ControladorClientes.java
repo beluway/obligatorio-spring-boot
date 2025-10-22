@@ -18,10 +18,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Usuario.Crear;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
 
 import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 
 
 @Controller
@@ -29,20 +31,18 @@ import jakarta.validation.Valid;
 
 public class ControladorClientes {
 
-    //private final Servicios.ServicioOfertas servicioOfertas;
-
     @Autowired
     private final IServicioClientes servicioClientes;
 
     private final IServicioOfertas servicioOfertas;
 
-    ControladorClientes(/*Servicios.*/IServicioOfertas servicioOfertas, IServicioClientes servicioClientes) {
+    ControladorClientes(IServicioOfertas servicioOfertas, IServicioClientes servicioClientes) {
         this.servicioOfertas = servicioOfertas;
         this.servicioClientes = servicioClientes;
     }
 
     @GetMapping("/crear")
-    public String clienteCrear(Model modelo, Principal usuarioLogueado) throws Exception
+    public String clienteCrear(Model modelo, Principal usuarioLogueado) throws ExcepcionBiosWork
     {        
         modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("cliente", new Cliente());
@@ -51,10 +51,10 @@ public class ControladorClientes {
 
     //ACA VA FLASH ATTRIBUTES Y REDIRECT 
     @PostMapping("/crear")
-    public String clienteProcesarCrear (@ModelAttribute @Validated(Crear.class) Cliente cliente, 
+    public String clienteProcesarCrear (@ModelAttribute @Validated({Default.class, Crear.class}) Cliente cliente, 
     BindingResult resultado,
     Model modelo,   
-    RedirectAttributes attributes) throws Exception 
+    RedirectAttributes attributes) throws ExcepcionBiosWork 
     {              
          if(resultado.hasErrors()){
 
@@ -62,29 +62,15 @@ public class ControladorClientes {
             return "clientes/crear";
           }
 
-          if (cliente.getUrl() != null && !cliente.getUrl().isBlank()) {
-          // 🔹 Verificar si ya existe la URL
-    if (cliente.getUrl() != null && !cliente.getUrl().isBlank()) {
-    if (servicioClientes.existePorUrl(cliente.getUrl())) {
-        resultado.rejectValue("url", "error.url", "Ya existe un cliente con esa URL.");
-        return "clientes/crear";
-    }
-}
-}
-
           if(servicioClientes.obtener(cliente.getUsuario())!=null)
           {
              modelo.addAttribute("mensaje", "Ya existe el usuario");
              return "clientes/crear";
           }
-          else if(servicioClientes.obtener(cliente.getUsuario())==null){
-            modelo.addAttribute("mensaje", "Ingrese un nombre de usuario");
-            return "clientes/crear";
-          }
 
           try
           {
-
+            //le seteo el activo 
             cliente.setActivo(true);
 
             servicioClientes.agregar(cliente); 
@@ -93,39 +79,40 @@ public class ControladorClientes {
             return "redirect:/clientes/lista";
           
           }
-          catch(Exception e)
+          catch(ExcepcionBiosWork e)
           {
             modelo.addAttribute("mensaje","Hubo un error "+ e.getMessage());
-           return "clientes/crear";
+            modelo.addAttribute("cliente", cliente);
+            return "clientes/crear";
           }                     
         
     }
 
 
     @GetMapping("/eliminar")
-    public String clienteEliminar(@RequestParam String usuario,Model modelo, Principal usuarioLogueado) throws Exception {
+    public String clienteEliminar(@RequestParam String usuario,Model modelo, Principal usuarioLogueado) throws ExcepcionBiosWork {
 
     // Buscar el cliente
     Cliente cliente = servicioClientes.obtener(usuario);
 
     if (cliente == null) {
-        modelo.addAttribute("mensaje", "Cliente no encontrado.");
+        modelo.addAttribute("mensaje", "No se encontró el cliente con el usuario: "+usuario+".");
         return "clientes/lista";
     }
 
-    //carga la cantidad de ofertas que tiene ese cliente
-    int cantidadOfertas = servicioOfertas.listaOfertasCliente(cliente).size();
-    modelo.addAttribute("cantidadOfertas", cantidadOfertas);
+        //carga la cantidad de ofertas que tiene ese cliente
+        int cantidadOfertas = servicioOfertas.listaOfertasCliente(cliente).size();
+        modelo.addAttribute("cantidadOfertas", cantidadOfertas);
 
-    modelo.addAttribute("cliente", cliente);
-    return "clientes/eliminar";
+        modelo.addAttribute("cliente", cliente);
+        return "clientes/eliminar";
 
     }
 
     @PostMapping("/eliminar")
     public String clienteEliminar(@RequestParam String usuario, 
     Model modelo, 
-    RedirectAttributes attributes) throws Exception  
+    RedirectAttributes attributes) throws ExcepcionBiosWork  
     {
               
     // Buscar el cliente
@@ -139,11 +126,12 @@ public class ControladorClientes {
     try 
     {
 
-            servicioClientes.eliminar(clienteEncontrado.getUsuario());
-            attributes.addFlashAttribute("exito", "Cliente eliminado.");
+        servicioClientes.eliminar(clienteEncontrado.getUsuario());
+        attributes.addFlashAttribute("exito", "Cliente eliminado.");
     }
-     catch (Exception ex) {
-        attributes.addFlashAttribute("error", "Hubo un error al eliminar el cliente: " + ex.getMessage());
+     catch (ExcepcionBiosWork ex) {
+       modelo.addAttribute("error", "Hubo un error al eliminar el cliente: " + ex.getMessage());
+       return "clientes/eliminar";
     }
 
     return "redirect:/clientes/lista";
@@ -154,9 +142,8 @@ public class ControladorClientes {
     
 
     @GetMapping("/modificar")
-    public String clienteModificar(@RequestParam String usuario,Model modelo, Principal usuarioLogueado) throws Exception {
+    public String clienteModificar(@RequestParam String usuario,Model modelo, Principal usuarioLogueado) throws ExcepcionBiosWork {
 
-         //ENTRA ACA SOLO SI ES CONSULTOR
         modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
 
         Cliente cliente = servicioClientes.obtener(usuario);
@@ -173,49 +160,43 @@ public class ControladorClientes {
     
 
     @PostMapping("/modificar")
-    public String procesarModificar(@ModelAttribute @Valid Cliente cliente, 
+    public String procesarModificar(@ModelAttribute @Valid Cliente cliente,BindingResult resultado, 
     @RequestParam(required = false)String nuevaClave,
-     BindingResult resultado,
-     RedirectAttributes attributes, Model modelo) throws Exception{
-     
-    Cliente clienteExistente = servicioClientes.obtener(cliente.getUsuario());
-
-        if (clienteExistente == null){
-            modelo.addAttribute("mensaje", "cliente no encontrado");
-            return "clientes/modificar";
-        }
-
+    RedirectAttributes attributes, Model modelo) throws Exception{
+        //llamo al servicio para buscar el cliente
+        Cliente clienteExistente = servicioClientes.obtener(cliente.getUsuario());
+        //si hay errores cancelo y vuelvo a mostrar la vista con los mensajes
         if(resultado.hasErrors())
         {
             modelo.addAttribute("cliente", cliente);
             modelo.addAttribute("mensaje", "Corrija los errores");
             return "clientes/modificar";
         }
-
+        //si cliente no existe también muestro mensaje de error
+        if (clienteExistente == null){
+            modelo.addAttribute("mensaje", "cliente no encontrado");
+            return "clientes/modificar";
+        }
         try
         {
-        // Si se ingresó una nueva clave, la reemplaza
-        /*if (nuevaClave != null && !nuevaClave.isBlank()) {
-            clienteExistente.setClave(nuevaClave);
-        }*/
 
         // llama al servicio que maneja clave opcional
         servicioClientes.modificar(cliente);
-
-        attributes.addFlashAttribute("exito", "Cliente modificado correctamente");
-
-             return "redirect:/clientes/lista";
+        //uso attributes porque estoy haciendo un redirect a otra vista
+            attributes.addFlashAttribute("exito", "Cliente modificado correctamente");
+            return "redirect:/clientes/lista";
         }
 
-        catch (Exception ex)
+        catch (ExcepcionBiosWork ex)
         {
-           return "clientes/modificar";
+            modelo.addAttribute("error", "Hubo un error al eliminar el cliente: " + ex.getMessage());
+            return "clientes/modificar";
         }
     }
     
 
     @GetMapping("/ver")    
-    public String clienteVer(@RequestParam String usuario, Model modelo, Principal usuarioLogueado) throws Exception {
+    public String clienteVer(@RequestParam String usuario, Model modelo, Principal usuarioLogueado) throws ExcepcionBiosWork {
        
         modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         Cliente cliente = servicioClientes.obtener(usuario);
@@ -225,19 +206,23 @@ public class ControladorClientes {
 
 
     @GetMapping("/lista")    
-    public String clientesListar(@ModelAttribute Cliente clientes, Model modelo,Principal usuarioLogueado) throws Exception {
+    public String clientesListar(@ModelAttribute Cliente clientes, Model modelo,Principal usuarioLogueado,String criterio) throws ExcepcionBiosWork {
        
-      
-         //ENTRA ACA SOLO SI ES CONSULTOR
          //Muestro solo los clientes que están activos (no tiene baja lógica)
         List<Cliente> listaClientes = servicioClientes.listarActivos();
+
+        if (criterio != null && !criterio.isEmpty()) {
+                listaClientes = servicioClientes.buscarPorCriterio(criterio);
+            }
+            else {
+                listaClientes = servicioClientes.listarActivos();
+            }
+
         modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("clientes", listaClientes);
         
         return "clientes/lista";
-    
-    
-        // return "home/main";
+
     } 
 
 

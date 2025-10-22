@@ -272,20 +272,4 @@ public String postulanteCrear(Model modelo) {
 
     }
 
-
-  /*   @GetMapping("/listaPostulantesPorOferta")
-    public String listaPostulantesPorOferta(Model modelo, 
-    Principal usuarrioLogueado, 
-    @RequestParam("id")Integer id)  throws Exception
-    {   
-        Oferta ofertaEncontrada = servicioOfertas.obtener(id);
-
-        List<Postulante> listaOfertas = servicioPostulantes.listaPostulantesPorOferta(ofertaEncontrada);        
-
-        modelo.addAttribute("lista", listaOfertas);
-
-        return "/listaPorCliente";
-    } */
-    
-
 }

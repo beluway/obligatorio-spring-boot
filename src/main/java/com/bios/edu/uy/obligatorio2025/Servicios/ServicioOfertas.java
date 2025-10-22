@@ -1,21 +1,13 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
-
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
-import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
-import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
-import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
-
-import jakarta.validation.OverridesAttribute;
 
 
 @Service
@@ -23,11 +15,6 @@ public class ServicioOfertas implements IServicioOfertas {
 
 @Autowired
 private IRepositorioOfertas repositorioOfertas;
-
-@Autowired
-private IRepositorioPostulaciones respositorioPostulaciones;
-
-
 
     @Override
     public void agregar (Oferta oferta) throws ExcepcionBiosWork
@@ -41,8 +28,9 @@ private IRepositorioPostulaciones respositorioPostulaciones;
     public void modificar (Oferta oferta) throws ExcepcionBiosWork
     {
         repositorioOfertas.save(oferta);
-    }
 
+
+    }
     
     @Override
     public void eliminar (Integer id) throws ExcepcionBiosWork
@@ -53,48 +41,25 @@ private IRepositorioPostulaciones respositorioPostulaciones;
         }
         catch (Exception e) 
         {
-            // TODO Auto-generated catch block
-          e.printStackTrace();
+         throw new ExcepcionBiosWork("Hubo un error "+e.getMessage());
         }
     }
 
-   /*  List<Oferta> findAllByPostulante(Postulante postulante)
-      {
-        List<Oferta>ofertasXPostulante = new List<Oferta>();
-
-        if(Postulacion p:repositorioPostulaciones.findByPostuante(postulante.getUsuario()))
-        {
-            ofertasXPostulante.add(p.getOferta());
-        }
-
-        return ofertasXPostulante;
-        }  */
-
-
-
     @Override
-    public List<Oferta> listaOfertas() throws Exception
+    public List<Oferta> listaOfertas() 
     {
         return repositorioOfertas.findAll();
     }
 
 
     @Override
-    public List<Oferta> listaOfertasCliente(Cliente cliente) throws Exception
+    public List<Oferta> listaOfertasCliente(Cliente cliente) 
     {
         return repositorioOfertas.findAllByCliente(cliente);
     }
 
-/* 
-    @Override
-    public List<Oferta> listaOfertasPostulante( Postulante postulante) throws Exception
-    {
-          return repositorioOfertas.findAllByPostulante(postulante);
-    } */
-
-
     @Override 
-    public Oferta obtener(Integer id) throws Exception
+    public Oferta obtener(Integer id) 
     {  
 
       Oferta ofertaEncontrada =  repositorioOfertas.findById(id).orElse(null);         
@@ -119,7 +84,4 @@ private IRepositorioPostulaciones respositorioPostulaciones;
                  .toList();
     } 
     
-    
-          
-
 }

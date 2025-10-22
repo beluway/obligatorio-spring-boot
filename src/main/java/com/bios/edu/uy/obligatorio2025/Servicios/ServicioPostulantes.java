@@ -132,19 +132,6 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     }
  
 
-
-  /*   @Override 
-    public List<Postulante> listaPostulantesPorOferta(Oferta oferta) throws ExcepcionBiosWork
-    {
-       // ArrayList<postulantes> lista = new ArrayList<>();
-
-       List<Postulante> lista = respositorioPostulantes.findAllByOferta(oferta);
-
-        return lista;
-    } */
-
-
-    
      @Override 
     public List<Postulante> lista() throws Exception
     {
@@ -184,16 +171,6 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
                return mayorDeEdad=false;
         }
-
-
-   /*  @Override 
-    public List<Postulante> listaPostulacionesPorOferta (Oferta oferta)
-    {
-        List<Postulante> postulantes = repositorioPostulaciones.findPostulantesByOfertaId(oferta.getId());
-
-        List<Postulante> listaPostulantes = postulaciones.stream().map(Postulacion::getPostulante).collect(Collectors.toList());
-            return listaPostulantes;
-    } */
 
 
      public List<Postulante> buscarPorCriterio(String criterio) {

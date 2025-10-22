@@ -65,10 +65,10 @@ public class Cliente extends Usuario {
 
      public Cliente(){}
 
-     public Cliente(@NotBlank(message = "ingrese el usuario") String usuario,
-            @NotBlank(message = "ingrese la clave") String clave, Set<Rol> roles, boolean activo,
-            @NotNull(message = "Ingrese el RUT.") @Digits(integer = 12, fraction = 0, message = "El RUT debe tener 12 dígitos") Long rut,
-            @NotBlank(message = "Ingrese el nombre.") String nombre,
+     public Cliente(@NotBlank(message = "{NotBlank.usuario.usuario}") String usuario,
+            @NotBlank(message = "{NotBlank.usuario.clave}") String clave, Set<Rol> roles, boolean activo,
+            @NotNull(message = "{NotNull.cliente.rut}") @Digits(integer = 12, fraction = 0, message = "{Digits.cliente.rut}") Long rut,
+            @NotBlank(message = "{NotBlank.cliente.nombre}") String nombre,
             String url) {
         super(usuario, clave, roles, activo);
         this.rut = rut;
