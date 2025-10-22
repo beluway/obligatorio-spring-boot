@@ -85,6 +85,8 @@ public class ControladorMiCuentaConsultor {
     }
         
 
+
+    
       @PostMapping("/eliminar")
       public String eliminar (Model modelo, RedirectAttributes attributes,  
        @RequestParam("usuario")String usuario, 

@@ -120,7 +120,7 @@ public class ServicioClientes implements IServicioClientes  {
 
 //LISTAR
  @Override
-     public List<Cliente>listaClientes()
+     public List<Cliente>listaClientes() throws ExcepcionBiosWork
     {
             List<Cliente> lista = repositorioClientes.findAll();
 
@@ -128,18 +128,18 @@ public class ServicioClientes implements IServicioClientes  {
     } 
     
  @Override
-    public List<Cliente> listarActivos() {
+    public List<Cliente> listarActivos() throws ExcepcionBiosWork {
     return repositorioClientes.findByActivoTrue();
 }
 
-public boolean existePorUrl(String url) {
+public boolean existePorUrl(String url) throws ExcepcionBiosWork {
     if (url == null || url.isBlank()) return false;
     return repositorioClientes.existsByUrl(url);
 }
 
 //OBTENER
     @Override
-     public Cliente obtener(String usuario) {
+     public Cliente obtener(String usuario) throws ExcepcionBiosWork {
         
         Cliente clienteEncontrado = repositorioClientes.findById(usuario).orElse(null);
            

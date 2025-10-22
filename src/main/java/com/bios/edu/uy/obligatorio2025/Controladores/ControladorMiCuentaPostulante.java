@@ -48,6 +48,7 @@ public class ControladorMiCuentaPostulante {
         return "/micuentaP/ver";
     }
     
+    
 
     @PostMapping("/ver")
     public String modificarPostulante(

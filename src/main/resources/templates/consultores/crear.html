@@ -20,13 +20,15 @@
                 <div>
                     <label for="usuario">Usuario</label>
                     <input type="text" id="usuario" th:field="*{usuario}">
-                         <p th:errors="*{usuario}" class="error"></p>
+                         <p th:if="${#fields.hasErrors('usuario')}"
+                         th:errors="*{usuario}" class="error"></p>
                 </div>
 
                 <div>
                     <label for="clave">Clave</label>
                     <input type="password" id="clave" th:field="*{clave}">
-                        <p th:errors="*{clave}" class="error"></p>
+                    <p th:if="${#fields.hasErrors('clave')}" 
+                         th:errors="*{clave}" class="error"></p>
                 </div>
 
               

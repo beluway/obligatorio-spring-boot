@@ -112,7 +112,7 @@ private IServicioConsultores servicioConsultores;
     }
 
     @PostMapping("/eliminar")
-    public String consultorEliminar(@ModelAttribute @Valid Consultor consultor, BindingResult resultado, Model modelo)  {
+    public String consultorEliminar(@ModelAttribute @Valid Consultor consultor, BindingResult resultado, Model modelo) throws Exception {
               
         return "redirect:/consultores/eliminar";
     }
@@ -147,6 +147,10 @@ private IServicioConsultores servicioConsultores;
         return "consultores/ver";
     }   
 
+
+
+
+    
     @GetMapping("/lista")
     public String consultoresLista(@ModelAttribute Consultor consultor, Model modelo, Principal usuarioLogueado)throws Exception{
 

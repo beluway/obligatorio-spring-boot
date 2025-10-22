@@ -8,6 +8,9 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
+import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
+
+import jakarta.validation.OverridesAttribute;
 
 
 @Service
@@ -37,6 +40,14 @@ private IRepositorioOfertas repositorioOfertas;
     {
         try 
         {
+            List<Postulacion> listaPostulaciones = respositorioPostulaciones.findByOferta_Id(id);
+
+            for(Postulacion P:listaPostulaciones)
+            {
+                //SE ELIMINAN LAS POSTULACIONES DE LA OFERTA
+                respositorioPostulaciones.delete(P);
+            }
+
             repositorioOfertas.delete(obtener(id));
         }
         catch (Exception e) 
@@ -69,7 +80,7 @@ private IRepositorioOfertas repositorioOfertas;
 
 
     @Override
-    public List<Oferta> listaOfertasVigentes()
+    public List<Oferta> listaOfertasVigentes() throws ExcepcionBiosWork
     {
          List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes());
    
@@ -77,7 +88,7 @@ private IRepositorioOfertas repositorioOfertas;
     }
 
     @Override
-    public List<Oferta> buscarPorCriterio(String criterio) {
+    public List<Oferta> buscarPorCriterio(String criterio)  {
         return repositorioOfertas.findAll().stream()
                  .filter(p -> p.getTitulo().toLowerCase().contains(criterio.toLowerCase()) ||
                                 p.getDescripcion().toLowerCase().contains(criterio.toLowerCase()))

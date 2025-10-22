@@ -1,7 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
-import java.rmi.server.ExportException;
-import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -23,5 +22,6 @@ public interface IServicioPostulaciones {
     void eliminarConPostulante (Postulante postulante) throws Exception;
     /* List<Oferta> buscarPorCriterio(String criterio); */
      List<Postulante> obtenerPostulantesPorOferta(Integer idOferta) throws ExcepcionBiosWork;
+   
    
 }

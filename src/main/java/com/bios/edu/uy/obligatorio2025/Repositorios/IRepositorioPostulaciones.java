@@ -3,13 +3,13 @@ package com.bios.edu.uy.obligatorio2025.Repositorios;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
+
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
@@ -17,6 +17,9 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 
 public interface IRepositorioPostulaciones extends JpaRepository<Postulacion,Postulacion.PostulacionId> {
     
+
+ 
+
 
  @Query("SELECT p.postulante FROM Postulacion p WHERE p.oferta.id = :idOferta")
 List<Postulante> findPostulantesByOfertaId(@Param("idOferta") Integer idOferta);    
@@ -38,7 +41,7 @@ List<Postulacion> findAllByOferta(Oferta oferta);
 
 List<Postulacion> findByOferta(Oferta oferta);
 
-// 🔹 Busca todas las postulaciones de una oferta
+//  Busca todas las postulaciones de una oferta
     List<Postulacion> findByOferta_Id(Integer idOferta);
 
 }

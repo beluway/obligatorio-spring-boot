@@ -1,13 +1,13 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
+
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Rol;
@@ -15,6 +15,9 @@ import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulantes;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 
 
 @Service
@@ -30,6 +33,9 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     @Autowired
     PasswordEncoder codificador; 
 
+
+    @Autowired
+    private HttpServletRequest solicitudCerrarSesionDespuesdeEliminar;
 
      @Override 
     public void agregar (Postulante postulante) throws ExcepcionBiosWork
@@ -51,7 +57,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     }
 
     
-     @Override 
+    @Override 
     public void modificar (Postulante  nuevo) throws ExcepcionBiosWork
     {
 
@@ -61,32 +67,28 @@ public class ServicioPostulantes  implements IServicioPostulantes{
           //ESTE ES PARA: SACAR EL ROL, Y LA CONTRASEÑA GUARDADA EN CASO DE QUE NO SE CAMBIE LA CONTRASEÑA
           Postulante existe = respositorioPostulantes.findById(nuevo.getUsuario()).orElse(null);
 
-          if(existe==null)
-          {
-            throw new ExcepcionNoExiste("el postulante no existe");
-          }
 
-
-        //SI CONTRASEÑA NO SE VA A CAMBIAR:
           if(nuevo.getClave().isEmpty()||nuevo.getClave().isBlank())
           {
             nuevo.setClave(existe.getClave());
           }
 
-          //SI LA CLAVE QUE LLE
-          else if(!nuevo.getClave().equals(existe.getClave()))
+          else
           {
-             nuevo.setClave(codificador.encode(existe.getClave()));
+             nuevo.setClave(codificador.encode(nuevo.getClave()));
           }
 
-        
-/* 
-        nuevo.getRoles().clear();
+          if(existe==null)
+          {
+            throw new ExcepcionNoExiste("el postulante no existe");
+          }
+
+         nuevo.getRoles().clear();
 
          for(Rol r : existe.getRoles())
          {
             nuevo.getRoles().add(r);
-         }  */
+         }
                   
 
         respositorioPostulantes.save(nuevo);
@@ -110,12 +112,15 @@ public class ServicioPostulantes  implements IServicioPostulantes{
         }
 
         respositorioPostulantes.delete(postualnteBD);
+
+        //SE OBTIENE LA SESION ACTUAL DEL USUARIO PARA BORRAR LOS DATOS DE SESION DESPUES DE ELIMINARLO DE LA BASE DE DATOS
+        solicitudCerrarSesionDespuesdeEliminar.getSession().invalidate();
     }
 
 
 
     @Override 
-    public Postulante obtener (String usuario) 
+    public Postulante obtener (String usuario) throws ExcepcionBiosWork
     {
         Postulante postulanteEncontrado = respositorioPostulantes.findByUsuario(usuario).orElse(null);
 
@@ -124,7 +129,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
 
     @Override
-    public Postulante buscar(String usuario)
+    public Postulante buscar(String usuario)  throws ExcepcionBiosWork
     {
            return respositorioPostulantes
             .findByUsuario(usuario)
@@ -133,7 +138,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
  
 
      @Override 
-    public List<Postulante> lista() throws Exception
+    public List<Postulante> lista() throws ExcepcionBiosWork
     {
        // ArrayList<postulantes> lista = new ArrayList<>();
 
@@ -142,8 +147,9 @@ public class ServicioPostulantes  implements IServicioPostulantes{
         return lista;
     }
 
+
      @Override
-        public Boolean MayorEdad(LocalDate fechaNacimiento) throws Exception
+        public Boolean MayorEdad(LocalDate fechaNacimiento) throws ExcepcionBiosWork
         {
             
             Boolean mayorDeEdad=true;
@@ -178,6 +184,17 @@ public class ServicioPostulantes  implements IServicioPostulantes{
                 .filter(p -> p.getUsuario().toLowerCase().contains(criterio.toLowerCase()))
                 .toList();
      }
+
+
+ 
+     @Override
+     @Transactional
+     public void actualizarCantidad(String usuario, int cantidad) throws Exception
+     {
+        respositorioPostulantes.actualizarCantidadPostulaciones(usuario, cantidad);
+     }
+
+
 
 }
 

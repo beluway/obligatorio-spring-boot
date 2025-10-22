@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioConsultores;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
@@ -66,9 +67,11 @@ public class ControladorHome {
              return "/home/ingresar";           
     }    
 
+    
+
 
     @PostMapping("/ingresar")
-    public String ingresar(String usuario, Model modelo) {
+    public String ingresar(String usuario, Model modelo) throws Exception {
      
          //ACA VA EL ACCESO A LA CAPA DE DATOS DE USUARIO Y PREGUNTA SI EXISTE EL USUARIO   
 
@@ -116,23 +119,7 @@ public class ControladorHome {
             modelo.addAttribute("Consultor", sesion.getAttribute("usuarioLogueado") instanceof Consultor); */
 
             return "home/main";
-    }
-    
+    }    
 
-    
-/*     @GetMapping("/deslogueo")
-    public String deslogueo(Model modelo,Principal usuarioLogueado) throws Exception{
-             
-        //SE ELIMINA LA SESIÓN DE USUARIO
-        usuarioLogueado=null;
-        modelo.addAttribute("usuarioLogueado", usuarioLogueado);
-
-          //SE BORRAN TODOS LOS DATOS DE SESION
-        //Session.invalidate();
-        SecurityContextHolder.clearContext();
-        return "home/index";
-
-    } */
-    
 
 }

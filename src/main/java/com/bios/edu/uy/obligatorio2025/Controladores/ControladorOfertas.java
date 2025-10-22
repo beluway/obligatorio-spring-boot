@@ -130,6 +130,8 @@ public String mostrarFormularioModificar(@RequestParam("codigo") Integer codigo,
     return "ofertas/modificar";
 }
 
+
+
 @PostMapping("/modificar")
 public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta oferta,
                                       BindingResult resultado,
@@ -208,6 +210,8 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
         List<Oferta> OfertasCliente = servicioOfertas.listaOfertasCliente(servicioClientes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("listaOfertasCliente", OfertasCliente);
+
+        modelo.addAttribute("fechaActual", LocalDate.now());
 
         return "ofertas/listaPorCliente";
     }   

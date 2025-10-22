@@ -1,11 +1,11 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
+
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,7 @@ import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 
 
 
+
 @Service
 public class ServicioPostulaciones implements IServicioPostulaciones{
     
@@ -36,6 +37,10 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     @Override 
     public void agregar (Postulacion postulacion) throws ExcepcionBiosWork
     {
+
+
+
+
         repositorioPostulaciones.save(postulacion);
     }
 
@@ -77,7 +82,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
 
 
     @Override 
-    public List<Postulacion> listaPostulaciones ()
+    public List<Postulacion> listaPostulaciones () throws ExcepcionBiosWork
     {
         ArrayList<Postulacion> lista = new ArrayList<>();
 
@@ -86,14 +91,14 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
 
     
     @Override
-    public List<Postulacion> listaPostulacionesPorPostulante(Postulante postulante)
-    {
+    public List<Postulacion> listaPostulacionesPorPostulante(Postulante postulante) throws ExcepcionBiosWork
+    { 
        return repositorioPostulaciones.findAllByPostulante(postulante);
     }
 
 
     @Override
-    public List<Oferta> listaOfertasVigentesParaPostularse(Postulante postulante)
+    public List<Oferta> listaOfertasVigentesParaPostularse(Postulante postulante) throws ExcepcionBiosWork
     {      
         List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes());
 
@@ -110,7 +115,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
 
     
     @Override
-    public Optional<Postulacion> obtener(Integer idOferta, String usuario)
+    public Optional<Postulacion> obtener(Integer idOferta, String usuario) throws ExcepcionBiosWork
     {
         return  repositorioPostulaciones.findById_IdOfertaAndId_UsuarioPostulante(idOferta,usuario);
     }
@@ -120,7 +125,7 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
     //PARA HACER LA BAJA FISICA, PRIMERO SE ELIMINAN TODAS ESTAS POSTULACIONES, Y DESPUES LA OFERTA
    
 @Override
-        public List<Postulante> obtenerPostulantesPorOferta(Integer idOferta) {
+        public List<Postulante> obtenerPostulantesPorOferta(Integer idOferta) throws ExcepcionBiosWork {
         return repositorioPostulaciones.findByOferta_Id(idOferta)
                 .stream()
                 .map(Postulacion::getPostulante)
@@ -135,4 +140,9 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
                                 p.getDescripcion().toLowerCase().contains(criterio.toLowerCase()))
                  .toList();
     }  */
+
+
+
+   
+
 }

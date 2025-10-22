@@ -1,20 +1,18 @@
 package com.bios.edu.uy.obligatorio2025.Repositorios;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
+
 import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.lang.Nullable;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
-import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
-import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -46,14 +44,15 @@ public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer>, JpaS
                 root.get("fechaPublicacion"), // límite inferior
                 root.get("fechaCierre")       // límite superior
             );
-
-
+            
             }
-
         };
         
     }
 
         Oferta findByCliente(Cliente cliente);
+
+
+     
    
 }

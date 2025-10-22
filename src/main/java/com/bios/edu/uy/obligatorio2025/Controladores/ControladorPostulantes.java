@@ -128,6 +128,7 @@ public String postulanteCrear(Model modelo) {
     }
 
 
+
     @GetMapping("/eliminar")
 
     public String postulanteEliminar(Model modelo, Principal usuarioLogueado) throws Exception
@@ -136,6 +137,9 @@ public String postulanteCrear(Model modelo) {
         return "postulantes/eliminar";
 
     }
+
+
+
 
     @PostMapping("/eliminar")
     public String postulanteEliminar(@ModelAttribute @Valid Postulante postulante , 
@@ -159,7 +163,7 @@ public String postulanteCrear(Model modelo) {
     
     
     @GetMapping("/modificar")
-    public String postulanteModificar(Model modelo, Principal principal) 
+    public String postulanteModificar(Model modelo, Principal principal)   throws Exception
     {      
         Postulante postulante = servicioPostulantes.buscar(principal.getName());
         
@@ -170,13 +174,15 @@ public String postulanteCrear(Model modelo) {
         return "postulantes/modificar";
     }
 
+
+
     
     @PostMapping("/modificar")
    public String modificarPostulante(
             @ModelAttribute @Valid Postulante postulante,
             BindingResult resultado,
             Model modelo,
-            RedirectAttributes atributos) throws ExcepcionBiosWork {
+            RedirectAttributes atributos) throws Exception {
 
         if (resultado.hasErrors()) {
             modelo.addAttribute("usuarioLogueado", postulante);
@@ -192,6 +198,9 @@ public String postulanteCrear(Model modelo) {
         return "postulantes/ver"; // sigue en ver.html
 
      }
+
+
+
 
     @GetMapping("/ver")    
     public String postulanteVer(@RequestParam String usuario,@RequestParam(required = false) Integer idOferta,Model modelo, Principal usuarioLogueado, RedirectAttributes attributes) throws Exception
@@ -227,7 +236,7 @@ public String postulanteCrear(Model modelo) {
 
     
     @PostMapping("/ver")    
-    public String postulanteVer(@ModelAttribute Postulante postulantes, BindingResult resultado,  @RequestParam  String accion) {
+    public String postulanteVer(@ModelAttribute Postulante postulantes, BindingResult resultado,  @RequestParam  String accion) throws Exception {
        
         if("btn_modificar".equals(accion))
         {
