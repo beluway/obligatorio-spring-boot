@@ -271,7 +271,7 @@ public class ControladorPostulaciones {
 
         if(criterio!=null&&!criterio.isEmpty())
         {
-            /* listaPostulacionesPorCliente = servicioPostulaciones.buscarPorCriterio(criterio); */
+            listaPostulacionesPorCliente = servicioPostulaciones.buscarPorCriterio(criterio);
         }
         else
         {
