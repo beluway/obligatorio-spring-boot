@@ -1,11 +1,11 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
+
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,6 @@ import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 
-import jakarta.transaction.Transactional;
 
 
 

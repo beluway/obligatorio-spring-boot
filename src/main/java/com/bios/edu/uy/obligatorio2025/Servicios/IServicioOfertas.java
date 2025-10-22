@@ -1,13 +1,11 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
-import java.time.LocalDate;
-import java.util.Date;
+
 import java.util.List;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
-import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
-import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 
 public interface IServicioOfertas {

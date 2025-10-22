@@ -20,23 +20,28 @@
         
         <label for="usuario">Usuario</label>
         <input type="text" id="usuario" th:field="*{usuario}">
-        <p th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}" class="error-simple"></p>
+        <p th:if="${#fields.hasErrors('usuario')}" 
+        th:errors="*{usuario}" class="error-simple"></p>
 
         <label for="clave">Clave</label>
         <input type="password" id="clave" th:field="*{clave}" >
-        <p th:if="${#fields.hasErrors('clave')}" th:errors="*{clave}" class="error-simple"></p>
+        <p th:if="${#fields.hasErrors('clave')}" 
+        th:errors="*{clave}" class="error-simple"></p>
 
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" th:field="*{nombre}" placeholder="Empresa Bios">
-        <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error-simple"></p>
+        <p th:if="${#fields.hasErrors('nombre')}" 
+        th:errors="*{nombre}" class="error-simple"></p>
 
         <label for="rut">Rut</label>
         <input type="text" id="rut" th:field="*{rut}" placeholder="214567890012">
-        <p th:if="${#fields.hasErrors('rut')}" th:errors="*{rut}" class="error-simple"></p>
+        <p th:if="${#fields.hasErrors('rut')}" 
+        th:errors="*{rut}" class="error-simple"></p>
 
         <label for="sitioWeb">Sitio web</label>
         <input type="text" id="url" th:field="*{url}" placeholder="https://www.ejemplo.com">
-        <p th:if="${#fields.hasErrors('url')}"  th:errors="*{url}" class="error-simple"></p>
+        <p th:if="${#fields.hasErrors('url')}"  
+        th:errors="*{url}" class="error-simple"></p>
 
     
 

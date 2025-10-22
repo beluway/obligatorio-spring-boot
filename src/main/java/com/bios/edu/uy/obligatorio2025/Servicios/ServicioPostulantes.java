@@ -1,13 +1,13 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
+
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Dominio.Rol;
@@ -16,6 +16,7 @@ import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulantes;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 
 
@@ -32,6 +33,9 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     @Autowired
     PasswordEncoder codificador; 
 
+
+    @Autowired
+    private HttpServletRequest solicitudCerrarSesionDespuesdeEliminar;
 
      @Override 
     public void agregar (Postulante postulante) throws ExcepcionBiosWork
@@ -108,6 +112,9 @@ public class ServicioPostulantes  implements IServicioPostulantes{
         }
 
         respositorioPostulantes.delete(postualnteBD);
+
+        //SE OBTIENE LA SESION ACTUAL DEL USUARIO PARA BORRAR LOS DATOS DE SESION DESPUES DE ELIMINARLO DE LA BASE DE DATOS
+        solicitudCerrarSesionDespuesdeEliminar.getSession().invalidate();
     }
 
 
@@ -152,6 +159,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
         return lista;
     }
+
 
      @Override
         public Boolean MayorEdad(LocalDate fechaNacimiento) throws ExcepcionBiosWork
@@ -204,7 +212,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
  
      @Override
      @Transactional
-     public void actualizarCantidad(String usuario, int cantidad) throws ExcepcionBiosWork
+     public void actualizarCantidad(String usuario, int cantidad) throws Exception
      {
         respositorioPostulantes.actualizarCantidadPostulaciones(usuario, cantidad);
      }
