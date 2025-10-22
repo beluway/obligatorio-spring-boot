@@ -59,8 +59,10 @@ public String postulanteCrear(Model modelo) {
           }
 
 
-          // SE OBTIENE COMO MULTIPARTE EL .PDF
-          MultipartFile pdf = postulante.getPdf();
+   // SE OBTIENE COMO MULTIPARTE EL .PDF
+    MultipartFile pdf = postulante.getPdf();
+
+    MultipartFile imagen = postulante.getImagen();
 
     // Validación del PDF
 /*     if (pdf == null || pdf.isEmpty()) {
@@ -94,8 +96,13 @@ public String postulanteCrear(Model modelo) {
      
          File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString()+".pdf");
 
+         File imagenDestino = new File(carpetaDestino,postulante.getCedula().toString()+".jpeg");
+
         try
         { 
+
+            imagen.transferTo(imagenDestino);
+
             pdf.transferTo(archivoDestino);
 
            // postulante.setActivo(true);
