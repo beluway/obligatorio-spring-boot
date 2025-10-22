@@ -6,11 +6,12 @@ import org.springframework.stereotype.Service;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
 
-import jakarta.validation.OverridesAttribute;
+
 
 
 @Service
@@ -18,6 +19,9 @@ public class ServicioOfertas implements IServicioOfertas {
 
 @Autowired
 private IRepositorioOfertas repositorioOfertas;
+
+@Autowired
+private IRepositorioPostulaciones repositorioPostulaciones;
 
     @Override
     public void agregar (Oferta oferta) throws ExcepcionBiosWork
@@ -40,12 +44,12 @@ private IRepositorioOfertas repositorioOfertas;
     {
         try 
         {
-            List<Postulacion> listaPostulaciones = respositorioPostulaciones.findByOferta_Id(id);
+            List<Postulacion> listaPostulaciones = repositorioPostulaciones.findByOferta_Id(id);
 
             for(Postulacion P:listaPostulaciones)
             {
                 //SE ELIMINAN LAS POSTULACIONES DE LA OFERTA
-                respositorioPostulaciones.delete(P);
+                repositorioPostulaciones.delete(P);
             }
 
             repositorioOfertas.delete(obtener(id));
@@ -80,7 +84,7 @@ private IRepositorioOfertas repositorioOfertas;
 
 
     @Override
-    public List<Oferta> listaOfertasVigentes() throws ExcepcionBiosWork
+    public List<Oferta> listaOfertasVigentes()
     {
          List<Oferta> listaOfertasVigentes = repositorioOfertas.findAll(IRepositorioOfertas.ofertasVigentes());
    
