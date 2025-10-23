@@ -147,6 +147,7 @@
 </head>
 <section>
     <div id="contenedor">
+
         <div class="card">
             <h2>Postulante</h2>
 
@@ -178,6 +179,17 @@
                 <label>Departamento</label>
                 <input type="text" th:field="*{departamento}" readonly/>
 
+            <div th:if="${fotoDisponible}">
+                <label> Foto</label>
+                <a id="foto" class="foto" th:href="@{|/foto/${postulante.cedula}.jpeg|}" target="_blank">Ver Foto</a>
+            </div>    
+
+            <div th:unless="${fotoDisponible}">
+                <label>
+                   <span class="error-simple"> Foto no disponible</span>
+                </label>
+            </div>
+
             <div th:if="${cvDisponible}" >
             <label>Currículum</label>
             <a id="cv" class="cv" th:href="@{|/pdf/${postulante.cedula}.pdf|}" target="_blank">Ver CV</a> 
@@ -204,6 +216,8 @@
 
             </form>
         </div>
+
+        
     </div>
 </section>
 

@@ -300,6 +300,7 @@ public String verPostulantesDeOferta(@PathVariable Integer id, Model modelo) thr
     return "ofertas/postulantes"; // nombre de tu vista
 }
 
+
     @GetMapping("/listaFiltro")
     public String listaFiltro(String estado,
     Model modelo, 

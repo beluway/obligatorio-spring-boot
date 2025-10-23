@@ -42,8 +42,7 @@ public class ControladorPostulantes {
      @Autowired
     private IServicioPostulaciones servicioPostulaciones;
 
-    @Autowired
-    private IServicioOfertas servicioOfertas;
+   
 
        
    @GetMapping("/crear")
@@ -231,6 +230,15 @@ public String postulanteCrear(Model modelo) {
             } else {
                 modelo.addAttribute("cvDisponible", false);
             }
+
+            File archivoFoto = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getCedula()+".jpeg");
+
+            if (archivoFoto.exists()) {
+                modelo.addAttribute("fotoDisponible", true);
+            } else {
+                modelo.addAttribute("fotoDisponible", false);
+            }
+
 
                 // ✅ Si vino desde una oferta, lo pasamos a la vista
             if (idOferta != null) {

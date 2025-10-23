@@ -109,6 +109,8 @@ public class ControladorClientes {
 
     }
 
+
+
     @PostMapping("/eliminar")
     public String clienteEliminar(@RequestParam String usuario, 
     Model modelo, 
@@ -195,6 +197,7 @@ public class ControladorClientes {
     }
     
 
+    
     @GetMapping("/ver")    
     public String clienteVer(@RequestParam String usuario, Model modelo, Principal usuarioLogueado) throws ExcepcionBiosWork {
        
