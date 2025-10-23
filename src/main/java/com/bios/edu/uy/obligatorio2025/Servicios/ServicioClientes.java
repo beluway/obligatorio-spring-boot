@@ -76,7 +76,7 @@ public class ServicioClientes implements IServicioClientes  {
 
           if(existe==null)
           {
-            throw new ExcepcionNoExiste("el postulante no existe");
+            throw new ExcepcionNoExiste("El postulante no existe");
           }
 
          nuevo.getRoles().clear();
@@ -98,9 +98,11 @@ public class ServicioClientes implements IServicioClientes  {
    public void eliminar (String usuario) throws ExcepcionBiosWork
     { 
 
-       // Cliente clienteenBD = repositorioClientes.findById(usuario).orElse(null);
-
        Cliente clienteEnBD = repositorioClientes.findById(usuario).orElse(null);
+
+       if (clienteEnBD==null) {
+        throw new ExcepcionNoExiste("El cliente no existe.");
+       }
        
        List<Oferta> ofertasDelCliente = repositorioOfertas.findAllByCliente(clienteEnBD);
        

@@ -10,7 +10,7 @@ public interface IServicioConsultores {
     void agregar (Consultor consultor) throws ExcepcionBiosWork;
     void modificar(Consultor consultor) throws ExcepcionBiosWork;
     void eliminar (String usuario) throws ExcepcionBiosWork;
-    List<Consultor>listaConsultores() throws Exception;
-    Consultor obtener(String usuario) throws Exception;
+    List<Consultor>listaConsultores() throws ExcepcionBiosWork;
+    Consultor obtener(String usuario) throws ExcepcionBiosWork;
     
 }

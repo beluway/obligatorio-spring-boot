@@ -26,8 +26,7 @@
             <td th:text="${p.cedula}"></td>
             <td th:text="${p.primerNombre}"></td>
             <td>
-                <a th:href="@{/postulantes/ver/{usuario}(usuario=${postulante.usuario}, idOferta=${idOferta})}"> class="btn">Ver más</a>
-            </td>
+                <a th:href="@{/postulantes/ver(usuario=${p.usuario}, idOferta=${idOferta})}" class="btn">Ver más</a>
           </tr>
         </tbody>
       </table>

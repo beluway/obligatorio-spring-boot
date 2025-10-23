@@ -1,20 +1,21 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
-import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
-import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
+import com.bios.edu.uy.obligatorio2025.Dominio.Usuario.Crear;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.ServicioPostulantes;
 
@@ -22,11 +23,10 @@ import org.springframework.ui.Model;
 
 
 import jakarta.validation.Valid;
-
-
+import jakarta.validation.groups.Default;
 
 import java.io.File;
-
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
 
@@ -42,8 +42,6 @@ public class ControladorPostulantes {
      @Autowired
     private IServicioPostulaciones servicioPostulaciones;
 
-   
-
        
    @GetMapping("/crear")
 public String postulanteCrear(Model modelo) {
@@ -53,8 +51,8 @@ public String postulanteCrear(Model modelo) {
 
     
     @PostMapping("/crear")
-    public String postulanteCrear (@ModelAttribute @Valid Postulante postulante,  
-    BindingResult resultado,   
+    public String postulanteCrear (@ModelAttribute @Validated({Default.class, Crear.class}) Postulante postulante,  
+    BindingResult resultado, 
     Model modelo, 
     RedirectAttributes atributos) throws Exception
     {             
@@ -68,11 +66,10 @@ public String postulanteCrear(Model modelo) {
 
     MultipartFile imagen = postulante.getImagen();
 
-    // Validación del PDF
-    if (pdf == null || pdf.isEmpty()) {
-        modelo.addAttribute("errorPdf", "Debe subir un archivo PDF");
-        return "postulantes/crear";
+    if (!imagen.isEmpty()) {
+        postulante.setTieneImagen(true);
     }
+
         // Validar tipo MIME del archivo
     if (!"application/pdf".equalsIgnoreCase(pdf.getContentType())) {
         modelo.addAttribute("errorPdf", "El archivo debe ser un PDF válido");
@@ -80,8 +77,8 @@ public String postulanteCrear(Model modelo) {
     }
 
         
-        if (servicioPostulantes.MayorEdad(postulante.getFechanacimiento())==false) {
-        modelo.addAttribute("mensaje", "ATENCIÓN: No es mayor de Edad");
+        if (!servicioPostulantes.MayorEdad(postulante.getFechanacimiento())) {
+        modelo.addAttribute("error", "ATENCIÓN: No es mayor de Edad");
         return "/postulantes/crear";
         }
 
@@ -116,10 +113,6 @@ public String postulanteCrear(Model modelo) {
             postulante.setCantidadPostulaciones(0);
          
             servicioPostulantes.agregar(postulante);  
-
-
-            atributos.addFlashAttribute("mensaje", "Postulante guardado correctamente.");
-            return "redirect:/postulantes/lista";
 
         }
 
@@ -171,7 +164,7 @@ public String postulanteCrear(Model modelo) {
     @GetMapping("/modificar")
     public String postulanteModificar(Model modelo, Principal principal)   throws Exception
     {      
-        Postulante postulante = servicioPostulantes.buscar(principal.getName());
+        Postulante postulante = servicioPostulantes.obtener(principal.getName());
         
         modelo.addAttribute("postulante", postulante);
 
@@ -208,20 +201,16 @@ public String postulanteCrear(Model modelo) {
 
 
 
-    @GetMapping("/ver")    
+    /* @GetMapping("/ver")    
     public String postulanteVer(@RequestParam String usuario,@RequestParam(required = false) Integer idOferta,Model modelo, Principal usuarioLogueado, RedirectAttributes attributes) throws Exception
     {
         modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
-
         Postulante postulanteEncontrado= servicioPostulantes.buscar(usuario);
 
         if (postulanteEncontrado ==null) {
             attributes.addAttribute("error","El postulante con usuario "+usuario+" no existe.");
             return "redirect:/postulantes/lista"; // si no existe
         }
-
-        //si existe el postulante lo agrego al modelo
-            modelo.addAttribute("postulante", postulanteEncontrado);
 
             // Verificar si el archivo PDF existe
             File archivoPDF = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getCedula() + ".pdf");
@@ -231,22 +220,51 @@ public String postulanteCrear(Model modelo) {
                 modelo.addAttribute("cvDisponible", false);
             }
 
-            File archivoFoto = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getCedula()+".jpeg");
-
-            if (archivoFoto.exists()) {
-                modelo.addAttribute("fotoDisponible", true);
-            } else {
-                modelo.addAttribute("fotoDisponible", false);
-            }
-
-
-                // ✅ Si vino desde una oferta, lo pasamos a la vista
+                // Si vino desde una oferta, lo pasamos a la vista
             if (idOferta != null) {
                 modelo.addAttribute("idOferta", idOferta);
             }
+            //si existe el postulante lo agrego al modelo
+            modelo.addAttribute("postulante", postulanteEncontrado);
 
         return "postulantes/ver";
-    }   
+    }    */
+        @GetMapping("/ver")    
+public String postulanteVer(
+        @RequestParam String usuario,
+        @RequestParam(required = false) Integer idOferta,
+        Model modelo,
+        Principal usuarioLogueado,
+        RedirectAttributes attributes) throws Exception {
+
+    // Usuario logueado
+    modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
+
+    // Buscar el postulante
+    Postulante postulanteEncontrado = servicioPostulantes.buscar(usuario);
+    if (postulanteEncontrado == null) {
+        attributes.addFlashAttribute("error", "El postulante con usuario " + usuario + " no existe.");
+        return "redirect:/postulantes/lista";
+    }
+
+    // Verificar si existe el PDF
+    File archivoPDF = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getCedula() + ".pdf");
+    modelo.addAttribute("cvDisponible", archivoPDF.exists());
+
+    // Verificar si existe la imagen
+    File imagen = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getUsuario() + ".jpeg");
+    modelo.addAttribute("tieneImagen", imagen.exists());
+
+    // Si vino desde una oferta, pasarlo a la vista
+    if (idOferta != null) {
+        modelo.addAttribute("idOferta", idOferta);
+    }
+
+    // Agregar postulante al modelo
+    modelo.addAttribute("postulante", postulanteEncontrado);
+
+    return "postulantes/ver";
+}
 
 
     
@@ -295,5 +313,6 @@ public String postulanteCrear(Model modelo) {
         return "postulantes/lista";
 
     }
+
 
 }

@@ -47,16 +47,8 @@ public class ControladorHome {
 
 
     @GetMapping("/index") 
-    public String index() throws Exception{
+    public String index() {
          
-       try{
-                   
-       }
-       catch(Exception ex)
-       {
-        
-       }
-        
          return "home/index";   
     }    
 
@@ -71,7 +63,7 @@ public class ControladorHome {
 
 
     @PostMapping("/ingresar")
-    public String ingresar(String usuario, Model modelo) throws Exception {
+    public String ingresar(String usuario, Model modelo) throws ExcepcionBiosWork {
      
          //ACA VA EL ACCESO A LA CAPA DE DATOS DE USUARIO Y PREGUNTA SI EXISTE EL USUARIO   
 
@@ -88,6 +80,7 @@ public class ControladorHome {
         }
         else
         {   //SI NO EXISTE, SE QUEDA EN EL INDEX
+         modelo.addAttribute("mensaje","El usuario que indicó no existe, por favor registrarse.");
             return "home/ingresar";
         }      
     }

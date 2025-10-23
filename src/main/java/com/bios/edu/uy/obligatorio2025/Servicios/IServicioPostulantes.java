@@ -9,17 +9,15 @@ import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 
 public interface IServicioPostulantes {
 
-    void agregar (Postulante postulante) throws Exception;
-    void modificar (Postulante postulante) throws Exception;
-    void eliminar (String usuario) throws Exception;
-    List<Postulante> lista() throws Exception;
-    public Postulante obtener (String usuario) throws Exception;
-    Boolean MayorEdad(LocalDate fechaNacimiento)  throws Exception;
+    void agregar (Postulante postulante) throws ExcepcionBiosWork;
+    void modificar (Postulante postulante) throws ExcepcionBiosWork;
+    void eliminar (String usuario) throws ExcepcionBiosWork;
+    List<Postulante> lista() throws ExcepcionBiosWork;
+    Boolean MayorEdad(LocalDate fechaNacimiento)  throws ExcepcionBiosWork;
+    Postulante obtener(String usuario) throws ExcepcionBiosWork;
     Postulante buscar(String usuario) throws Exception;
     List<Postulante> buscarPorCriterio(String criterio) throws ExcepcionBiosWork;
-   /*  List<Postulante> listaPostulantesPorOferta(Oferta oferta) throws ExcepcionBiosWork;
-    List<Postulante> listaPostulacionesPorOferta (Oferta oferta) throws ExcepcionBiosWork; */
-      void actualizarCantidad(String usuario, int cantidad) throws Exception;
+    void actualizarCantidad(String usuario, int cantidad) throws ExcepcionBiosWork;
     
 
 }

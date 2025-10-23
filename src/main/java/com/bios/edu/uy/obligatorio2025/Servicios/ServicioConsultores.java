@@ -9,6 +9,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
 import com.bios.edu.uy.obligatorio2025.Dominio.Rol;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionYaExiste;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioConsultores;
 
 @Service
@@ -31,7 +32,7 @@ public class ServicioConsultores implements IServicioConsultores{
 
         if(existente!=null)
         {
-            throw new ExcepcionBiosWork("ya existe");
+            throw new ExcepcionYaExiste("El consultor ya existe.");
         }
         
         consultor.getRoles().add(new Rol("consultor"));
@@ -61,7 +62,7 @@ public class ServicioConsultores implements IServicioConsultores{
 
           if(existe==null)
           {
-            throw new ExcepcionNoExiste("el postulante no existe");
+            throw new ExcepcionNoExiste("El postulante no existe");
           }
 
          nuevo.getRoles().clear();
@@ -82,8 +83,8 @@ public class ServicioConsultores implements IServicioConsultores{
     {
         try {
             repositorioConsultores.delete(obtener(usuario));
-        } catch (Exception e) {
-            throw new ExcepcionBiosWork("no se pudo eliminar");
+        } catch (ExcepcionBiosWork e) {
+            throw new ExcepcionBiosWork("No se pudo eliminar el consultor");
         }
     }
 
