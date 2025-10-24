@@ -175,6 +175,8 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
         boolean yaPostulado = postulacion.isPresent();
         modelo.addAttribute("yaPostulado", yaPostulado);
 
+        modelo.addAttribute("fechaActual", LocalDate.now());
+
         return "ofertas/ver";
     }   
 

@@ -1,65 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"
- 
-th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modificar Oferta</title>
-    <link rel="stylesheet" th:href="@{/css/crud.css}">
-</head>
-
-<section>
-    <div id="contenedor">
-<div class="card">
-    <h2>Modificar Oferta</h2>
-    <form th:action="@{ofertas/modificar}" method="post" th:object="${oferta}">
-        <label for="id">ID</label>
-        <input type="text" id="id" name="id" th:field="${oferta.id}" disabled > 
-        
-        <label for="titulo">Título</label>
-        <input type="text" id="titulo" name="titulo" th:field="${oferta.titulo}" readonly>
-        <p th:errors="*{titulo}" class="error"></p>
-
-        <label for="fecha_pub">Fecha de publicación</label>
-        <input type="text" id="fecha_pub" name="fecha_pub" th:field="*{fechaPublicacion}" readonly>
-         <p th:errors="*{fechaPublicacion}" class="error"></p>
-
-        <label for="fecha_cierre">Fecha de cierre</label>
-        <input type="date" id="fecha_cierre" name="fecha_cierre" th:field="*{fechaCierre}">
-        <p th:errors="*{fechaCierre}" class="error"></p>
-
-        <div>
-            <label for="area">Área</label>
-            <select th:field="*{area.nombre}">
-                <option th:each="a : ${areas}" th:field="${a.nombre}" th:text="${a.nombre}"></option>
-            </select>
-            <p th:errors="*{area.nombre}" class="error"></p>
-        </div>
-
-        <label for="cliente">Publicado por: </label>
-        <input type="text" name="cliente" id="cliente" th:field="${oferta.cliente.nombre}" readonly>
-
-        <label for="descripcion">Descripción detallada</label>
-        <textarea id="descripcion" name="descripcion" th:field="*{descripcion}" readonly></textarea>
-
-        <label for="vacantes">Cantidad de puestos vacantes</label>
-        <input type="number" id="vacantes" name="vacantes" th:field="*{cantidadVacantes}" readonly>
-
-
-
-        <button type="submit" id="modificar">Modifcar</button>
-
-         <p th:if="${mensaje}" th:text="${mensaje}"></p>
-
-        <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
-        
-        </form>
-    </div>
-    <div>
-</section>
-</html> -->
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
@@ -83,9 +21,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
                 <p th:if="${error}" class="error" th:text="${error}"></p>
             </div>
-            
-            
-
+                        
             <form th:action="@{/ofertas/modificar}" method="post" th:object="${oferta}">
                 <input type="hidden" th:field="*{id}" />
 
