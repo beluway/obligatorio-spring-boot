@@ -48,11 +48,24 @@ public ResponseEntity<Resource> verPdf(@PathVariable String nombreArchivo) throw
     // 5. Carga del recurso
     Resource recurso = new UrlResource(archivo.toUri());
 
-    // 6. Respuesta con el recurso y encabezados correctos
+
+
+    String tipo = Files.probeContentType(archivo);
+    MediaType mediaType = (tipo != null) ? MediaType.parseMediaType(tipo) : MediaType.APPLICATION_PDF;
+
+    return ResponseEntity.ok()
+            .contentType(mediaType)
+            .body(recurso);
+
+
+
+/* 
     return ResponseEntity.ok()
             .contentType(MediaType.APPLICATION_PDF)
             // Usamos "inline" para que el navegador lo muestre en lugar de descargarlo
             .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + recurso.getFilename() + "\"")
-            .body(recurso);
+            .body(recurso); */
+
+
 }
 }

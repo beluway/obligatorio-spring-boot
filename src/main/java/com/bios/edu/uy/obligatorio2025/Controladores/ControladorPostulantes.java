@@ -229,7 +229,9 @@ public String postulanteCrear(Model modelo) {
 
         return "postulantes/ver";
     }    */
-        @GetMapping("/ver")    
+      
+    
+    @GetMapping("/ver")    
 public String postulanteVer(
         @RequestParam String usuario,
         @RequestParam(required = false) Integer idOferta,
