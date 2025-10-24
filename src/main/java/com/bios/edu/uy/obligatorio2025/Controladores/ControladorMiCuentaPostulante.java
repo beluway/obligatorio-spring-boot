@@ -62,7 +62,6 @@ public class ControladorMiCuentaPostulante {
                 return "micuentaP/ver"; // queda en la misma página si hay errores
             }
 
-
         servicioPostulantes.modificar(postulante);
 
         // Recargar los datos actualizados
