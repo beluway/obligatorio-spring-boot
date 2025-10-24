@@ -75,7 +75,6 @@ public class ConfiguracionSeguridad {
                 .defaultSuccessUrl("/home/main", true) // redirección tras login exitoso
                 .permitAll()
             )
-            
 
             // --- Configuración del logout ---
             /* .logout(logout -> logout
@@ -92,15 +91,18 @@ public class ConfiguracionSeguridad {
                 .permitAll())
 
             // --- Manejo de excepciones (acceso denegado o no autenticado) ---
-            .exceptionHandling(excepcion -> excepcion
+          .exceptionHandling(excepcion -> excepcion
     // Cuando el usuario NO está autenticado (no logueado)
     .authenticationEntryPoint((request, response, authException) -> {
-        response.sendRedirect("/home/index");
+        response.sendRedirect(request.getContextPath() + "/home/index");
     })
-    // Cuando el usuario está logueado, pero NO tiene permisos
-    .accessDeniedPage("/error/403")
-    );
+    // Cuando el usuario está logueado pero no tiene permisos suficientes
+    .accessDeniedHandler((request, response, accessDeniedException) -> {
+        response.sendRedirect(request.getContextPath() + "/error/403");
+    })
+);
+        
 
-        return seguridadHttp.build();
-    }
+    return seguridadHttp.build();
+}
 }
