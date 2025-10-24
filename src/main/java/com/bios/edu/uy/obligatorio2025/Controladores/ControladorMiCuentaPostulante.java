@@ -50,6 +50,10 @@ public class ControladorMiCuentaPostulante {
             modelo.addAttribute("cvDisponible", archivoPDF.exists());
           }
           
+             File imagen = new File("C:/ArchivosSubidos/" + postulante.getCedula() + ".jpeg");
+          if (imagen !=null) {
+            modelo.addAttribute("imagenDisponible", imagen.exists());
+          }
         
 
         postulante.setClave("");        
@@ -73,22 +77,30 @@ public class ControladorMiCuentaPostulante {
                 return "micuentaP/ver"; // queda en la misma página si hay errores
             } 
 
+
+  MultipartFile pdf = postulante.getPdf();
+
+                
+       
             if(!postulante.getPdf().isEmpty()){
+
               File pdfPostulante = new File("C:/ArchivosSubidos/"+postulante.getCedula()+".pdf");
 
               if(pdfPostulante.exists())
-                  {
-                      pdfPostulante.delete();
-                  }
+              {
+                  pdfPostulante.delete();
+              }
 
-                     // SE OBTIENE COMO MULTIPARTE EL .PDF
-                    File  carpetaDestino= new File("C:/ArchivosSubidos");
-                    MultipartFile pdf = postulante.getPdf();
-                    File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString()+".pdf");
-                    pdf.transferTo(archivoDestino);
+          // SE OBTIENE COMO MULTIPARTE EL .PDF
+         /*           MultipartFile pdf = postulante.getPdf();
+        UtilidadesArchivos.guardarPdf(pdf.getBytes(),"C:/ArchivosSubidos",postulante.getCedula().toString(), 
+                "pdf"); */
+               
+    File  carpetaDestino= new File("C:/ArchivosSubidos");
+    File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString()+".pdf");
+    pdf.transferTo(archivoDestino);
 
-                  
-                      }
+   }
 
     MultipartFile imagen = postulante.getImagen();
 
@@ -100,7 +112,7 @@ public class ControladorMiCuentaPostulante {
            imagenPostulante.delete();
         }
         //ahora sí guardo la nueva
-      UtilidadesArchivos.guardarImagen(imagen.getBytes(), "C:/ArchivosSubidos", postulante.getCedula().toString(), "png");
+      UtilidadesArchivos.guardarImagen(imagen.getBytes(), "C:/ArchivosSubidos", postulante.getCedula().toString(), "jpeg");
         postulante.setTieneImagen(true);
     }
 
@@ -114,9 +126,6 @@ public class ControladorMiCuentaPostulante {
 
      }
         
-/* 
-      <input type="hidden" name="codigoOferta" th:value="*{id.idOferta}" />
-                <input type="hidden" name="codigoPostulante" th:value="*{id.usuarioPostulante}" />      */
 
       @PostMapping("/eliminar")
       public String eliminar (Model modelo, RedirectAttributes attributes,  

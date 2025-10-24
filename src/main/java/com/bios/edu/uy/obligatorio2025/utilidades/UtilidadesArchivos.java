@@ -4,6 +4,7 @@ package com.bios.edu.uy.obligatorio2025.utilidades;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -24,9 +25,17 @@ public class UtilidadesArchivos {
 
     public static void guardarPdf(byte[]datos,String directorio, String nombreArchivo, String formato) throws IOException{
         
-        File archivo = new File( directorio,nombreArchivo+"."+formato.toLowerCase());
+    if (!nombreArchivo.toLowerCase().endsWith("." + formato.toLowerCase())) {
+        nombreArchivo += "." + formato.toLowerCase();
+    }
 
-        archivo.createNewFile(); 
+    File archivo = new File(directorio, nombreArchivo);
+
+    // Usar try-with-resources para cerrar automáticamente el FileOutputStream
+    try (FileOutputStream fos = new FileOutputStream(archivo)) {
+        fos.write(datos);
+        fos.flush();
+    }
     }
 
 

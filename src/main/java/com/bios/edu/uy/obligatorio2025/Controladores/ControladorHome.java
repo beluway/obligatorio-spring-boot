@@ -61,7 +61,6 @@ public class ControladorHome {
 
     
 
-
     @PostMapping("/ingresar")
     public String ingresar(String usuario, Model modelo) throws ExcepcionBiosWork {
      
@@ -85,7 +84,6 @@ public class ControladorHome {
         }      
     }
     
-
 
 
 

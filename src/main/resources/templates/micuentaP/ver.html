@@ -16,11 +16,11 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     <form th:action="@{/micuentaP/ver}" method="post" th:object="${postulante}" enctype="multipart/form-data">
 
                 <!-- Fotografía opcional -->
-<div th:if="${postulante.tieneImagen}" style="text-align:center; margin-bottom:15px;">
+<!-- <div th:if="${postulante.tieneImagen}" style="text-align:center; margin-bottom:15px;">
     <img th:src="@{/imagen/{nombre}(nombre=${postulante.cedula})}"
          th:alt="${postulante.primerNombre}"
          style="width:150px; height:auto; border-radius:5px; border:1px solid #ccc;" />
-</div>
+</div> -->
                 
         <label for="id">Usuario</label>
         <input type="text" id="usuario" name="usuario" th:value="${postulante.usuario}" readonly > 
@@ -83,10 +83,22 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         <p th:errors="*{segundoApellido}" class="error"></p>
         
         <div>
-                    <label for="imagen">Subir Imagen (opcional)</label>
-                    <input type="file" name="imagen" id="imagen" accept="image/*" />
-                      <p class="error-simple" th:if="${errorImagen}" th:text="${errorImagen}"></p>
-                </div>
+          <label for="imagen">Subir Imagen (opcional)</label>
+          <input type="file" name="imagen" id="imagen" accept="image/*" />
+        <p class="error-simple" th:if="${errorImagen}" th:text="${errorImagen}"></p>
+        </div>
+                
+             <div th:if="${imagenDisponible}">
+                <label> Foto</label>
+                <a id="foto" class="foto" th:href="@{|/imagen/${postulante.cedula}.jpeg|}" target="_blank">Ver Foto</a>
+            </div>    
+
+            <div th:unless="${imagenDisponible}">
+                <label> Foto </label>
+                   <span class="error-simple"> Foto no disponible</span>
+               
+            </div> 
+
 
                 <!-- PDF -->
                 <div>
@@ -95,7 +107,8 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
                     <p class="error-simple" th:if="${errorPdf}" th:text="${errorPdf}"></p>
                 </div>
 
-                <div th:if="${cvDisponible}" >
+
+            <div th:if="${cvDisponible}" >
             <label>Currículum</label>
             <a id="cv" class="cv" th:href="@{|/pdf/${postulante.cedula}.pdf|}" target="_blank">Ver CV</a> 
             </div>
