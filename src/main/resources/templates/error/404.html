@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org/"
+      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+<head>
+    <title>Error 404 - Página no encontrada</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+
+<section>
+    <div id="contenedor" style="text-align:center; padding: 40px;">
+        <h1 style="color:#d9534f;">404 - Página no encontrada</h1>
+        <p>La dirección que buscás no existe o fue movida.</p>
+        <a th:href="@{/home/main}" class="btn">Volver al inicio</a>
+    </div>
+</section>
+</html>

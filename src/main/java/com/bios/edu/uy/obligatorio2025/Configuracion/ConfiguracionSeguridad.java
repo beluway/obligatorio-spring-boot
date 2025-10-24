@@ -89,14 +89,5 @@ public class ConfiguracionSeguridad {
                 .clearAuthentication(true)   
                 .deleteCookies("JSESSIONID") 
                 .permitAll())
-
-            // --- Manejo de excepciones (acceso denegado o no autenticado) ---
-            .exceptionHandling(excepcion -> excepcion
-                .authenticationEntryPoint((request, response, authException) -> {
-                    response.sendRedirect("/bioswork/home/index");
-                })
-            );
-
-        return seguridadHttp.build();
-    }
-}
+                // --- Manejo de excepciones (acceso denegado o no autenticado) --- 
+.exceptionHandling(excepcion -> excepcion .authenticationEntryPoint((request, response, authException) -> { response.sendRedirect("/bioswork/home/index"); }) ); return seguridadHttp.build(); } }

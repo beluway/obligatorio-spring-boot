@@ -28,10 +28,6 @@ public ResponseEntity<Resource> verPdf(@PathVariable String nombreArchivo) throw
     Path carpeta = Paths.get("C:/ArchivosSubidos").toAbsolutePath().normalize();
     Path archivo = carpeta.resolve(nombreArchivo+".pdf").normalize();
 
-
-  //  Path archivo = carpeta.resolve(nombre + ".jpeg").normalize(); // agregar extensión aquí
-
-
     if (!Files.exists(archivo)) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }

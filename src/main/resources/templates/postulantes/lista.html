@@ -34,11 +34,11 @@
                     </thead>
                     <tbody>
                         <tr th:each="p : ${listaPostulantes}">
-                            <td th:text="${p.cedula}">59340394</td>
-                            <td th:text="${p.usuario}">pos1</td>
-                            <td th:text="${p.primerNombre}">armando</td>
-                            <td th:text="${p.primerApellido}">carpa</td>
-                            <td th:text="${p.fechanacimiento}">1980-01-01</td>
+                            <td th:text="${p.cedula}"><!-- 59340394 --></td>
+                            <td th:text="${p.usuario}"><!-- pos1 --></td>
+                            <td th:text="${p.primerNombre}"><!-- armando --></td>
+                            <td th:text="${p.primerApellido}"><!-- carpa --></td>
+                            <td th:text="${p.fechanacimiento}"><!-- 1980-01-01 --></td>
                             <td>
                                 <a th:href="@{/postulantes/ver(usuario=${p.usuario})}" class="btn">Ver</a>
                             </td>
