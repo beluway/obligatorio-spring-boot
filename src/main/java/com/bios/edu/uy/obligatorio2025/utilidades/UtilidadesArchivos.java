@@ -18,9 +18,15 @@ public class UtilidadesArchivos {
 
         File archivo = new File( directorio,nombreArchivo+"."+formato.toLowerCase());
 
-        archivo.createNewFile();      
-
         ImageIO.write(imagen, formato.toLowerCase(), archivo);
+
+    }
+
+    public static void guardarPdf(byte[]datos,String directorio, String nombreArchivo, String formato) throws IOException{
+        
+        File archivo = new File( directorio,nombreArchivo+"."+formato.toLowerCase());
+
+        archivo.createNewFile(); 
     }
 
 

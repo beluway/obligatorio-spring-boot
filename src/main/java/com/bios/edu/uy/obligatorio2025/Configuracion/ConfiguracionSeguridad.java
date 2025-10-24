@@ -89,20 +89,5 @@ public class ConfiguracionSeguridad {
                 .clearAuthentication(true)   
                 .deleteCookies("JSESSIONID") 
                 .permitAll())
-
-            // --- Manejo de excepciones (acceso denegado o no autenticado) ---
-          .exceptionHandling(excepcion -> excepcion
-    // Cuando el usuario NO está autenticado (no logueado)
-    .authenticationEntryPoint((request, response, authException) -> {
-        response.sendRedirect(request.getContextPath() + "/home/index");
-    })
-    // Cuando el usuario está logueado pero no tiene permisos suficientes
-    .accessDeniedHandler((request, response, accessDeniedException) -> {
-        response.sendRedirect(request.getContextPath() + "/error/403");
-    })
-);
-        
-
-    return seguridadHttp.build();
-}
-}
+                // --- Manejo de excepciones (acceso denegado o no autenticado) --- 
+.exceptionHandling(excepcion -> excepcion .authenticationEntryPoint((request, response, authException) -> { response.sendRedirect("/bioswork/home/index"); }) ); return seguridadHttp.build(); } }

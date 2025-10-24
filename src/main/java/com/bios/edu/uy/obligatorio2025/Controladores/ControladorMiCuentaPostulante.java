@@ -1,5 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 
+import java.io.File;
 import java.security.Principal;
 
 
@@ -8,12 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
+import com.bios.edu.uy.obligatorio2025.utilidades.UtilidadesArchivos;
 
 import jakarta.validation.Valid;
 
@@ -41,6 +44,14 @@ public class ControladorMiCuentaPostulante {
 
         Postulante postulante= servicioPostulantes.obtener(usuarioLogueado.getName());
 
+        
+          File archivoPDF = new File("C:/ArchivosSubidos/" + postulante.getCedula() + ".pdf");
+          if (archivoPDF !=null) {
+            modelo.addAttribute("cvDisponible", archivoPDF.exists());
+          }
+          
+        
+
         postulante.setClave("");        
 
         modelo.addAttribute("postulante", postulante);
@@ -60,7 +71,38 @@ public class ControladorMiCuentaPostulante {
             if (resultado.hasErrors()) {
                 modelo.addAttribute("postulante", postulante);
                 return "micuentaP/ver"; // queda en la misma página si hay errores
-            }
+            } 
+
+            if(!postulante.getPdf().isEmpty()){
+              File pdfPostulante = new File("C:/ArchivosSubidos/"+postulante.getCedula()+".pdf");
+
+              if(pdfPostulante.exists())
+                  {
+                      pdfPostulante.delete();
+                  }
+
+                     // SE OBTIENE COMO MULTIPARTE EL .PDF
+                    File  carpetaDestino= new File("C:/ArchivosSubidos");
+                    MultipartFile pdf = postulante.getPdf();
+                    File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString()+".pdf");
+                    pdf.transferTo(archivoDestino);
+
+                  
+                      }
+
+    MultipartFile imagen = postulante.getImagen();
+
+    if (!imagen.isEmpty()) {
+      //primero borro la que ya había
+      File imagenPostulante = new File("C:/ArchivosSubidos/"+postulante.getCedula()+".jpeg");
+        if(imagenPostulante.exists())
+        {
+           imagenPostulante.delete();
+        }
+        //ahora sí guardo la nueva
+      UtilidadesArchivos.guardarImagen(imagen.getBytes(), "C:/ArchivosSubidos", postulante.getCedula().toString(), "png");
+        postulante.setTieneImagen(true);
+    }
 
         servicioPostulantes.modificar(postulante);
 

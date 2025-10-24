@@ -26,7 +26,7 @@ public class ControladorPdf {
 public ResponseEntity<Resource> verPdf(@PathVariable String nombreArchivo) throws IOException {
 
     Path carpeta = Paths.get("C:/ArchivosSubidos").toAbsolutePath().normalize();
-    Path archivo = carpeta.resolve(nombreArchivo).normalize();
+    Path archivo = carpeta.resolve(nombreArchivo+".pdf").normalize();
 
     if (!Files.exists(archivo)) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
