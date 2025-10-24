@@ -64,11 +64,11 @@ public String postulanteCrear(Model modelo) {
     MultipartFile pdf = postulante.getPdf();
 
     MultipartFile imagen = postulante.getImagen();
-
+/* 
     if (!imagen.isEmpty()) {
         postulante.setTieneImagen(true);
     }
-
+ */
         // Validar tipo MIME del archivo
     if (!"application/pdf".equalsIgnoreCase(pdf.getContentType())) {
         modelo.addAttribute("errorPdf", "El archivo debe ser un PDF válido");
