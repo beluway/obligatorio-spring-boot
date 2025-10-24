@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-
- th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
+      th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::link})}">
 
 <head>
     <title>Listado de Ofertas</title>
@@ -9,58 +8,58 @@
 </head>
 
 <section>
-        <div id="contenedor">
-    <div class="card">
-        <h2>Listado de Ofertas Laborales</h2>
+    <div id="contenedor">
+        <div class="card">
+            <h2>Listado de Ofertas Laborales</h2>
 
+            <form id="formularioBusqueda">
+                <div>
+                    <input type="search" name="criterio" th:value="${param.criterio}" id="criterio"
+                           placeholder="código o descripción">
+                    <input type="submit" value="Buscar">
+                </div>
+            </form>
 
-        <form id="formularioBusqueda">
-            <div>
-                <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="código o descripción"> <input type="submit" value="Buscar">
+            <div style="text-align: center; margin-bottom: 10px;">
+                <a th:href="@{/ofertas/crear}" class="btn">Agregar</a>
             </div>
-        </form>
 
-        <div style="text-align: center; margin-bottom: 10px;">
-        <a th:href="@{/ofertas/crear}" class="btn">Agregar</a>
-        <table>
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Descripción</th>
-                    <th>Área</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="o : ${listaOfertasCliente}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Área</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="o : ${listaOfertasCliente}">
+                        <td th:text="${o.titulo}"></td>
+                        <td th:text="${o.descripcion}"></td>
+                        <td th:text="${o.area.nombre}"></td>
 
-                    <td th:text="${o.titulo}"></td>
-                    <td th:text="${o.descripcion}"></td>
-                    <td th:text="${o.area.nombre}"></td>                                        
-                
-                    <td>
-                        <a th:href="@{/ofertas/ver(codigo=${o.id})}" class="btn">Ver más</a>
-                       
-                    </td>
-                    <td th:if="${!o.fechaCierre.isBefore(fechaActual)}">                          
+                        <!-- UNIFICADO TODO EN UN SOLO TD -->
+                        <td>
+                            <!-- Botón Ver más -->
+                            <a th:href="@{/ofertas/ver(codigo=${o.id})}" class="btn">Ver más</a>
 
-                        <a th:href="@{/ofertas/modificar(codigo=${o.id})}" class="btn">Modificar</a>
-                        <a th:href="@{/ofertas/eliminar(codigo=${o.id})}" class="btn">Eliminar</a>              
-                  </td>
+                            <!-- Si NO está vencida -->
+                            <span th:if="${!o.fechaCierre.isBefore(fechaActual)}">
+                                <a th:href="@{/ofertas/modificar(codigo=${o.id})}" class="btn">Modificar</a>
+                                <a th:href="@{/ofertas/eliminar(codigo=${o.id})}" class="btn">Eliminar</a>
+                            </span>
 
-
-                  <td th:if="${o.fechaCierre.isBefore(fechaActual)}"> 
-
-                       <span style="color: red;">  OFERTA VENCIDA </span>  
-                  </td>
-
-
-
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                            <!-- Si está vencida -->
+                            <span th:if="${o.fechaCierre.isBefore(fechaActual)}"
+                                  style="color: red; font-weight: bold; margin-left: 10px;">
+                                OFERTA VENCIDA
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
 </html>
-

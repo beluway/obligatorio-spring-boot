@@ -15,6 +15,12 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     <h2>Mi cuenta</h2>
     <form th:action="@{/micuentaP/ver}" method="post" th:object="${postulante}">
 
+                <!-- Fotografía opcional -->
+                 <div th:if="${postulante.tieneImagen}" style="text-align:center; margin-bottom:15px;">
+                    <img th:src="@{/imagen/{nombre}.jpeg(nombre=${postulante.cedula})}" 
+                        th:alt="${postulante.primerNombre}" 
+                        style="width:150px; height:auto; border-radius:5px; border:1px solid #ccc;"/>
+                </div>
 
         <label for="id">Usuario</label>
         <input type="text" id="usuario" name="usuario" th:value="${postulante.usuario}" readonly > 

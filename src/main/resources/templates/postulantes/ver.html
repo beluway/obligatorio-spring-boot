@@ -8,7 +8,7 @@
     <title>Ver Postulante</title>
     <link rel="stylesheet" th:href="@{/css/crud.css}">
 </head>
-<section>
+ <section>
     <div id="contenedor">
 
         <div class="card">
@@ -19,10 +19,10 @@
 
             <form th:action="@{/postulantes/ver}" method="post" th:object="${postulante}" onsubmit="return confirmarEliminar(this)">
 
-                <input type="hidden" th:field="*{usuario}"/>
+                <input type="hidden" th:field="*{usuario}"/> 
 
                 <!-- Fotografía opcional -->
-                <div th:if="${postulante.tieneImagen}" style="text-align:center; margin-bottom:15px;">
+                 <div th:if="${postulante.tieneImagen}" style="text-align:center; margin-bottom:15px;">
                     <img th:src="@{/imagen/{nombre}.jpeg(nombre=${postulante.cedula})}" 
                         th:alt="${postulante.primerNombre}" 
                         style="width:150px; height:auto; border-radius:5px; border:1px solid #ccc;"/>
@@ -49,16 +49,16 @@
                 <label>Departamento</label>
                 <input type="text" th:field="*{departamento}" readonly/>
 
-            <div th:if="${fotoDisponible}">
+            <!-- <div th:if="${fotoDisponible}">
                 <label> Foto</label>
                 <a id="foto" class="foto" th:href="@{|/foto/${postulante.cedula}.jpeg|}" target="_blank">Ver Foto</a>
-            </div>    
+            </div>     -->
 
-            <div th:unless="${fotoDisponible}">
+           <!--  <div th:unless="${fotoDisponible}">
                 <label> Foto </label>
                    <span class="error-simple"> Foto no disponible</span>
                
-            </div>
+            </div> -->
 
             <div th:if="${cvDisponible}" >
             <label>Currículum</label>
@@ -72,10 +72,10 @@
 
                 <div style="margin-top:15px;">
                     <button type="submit" name="accion" value="btn_modificar" sec:authorize="hasAnyAuthority('admin','postulante')">Modificar</button>
-                    <button type="submit" name="accion" value="btn_eliminar" sec:authorize="hasAnyAuthority('admin','postulante')">Eliminar</button>
-                    <!-- <a th:href="@{/postulantes/lista}" sec:authorize="hasAuthority('postulante')"></a> -->
+                    <button type="submit" name="accion" value="btn_eliminar" sec:authorize="hasAnyAuthority('admin','postulante')">Eliminar</button> 
+                     <a th:href="@{/postulantes/lista}" sec:authorize="hasAuthority('postulante')"></a> 
                      <a th:if="${idOferta != null}" th:href="@{/postulaciones/ofertas/{id}/postulantes(id=${idOferta})}" sec:authorize="hasAuthority('cliente')">
-                    <button type="button">Volver al listado</button></a>
+                    <button type="button">Volver al listado</button></a> 
 
                     <!-- Si no vino desde una oferta, volver a la lista general -->
                     <a th:if="${idOferta == null}" th:href="@{/postulantes/lista}">
@@ -87,9 +87,9 @@
             </form>
         </div>
 
-        
     </div>
 </section>
+ 
 
 <script>
 function confirmarEliminar(form) {

@@ -252,7 +252,7 @@ public String postulanteVer(
     modelo.addAttribute("cvDisponible", archivoPDF.exists());
 
     // Verificar si existe la imagen
-    File imagen = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getUsuario() + ".jpeg");
+    File imagen = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getCedula() + ".jpeg");
     modelo.addAttribute("tieneImagen", imagen.exists());
 
     // Si vino desde una oferta, pasarlo a la vista
