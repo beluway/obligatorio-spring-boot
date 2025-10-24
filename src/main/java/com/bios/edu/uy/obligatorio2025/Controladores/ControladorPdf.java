@@ -28,27 +28,41 @@ public class ControladorPdf {
    @GetMapping("/pdf/{nombreArchivo:.+}")
 public ResponseEntity<Resource> verPdf(@PathVariable String nombreArchivo) throws IOException {
 
+    // 1. Define la carpeta base
     Path carpeta = Paths.get("C:/ArchivosSubidos").toAbsolutePath().normalize();
     Path archivo = carpeta.resolve(nombreArchivo).normalize();
 
      System.out.println("Buscando archivo: " + archivo); 
 
     if (!Files.exists(archivo)) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        // En lugar de un build() vacío, podrías devolver un mensaje o un 404 más explícito
+        System.err.println("Archivo no encontrado: " + archivo); // Para depuración
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); 
     }
 
-   Resource recurso = new UrlResource(archivo.toUri());
+    if (!nombreArchivo.toLowerCase().endsWith(".pdf")) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    Resource recurso = new UrlResource(archivo.toUri());
 
 
     MediaType tipoArchivo = MediaType.APPLICATION_PDF;  
 
 
     return ResponseEntity.ok()
-            .contentType(tipoArchivo)
+            .contentType(mediaType)
+            .body(recurso);
+
+
+
+/* 
+    return ResponseEntity.ok()
+            .contentType(MediaType.APPLICATION_PDF)
             .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + recurso.getFilename() + "\"")
             .body(recurso);
 
-    }
+}
 
 }
 
