@@ -54,9 +54,6 @@ public class Postulante extends Usuario{
     @NotBlank(message = "{NotBlank.postulante.segundoApellido}")
     @Column(name="segundoApellido", nullable = false,length=15)
     private String segundoApellido;   
-
-    private boolean tieneImagen;
-
     
     //VER SI ESTO SIRVE PARA PDF (CAMPO QUE NO VA A LA BD)
     @Transient 
@@ -114,15 +111,6 @@ public class Postulante extends Usuario{
     public void setImagen(MultipartFile imagen) {
             this.imagen = imagen;
     };
-
-
-    public boolean isTieneImagen() {
-        return tieneImagen;
-    }
-
-    public void setTieneImagen(boolean tieneImagen) {
-        this.tieneImagen = tieneImagen;
-    }
 
 
     public int getCantidadPostulaciones() {

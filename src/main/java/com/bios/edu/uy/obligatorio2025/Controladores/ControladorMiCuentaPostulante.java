@@ -113,7 +113,7 @@ public class ControladorMiCuentaPostulante {
         }
         //ahora sí guardo la nueva
       UtilidadesArchivos.guardarImagen(imagen.getBytes(), "C:/ArchivosSubidos", postulante.getCedula().toString(), "jpeg");
-        postulante.setTieneImagen(true);
+       
     }
 
         servicioPostulantes.modificar(postulante);
