@@ -26,7 +26,11 @@ public class ControladorPdf {
 public ResponseEntity<Resource> verPdf(@PathVariable String nombreArchivo) throws IOException {
 
     Path carpeta = Paths.get("C:/ArchivosSubidos").toAbsolutePath().normalize();
-    Path archivo = carpeta.resolve(nombreArchivo).normalize();
+    Path archivo = carpeta.resolve(nombreArchivo+".pdf").normalize();
+
+
+  //  Path archivo = carpeta.resolve(nombre + ".jpeg").normalize(); // agregar extensión aquí
+
 
     if (!Files.exists(archivo)) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -38,10 +42,24 @@ public ResponseEntity<Resource> verPdf(@PathVariable String nombreArchivo) throw
 
     Resource recurso = new UrlResource(archivo.toUri());
 
+
+
+    String tipo = Files.probeContentType(archivo);
+    MediaType mediaType = (tipo != null) ? MediaType.parseMediaType(tipo) : MediaType.APPLICATION_PDF;
+
+    return ResponseEntity.ok()
+            .contentType(mediaType)
+            .body(recurso);
+
+
+
+/* 
     return ResponseEntity.ok()
             .contentType(MediaType.APPLICATION_PDF)
             .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + recurso.getFilename() + "\"")
-            .body(recurso);
+            .body(recurso); */
+
+
 }
 
 }

@@ -38,4 +38,6 @@ public ResponseEntity<Resource> verImagen(@PathVariable String nombre) throws IO
             .contentType(mediaType)
             .body(recurso);
 }
+
+
 }

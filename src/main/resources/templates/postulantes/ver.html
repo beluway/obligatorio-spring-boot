@@ -49,6 +49,8 @@
                 <label>Departamento</label>
                 <input type="text" th:field="*{departamento}" readonly/>
 
+
+                
             <div th:if="${fotoDisponible}">
                 <label> Foto</label>
                 <a id="foto" class="foto" th:href="@{|/foto/${postulante.cedula}.jpeg|}" target="_blank">Ver Foto</a>
