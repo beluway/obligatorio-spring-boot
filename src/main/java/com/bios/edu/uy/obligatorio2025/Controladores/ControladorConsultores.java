@@ -83,21 +83,6 @@ private IServicioConsultores servicioConsultores;
 
         }
 
-       /*  Consultor existente = servicioConsultores.obtener(consultor.getUsuario());
-
-          String mensaje = "Se agregregó el consultor correctamente";
-
-        if(existente !=null)
-        {
-             throw new Exception("Ya existe el consultor con el usuario: " + existente.getUsuario());
-
-        }
-        else
-        {
-            modelo.addAttribute("mensaje",mensaje);
-            servicioConsultores.agregar(consultor);
-        }
-        return "redirect:/consultores/crear"; */
     }
 
 
@@ -152,11 +137,24 @@ private IServicioConsultores servicioConsultores;
 
     
     @GetMapping("/lista")
-    public String consultoresLista(@ModelAttribute Consultor consultor, Model modelo, Principal usuarioLogueado)throws Exception{
+    public String consultoresLista(String criterio,@ModelAttribute Consultor consultor, Model modelo, Principal usuarioLogueado)throws Exception{
 
+         List<Consultor> consultores = servicioConsultores.listaConsultores();
+
+
+            if (criterio != null && !criterio.isEmpty()) {
+                consultores = servicioConsultores.buscarPorCriterio(criterio);
+            }
+            else {
+                consultores = servicioConsultores.listaConsultores();
+            }
+
+
+        
+        //SE SACA LA LISTA DE POSTULANTES DE LA BD 
         modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
 
-        List<Consultor> consultores = servicioConsultores.listaConsultores();
+        
         modelo.addAttribute("consultores", consultores);
 
         return "consultores/lista";

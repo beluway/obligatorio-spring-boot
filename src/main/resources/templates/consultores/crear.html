@@ -21,27 +21,24 @@
                     <label for="usuario">Usuario</label>
                     <input type="text" id="usuario" th:field="*{usuario}">
                          <p th:if="${#fields.hasErrors('usuario')}"
-                         th:errors="*{usuario}" class="error"></p>
+                         th:errors="*{usuario}" class="error-simple"></p>
                 </div>
 
                 <div>
                     <label for="clave">Clave</label>
                     <input type="password" id="clave" th:field="*{clave}">
                     <p th:if="${#fields.hasErrors('clave')}" 
-                         th:errors="*{clave}" class="error"></p>
+                         th:errors="*{clave}" class="error-simple"></p>
                 </div>
 
               
 
-                <div>
+                
                     <button type="submit" id="crear">Crear</button>
-                </div>
+                
+                    <a th:href="@{/consultores/lista}" id="volver">Volver al listado</a>
 
-                <div>
-                    <a th:href="@{/consultores/lista}">Volver al listado</a>
-                </div>
-
-                      <p th:if="${mensaje}" th:text="${mensaje}"></p>
+                      <p th:if="${mensaje}" th:text="${mensaje}" class="exito"></p>
             </form>
         </div>
         </div>

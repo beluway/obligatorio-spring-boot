@@ -2,7 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
@@ -46,8 +46,12 @@ public class ServicioClientes implements IServicioClientes  {
             cliente.setActivo(true);
             cliente.setClave(codificador.encode(cliente.getClave()));
 
-
-            repositorioClientes.save(cliente);
+            try {
+               repositorioClientes.save(cliente);
+            } catch (DataIntegrityViolationException e) {
+              throw new ExcepcionYaExiste("El nombre de usuario no está disponible.");
+            }
+           
 
     } 
 
@@ -63,8 +67,7 @@ public class ServicioClientes implements IServicioClientes  {
           //ESTE ES PARA: SACAR EL ROL, Y LA CONTRASEÑA GUARDADA EN CASO DE QUE NO SE CAMBIE LA CONTRASEÑA
           Cliente existe = repositorioClientes.findById(nuevo.getUsuario()).orElse(null);
 
-
-          if(nuevo.getClave().isEmpty()||nuevo.getClave().isBlank())
+          if(nuevo.getClave()==null||nuevo.getClave().isEmpty())
           {
             nuevo.setClave(existe.getClave());
           }

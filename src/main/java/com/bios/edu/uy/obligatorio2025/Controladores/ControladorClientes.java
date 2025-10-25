@@ -3,7 +3,6 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
@@ -68,6 +66,22 @@ public class ControladorClientes {
              return "clientes/crear";
           }
 
+          List<Cliente> clientesExistentes = servicioClientes.listarActivos();
+
+          for (Cliente c : clientesExistentes) {
+            if (c.getRut().toString().equals(cliente.getRut().toString())) {
+                modelo.addAttribute("mensaje", "Ya existe un cliente con ese RUT, corregir por favor.");
+                return "clientes/crear";
+            }
+          }
+
+          for (Cliente c : clientesExistentes) {
+            if (c.getUsuario().toString().equals(cliente.getUsuario().toString())) {
+                modelo.addAttribute("mensaje", "Ya existe un cliente con ese nombre de usuario, usar otro por favor.");
+                return "clientes/crear";
+            }
+          }
+
           try
           {
             //le seteo el activo 
@@ -81,12 +95,13 @@ public class ControladorClientes {
           }
           catch(ExcepcionBiosWork e)
           {
-            modelo.addAttribute("mensaje","Hubo un error "+ e.getMessage());
+            modelo.addAttribute("mensaje","Hubo un error: "+ e.getMessage());
             modelo.addAttribute("cliente", cliente);
             return "clientes/crear";
-          }                     
+          }
+   }         
         
-    }
+    
 
 
     @GetMapping("/eliminar")
@@ -147,6 +162,7 @@ public class ControladorClientes {
     public String clienteModificar(@RequestParam String usuario,Model modelo, Principal usuarioLogueado) throws ExcepcionBiosWork {
 
         modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
+        modelo.addAttribute("mensaje", "El nombre de usuario no es modificable.");
 
         Cliente cliente = servicioClientes.obtener(usuario);
 

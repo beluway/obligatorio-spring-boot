@@ -33,7 +33,7 @@ public class ControladorMiCuentaConsultor {
 
     @GetMapping("/ver")
     public String ver(Principal usuarioLogueado, Model modelo) throws Exception {
-       
+    
         Consultor consultor= servicioConsultores.obtener(usuarioLogueado.getName());
 
         consultor.setClave("");        

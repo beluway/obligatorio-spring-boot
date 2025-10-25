@@ -20,33 +20,37 @@
 
         <form th:action="@{/clientes/modificar}" method="post" th:object="${cliente}">
             
+            <p th:if="${mensaje}" th:text="${mensaje}" class="aviso"></p>
+
             <label for="usuario">Nombre de Usuario</label>
             <input type="text" id="usuario" th:field="*{usuario}" readonly />
+            <p th:errors="*{usuario}" class="error-simple"></p>
 
             <label for="nombre">Nombre:</label>
             <input type="text" th:field="*{nombre}" id="nombre"/>
-            <p th:errors="*{nombre}" class="error"></p>
+            <p th:errors="*{nombre}" class="error-simple"></p>
 
             <label for="nuevaClave">Nueva Clave:</label>
         <div class="input-group">
         <input type="password" id="nuevaClave" name="nuevaClave" placeholder="Dejar vacío para no cambiar"/>
         <span class="material-icons" id="toggleClave">visibility</span>
-         <p th:errors="*{clave}" class="error"></p>
+         <p th:errors="*{clave}" class="error-simple"></p>
         </div>
 
             <label for="rut">RUT:</label>
             <input type="text" id="rut" th:field="*{rut}" required />
-               <p th:errors="*{rut}" class="error"></p>
+               <p th:errors="*{rut}" class="error-simple"></p>
 
             <label for="url">Sitio Web:</label>
             <input type="text" id="url" th:field="*{url}" />
-             <p th:errors="*{url}" class="error"></p>
+             <p th:errors="*{url}" class="error-simple"></p>
             
         
 
             <button type="submit">Guardar Cambios</button>
 
-            <p th:if="${mensaje}" th:text="${mensaje}"></p>
+            <p th:if="${exito}" th:text="${exito}" class="exito"></p>
+            <p th:if="${error}" th:text="${error}" class="error"></p>
 
              <a th:href="@{/clientes/lista}" id="volver">← Volver al listado</a>
 

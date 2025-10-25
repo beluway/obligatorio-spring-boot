@@ -19,10 +19,10 @@
 
         <form id="formularioBusqueda">
             <div>
-                <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="código o descripción"> <input type="submit" value="Buscar">
+                <input type="search" name="criterio" th:value="${param.criterio}" id="criterio" placeholder="usuario"> <input type="submit" value="Buscar">
             </div>
         </form>
-
+        <br>
         <a th:href="@{/consultores/crear}" class="btn">Agregar</a>
         <table>
             <thead>
@@ -34,12 +34,34 @@
             <tbody>
                 <tr th:each="c : ${consultores}">
                     <td th:text="${c.usuario}"></td>
+                    <td>
+                        <a th:href="@{/micuentaConsu/ver(usuario=${c.usuario})}" class="btn">ver</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
     </div>
+    <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Obtener la referencia al formulario de búsqueda
+                    const formularioBusqueda = document.getElementById('formularioBusqueda');
+                    const criterioInput = document.getElementById('criterio');
+
+                    // Detectar el evento 'search' (cuando se toca la x)
+                    formularioBusqueda.addEventListener('search', function() {
+                        if (!criterioInput.value) {
+                            // Si el campo está vacío, enviamos el formulario.
+                            formularioBusqueda.submit();
+                        }
+                    });
+
+                    // Foco automático
+                    criterioInput.focus();
+                    criterioInput.select();
+                });
+            </script>
 </section>
    
 </html>

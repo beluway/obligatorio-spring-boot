@@ -36,6 +36,7 @@ public class ServicioConsultores implements IServicioConsultores{
         }
         
         consultor.getRoles().add(new Rol("consultor"));
+        consultor.setClave(codificador.encode(consultor.getClave()));
         repositorioConsultores.save(consultor);
     }
 
@@ -107,5 +108,12 @@ public class ServicioConsultores implements IServicioConsultores{
 
         return consultorEncontrado;
     }
+
+    @Override
+        public List<Consultor> buscarPorCriterio(String criterio) throws ExcepcionBiosWork {
+        return repositorioConsultores.findAll().stream()
+                .filter(p -> p.getUsuario().toLowerCase().contains(criterio.toLowerCase()))
+                .toList();
+     }
 
 }

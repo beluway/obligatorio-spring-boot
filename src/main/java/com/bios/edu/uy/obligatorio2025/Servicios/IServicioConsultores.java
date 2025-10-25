@@ -12,5 +12,6 @@ public interface IServicioConsultores {
     void eliminar (String usuario) throws ExcepcionBiosWork;
     List<Consultor>listaConsultores() throws ExcepcionBiosWork;
     Consultor obtener(String usuario) throws ExcepcionBiosWork;
+    List<Consultor> buscarPorCriterio(String criterio) throws ExcepcionBiosWork;
     
 }

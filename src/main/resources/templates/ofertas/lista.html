@@ -67,12 +67,14 @@
          
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
+                  // Obtener la referencia al formulario de búsqueda
                     const formularioBusqueda = document.getElementById('formularioBusqueda');
                     const criterioInput = document.getElementById('criterio');
 
-                    // Detectar cuando se limpia el campo con la "x"
-                    criterioInput.addEventListener('search', function() {
+                    // Detectar el evento 'search' (cuando se toca la x)
+                    formularioBusqueda.addEventListener('search', function() {
                         if (!criterioInput.value) {
+                            // Si el campo está vacío, enviamos el formulario.
                             formularioBusqueda.submit();
                         }
                     });

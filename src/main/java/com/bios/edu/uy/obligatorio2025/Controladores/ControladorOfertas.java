@@ -185,7 +185,7 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
     public String listarOfertas(String criterio, Model modelo, Principal usuarioLogueado) throws Exception {
        //ACA SE SACA LA LISTA DESDE LA BASE DE DATOS
 
-        LocalDate fechaActual = LocalDate.now();
+        /* LocalDate fechaActual = LocalDate.now(); */
 
         List<Oferta> ofertas = servicioOfertas.listaOfertasVigentes();
 
