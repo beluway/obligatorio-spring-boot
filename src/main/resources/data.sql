@@ -13,6 +13,7 @@ BEGIN
             VALUES(1,1,'pibes hackers');
 
 
+        /*admin  admin*/
     /* consu TTYy444y&&&#!! */
     /* cli1  mEH&&YY66%#eF */
     /* pos1  76&&opPolGGgr$4 */
