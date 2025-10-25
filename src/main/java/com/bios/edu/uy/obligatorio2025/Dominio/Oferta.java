@@ -33,8 +33,8 @@ private Integer id;
     private LocalDate fechaPublicacion; 
       
 
-    @NotNull
-    @Future
+    @NotNull(message = "{NotNull.oferta.fechaCierre}")
+    @Future(message = "{Future.oferta.fechaCierre}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_Cierre", nullable = false)
     private LocalDate fechaCierre;

@@ -15,7 +15,8 @@
     <div class="card">
     
 <form th:action="@{/ofertas/crear}" method="post" th:object="${ofertas}">
-              
+    
+            <input type="hidden" th:field="*{id}" />
        <div>
            <label for="titulo"> Título </label>
            <input type="text" name="titulo" id="titulo">
@@ -43,7 +44,7 @@
         <div>
             <label for="fechaCierre">Fecha Cierre</label>
             <input type="date" name="fechaCierre" id="fechaCierre">
-            <p th:errors="*{fechaCierre}" class="error-simple"></p>
+            <p th:if="${#fields.hasErrors('fechaCierre')}" th:errors="*{fechaCierre}" class="error"></p>
         </div>
 
         <div>
@@ -58,7 +59,7 @@
           <button type="submit" id="crear">Crear</button>
         </div>
 
-              <p th:if="${mensaje}" th:text="${mensaje}"></p>
+              <p th:if="${mensaje}" th:text="${mensaje}" class="error"></p>
 
     </form>
     </div>

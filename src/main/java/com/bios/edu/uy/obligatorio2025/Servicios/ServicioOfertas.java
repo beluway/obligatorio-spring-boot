@@ -1,5 +1,6 @@
 package com.bios.edu.uy.obligatorio2025.Servicios;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,11 +29,10 @@ private IRepositorioPostulaciones repositorioPostulaciones;
     @Override
     public void agregar (Oferta oferta) throws ExcepcionBiosWork
     {      
-        Oferta ofertaExiste = obtener(oferta.getId());
+       if (oferta.getFechaCierre().isBefore(LocalDate.now())||oferta.getFechaCierre().isEqual(LocalDate.now()) ) {
+        throw new ExcepcionBiosWork("La fecha de cierre debe ser posterior a hoy.");
+       }
 
-        if (ofertaExiste!=null) {
-            throw new ExcepcionYaExiste("La oferta ya existe.");
-        }
         repositorioOfertas.save(oferta);
 
     }
@@ -46,7 +46,7 @@ private IRepositorioPostulaciones repositorioPostulaciones;
             throw new ExcepcionNoExiste("La oferta no existe.");
         }
 
-        repositorioOfertas.save(oferta);
+        repositorioOfertas.save(ofertaExiste);
 
 
     }

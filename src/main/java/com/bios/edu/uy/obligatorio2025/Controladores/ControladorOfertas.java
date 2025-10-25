@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Servicios.*;
 import jakarta.validation.Valid;
 
@@ -43,12 +44,13 @@ public class ControladorOfertas {
 
 
     @GetMapping("/crear")
-    public String crearOferta(@ModelAttribute Oferta ofertas, Principal usuarioLogueado, Model modelo) throws Exception
+    public String crearOferta( Principal usuarioLogueado, Model modelo) throws Exception
     {
       
-         modelo.addAttribute("ofertas", new Oferta());    
+          modelo.addAttribute("ofertas", new Oferta());
+          modelo.addAttribute("areas", servicioAreas.listaAreas());   
          modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
-         modelo.addAttribute("areas", servicioAreas.listaAreas());
+         
 
         return "ofertas/crear";        
     }
@@ -56,26 +58,28 @@ public class ControladorOfertas {
 
 
     @PostMapping("/crear") 
-    public String procesarCrearOferta (@ModelAttribute @Valid Oferta ofertas, BindingResult resultado, Model modelo,Principal usuarioLogueado)  throws Exception
+    public String procesarCrearOferta (@ModelAttribute @Valid Oferta ofertas, BindingResult resultado, Model modelo,Principal usuarioLogueado)  throws ExcepcionBiosWork
     {               
+        if (resultado.hasErrors()) {
+            modelo.addAttribute("ofertas", new Oferta());
+            modelo.addAttribute("areas", servicioAreas.listaAreas());
+            modelo.addAttribute("mensaje", "La fecha debe ser posterior a hoy.");
+            return "ofertas/crear";
+        }
+
         //SE SETEA EL CLIENTE QUE CREA LA OFERTA
         ofertas.setCliente(servicioClientes.obtener(usuarioLogueado.getName()));
     
         //SE SETEA LA FECHA DE HO
         ofertas.setFechaPublicacion(LocalDate.now());
-
-    /*     Area areaParaOferta = servicioAreas.obtener(modelo.getAttribute("areas"));
- */
-/*          
-            
-
-        //SE TRAE EL USUARIO LOGUEADO DESDE LA SESION
-        sesion.getAttribute("usuarioLogueado");             */
-
-
         ofertas.getArea().setAsignada(true);
 
-        servicioOfertas.agregar(ofertas);
+        try {
+            servicioOfertas.agregar(ofertas);
+        } catch (ExcepcionBiosWork e) {
+            modelo.addAttribute("mensaje", e.getMessage().toString());
+            return "ofertas/crear";
+        }
 
         return "redirect:/ofertas/lista";
     }
