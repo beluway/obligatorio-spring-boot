@@ -101,8 +101,11 @@ public String postulanteCrear(Model modelo) {
         try
         { 
 
-            imagen.transferTo(imagenDestino);
-
+            if(!imagen.isEmpty())
+            {
+                 imagen.transferTo(imagenDestino);
+            }   
+          
             pdf.transferTo(archivoDestino);
 
            // postulante.setActivo(true);
