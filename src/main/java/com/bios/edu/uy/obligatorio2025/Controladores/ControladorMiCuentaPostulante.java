@@ -57,9 +57,7 @@ public class ControladorMiCuentaPostulante {
             modelo.addAttribute("imagenDisponible", imagen.exists());
           }
 
-
-
-
+////???????
          Integer cantidadPostulacionesActulizadasPorOfertasVencidas = 3 - postulante.getCantidadPostulaciones();  
          
          modelo.addAttribute("mensajeCantidad", "cabeza, tenes "+cantidadPostulacionesActulizadasPorOfertasVencidas.toString()+" postulaciones permitidas");

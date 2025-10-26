@@ -87,6 +87,7 @@ public class ControladorOfertas {
             modelo.addAttribute("mensaje", e.getMessage().toString());
             return "ofertas/crear";
         }
+      }
 
         return "redirect:/ofertas/lista";
     }
@@ -229,4 +230,10 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
         return "ofertas/listaPorCliente";
     }   
 
+
+
+
+
+
 }
+
