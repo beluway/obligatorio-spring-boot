@@ -3,7 +3,8 @@ package com.bios.edu.uy.obligatorio2025.Controladores;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-
+import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
 import com.bios.edu.uy.obligatorio2025.utilidades.UtilidadesArchivos;
 
@@ -25,6 +27,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -37,6 +40,9 @@ public class ControladorMiCuentaPostulante {
 
   @Autowired
   private IServicioPostulantes servicioPostulantes;
+
+  @Autowired
+  private IServicioPostulaciones servicioPostulaciones;
 
   @Autowired
   PasswordEncoder codificador; 
@@ -58,7 +64,25 @@ public class ControladorMiCuentaPostulante {
           }
 
 ////???????
-         Integer cantidadPostulacionesActulizadasPorOfertasVencidas = 3 -servicioPostulantes.obtenerCantidad(usuarioLogueado.getName());  
+
+    List<Postulacion> listaPostulaciones= servicioPostulaciones.listaPostulacionesPorPostulante(postulante);
+
+    for(Postulacion P: listaPostulaciones)
+    {
+        if(P.getOferta().getFechaCierre().isBefore(LocalDate.now()))
+        {
+          int cantidadPostulacionesActulizadasPorOfertasVencidas = P.getPostulante().getCantidadPostulaciones();
+
+          P.getPostulante().setCantidadPostulaciones(cantidadPostulacionesActulizadasPorOfertasVencidas - 1);
+
+          //SE ACTUALIZA LA CANTIDAD DE POSTULACIONES EN LA BASE DE DATOS
+          servicioPostulantes.actualizarCantidad(usuarioLogueado.getName(), cantidadPostulacionesActulizadasPorOfertasVencidas);
+
+        }
+    }
+
+  //ACA LA CANTIDAD OBTENIDA DE LA BASE DE DATOS YA ACTUALIZADA, SE LE RESTA A 3 PARA SABER CUANTAS POSTULACIONES LE QUEDAN DISPONIBLES AL POSTULANTE
+     Integer cantidadPostulacionesActulizadasPorOfertasVencidas = 3 -servicioPostulantes.obtenerCantidad(usuarioLogueado.getName());  
          
          modelo.addAttribute("mensajeCantidad", "cabeza, tenes "+cantidadPostulacionesActulizadasPorOfertasVencidas.toString()+" postulaciones permitidas");
 
