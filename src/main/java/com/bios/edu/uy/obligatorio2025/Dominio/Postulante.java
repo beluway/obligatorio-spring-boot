@@ -9,8 +9,11 @@ import jakarta.persistence.Entity;
 
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,11 +31,13 @@ public class Postulante extends Usuario{
  
     @Column(name = "cedula",unique = true,nullable = false,length = 8)
     @NotNull(message = "{NotNull.postulante.cedula}")
+    @Min(value = 10000000, message = "{Min.postulante.cedula}")
+    @Max(value = 99999999, message = "{Max.postulante.cedula}")
     private Long cedula;
      
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull (message = "{NotNull.postulante.fechaNacimiento}")
-    @PastOrPresent
+    @Past
     @Column(name = "fechanacimiento",nullable = false)
     private LocalDate fechanacimiento;    
 

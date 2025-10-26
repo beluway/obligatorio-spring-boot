@@ -134,47 +134,45 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     }
 
 
-     @Override
-        public Boolean MayorEdad(LocalDate fechaNacimiento) throws ExcepcionBiosWork
-        {
-            LocalDate hoy = LocalDate.now();
+    @Override
+public Boolean MayorEdad(LocalDate fechaNacimiento) throws ExcepcionBiosWork {
 
-            int mesActual = hoy.getMonthValue();
-            int mesNacimiento = fechaNacimiento.getMonthValue();
-            int diaActual = hoy.getDayOfMonth();
-            int diaNacimiento = fechaNacimiento.getDayOfMonth();
+    if (fechaNacimiento == null) {
+        return false;
+    }
 
-            Boolean mayorDeEdad=true;
-            
-            // calcula la diferencia de años
-            int cantidadAños = hoy.getYear() - fechaNacimiento.getYear();
+    LocalDate hoy = LocalDate.now();
 
-            //ya pasaron más de 18 años
-            if(cantidadAños>18)
-            {
-                  return mayorDeEdad;                 
-                
-            }
-            //tiene exactamente 18 comparamos mes y día
-            else if(cantidadAños<=18)
-            {
-                if(mesActual > mesNacimiento)
-                { return mayorDeEdad; 
-                } 
-                else if(mesActual < mesNacimiento) {
-                    return mayorDeEdad=false; //todavía no cumplió los 18
-                }
-                else{
-                    //mismo mes, comparamos el día
-                    boolean mayor = diaActual>=diaNacimiento;
-                    mayorDeEdad= mayor;
-                    
-                    return mayorDeEdad;
-                }
-            }
+    int anioActual = hoy.getYear();
+    int mesActual = hoy.getMonthValue();
+    int diaActual = hoy.getDayOfMonth();
 
-               return mayorDeEdad=false;
-        }
+    int anioNacimiento = fechaNacimiento.getYear();
+    int mesNacimiento = fechaNacimiento.getMonthValue();
+    int diaNacimiento = fechaNacimiento.getDayOfMonth();
+
+    int cantidadAnios = anioActual - anioNacimiento;
+
+    // Si tiene más de 18 años, ya está claro que es mayor de edad
+    if (cantidadAnios > 18) {
+        return true;
+    }
+
+    // Si tiene menos de 18 años, directamente no es mayor
+    if (cantidadAnios < 18) {
+        return false;
+    }
+
+    // Si tiene exactamente 18 años, comparamos mes y día
+    if (mesActual > mesNacimiento) {
+        return true;
+    } else if (mesActual < mesNacimiento) {
+        return false;
+    } else {
+        // mismo mes → comparamos día
+        return diaActual >= diaNacimiento;
+    }
+}
 
 
      public List<Postulante> buscarPorCriterio(String criterio) throws ExcepcionBiosWork {

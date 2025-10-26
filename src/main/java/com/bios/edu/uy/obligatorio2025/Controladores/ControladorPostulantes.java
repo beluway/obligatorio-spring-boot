@@ -202,36 +202,6 @@ public String postulanteCrear(Model modelo) {
 
 
 
-
-    /* @GetMapping("/ver")    
-    public String postulanteVer(@RequestParam String usuario,@RequestParam(required = false) Integer idOferta,Model modelo, Principal usuarioLogueado, RedirectAttributes attributes) throws Exception
-    {
-        modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
-        Postulante postulanteEncontrado= servicioPostulantes.buscar(usuario);
-
-        if (postulanteEncontrado ==null) {
-            attributes.addAttribute("error","El postulante con usuario "+usuario+" no existe.");
-            return "redirect:/postulantes/lista"; // si no existe
-        }
-
-            // Verificar si el archivo PDF existe
-            File archivoPDF = new File("C:/ArchivosSubidos/" + postulanteEncontrado.getCedula() + ".pdf");
-            if (archivoPDF.exists()) {
-                modelo.addAttribute("cvDisponible", true);
-            } else {
-                modelo.addAttribute("cvDisponible", false);
-            }
-
-                // Si vino desde una oferta, lo pasamos a la vista
-            if (idOferta != null) {
-                modelo.addAttribute("idOferta", idOferta);
-            }
-            //si existe el postulante lo agrego al modelo
-            modelo.addAttribute("postulante", postulanteEncontrado);
-
-        return "postulantes/ver";
-    }    */
-      
     
     @GetMapping("/ver")    
 public String postulanteVer(

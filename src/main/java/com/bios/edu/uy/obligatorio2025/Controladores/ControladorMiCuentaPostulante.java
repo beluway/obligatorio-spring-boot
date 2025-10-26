@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 
 import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 
 
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
 import com.bios.edu.uy.obligatorio2025.utilidades.UtilidadesArchivos;
@@ -39,24 +41,24 @@ public class ControladorMiCuentaPostulante {
   @Autowired
   PasswordEncoder codificador; 
 
-    @GetMapping("/ver")
-    public String ver(Principal usuarioLogueado, Model modelo) throws Exception {       
+@GetMapping("/ver")
+    public String ver(Principal usuarioLogueado, Model modelo) throws Exception {
 
         Postulante postulante= servicioPostulantes.obtener(usuarioLogueado.getName());
 
-        
+
           File archivoPDF = new File("C:/ArchivosSubidos/" + postulante.getCedula() + ".pdf");
           if (archivoPDF !=null) {
             modelo.addAttribute("cvDisponible", archivoPDF.exists());
           }
-          
+
              File imagen = new File("C:/ArchivosSubidos/" + postulante.getCedula() + ".jpeg");
           if (imagen !=null) {
             modelo.addAttribute("imagenDisponible", imagen.exists());
           }
-        
 
-        postulante.setClave("");        
+
+        postulante.setClave("");
 
         modelo.addAttribute("postulante", postulante);
 
@@ -72,16 +74,23 @@ public class ControladorMiCuentaPostulante {
             Model modelo,
             RedirectAttributes atributos) throws Exception {
 
-            if (resultado.hasErrors()) {
-                modelo.addAttribute("postulante", postulante);
-                return "micuentaP/ver"; // queda en la misma página si hay errores
+            if (resultado.hasErrors()) 
+            {
+                    return "micuentaP/ver"; // queda en la misma página si hay errores
             } 
 
+            if (!servicioPostulantes.MayorEdad(postulante.getFechanacimiento())) {
+        // ✅ CORRECCIÓN: Devolver el objeto del formulario, no el original
+        modelo.addAttribute("postulante", postulante); 
+        modelo.addAttribute("mensaje2", "Debe ser mayor de edad.");
+        return "micuentaP/ver";
+    }
 
-  MultipartFile pdf = postulante.getPdf();
 
-                
-       
+      MultipartFile pdf = postulante.getPdf();
+
+
+
             if(!postulante.getPdf().isEmpty()){
 
               File pdfPostulante = new File("C:/ArchivosSubidos/"+postulante.getCedula()+".pdf");
@@ -91,11 +100,6 @@ public class ControladorMiCuentaPostulante {
                   pdfPostulante.delete();
               }
 
-          // SE OBTIENE COMO MULTIPARTE EL .PDF
-         /*           MultipartFile pdf = postulante.getPdf();
-        UtilidadesArchivos.guardarPdf(pdf.getBytes(),"C:/ArchivosSubidos",postulante.getCedula().toString(), 
-                "pdf"); */
-               
     File  carpetaDestino= new File("C:/ArchivosSubidos");
     File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString()+".pdf");
     pdf.transferTo(archivoDestino);
@@ -113,7 +117,7 @@ public class ControladorMiCuentaPostulante {
         }
         //ahora sí guardo la nueva
       UtilidadesArchivos.guardarImagen(imagen.getBytes(), "C:/ArchivosSubidos", postulante.getCedula().toString(), "jpeg");
-       
+
     }
 
         servicioPostulantes.modificar(postulante);
@@ -126,7 +130,6 @@ public class ControladorMiCuentaPostulante {
 
      }
         
-
       @PostMapping("/eliminar")
       public String eliminar (Model modelo, RedirectAttributes attributes,  
        @RequestParam("codigoPostulante")String codigoPostulante, 

@@ -14,14 +14,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 <div class="card">
     <h2>Mi cuenta</h2>
     <form th:action="@{/micuentaP/ver}" method="post" th:object="${postulante}" enctype="multipart/form-data">
-
-                <!-- Fotografía opcional -->
-<!-- <div th:if="${postulante.tieneImagen}" style="text-align:center; margin-bottom:15px;">
-    <img th:src="@{/imagen/{nombre}(nombre=${postulante.cedula})}"
-         th:alt="${postulante.primerNombre}"
-         style="width:150px; height:auto; border-radius:5px; border:1px solid #ccc;" />
-</div> -->
-                
+   
         <label for="id">Usuario</label>
         <input type="text" id="usuario" name="usuario" th:value="${postulante.usuario}" readonly > 
    
@@ -30,10 +23,12 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
        
         <label for="cedula">Cédula</label>
         <input type="text" id="cedula" name="cedula" th:value="${postulante.cedula}" >
-        <p th:errors="*{cedula}" class="error"></p>
+        <p th:errors="*{cedula}" class="error-simple"></p>
 
         <label for="fechanacimiento">Fecha Nacimiento</label>
         <input type="date" id="fechanacimiento" name="fechanacimiento" th:value="${postulante.fechanacimiento}" >
+        <p th:errors="*{fechanacimiento}" class="error-simple"></p>
+
 
          <!-- Departamento -->
                 <div>
@@ -68,19 +63,19 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
         <label for="area">Primer Nombre</label>
         <input type="text" name="primerNombre" id="primerNombre" th:value="${postulante.primerNombre}" >
-        <p th:errors="*{primerNombre}" class="error"></p>
+        <p th:errors="*{primerNombre}" class="error-simple"></p>
 
         <label for="cliente">Segundo Nombre </label>
         <input type="text" name="segundoNombre" id="segundoNombre" th:value="${postulante.segundoNombre}" >
-        <p th:errors="*{segundoNombre}" class="error"></p>
+        <p th:errors="*{segundoNombre}" class="error-simple"></p>
 
         <label for="primerApellido">Primer Apellido</label>
         <input id="primerApellido" name="primerApellido" th:value="${postulante.primerApellido}" ></input>
-        <p th:errors="*{primerApellido}" class="error"></p>
+        <p th:errors="*{primerApellido}" class="error-simple"></p>
 
         <label for="segundoApellido">Segundo Apellido</label>
         <input type="text" id="segundoApellido" name="segundoApellido" th:value="${postulante.segundoApellido}" >
-        <p th:errors="*{segundoApellido}" class="error"></p>
+        <p th:errors="*{segundoApellido}" class="error-simple"></p>
         
         <div>
           <label for="imagen">Subir Imagen (opcional)</label>
@@ -123,17 +118,9 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
         <button type="submit" id="modificar">Modificar</button>
 
         <p th:if="${mensaje}" th:text="${mensaje}" class="exito"></p>
+        <p th:if="${mensaje2}" th:text="${mensaje2}" class="error"></p>
 
         </form>
-
-
-
-        <!--//////////////////////////////////////////////////////////////////////////-->
-
-<!-- 
-         <input type="hidden" name="codigoOferta" th:value="*{id.idOferta}" />
-                <input type="hidden" name="codigoPostulante" th:value="*{id.usuarioPostulante}" />   -->
-
         
          <form th:action="@{/micuentaP/eliminar}" method="post" th:object="${postulante}">        
             
