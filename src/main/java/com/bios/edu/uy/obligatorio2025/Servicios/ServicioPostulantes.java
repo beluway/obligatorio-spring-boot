@@ -50,20 +50,16 @@ public class ServicioPostulantes  implements IServicioPostulantes{
                 throw new ExcepcionYaExiste("ya existe el postulante");
             }
 
-            if(MayorEdad(postulante.getFechanacimiento())==true)
-            {
+         
 
             if(MayorEdad(postulante.getFechanacimiento())==true)
-            {
-
+            {        
+      
                 postulante.getRoles().add(new Rol("postulante"));
-                postulante.setActivo(true);
-                postulante.setClave(codificador.encode(postulante.getClave()));
-                postulante.getRoles().add(new Rol("postulante"));
-                postulante.setActivo(true);
+             
                 postulante.setClave(codificador.encode(postulante.getClave()));
 
-                 respositorioPostulantes.save(postulante);
+                respositorioPostulantes.save(postulante);
             }
            
             else
@@ -73,7 +69,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
     }
     
- }
+ 
 
 
     @Override 
