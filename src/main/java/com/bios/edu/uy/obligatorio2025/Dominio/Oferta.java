@@ -27,19 +27,16 @@ public class Oferta {
 @GeneratedValue(strategy = GenerationType.IDENTITY) 
 private Integer id;
 
-    @NotNull
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fechaPublicacion", nullable = false)
-    private LocalDate fechaPublicacion; 
-      
+    private LocalDate fechaPublicacion;      
 
-    @NotNull(message = "{NotNull.oferta.fechaCierre}")
-    @Future(message = "{Future.oferta.fechaCierre}")
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_Cierre", nullable = false)
     private LocalDate fechaCierre;
-
-    @NotNull(message = "{NotBlank.usuario.usuario}")
+   
     @ManyToOne (optional = false)
     @JoinColumn(name = "cliente",nullable = false)
     private Cliente cliente;

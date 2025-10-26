@@ -110,13 +110,15 @@ public class ControladorPostulaciones {
     {
 
         /// mensajito que diga: "ya alcanzó las 3 postulaciones"
-                return "redirect:/postulaciones/lista";
+       
+        modelo.addAttribute("mensajeSinPostulacion", "cabeza, ya te fumaste todas las postulaciones permitidas");
+        modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado));
+        return "postulaciones/lista";
     }  
 
 
     //SI LA CANTIDAD DE POSTULACIONES DE MENOR A 3, SE POSTULA
-    else
-    {
+   
                     
         Oferta ofertaEncontrada = servicioOfertas.obtener(postulacion.getOferta().getId()); 
        
@@ -140,32 +142,18 @@ public class ControladorPostulaciones {
         postulacion.setOferta(ofertaEncontrada);
         postulacion.setPostulante(postulanteLogueado);
         postulacion.setFechaPostulacion(LocalDate.now());
-                
-     /*    } */
-
-
+ 
         try
-        {          
+        {       
                 
-                servicioPostulaciones.agregar(postulacion);
+              servicioPostulaciones.agregar(postulacion);
 
-
-               int cantidadPostulacionesActulizadasPorOfertasVencidas = postulanteLogueado.getCantidadPostulaciones()+1;
-
-
-               //DESPUES QUE SE POSTULA A UNA OFERTA, SE CUENTA +1, HASTA QUE SEAN 3 RESERVAS ACTUALES.
-
-                //postulanteLogueado.setCantidadPostulaciones(postulanteLogueado.getCantidadPostulaciones()+1);
-                   
-                //CORRESPONDE CON LA ACTUALIZACION DE LA CANTIDAD DE POSTULACIONES
-             // servicioPostulantes.modificar(postulanteLogueado);
-
-
+              int cantidadPostulacionesActulizadasPorOfertasVencidas = postulanteLogueado.getCantidadPostulaciones()+1;
 
               servicioPostulantes.actualizarCantidad(postulanteLogueado.getUsuario(),cantidadPostulacionesActulizadasPorOfertasVencidas);
 
-                String mensaje = "Se agregó la postulación correctamente";
-                attributes.addFlashAttribute("mensaje",mensaje);               
+              String mensaje = "Se agregó la postulación correctamente";
+              attributes.addFlashAttribute("mensaje",mensaje);               
              
 
                 return "redirect:/postulaciones/lista"; // redirige al listado después de crear
@@ -183,7 +171,7 @@ public class ControladorPostulaciones {
     }
 
    
-    }
+    
 
 
 
@@ -232,8 +220,8 @@ public class ControladorPostulaciones {
             Postulante postulanteParaActualizacionCantidadPostulaciones = servicioPostulantes.obtener(usuarioLogueado.getName());
 
             int cantidadNuevaPostulaciones = postulanteParaActualizacionCantidadPostulaciones.getCantidadPostulaciones()-1;
-
-            postulanteParaActualizacionCantidadPostulaciones.setCantidadPostulaciones(cantidadNuevaPostulaciones);
+           
+             servicioPostulantes.actualizarCantidad(postulanteParaActualizacionCantidadPostulaciones.getUsuario(),cantidadNuevaPostulaciones);
 
 
             attributes.addFlashAttribute("mensaje","Postulación eliminada con éxito.");

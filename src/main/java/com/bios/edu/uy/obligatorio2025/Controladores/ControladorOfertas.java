@@ -58,14 +58,17 @@ public class ControladorOfertas {
 
 
     @PostMapping("/crear") 
-    public String procesarCrearOferta (@ModelAttribute @Valid Oferta ofertas, BindingResult resultado, Model modelo,Principal usuarioLogueado)  throws ExcepcionBiosWork
+    public String procesarCrearOferta (@ModelAttribute @Valid Oferta ofertas, 
+    BindingResult resultado,
+    Model modelo,
+    Principal usuarioLogueado)  throws ExcepcionBiosWork
     {               
-        if (resultado.hasErrors()) {
-            modelo.addAttribute("ofertas", new Oferta());
-            modelo.addAttribute("areas", servicioAreas.listaAreas());
-            modelo.addAttribute("mensaje", "La fecha debe ser posterior a hoy.");
-            return "ofertas/crear";
-        }
+        
+   if (resultado.hasErrors()) {
+       modelo.addAttribute("ofertas", ofertas); //EL OBJETO OFERTA SE GUARDA EN MEMORIA
+      modelo.addAttribute("areas", servicioAreas.listaAreas());
+        return "ofertas/crear";
+    }
 
         //SE SETEA EL CLIENTE QUE CREA LA OFERTA
         ofertas.setCliente(servicioClientes.obtener(usuarioLogueado.getName()));
@@ -74,7 +77,10 @@ public class ControladorOfertas {
         ofertas.setFechaPublicacion(LocalDate.now());
         ofertas.getArea().setAsignada(true);
 
-        try {
+
+       if(!ofertas.getFechaCierre().isBefore(LocalDate.now()))
+       {
+         try {
             servicioOfertas.agregar(ofertas);
         } catch (ExcepcionBiosWork e) {
             modelo.addAttribute("mensaje", e.getMessage().toString());
@@ -82,6 +88,15 @@ public class ControladorOfertas {
         }
 
         return "redirect:/ofertas/lista";
+       }
+         else
+         {
+          modelo.addAttribute("mensaje", "La fecha de cierre no puede ser anterior a la fecha actual");
+           modelo.addAttribute("ofertas", ofertas); //SE GUARDA LA OFERTA EN MEMORIA 
+            modelo.addAttribute("areas", servicioAreas.listaAreas());
+           return "ofertas/crear";
+         }
+       
     }
 
 

@@ -15,6 +15,9 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     <h2>Mi cuenta</h2>
     <form th:action="@{/micuentaP/ver}" method="post" th:object="${postulante}" enctype="multipart/form-data">
    
+        <p th:if="${mensajeCantidad}" th:text="${mensajeCantidad}" class="aviso"></p>
+
+
         <label for="id">Usuario</label>
         <input type="text" id="usuario" name="usuario" th:value="${postulante.usuario}" readonly > 
    
@@ -132,6 +135,8 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
          </form>
 
         </div>
+
+
     </div>
 </section>
 

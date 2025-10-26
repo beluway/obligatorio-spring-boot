@@ -44,6 +44,7 @@ public class ControladorMiCuentaConsultor {
 
     }
            
+    
 
     @PostMapping("/ver") 
    public String procesarModificar(@ModelAttribute @Valid Consultor consultor, 
@@ -66,11 +67,7 @@ public class ControladorMiCuentaConsultor {
 
         try
         {
-        // Si se ingresó una nueva clave, la reemplaza
-       /*  if (nuevaClave != null && !nuevaClave.isBlank()) {
-            consultorExiste.setClave(nuevaClave);
-        } */
-        // llama al servicio que maneja clave opcional
+      
         servicioConsultores.modificar(consultor);
 
         attributes.addFlashAttribute("exito", "Consultor modificado correctamente");

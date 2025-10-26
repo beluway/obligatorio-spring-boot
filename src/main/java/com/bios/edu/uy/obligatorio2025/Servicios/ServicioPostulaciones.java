@@ -121,6 +121,8 @@ public class ServicioPostulaciones implements IServicioPostulaciones{
                 .map(Postulacion::getPostulante)
                 .collect(Collectors.toList());
     }
+
+    
 //Buscar por criterio recibe el string criterio y filtra por coincidencias en el titulo de oferta 
 //y descipcion que es lo que generalmente el postulante recuerda 
     @Override
