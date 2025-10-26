@@ -8,11 +8,14 @@ import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.Cliente;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionYaExiste;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioOfertas;
 import com.bios.edu.uy.obligatorio2025.Repositorios.IRepositorioPostulaciones;
+
+import jakarta.transaction.Transactional;
 
 
 
@@ -22,6 +25,12 @@ public class ServicioOfertas implements IServicioOfertas {
 
 @Autowired
 private IRepositorioOfertas repositorioOfertas;
+
+@Autowired
+private IServicioPostulaciones servicioPostulaciones;
+
+@Autowired 
+private IServicioPostulantes servicioPostulantes;
 
 @Autowired
 private IRepositorioPostulaciones repositorioPostulaciones;
@@ -51,7 +60,9 @@ private IRepositorioPostulaciones repositorioPostulaciones;
 
     }
     
+
     @Override
+    @Transactional
     public void eliminar (Integer id) throws ExcepcionBiosWork
     {
         try 
@@ -64,11 +75,29 @@ private IRepositorioPostulaciones repositorioPostulaciones;
 
             List<Postulacion> listaPostulaciones = repositorioPostulaciones.findByOferta_Id(id);
 
+            List<Postulante> listaPostulantes = servicioPostulaciones.obtenerPostulantesPorOferta(id);  
+
+
+
+        for(Postulante P: listaPostulantes)
+         {
+          
+            int cantidadActualPostulaciones = servicioPostulantes.obtenerCantidad(P.getUsuario())-1;
+
+                //SE ACTUALIZA LA CANTIDAD DE POSTULACIONES DEL POSTULANTE
+                servicioPostulantes.actualizarCantidad(P.getUsuario(), cantidadActualPostulaciones);
+         }
+
+
+
             for(Postulacion P:listaPostulaciones)
             {
                 //SE ELIMINAN LAS POSTULACIONES DE LA OFERTA
                 repositorioPostulaciones.delete(P);
             }
+
+
+
 
             repositorioOfertas.delete(obtener(id));
         }

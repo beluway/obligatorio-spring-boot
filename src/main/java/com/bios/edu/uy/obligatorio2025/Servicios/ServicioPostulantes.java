@@ -223,6 +223,15 @@ public Boolean MayorEdad(LocalDate fechaNacimiento) throws ExcepcionBiosWork {
      }
 
 
+     @Override
+        public Integer obtenerCantidad(String usuario) throws ExcepcionBiosWork
+        {
+            if (obtener(usuario)==null) {
+                throw new ExcepcionNoExiste("No existe el postulante.");
+            }
+            return respositorioPostulantes.obtenerCantidadPostulaciones(usuario);
+        }
+
 ////////////////////////////
 
 

@@ -23,4 +23,5 @@ public interface IServicioPostulaciones {
      List<Postulacion> buscarPorCriterio(String criterio);
    
    
+   
 }

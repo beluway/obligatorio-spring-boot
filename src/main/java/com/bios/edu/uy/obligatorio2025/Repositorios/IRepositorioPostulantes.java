@@ -14,10 +14,14 @@ import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 
 public interface IRepositorioPostulantes extends JpaRepository<Postulante,String>{
      
-
+ //ESTO SE USA PARA ACTUALIZAR LA CANTIDAD DE POSTULACIONES DE UN POSTULANTE
     @Modifying
     @Query ("UPDATE Postulante p SET p.cantidadPostulaciones =:cantidad WHERE p.usuario = :usuario")
     void actualizarCantidadPostulaciones (@Param("usuario") String usuario, @Param("cantidad")int cantidad);
+
+
+    @Query("SELECT p.cantidadPostulaciones FROM Postulante p WHERE p.usuario = :usuario")
+    Integer obtenerCantidadPostulaciones (@Param ("usuario") String usuario);
 
 
     @Override

@@ -58,7 +58,7 @@ public class ControladorMiCuentaPostulante {
           }
 
 ////???????
-         Integer cantidadPostulacionesActulizadasPorOfertasVencidas = 3 - postulante.getCantidadPostulaciones();  
+         Integer cantidadPostulacionesActulizadasPorOfertasVencidas = 3 -servicioPostulantes.obtenerCantidad(usuarioLogueado.getName());  
          
          modelo.addAttribute("mensajeCantidad", "cabeza, tenes "+cantidadPostulacionesActulizadasPorOfertasVencidas.toString()+" postulaciones permitidas");
 

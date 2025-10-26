@@ -111,9 +111,9 @@ public class ControladorPostulaciones {
 
         /// mensajito que diga: "ya alcanzó las 3 postulaciones"
        
-        modelo.addAttribute("mensajeSinPostulacion", "cabeza, ya te fumaste todas las postulaciones permitidas");
-        modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado));
-        return "postulaciones/lista";
+        attributes.addFlashAttribute("mensajeSinPostulacion", "cabeza, ya te fumaste todas las postulaciones permitidas");
+        attributes.addFlashAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado));
+        return "redirect:/postulaciones/lista";
     }  
 
 
