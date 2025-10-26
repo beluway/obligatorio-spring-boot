@@ -117,7 +117,7 @@ public class ControladorOfertas {
     public String procesarEliminarOferta(@ModelAttribute @Valid Oferta oferta,  BindingResult resultado, Model modelo)throws Exception
     {
         //PRIMERO SE ELIMINAN LAS POSTULACIONES
-        servicioPostulaciones.eliminarConOferta(oferta);   
+       // servicioPostulaciones.eliminarConOferta(oferta);   
 
         //DESPUES DE ELIMINA LA OFERTA
         servicioOfertas.eliminar(oferta.getId());      

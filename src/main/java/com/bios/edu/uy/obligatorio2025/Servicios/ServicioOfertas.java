@@ -62,7 +62,7 @@ private IRepositorioPostulaciones repositorioPostulaciones;
     
 
     @Override
-    @Transactional
+   /*  @Transactional */
     public void eliminar (Integer id) throws ExcepcionBiosWork
     {
         try 
@@ -73,12 +73,11 @@ private IRepositorioPostulaciones repositorioPostulaciones;
             throw new ExcepcionNoExiste("La oferta no existe.");
         }
 
-            List<Postulacion> listaPostulaciones = repositorioPostulaciones.findByOferta_Id(id);
+            List<Postulacion> listaPostulaciones = repositorioPostulaciones.findAllByOferta(ofertaExiste);
 
-            List<Postulante> listaPostulantes = servicioPostulaciones.obtenerPostulantesPorOferta(id);  
+            List<Postulante> listaPostulantes = servicioPostulaciones.obtenerPostulantesPorOferta(ofertaExiste.getId());  
 
-
-
+        
         for(Postulante P: listaPostulantes)
          {
           
@@ -106,6 +105,9 @@ private IRepositorioPostulaciones repositorioPostulaciones;
          throw new ExcepcionBiosWork("Hubo un error "+e.getMessage());
         }
     }
+
+
+
 
     @Override
     public List<Oferta> listaOfertas() 
