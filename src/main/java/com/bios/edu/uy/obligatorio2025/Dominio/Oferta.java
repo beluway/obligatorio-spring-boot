@@ -38,7 +38,7 @@ private Integer id;
     @Column(name = "fecha_Cierre", nullable = false)
     private LocalDate fechaCierre;
 
-    @NotNull(message = "{NotBlank.usuario.usuario}")
+   
     @ManyToOne (optional = false)
     @JoinColumn(name = "cliente",nullable = false)
     private Cliente cliente;
