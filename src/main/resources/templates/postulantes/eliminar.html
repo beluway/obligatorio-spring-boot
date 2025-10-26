@@ -14,7 +14,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
 
     <th:block th:if="${postulante}">
 
-    <p>¿Confirma la eliminación del postulante <strong th:text="${empleado.nombreUsuario}"></strong> (<span th:text="${empleado.nombreCompleto}"></span>)?</p>
+    <p>¿Confirma la eliminación del postulante <strong th:text="${postulante.usuario}"></strong> (<span th:text="${postulante.primerNombre}"></span>)?</p>
 
     <form method="post">
 

@@ -38,7 +38,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     @Autowired
     private HttpServletRequest solicitudCerrarSesionDespuesdeEliminar;
 
-     @Override 
+    @Override 
     public void agregar (Postulante postulante) throws ExcepcionBiosWork
     {
             postulante.setActivo(true);
@@ -53,6 +53,12 @@ public class ServicioPostulantes  implements IServicioPostulantes{
             if(MayorEdad(postulante.getFechanacimiento())==true)
             {
 
+            if(MayorEdad(postulante.getFechanacimiento())==true)
+            {
+
+                postulante.getRoles().add(new Rol("postulante"));
+                postulante.setActivo(true);
+                postulante.setClave(codificador.encode(postulante.getClave()));
                 postulante.getRoles().add(new Rol("postulante"));
                 postulante.setActivo(true);
                 postulante.setClave(codificador.encode(postulante.getClave()));
@@ -67,7 +73,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
 
     }
 
-    
+
     @Override 
     public void modificar (Postulante  nuevo) throws ExcepcionBiosWork
     {
@@ -103,7 +109,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
          {
             nuevo.getRoles().add(r);
          }
-                  
+
 
         respositorioPostulantes.save(nuevo);
         }

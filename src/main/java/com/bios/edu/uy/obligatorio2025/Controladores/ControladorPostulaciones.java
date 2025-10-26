@@ -71,7 +71,7 @@ public class ControladorPostulaciones {
 
  
 
-    @PostMapping("/crear")
+@PostMapping("/crear")
     public String crear (
     @ModelAttribute @Valid Postulacion postulacion, 
     BindingResult resultado, 

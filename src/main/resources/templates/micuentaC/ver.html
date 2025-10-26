@@ -60,45 +60,22 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
                     ✅ Se eliminará definitivamente del sistema.
                 </div>
                  <button type="submit" id="eliminar">Eliminar mi cuenta</button>
+                         <th:block th:if="${cliente}">
+            <p>¿Confirma que desea eliminar el cliente? <strong th:text="${producto.codigo}"></strong> (<span th:text="${producto.descripcion}"></span>)?</p>
+
+            <form method="post">
+                <div>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <input type="submit" value="Eliminar" />
+                </div>
+            </form>
+        </th:block>
         </form>
-                    <!-- Modal de confirmación -->
-                <!-- <dialog id="confirmDialog" class="card">
-                    <h3>Confirmar eliminación</h3>
-                    <p>¿Está seguro de que desea eliminar el cliente permanentemente?</p>
-                    <div style="margin-top: 1em;">
-                        <button type="button" id="confirmYes">Sí, eliminar</button>
-                        <button type="button" id="confirmNo">Cancelar</button>
-                    </div>
-                </dialog> -->
+
         </div>
     </div>
 </section>
 
-<!-- <script>
-  const btn = document.getElementById('eliminar');
-    const form = document.getElementById('form-eliminar');
-    const dialog = document.getElementById('confirmDialog');
-    const confirmYes = document.getElementById('confirmYes');
-    const confirmNo = document.getElementById('confirmNo');
-
-    if (!window.HTMLDialogElement) {
-  alert("Tu navegador no soporta el elemento <dialog>");
-}
-
-    btn.addEventListener('click', function (event) {
-        event.preventDefault();
-        dialog.showModal(); // abre el modal
-    });
-
-    confirmYes.addEventListener('click', () => {
-        dialog.close();
-        form.submit(); // solo acá se envía
-    });
-
-    confirmNo.addEventListener('click', () => {
-        dialog.close(); // cierra sin enviar
-    });
-</script> -->
 
 </html>
 

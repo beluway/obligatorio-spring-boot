@@ -22,6 +22,7 @@ import jakarta.validation.constraints.*;
 @Entity
 @Table(name="ofertas")
 public class Oferta {
+
     
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY) 
@@ -36,7 +37,8 @@ private Integer id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_Cierre", nullable = false)
     private LocalDate fechaCierre;
-   
+
+    @NotNull(message = "{NotBlank.usuario.usuario}")
     @ManyToOne (optional = false)
     @JoinColumn(name = "cliente",nullable = false)
     private Cliente cliente;
@@ -72,8 +74,9 @@ private Integer id;
         return fechaPublicacion;
     }
 
+    /* en el setter ya le digo que la fecha de publicación va a ser la de hoy */
     public void setFechaPublicacion(LocalDate fechaPublicacion) {
-        this.fechaPublicacion = fechaPublicacion;
+        this.fechaPublicacion = LocalDate.now();
     }
 
     public LocalDate getFechaCierre() {

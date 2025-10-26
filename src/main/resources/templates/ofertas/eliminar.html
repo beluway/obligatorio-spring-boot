@@ -109,12 +109,9 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
     const alerta = document.getElementById('alerta');
 
     eliminar.addEventListener('click', (event) => {
-        const confirmar = confirm("¿Está seguro de que desea eliminar esta oferta?");
-        if (!confirmar) {
-            event.preventDefault(); // Detiene el envío del formulario si cancela
-        }
+        // Ya no hay confirmación: el formulario se envía directamente
+        alerta.innerHTML = ""; // Limpia el texto del párrafo, por si antes mostraba algo
     });
-    
 </script>
 
 </section>

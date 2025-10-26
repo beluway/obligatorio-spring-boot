@@ -27,20 +27,20 @@
        
         <div>
           <label for="descripcion"> Descripción </label>
-          <textarea rows="5" cols="50" th:field="*{descripcion}"></textarea>
-             <p th:errors="*{descripcion}" class="error-simple"></p>
+          <textarea rows="5" cols="50" th:field="{descripcion}"></textarea>
+             <p th:errors="{descripcion}" class="error-simple"></p>
 
 
         </div>
 
         <div>
             <label for="area.nombre">Área</label>
-            <select th:field="*{area.id}">
+            <select th:field="{area.id}">
                 <option th:each="a : ${areas}" th:value="${a.id}" th:text="${a.nombre}"></option>
             </select>
-           <!--  <p th:errors="*{area.nombre}" class="error"></p> -->
+           <!--  <p th:errors="{area.nombre}" class="error"></p> -->
         </div>
-      
+
 
         <div>
             <label for="fechaCierre">Fecha Cierre</label>
