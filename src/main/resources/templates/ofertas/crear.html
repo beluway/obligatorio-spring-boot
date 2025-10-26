@@ -15,41 +15,42 @@
     <div class="card">
     
 <form th:action="@{/ofertas/crear}" method="post" th:object="${ofertas}">
-    
-            <input type="hidden" th:field="*{id}" />
+
+            <input type="hidden" th:field="{id}" />
+
        <div>
            <label for="titulo"> Título </label>
-           <input type="text" name="titulo" id="titulo">
-           <p th:errors="*{titulo}" class="error-simple"></p>
-               
-       </div>           
-       
+           <input type="text" th:field="{titulo}" id="titulo">
+           <p th:errors="{titulo}" class="error-simple"></p>
+
+       </div>
+
         <div>
           <label for="descripcion"> Descripción </label>
-          <textarea rows="5" cols="50" th:field="*{descripcion}"></textarea>
-             <p th:errors="*{descripcion}" class="error-simple"></p>
+          <textarea rows="5" cols="50" th:field="{descripcion}"></textarea>
+             <p th:errors="{descripcion}" class="error-simple"></p>
 
 
         </div>
 
         <div>
             <label for="area.nombre">Área</label>
-            <select th:field="*{area.id}">
+            <select th:field="{area.id}">
                 <option th:each="a : ${areas}" th:value="${a.id}" th:text="${a.nombre}"></option>
             </select>
-           <!--  <p th:errors="*{area.nombre}" class="error"></p> -->
+           <!--  <p th:errors="{area.nombre}" class="error"></p> -->
         </div>
-      
+
 
         <div>
             <label for="fechaCierre">Fecha Cierre</label>
-            <input type="date" name="fechaCierre" id="fechaCierre">
-            <p th:if="${#fields.hasErrors('fechaCierre')}" th:errors="*{fechaCierre}" class="error"></p>
+            <input type="date" th:field="{fechaCierre}" id="fechaCierre">
+            <p th:if="${#fields.hasErrors('fechaCierre')}" th:errors="{fechaCierre}" class="error"></p>
         </div>
 
         <div>
             <label for="cantidadVacantes"> Cantidad Vacantes</label>
-            <input type="number" name="cantidadVacantes" id="cantidadVacantes">
+            <input type="number" th:field="{cantidadVacantes}" id="cantidadVacantes">
             <p th:errors="*{cantidadVacantes}" class="error-simple"></p>
         </div>
 

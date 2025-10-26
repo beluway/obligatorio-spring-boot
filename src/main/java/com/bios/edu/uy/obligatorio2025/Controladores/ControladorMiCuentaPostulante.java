@@ -58,6 +58,12 @@ public class ControladorMiCuentaPostulante {
           }
 
 
+
+
+         Integer cantidadPostulacionesActulizadasPorOfertasVencidas = 3 - postulante.getCantidadPostulaciones();
+
+         modelo.addAttribute("mensajeCantidad", "cabeza, tenes "+cantidadPostulacionesActulizadasPorOfertasVencidas.toString()+" postulaciones permitidas");
+
         postulante.setClave("");
 
         modelo.addAttribute("postulante", postulante);
@@ -80,31 +86,51 @@ public class ControladorMiCuentaPostulante {
             } 
 
             if (!servicioPostulantes.MayorEdad(postulante.getFechanacimiento())) {
-        // ✅ CORRECCIÓN: Devolver el objeto del formulario, no el original
+        //Devolver el objeto del formulario, no el original
         modelo.addAttribute("postulante", postulante); 
         modelo.addAttribute("mensaje2", "Debe ser mayor de edad.");
         return "micuentaP/ver";
     }
 
 
-      MultipartFile pdf = postulante.getPdf();
+     // 2️⃣ Obtener el MultipartFile para el PDF
+MultipartFile pdf = postulante.getPdf();
 
 
+// 3️⃣ Manejo del archivo PDF: Solo proceder si se seleccionó un nuevo PDF
+if(!pdf.isEmpty()){
+    
+    // Ruta completa al archivo antiguo (basada en la cédula)
+    File pdfPostulante = new File("C:/ArchivosSubidos/"+postulante.getCedula()+".pdf");
 
-            if(!postulante.getPdf().isEmpty()){
-
-              File pdfPostulante = new File("C:/ArchivosSubidos/"+postulante.getCedula()+".pdf");
-
-              if(pdfPostulante.exists())
-              {
-                  pdfPostulante.delete();
-              }
-
-    File  carpetaDestino= new File("C:/ArchivosSubidos");
+    // Borrar el archivo anterior si existe (ya que se subirá uno nuevo)
+    if(pdfPostulante.exists())
+    {
+        pdfPostulante.delete();
+    }
+    
+    // Crear la carpeta y el destino para el nuevo archivo
+    File carpetaDestino= new File("C:/ArchivosSubidos");
+    // Asegurarse de que el directorio existe
+    if (!carpetaDestino.exists()) {
+        carpetaDestino.mkdirs();
+    }
+    
     File archivoDestino = new File(carpetaDestino, postulante.getCedula().toString()+".pdf");
-    pdf.transferTo(archivoDestino);
-
-   }
+    
+    // Guardar el nuevo PDF
+    try {
+      pdf.transferTo(archivoDestino);
+    } catch (IllegalStateException e) {
+      modelo.addAttribute("mensaje", "Hubo un error al guardar el PDF: "+e.getMessage());
+      modelo.addAttribute("postulante", postulante); // Asumiendo que has corregido esto
+      return "micuentaP/ver";
+    } catch (IOException e) {
+      modelo.addAttribute("mensaje", "Hubo un error de I/O al guardar el PDF: "+e.getMessage());
+      modelo.addAttribute("postulante", postulante); // Asumiendo que has corregido esto
+      return "micuentaP/ver";
+    }
+  }
 
     MultipartFile imagen = postulante.getImagen();
 

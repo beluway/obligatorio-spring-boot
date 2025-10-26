@@ -38,7 +38,7 @@ public class ServicioPostulantes  implements IServicioPostulantes{
     @Autowired
     private HttpServletRequest solicitudCerrarSesionDespuesdeEliminar;
 
-     @Override 
+    @Override 
     public void agregar (Postulante postulante) throws ExcepcionBiosWork
     {
             postulante.setActivo(true);
@@ -50,14 +50,24 @@ public class ServicioPostulantes  implements IServicioPostulantes{
                 throw new ExcepcionYaExiste("ya existe el postulante");
             }
 
-            postulante.getRoles().add(new Rol("postulante"));
-            postulante.setActivo(true);
-            postulante.setClave(codificador.encode(postulante.getClave()));
+            if(MayorEdad(postulante.getFechanacimiento())==true)
+            {
 
-          respositorioPostulantes.save(postulante);
+                postulante.getRoles().add(new Rol("postulante"));
+                postulante.setActivo(true);
+                postulante.setClave(codificador.encode(postulante.getClave()));
+
+                 respositorioPostulantes.save(postulante);
+            }
+
+            else
+            {
+              throw new ExcepcionBiosWork("El postulante debe ser mayor de edad");
+            }
+
     }
 
-    
+
     @Override 
     public void modificar (Postulante  nuevo) throws ExcepcionBiosWork
     {
@@ -68,6 +78,9 @@ public class ServicioPostulantes  implements IServicioPostulantes{
           //ESTE ES PARA: SACAR EL ROL, Y LA CONTRASEÑA GUARDADA EN CASO DE QUE NO SE CAMBIE LA CONTRASEÑA
           Postulante existe = respositorioPostulantes.findById(nuevo.getUsuario()).orElse(null);
 
+
+        if(MayorEdad(nuevo.getFechanacimiento())==true)
+        {
 
           if(nuevo.getClave().isEmpty()||nuevo.getClave().isBlank())
           {
@@ -90,9 +103,17 @@ public class ServicioPostulantes  implements IServicioPostulantes{
          {
             nuevo.getRoles().add(r);
          }
-                  
+
 
         respositorioPostulantes.save(nuevo);
+        }
+
+        else
+        {
+            throw new ExcepcionBiosWork("El postulante debe ser mayor de edad");
+        }
+
+
     }
 
 
