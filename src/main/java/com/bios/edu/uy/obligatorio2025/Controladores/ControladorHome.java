@@ -37,14 +37,10 @@ public class ControladorHome {
    @Autowired
     private IServicioUsuarios servicioUsuarios;
 
-    @Autowired
-    private IServicioClientes servicioClientes;
-
+ 
     @Autowired
     private IServicioPostulantes servicioPostulantes;
-
-    @Autowired
-    private IServicioConsultores servicioConsultores;
+ 
      
         @Autowired
     private IServicioPostulaciones servicioPostulaciones;
