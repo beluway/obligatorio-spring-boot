@@ -18,8 +18,6 @@
                 <p class="aviso">Solo se puede modificar la fecha de cierre</p>
 
                 <p th:if="${exito}" class="exito" th:text="${exito}"></p>
-
-                <p th:if="${error}" class="error" th:text="${error}"></p>
             </div>
                         
             <form th:action="@{/ofertas/modificar}" method="post" th:object="${oferta}">
@@ -27,35 +25,42 @@
 
                 <label for="titulo">Título</label>
                 <input type="text" id="titulo" th:field="*{titulo}" readonly>
+                <input type="hidden" th:field="*{titulo}" />
                 <p th:errors="*{titulo}" class="error"></p>
 
                 <label for="fecha_pub">Fecha de publicación</label>
                 <input type="text" id="fecha_pub" th:field="*{fechaPublicacion}" readonly>
+                <input type="hidden" th:field="*{fechaPublicacion}" />
                 <p th:errors="*{fechaPublicacion}" class="error"></p>
 
                 <label for="fecha_cierre">Fecha de cierre</label>
                 <input type="date" id="fecha_cierre" th:field="*{fechaCierre}">
-                <p th:errors="*{fechaCierre}" class="error"></p>
+                <p th:errors="*{fechaCierre}" class="error-simple"></p>
+                <p th:if="${error}" th:text="${error}" class="error"></p>
 
                 <label for="area">Área</label>
                 <select id="area" th:field="*{area.nombre}" disabled>
                     <option th:each="a : ${areas}" th:value="${a.nombre}" th:text="${a.nombre}"></option>
                 </select>
+                <input type="hidden" th:field="*{area.id}" />
                 <p th:errors="*{area.nombre}" class="error"></p>
 
                 <label for="cliente">Publicado por:</label>
                 <input type="text" id="cliente" th:field="*{cliente.nombre}" readonly>
+                <input type="hidden" th:field="*{cliente.nombre}" />
 
                 <label for="descripcion">Descripción</label>
                 <textarea id="descripcion" th:field="*{descripcion}" readonly></textarea>
+                <input type="hidden" th:field="*{descripcion}" />
 
                 <label for="vacantes">Vacantes</label>
                 <input type="number" id="vacantes" th:field="*{cantidadVacantes}" readonly>
+                <input type="hidden" th:field="*{cantidadVacantes}" />
 
                 <!-- Solo visible si el usuario tiene rol cliente -->
                 <button type="submit" sec:authorize="hasAuthority('cliente')">Modificar</button>
 
-                <p th:if="${mensaje}" th:text="${mensaje}" class="alert-success"></p>
+                <p th:if="${mensaje}" th:text="${mensaje}" class="exito"></p>
 
                 <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
             </form>

@@ -89,7 +89,7 @@ public class ControladorPostulaciones {
 
         /// mensajito que diga: "ya alcanzó las 3 postulaciones"
        
-        attributes.addFlashAttribute("mensajeSinPostulacion", "cabeza, ya te fumaste todas las postulaciones permitidas");
+        attributes.addFlashAttribute("mensajeSinPostulacion", "Usted ya ha alcanzado el límite de postulaciones permitidas");
         attributes.addFlashAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado));
         return "redirect:/postulaciones/lista";
     }  

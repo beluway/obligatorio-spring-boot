@@ -26,6 +26,7 @@ th:replace="~{fragmentos/pagina-maestra :: html(~{::title}, ~{::section}, ~{::li
        
         <label for="cedula">Cédula</label>
         <input type="text" id="cedula" name="cedula" th:value="${postulante.cedula}" readonly>
+        <input type="hidden" th:field="*{cedula}" />
         <p th:errors="*{cedula}" class="error-simple"></p>
 
         <label for="fechanacimiento">Fecha Nacimiento</label>

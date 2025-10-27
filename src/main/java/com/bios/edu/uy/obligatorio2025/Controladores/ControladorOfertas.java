@@ -86,7 +86,7 @@ public class ControladorOfertas {
             return "ofertas/crear";
         }
 
-        return "redirect:/ofertas/lista";
+        return "redirect:/ofertas/listaPorCliente";
        }
          else
          {
@@ -124,10 +124,11 @@ public class ControladorOfertas {
     }
     
     
-    @GetMapping("/modificar")
+@GetMapping("/modificar")
 public String mostrarFormularioModificar(@RequestParam("codigo") Integer codigo,
                                          Model modelo,
                                          Principal usuarioLogueado) throws Exception {
+
     Oferta oferta = servicioOfertas.obtener(codigo);
 
     if (oferta == null) {
@@ -138,10 +139,8 @@ public String mostrarFormularioModificar(@RequestParam("codigo") Integer codigo,
         oferta.setArea(new Area());
     }
 
-    List<Area> areas = servicioAreas.listaAreas();
-
     modelo.addAttribute("oferta", oferta);
-    modelo.addAttribute("areas", areas);
+    modelo.addAttribute("areas", servicioAreas.listaAreas());
     modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
 
     return "ofertas/modificar";
@@ -149,34 +148,42 @@ public String mostrarFormularioModificar(@RequestParam("codigo") Integer codigo,
 
 
 
-@PostMapping("/modificar")
+ @PostMapping("/modificar")
 public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta oferta,
                                       BindingResult resultado,
                                       Model modelo,
                                       RedirectAttributes attributes) throws Exception {
 
-    if (resultado.hasErrors()) {
+    if (oferta.getFechaCierre().isBefore(LocalDate.now())) {
+        modelo.addAttribute("error", "La fecha de cierre DEBE ser posterior a la fecha actual");
+        modelo.addAttribute("areas", servicioAreas.listaAreas());
+        return "/ofertas/modificar";
+    }
+        if (resultado.hasErrors()) {
         modelo.addAttribute("areas", servicioAreas.listaAreas());
         return "ofertas/modificar";
     }
 
     Oferta ofertaEncontrada = servicioOfertas.obtener(oferta.getId());
     if (ofertaEncontrada == null) {
-        attributes.addFlashAttribute("error", "La oferta no existe.");
-        return "redirect:/ofertas/lista";
+        modelo.addAttribute("error", "La oferta no existe.");
+        return "/ofertas/listaPorCliente";
     }
+
+    
+
 
     // Solo modificamos el campo permitido
     ofertaEncontrada.setFechaCierre(oferta.getFechaCierre());
 
     servicioOfertas.modificar(ofertaEncontrada);
 
-    attributes.addFlashAttribute("exito", "Oferta modificada correctamente.");
+    attributes.addFlashAttribute("mensaje", "Oferta modificada correctamente.");
 
-    return "redirect:/ofertas/lista";
-}
+    return "redirect:/ofertas/listaPorCliente";
+} 
 
-    
+
 
     @GetMapping("/ver")    
     public String verOferta(@RequestParam Integer codigo, Model modelo, Principal usuarioLogueado) throws Exception {

@@ -79,7 +79,10 @@
       </a>
 
       
-      <a th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
+      <a sec:authorize="hasAuthority('postulante')" th:href="@{/ofertas/lista}" id="volver">Volver al listado</a>
+
+      <a sec:authorize="hasAuthority('cliente')" th:href="@{/ofertas/listaPorCliente}" id="volver">Volver al listado</a>
+
 
     </div>
   </div>

@@ -42,7 +42,7 @@ public class ServicioClientes implements IServicioClientes  {
             }
             }
             
-            cliente.getRoles().add(new Rol("postulante"));
+            cliente.getRoles().add(new Rol("cliente"));
             cliente.setActivo(true);
             cliente.setClave(codificador.encode(cliente.getClave()));
 

@@ -60,7 +60,7 @@ public class ControladorMiCuentaPostulante {
   //ACA LA CANTIDAD OBTENIDA DE LA BASE DE DATOS YA ACTUALIZADA, SE LE RESTA A 3 PARA SABER CUANTAS POSTULACIONES LE QUEDAN DISPONIBLES AL POSTULANTE
      Integer cantidadPostulacionesActulizadasPorOfertasVencidas = 3 -postulante.getCantidadPostulaciones();  
          
-         modelo.addAttribute("mensajeCantidad", "cabeza, tenes "+cantidadPostulacionesActulizadasPorOfertasVencidas.toString()+" postulaciones permitidas");
+         modelo.addAttribute("mensajeCantidad", "Usted tiene "+cantidadPostulacionesActulizadasPorOfertasVencidas.toString()+" postulaciones permitidas");
 
         postulante.setClave("");
 
@@ -80,13 +80,31 @@ public class ControladorMiCuentaPostulante {
 
             if (resultado.hasErrors()) 
             {
-                    return "micuentaP/ver"; // queda en la misma página si hay errores
+              File archivoPDF = new File("C:/ArchivosSubidos/" + postulante.getCedula() + ".pdf");
+          if (archivoPDF !=null) {
+            modelo.addAttribute("cvDisponible", archivoPDF.exists());
+          }
+
+             File imagen = new File("C:/ArchivosSubidos/" + postulante.getCedula() + ".jpeg");
+          if (imagen !=null) {
+            modelo.addAttribute("imagenDisponible", imagen.exists());
+          }
+              return "micuentaP/ver"; // queda en la misma página si hay errores
             } 
 
             if (!servicioPostulantes.MayorEdad(postulante.getFechanacimiento())) {
         //Devolver el objeto del formulario, no el original
         modelo.addAttribute("postulante", postulante); 
         modelo.addAttribute("mensaje2", "Debe ser mayor de edad.");
+        File archivoPDF = new File("C:/ArchivosSubidos/" + postulante.getCedula() + ".pdf");
+          if (archivoPDF !=null) {
+            modelo.addAttribute("cvDisponible", archivoPDF.exists());
+          }
+
+             File imagen = new File("C:/ArchivosSubidos/" + postulante.getCedula() + ".jpeg");
+          if (imagen !=null) {
+            modelo.addAttribute("imagenDisponible", imagen.exists());
+          }
         return "micuentaP/ver";
     }
 
@@ -94,27 +112,55 @@ public class ControladorMiCuentaPostulante {
 
     Long cedulaVieja = postulanteExiste.getCedula();
 
-    if (postulante.getCedula()!=cedulaVieja) {
-      modelo.addAttribute("mensaje2", "No es posible cambiar su cédula.");
+    if (!postulante.getCedula().equals(cedulaVieja))  {
+
+          modelo.addAttribute("mensaje2", "No es posible cambiar su cédula.");
+
+          modelo.addAttribute("postulante", postulanteExiste);
 
           File archivoPDF = new File("C:/ArchivosSubidos/" + cedulaVieja + ".pdf");
-          if (archivoPDF !=null) {
-            modelo.addAttribute("cvDisponible", archivoPDF.exists());
-          }
+          modelo.addAttribute("cvDisponible", archivoPDF.exists());
 
-             File imagen = new File("C:/ArchivosSubidos/" + cedulaVieja + ".jpeg");
-          if (imagen !=null) {
+
+            File imagen = new File("C:/ArchivosSubidos/" + cedulaVieja + ".jpeg");
             modelo.addAttribute("imagenDisponible", imagen.exists());
-          }
-      return "micuentaP/ver";
+
+            
+            return "micuentaP/ver";
+
     }
 
+     //  Obtener el MultipartFile para el PDF
+  MultipartFile pdf = postulante.getPdf();
 
-     // 2️⃣ Obtener el MultipartFile para el PDF
-MultipartFile pdf = postulante.getPdf();
+    if (pdf != null && !pdf.isEmpty()) {
+
+        // Validar tipo MIME y extensión
+        String contentType = pdf.getContentType();
+        String nombreArchivo = pdf.getOriginalFilename();
+
+        boolean tipoInvalido = (contentType == null) ||
+            (!contentType.equalsIgnoreCase("application/pdf") &&
+             (nombreArchivo == null || !nombreArchivo.toLowerCase().endsWith(".pdf")));
+
+        if (tipoInvalido){
+
+            modelo.addAttribute("mensaje2", "Solo se permiten archivos PDF.");
+            modelo.addAttribute("postulante", postulante);
+
+            File archivoPDF = new File("C:/ArchivosSubidos/" + cedulaVieja + ".pdf");
+            modelo.addAttribute("cvDisponible", archivoPDF.exists());
 
 
-// 3️⃣ Manejo del archivo PDF: Solo proceder si se seleccionó un nuevo PDF
+            File imagen = new File("C:/ArchivosSubidos/" + cedulaVieja + ".jpeg");
+            modelo.addAttribute("imagenDisponible", imagen.exists());
+
+            return "micuentaP/ver";
+        }
+
+      }
+
+// Manejo del archivo PDF: Solo proceder si se seleccionó un nuevo PDF
 if(!pdf.isEmpty()){
     
     // Ruta completa al archivo antiguo (basada en la cédula)
@@ -140,16 +186,52 @@ if(!pdf.isEmpty()){
       pdf.transferTo(archivoDestino);
     } catch (IllegalStateException e) {
       modelo.addAttribute("mensaje", "Hubo un error al guardar el PDF: "+e.getMessage());
-      modelo.addAttribute("postulante", postulante); // Asumiendo que has corregido esto
+    
+      modelo.addAttribute("postulante", postulante); 
       return "micuentaP/ver";
     } catch (IOException e) {
       modelo.addAttribute("mensaje", "Hubo un error de I/O al guardar el PDF: "+e.getMessage());
-      modelo.addAttribute("postulante", postulante); // Asumiendo que has corregido esto
+      modelo.addAttribute("postulante", postulante); 
+
       return "micuentaP/ver";
     }
   }
 
     MultipartFile imagen = postulante.getImagen();
+
+    if (imagen != null && !imagen.isEmpty()){
+
+    // Validar tipo MIME y extensión
+    String contentType = imagen.getContentType();
+    String nombreArchivo = imagen.getOriginalFilename();
+
+    boolean tipoInvalido =
+            (contentType == null) ||
+            ( !contentType.equalsIgnoreCase("image/png") &&
+              !contentType.equalsIgnoreCase("image/jpeg") &&
+              !contentType.equalsIgnoreCase("image/jpg") &&
+              (nombreArchivo == null ||
+               ( !nombreArchivo.toLowerCase().endsWith(".png") &&
+                 !nombreArchivo.toLowerCase().endsWith(".jpg") &&
+                 !nombreArchivo.toLowerCase().endsWith(".jpeg") ))
+            );
+
+            if (tipoInvalido) {
+        // Mostrar mensaje y mantener la imagen anterior
+        modelo.addAttribute("mensaje2", "Solo se permiten imágenes PNG, JPG o JPEG.");
+        modelo.addAttribute("postulante", postulante);
+
+        // Mantener el CV y la imagen anteriores
+        File archivoPDF = new File("C:/ArchivosSubidos/" + cedulaVieja + ".pdf");
+        modelo.addAttribute("cvDisponible", archivoPDF.exists());
+
+        File imagenAnterior = new File("C:/ArchivosSubidos/" + cedulaVieja + ".jpeg");
+        modelo.addAttribute("imagenDisponible", imagenAnterior.exists());
+
+        // No borrar ni guardar nada nuevo
+        return "micuentaP/ver";
+    }
+  }
 
     if (!imagen.isEmpty()) {
       //primero borro la que ya había
