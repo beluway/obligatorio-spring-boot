@@ -51,9 +51,6 @@ public String verConsultor(Principal principal, Model modelo) throws ExcepcionBi
             modelo.addAttribute("Hubo un error: ", e.getMessage());
         }
         
-
-
-
         return "consultores/lista";
     }
 
