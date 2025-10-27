@@ -45,8 +45,9 @@ public class ControladorMiCuentaPostulante {
 
         Postulante postulante= servicioPostulantes.obtener(usuarioLogueado.getName());
 
+      Integer cantidadPostulacionesPermitidas = 3 - postulante.getCantidadPostulaciones();
 
-       modelo.addAttribute("mensajeCantidad", "Usted tiene "+postulante.getCantidadPostulaciones()+" postulaciones permitidas");
+       modelo.addAttribute("mensajeCantidad", "Usted tiene "+cantidadPostulacionesPermitidas+" postulaciones permitidas");
 
           File archivoPDF = new File("C:/ArchivosSubidos/" + postulante.getCedula() + ".pdf");
           if (archivoPDF !=null) {
@@ -72,6 +73,8 @@ public class ControladorMiCuentaPostulante {
     }
     
     
+
+
 
     @PostMapping("/ver")
     public String modificarPostulante(
@@ -112,6 +115,9 @@ public class ControladorMiCuentaPostulante {
 
     Postulante postulanteExiste = servicioPostulantes.obtener(postulante.getUsuario());
 
+    postulante.setCantidadPostulaciones(postulanteExiste.getCantidadPostulaciones());
+
+
     Long cedulaVieja = postulanteExiste.getCedula();
 
     if (!postulante.getCedula().equals(cedulaVieja))  {
@@ -134,6 +140,9 @@ public class ControladorMiCuentaPostulante {
             return "micuentaP/ver";
 
     }
+
+
+    
 
      //  Obtener el MultipartFile para el PDF
   MultipartFile pdf = postulante.getPdf();
@@ -259,6 +268,15 @@ if(!pdf.isEmpty()){
         return "redirect:/micuentaP/ver"; 
 
      }
+
+
+
+
+
+
+
+
+
         
       @PostMapping("/eliminar")
       public String eliminar (Model modelo, RedirectAttributes attributes,  
