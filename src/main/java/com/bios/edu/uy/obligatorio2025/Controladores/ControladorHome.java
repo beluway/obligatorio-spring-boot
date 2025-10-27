@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
-import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
-import com.bios.edu.uy.obligatorio2025.Servicios.IServicioConsultores;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioUsuarios;
@@ -117,42 +115,19 @@ public class ControladorHome {
 
             int cantidad =     P.getPostulante().getCantidadPostulaciones()-1;
        /*     P.getPostulante().setCantidadPostulaciones(cantidadPostulacionesActulizadasPorOfertasVencidas-1); */
-
             
            //SE ACTUALIZA LA CANTIDAD DE POSTULACIONES
           servicioPostulantes.actualizarCantidad(usuarioLogueado.getName(), cantidad);  
             }
 
-                     
-      /*   servicioPostulaciones.eliminar(P); */
-       
-    
-  
-    
-    
-    
-    }
-                  } 
-
-             
-
-
-                     break;
+        }
+    } 
+                break;
                
                   default:
                      break;
                }
 
-
-
-
-
-
-            /*modelo.addAttribute("Cliente", sesion.getAttribute("usuarioLogueado") instanceof Cliente);
-
-            modelo.addAttribute("Postulante", sesion.getAttribute("usuarioLogueado") instanceof Postulante);
-
-            modelo.addAttribute("Consultor", sesion.getAttribute("usuarioLogueado") instanceof Consultor); */
 
             return "home/main";
     }    

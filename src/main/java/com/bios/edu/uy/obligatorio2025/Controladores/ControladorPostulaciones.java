@@ -82,27 +82,6 @@ public class ControladorPostulaciones {
      Postulante postulanteLogueado=servicioPostulantes.obtener(usuarioLogueado.getName());  
 
 
-   /*  
-    List<Postulacion> listaPostulaciones = servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado);
-
-
-
-    for(Postulacion P : listaPostulaciones)
-    {
-
-        if(P.getOferta().getFechaCierre().isBefore(LocalDate.now()))
-        {
-           int cantidadPostulacionesActulizadasPorOfertasVencidas = P.getPostulante().getCantidadPostulaciones();
-           P.getPostulante().setCantidadPostulaciones(cantidadPostulacionesActulizadasPorOfertasVencidas-1);
-
-
-       
-          servicioPostulantes.actualizarCantidad(usuarioLogueado.getName(), cantidadPostulacionesActulizadasPorOfertasVencidas);  
-                     
-   
-        }
-    } */
-
 
     //SI EL POSTULANTE LOGJUEADO TIENE 3 POSTULACIONES
     if(postulanteLogueado.getCantidadPostulaciones()==3)
@@ -169,10 +148,6 @@ public class ControladorPostulaciones {
 
     }
 
-   
-    
-
-
 
 @GetMapping("/eliminar")
     public String eliminar(Model modelo, Principal usuarioLogueado,
@@ -193,9 +168,6 @@ public class ControladorPostulaciones {
 
         return "redirect:/postulaciones/lista";        
     }
-
-
-
    
     @PostMapping("/eliminar")
     public String eliminar (Model modelo, RedirectAttributes attributes,  
@@ -213,7 +185,6 @@ public class ControladorPostulaciones {
             try
             {
            
-
             servicioPostulaciones.eliminar(encontrada.get());
 
             Postulante postulanteParaActualizacionCantidadPostulaciones = servicioPostulantes.obtener(usuarioLogueado.getName());
@@ -233,18 +204,12 @@ public class ControladorPostulaciones {
     }
 
 
-
-
      @GetMapping("/ver")
      public String ver(Model modelo, Principal usuarioLogueado) throws Exception
      {
         modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
         return "postulaciones/ver";     
      }
-
-     
-
-
 
     @GetMapping("/lista")
     public String lista(String criterio, 
@@ -268,8 +233,7 @@ public class ControladorPostulaciones {
 
         return "postulaciones/lista";        
     }
-
-    
+   
 
     @GetMapping("/ofertas/{id}/postulantes")
 public String verPostulantesDeOferta(@PathVariable Integer id, Model modelo) throws Exception {
@@ -324,7 +288,5 @@ public String verPostulantesDeOferta(@PathVariable Integer id, Model modelo) thr
 
            return "ofertas/lista";
     }
-
-
 
 }

@@ -3,8 +3,6 @@ package com.bios.edu.uy.obligatorio2025.Controladores;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
-import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
-import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
 import com.bios.edu.uy.obligatorio2025.utilidades.UtilidadesArchivos;
 
@@ -41,8 +36,6 @@ public class ControladorMiCuentaPostulante {
   @Autowired
   private IServicioPostulantes servicioPostulantes;
 
-  @Autowired
-  private IServicioPostulaciones servicioPostulaciones;
 
   @Autowired
   PasswordEncoder codificador; 

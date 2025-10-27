@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,11 +18,9 @@ import org.springframework.ui.Model;
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
-import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Servicios.*;
 import jakarta.validation.Valid;
-import jakarta.validation.groups.Default;
 
 
 @Controller
@@ -201,18 +198,11 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
     }   
 
 
-
-
-
-
-
     @GetMapping("/lista")    
     public String listarOfertas(String criterio, Model modelo, Principal usuarioLogueado) throws Exception {
        //ACA SE SACA LA LISTA DESDE LA BASE DE DATOS
 
         /* LocalDate fechaActual = LocalDate.now(); */
-
-       
 
         //ESTO MUESTRA LAS VIGENTES
         List<Oferta> ofertas = servicioOfertas.listaOfertasVigentes();
@@ -238,9 +228,6 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
 
 
 
-
-
-
     @GetMapping("/listaPorCliente")
     public String listaOfertas(Model modelo, Principal usuarioLogueado) throws Exception {
        
@@ -252,10 +239,6 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
 
         return "ofertas/listaPorCliente";
     }   
-
-
-
-
 
 
 }
