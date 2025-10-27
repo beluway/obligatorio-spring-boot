@@ -35,7 +35,7 @@
                 <tr th:each="c : ${consultores}">
                     <td th:text="${c.usuario}"></td>
                     <td>
-                        <a th:href="@{/micuentaConsu/ver(usuario=${c.usuario})}" class="btn">ver</a>
+                        <a th:href="@{/micuentaConsu/verConsultor(usuario=${c.usuario})}" class="btn">ver</a>
                     </td>
                 </tr>
             </tbody>

@@ -114,6 +114,25 @@ public class ControladorMiCuentaPostulante {
         return "micuentaP/ver";
     }
 
+    Postulante postulanteExiste = servicioPostulantes.obtener(postulante.getUsuario());
+
+    Long cedulaVieja = postulanteExiste.getCedula();
+
+    if (postulante.getCedula()!=cedulaVieja) {
+      modelo.addAttribute("mensaje2", "No es posible cambiar su cédula.");
+
+          File archivoPDF = new File("C:/ArchivosSubidos/" + cedulaVieja + ".pdf");
+          if (archivoPDF !=null) {
+            modelo.addAttribute("cvDisponible", archivoPDF.exists());
+          }
+
+             File imagen = new File("C:/ArchivosSubidos/" + cedulaVieja + ".jpeg");
+          if (imagen !=null) {
+            modelo.addAttribute("imagenDisponible", imagen.exists());
+          }
+      return "micuentaP/ver";
+    }
+
 
      // 2️⃣ Obtener el MultipartFile para el PDF
 MultipartFile pdf = postulante.getPdf();

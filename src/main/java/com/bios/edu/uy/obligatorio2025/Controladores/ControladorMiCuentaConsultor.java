@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bios.edu.uy.obligatorio2025.Dominio.Consultor;
+import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionNoExiste;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioConsultores;
 
@@ -31,27 +32,38 @@ public class ControladorMiCuentaConsultor {
   PasswordEncoder codificador; 
 
 
-    @GetMapping("/ver")
-    public String ver(Principal usuarioLogueado, Model modelo) throws Exception {
-    
-        Consultor consultor= servicioConsultores.obtener(usuarioLogueado.getName());
-
-        consultor.setClave("");        
-
-        modelo.addAttribute("consultor", consultor);
-
-        return "/micuentaConsu/ver";
-
-    }
+@GetMapping("/ver")
+public String verConsultor(Principal principal, Model modelo) throws ExcepcionBiosWork {
+    Consultor consultor = servicioConsultores.obtener(principal.getName());
+    modelo.addAttribute("consultor", consultor);
+    return "micuentaConsu/ver";
+}
            
-    
+    @GetMapping("/verConsultor")
+    public String verConsultor(@RequestParam String usuario, Model modelo) throws ExcepcionBiosWork{
+
+        try {
+            Consultor consultor = servicioConsultores.obtener(usuario);
+             modelo.addAttribute("consultor", consultor);
+            return "micuentaConsu/ver";
+
+        } catch (ExcepcionBiosWork e) {
+            modelo.addAttribute("Hubo un error: ", e.getMessage());
+        }
+        
+
+
+
+        return "";
+    }
 
     @PostMapping("/ver") 
    public String procesarModificar(@ModelAttribute @Valid Consultor consultor, 
     @RequestParam(required = false)String nuevaClave,
      BindingResult resultado,
-     RedirectAttributes attributes, Model modelo, @RequestParam String usuario) throws Exception{
-    Consultor consultorExiste = servicioConsultores.obtener(usuario);
+     RedirectAttributes attributes, Model modelo) throws Exception{
+
+    Consultor consultorExiste = servicioConsultores.obtener(consultor.getUsuario());
 
         if (consultorExiste == null){
             modelo.addAttribute("mensaje", "consultor no encontrado");
@@ -72,7 +84,7 @@ public class ControladorMiCuentaConsultor {
 
         attributes.addFlashAttribute("exito", "Consultor modificado correctamente");
 
-             return "redirect:/micuentaConsu/ver";
+             return "redirect:/micuentaConsu/ver?usuario=" + consultor.getUsuario();
         }
 
         catch (Exception ex)

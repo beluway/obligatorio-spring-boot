@@ -97,7 +97,6 @@ private IRepositorioPostulaciones repositorioPostulaciones;
 
 
 
-
             repositorioOfertas.delete(obtener(id));
         }
         catch (Exception e) 
