@@ -1,6 +1,7 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -108,9 +109,17 @@ public String verConsultor(Principal principal, Model modelo) throws ExcepcionBi
 
             try
             {
-           
-              servicioConsultores.eliminar(consultorExiste.getUsuario());
+            servicioConsultores.eliminar(consultorExiste.getUsuario());
+                
+            if (usuarioLogueado.getName().equals(usuario)) {
               return "redirect:/home/index";
+            }
+            else{
+                 List<Consultor> consultores = servicioConsultores.listaConsultores();
+                 modelo.addAttribute("consultores", consultores);
+                return "consultores/lista";
+            }
+              
 
             } 
             catch (Exception ex) {

@@ -264,7 +264,6 @@ public String postulanteVer(
         List<Postulante> listaPostulantes = servicioPostulantes.lista();
 
 
-
             if (criterio != null && !criterio.isEmpty()) {
                 listaPostulantes = servicioPostulantes.buscarPorCriterio(criterio);
             }

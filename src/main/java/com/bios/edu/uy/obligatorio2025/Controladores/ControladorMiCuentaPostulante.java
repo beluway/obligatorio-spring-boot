@@ -46,6 +46,8 @@ public class ControladorMiCuentaPostulante {
         Postulante postulante= servicioPostulantes.obtener(usuarioLogueado.getName());
 
 
+       modelo.addAttribute("mensajeCantidad", "Usted tiene "+postulante.getCantidadPostulaciones()+" postulaciones permitidas");
+
           File archivoPDF = new File("C:/ArchivosSubidos/" + postulante.getCedula() + ".pdf");
           if (archivoPDF !=null) {
             modelo.addAttribute("cvDisponible", archivoPDF.exists());
@@ -115,6 +117,9 @@ public class ControladorMiCuentaPostulante {
     if (!postulante.getCedula().equals(cedulaVieja))  {
 
           modelo.addAttribute("mensaje2", "No es posible cambiar su cédula.");
+
+          Integer cantidadPostulacionesActulizadasPorOfertasVencidas = 3 -postulante.getCantidadPostulaciones();  
+         modelo.addAttribute("mensajeCantidad", "Usted tiene "+cantidadPostulacionesActulizadasPorOfertasVencidas.toString()+" postulaciones permitidas");
 
           modelo.addAttribute("postulante", postulanteExiste);
 

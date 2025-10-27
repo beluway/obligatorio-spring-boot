@@ -66,5 +66,22 @@
             </table>
         </div>
     </div>
+     <!--SCRIPT PARA RESETEAR LA BÚSQUEDA AL BORRAR -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const formularioBusqueda = document.getElementById('formularioBusqueda');
+                    const criterioInput = document.getElementById('criterio');
+
+                    // Si se borra el texto con la "x", se reinicia la búsqueda
+                    criterioInput.addEventListener('search', function() {
+                        if (!criterioInput.value) {
+                            formularioBusqueda.submit();
+                        }
+                    });
+
+                    criterioInput.focus();
+                    criterioInput.select();
+                });
+            </script>
 </section>
 </html>

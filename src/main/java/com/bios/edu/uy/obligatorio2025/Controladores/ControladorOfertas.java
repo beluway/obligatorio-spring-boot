@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Servicios.*;
 import jakarta.validation.Valid;
@@ -68,13 +69,13 @@ public class ControladorOfertas {
       modelo.addAttribute("areas", servicioAreas.listaAreas());
         return "ofertas/crear";
     }
-
+        Area areaExiste = servicioAreas.obtener(ofertas.getArea().getId());
         //SE SETEA EL CLIENTE QUE CREA LA OFERTA
         ofertas.setCliente(servicioClientes.obtener(usuarioLogueado.getName()));
 
-        //SE SETEA LA FECHA DE HO
+        //SE SETEA LA FECHA DE HOY
         ofertas.setFechaPublicacion(LocalDate.now());
-        ofertas.getArea().setAsignada(true);
+        areaExiste.setAsignada(true);
 
 
        if(!ofertas.getFechaCierre().isBefore(LocalDate.now()))
@@ -234,11 +235,24 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
  }
 
 
-
     @GetMapping("/listaPorCliente")
-    public String listaOfertas(Model modelo, Principal usuarioLogueado) throws Exception {
+    public String listaOfertas(Model modelo, Principal usuarioLogueado,String criterio) throws Exception {
        
         List<Oferta> OfertasCliente = servicioOfertas.listaOfertasCliente(servicioClientes.obtener(usuarioLogueado.getName()));
+
+        if(criterio!=null && !criterio.isEmpty())
+        {
+            OfertasCliente =servicioOfertas.buscarPorCriterio(criterio);
+        }
+        else
+        {
+           OfertasCliente = servicioOfertas.listaOfertasCliente(servicioClientes.obtener(usuarioLogueado.getName()));
+        }
+
+
+        modelo.addAttribute("ofertas", OfertasCliente);
+        modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
+
         modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("listaOfertasCliente", OfertasCliente);
 

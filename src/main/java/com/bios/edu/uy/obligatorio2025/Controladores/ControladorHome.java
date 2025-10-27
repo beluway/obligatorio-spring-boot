@@ -113,7 +113,7 @@ public class ControladorHome {
             if(P.getPostulante().getCantidadPostulaciones()>0)
             {
 
-            int cantidad =     P.getPostulante().getCantidadPostulaciones()-1;
+            int cantidad = P.getPostulante().getCantidadPostulaciones()-1;
        /*     P.getPostulante().setCantidadPostulaciones(cantidadPostulacionesActulizadasPorOfertasVencidas-1); */
             
            //SE ACTUALIZA LA CANTIDAD DE POSTULACIONES
