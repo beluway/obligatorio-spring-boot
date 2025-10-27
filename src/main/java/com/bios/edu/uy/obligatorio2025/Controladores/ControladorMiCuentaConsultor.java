@@ -54,7 +54,7 @@ public String verConsultor(Principal principal, Model modelo) throws ExcepcionBi
 
 
 
-        return "";
+        return "consultores/lista";
     }
 
     @PostMapping("/ver") 
