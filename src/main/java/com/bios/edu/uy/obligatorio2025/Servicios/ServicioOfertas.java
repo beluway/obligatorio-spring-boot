@@ -139,6 +139,8 @@ private IRepositorioPostulaciones repositorioPostulaciones;
          return listaOfertasVigentes;
     }
     //filtra por título o descripción que contenga el criterio de búsqueda
+
+    
     @Override
     public List<Oferta> buscarPorCriterio(String criterio)  {
         return repositorioOfertas.findAll().stream()

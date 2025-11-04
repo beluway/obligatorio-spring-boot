@@ -26,8 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class Postulante extends Usuario{
 
     @Column(name = "cantidadPostulaciones")
-    private int cantidadPostulaciones;
 
+    private int cantidadPostulaciones;
  
     @Column(name = "cedula",unique = true,nullable = false,length = 8)
     @NotNull(message = "{NotNull.postulante.cedula}")
