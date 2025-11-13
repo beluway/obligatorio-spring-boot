@@ -31,6 +31,7 @@ import com.bios.edu.uy.obligatorio2025.Servicios.IServicioOfertas;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
 
+import ch.qos.logback.core.joran.conditional.ElseAction;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -55,16 +56,24 @@ public class ControladorPostulaciones {
     {    
         
      Postulacion postulacion = new Postulacion();
-     postulacion.setOferta(new Oferta());   
+     postulacion.setOferta(new Oferta());         
 
-      
+     //SE OBTIENE EL POSTULANTE LOGUEADO
     Postulante postulanteLogueado = servicioPostulantes.obtener(usuarioLogueado.getName());  
              
+   
+
+
             //SI EL POSTULANTE TIENE 3 POSSTULACIONES ACTIVAS, NO SE PUEDE GUARDAR OTRA
+           /*  if(listaPostulaciones.size()==3)
+            {
+                return "redirect:/home/main";
+            }  */
+/* 
             if(postulanteLogueado.getCantidadPostulaciones()==3)
             {
                 return "redirect:/home/main";
-            } 
+            }   */
 
         modelo.addAttribute("postulacion", new Postulacion());
         modelo.addAttribute("usuarioLogueado", postulanteLogueado);       
@@ -84,9 +93,45 @@ public class ControladorPostulaciones {
     RedirectAttributes attributes, Principal usuarioLogueado) throws Exception /*  */
     {      
                 
-      //  Postulante postulanteLogueado = (Postulante)sesion.getAttribute("usuarioLogueado");
+     Postulante postulanteLogueado=servicioPostulantes.obtener(usuarioLogueado.getName());  
 
-        Postulante postulanteLogueado=servicioPostulantes.obtener(usuarioLogueado.getName());  
+
+    //SE OBTIENEN TODAS LAS POSTULACIONES EL POSTULANTE
+    List<Postulacion> listaPostulaciones = servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado);
+
+
+
+
+//**** ESTE METODDO LO QUE HACE ES D */
+ //DE TODAS LAS POSTULACIONES
+    for(Postulacion P : listaPostulaciones)
+    {
+
+        if(P.getOferta().getFechaCierre().isBefore(LocalDate.now()))
+        {
+           int cantidadPostulacionesActulizadasPorOfertasVencidas = P.getPostulante().getCantidadPostulaciones();
+           P.getPostulante().setCantidadPostulaciones(cantidadPostulacionesActulizadasPorOfertasVencidas-1);
+
+           servicioPostulantes.modificar(postulanteLogueado);      
+                     
+      /*   servicioPostulaciones.eliminar(P); */
+        }
+    }
+
+
+
+    //SI EL POSTULANTE LOGJUEADO TIENE 3 POSTULACIONES
+    if(postulanteLogueado.getCantidadPostulaciones()==3)
+    {
+                return "redirect:/home/main";
+    }  
+
+    else
+    {
+
+
+
+       
 /* 
         if(usuarioLogueado instanceof Postulante)
         { */
@@ -122,10 +167,13 @@ public class ControladorPostulaciones {
         try
         {   
         
+                
+                servicioPostulaciones.agregar(postulacion);
+
                //DESPUES QUE SE POSTULA A UNA OFERTA, SE CUENTA +1, HASTA QUE SEAN 3 RESERVAS ACTUALES.
                 postulanteLogueado.setCantidadPostulaciones(postulanteLogueado.getCantidadPostulaciones()+1);
-                       
-                servicioPostulaciones.agregar(postulacion);
+                   
+                servicioPostulantes.modificar(postulanteLogueado);
 
                 String mensaje = "Se agregó la postulación correctamente";
                 attributes.addFlashAttribute("mensaje",mensaje);               
@@ -140,8 +188,12 @@ public class ControladorPostulaciones {
             modelo.addAttribute("mensaje", "Error " + ex.getMessage());
 
             return "postulaciones/crear";
-        }        
+        }       
 
+
+    }
+
+   
     }
 
 

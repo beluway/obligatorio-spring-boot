@@ -2,7 +2,7 @@ package com.bios.edu.uy.obligatorio2025.Servicios;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authorization.method.AuthorizeReturnObject;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.bios.edu.uy.obligatorio2025.Dominio.*;
@@ -138,10 +138,8 @@ public class ServicioClientes implements IServicioClientes  {
        else
        {
         repositorioClientes.delete(clienteEnBD);
-       }        
-      
-
-
+       }  
+       
    } 
 
 //LISTAR
