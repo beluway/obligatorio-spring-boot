@@ -46,10 +46,8 @@ public interface IRepositorioOfertas extends JpaRepository<Oferta,Integer>, JpaS
                 root.get("fechaPublicacion"), // límite inferior
                 root.get("fechaCierre")       // límite superior
             );
-
-
+            
             }
-
         };
         
     }

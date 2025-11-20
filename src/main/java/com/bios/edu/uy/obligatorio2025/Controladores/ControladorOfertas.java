@@ -209,6 +209,8 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
         modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
         modelo.addAttribute("listaOfertasCliente", OfertasCliente);
 
+        modelo.addAttribute("fechaActual", LocalDate.now());
+
         return "ofertas/listaPorCliente";
     }   
 

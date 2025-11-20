@@ -33,14 +33,29 @@
             </thead>
             <tbody>
                 <tr th:each="o : ${listaOfertasCliente}">
+
                     <td th:text="${o.titulo}"></td>
                     <td th:text="${o.descripcion}"></td>
-                    <td th:text="${o.area.nombre}"></td>
+                    <td th:text="${o.area.nombre}"></td>                                        
+                
                     <td>
                         <a th:href="@{/ofertas/ver(codigo=${o.id})}" class="btn">Ver más</a>
-                        <a th:href="@{/ofertas/modificar(codigo=${o.id})}" class="btn">Modificar</a>
-                        <a th:href="@{/ofertas/eliminar(codigo=${o.id})}" class="btn">Eliminar</a>
+                       
                     </td>
+                    <td th:if="${!o.fechaCierre.isBefore(fechaActual)}">                          
+
+                        <a th:href="@{/ofertas/modificar(codigo=${o.id})}" class="btn">Modificar</a>
+                        <a th:href="@{/ofertas/eliminar(codigo=${o.id})}" class="btn">Eliminar</a>              
+                  </td>
+
+
+                  <td th:if="${o.fechaCierre.isBefore(fechaActual)}"> 
+
+                       <span style="color: red;">  OFERTA VENCIDA </span>  
+                  </td>
+
+
+
                 </tr>
             </tbody>
         </table>
