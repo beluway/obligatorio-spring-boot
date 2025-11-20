@@ -49,6 +49,14 @@ private IRepositorioPostulaciones respositorioPostulaciones;
     {
         try 
         {
+            List<Postulacion> listaPostulaciones = respositorioPostulaciones.findByOferta_Id(id);
+
+            for(Postulacion P:listaPostulaciones)
+            {
+                //SE ELIMINAN LAS POSTULACIONES DE LA OFERTA
+                respositorioPostulaciones.delete(P);
+            }
+
             repositorioOfertas.delete(obtener(id));
         }
         catch (Exception e) 
