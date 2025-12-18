@@ -1,8 +1,11 @@
 package com.bios.edu.uy.obligatorio2025.Controladores;
+
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 //import org.springframework.validation.BindingResult;
@@ -13,6 +16,7 @@ import com.bios.edu.uy.obligatorio2025.Dominio.*;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioClientes;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioConsultores;
+import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulaciones;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioPostulantes;
 import com.bios.edu.uy.obligatorio2025.Servicios.IServicioUsuarios;
 //import com.bios.edu.uy.obligatorio2025.Servicios.ServicioClientes;
@@ -42,8 +46,9 @@ public class ControladorHome {
     @Autowired
     private IServicioConsultores servicioConsultores;
      
-
-
+        @Autowired
+    private IServicioPostulaciones servicioPostulaciones;
+  
     @GetMapping("/index") 
     public String index() {
          
@@ -89,17 +94,63 @@ public class ControladorHome {
     @GetMapping("/main") 
     public String main(Model modelo, Principal usuarioLogueado) throws Exception {
         
-             if (usuarioLogueado instanceof Consultor) {
-                modelo.addAttribute("usuarioLogueado", servicioConsultores.obtener(usuarioLogueado.getName()));
-             }
+            
 
-           if (usuarioLogueado instanceof Cliente) {
-                modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
-             }
+               Authentication autorizacion = (Authentication)usuarioLogueado;
 
-             if (usuarioLogueado instanceof Postulante) {
-                modelo.addAttribute("usuarioLogueado", servicioPostulantes.obtener(usuarioLogueado.getName()));
-             }
+               String rol = autorizacion.getAuthorities().stream().findFirst().map(Object::toString).orElse(null);
+
+               switch (rol) {
+                  case "postulante":
+                  
+      Postulante postulante = servicioPostulantes.obtener(usuarioLogueado.getName());
+
+         //SE OBTIENEN TODAS LAS POSTULACIONES EL POSTULANTE
+    List<Postulacion> listaPostulaciones = servicioPostulaciones.listaPostulacionesPorPostulante(postulante);
+
+    //**** ESTE METODDO LO QUE HACE ES DESCONTAR 1 SEGUN LA CANTIDAD DE POSTULACIONES VENCIDAS.*/
+    //DE TODAS LAS POSTULACIONES
+    for(Postulacion P : listaPostulaciones)
+    {
+
+        if(P.getOferta().getFechaCierre().isBefore(LocalDate.now()))
+        {
+
+            if(P.getPostulante().getCantidadPostulaciones()>0)
+            {
+
+            int cantidad =     P.getPostulante().getCantidadPostulaciones()-1;
+       /*     P.getPostulante().setCantidadPostulaciones(cantidadPostulacionesActulizadasPorOfertasVencidas-1); */
+
+            
+           //SE ACTUALIZA LA CANTIDAD DE POSTULACIONES
+          servicioPostulantes.actualizarCantidad(usuarioLogueado.getName(), cantidad);  
+            }
+
+                     
+      /*   servicioPostulaciones.eliminar(P); */
+       
+    
+  
+    
+    
+    
+    }
+                  } 
+
+             
+
+
+                     break;
+               
+                  default:
+                     break;
+               }
+
+
+
+
+
 
             /*modelo.addAttribute("Cliente", sesion.getAttribute("usuarioLogueado") instanceof Cliente);
 

@@ -61,9 +61,9 @@ public class ControladorPostulaciones {
     Postulante postulanteLogueado = servicioPostulantes.obtener(usuarioLogueado.getName());  
                 
 
-        modelo.addAttribute("postulacion", new Postulacion());
-        modelo.addAttribute("usuarioLogueado", postulanteLogueado);       
-       modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaOfertasVigentesParaPostularse(/*(Postulante)usuarioLogueado*/postulanteLogueado));
+      modelo.addAttribute("postulacion", new Postulacion());
+      modelo.addAttribute("usuarioLogueado", postulanteLogueado);       
+      modelo.addAttribute("ofertasVigentesParaPostularse", servicioPostulaciones.listaOfertasVigentesParaPostularse(/*(Postulante)usuarioLogueado*/postulanteLogueado));
 
         return "postulaciones/crear";    
      
@@ -82,12 +82,11 @@ public class ControladorPostulaciones {
      Postulante postulanteLogueado=servicioPostulantes.obtener(usuarioLogueado.getName());  
 
 
-    //SE OBTIENEN TODAS LAS POSTULACIONES EL POSTULANTE
+   /*  
     List<Postulacion> listaPostulaciones = servicioPostulaciones.listaPostulacionesPorPostulante(postulanteLogueado);
 
 
-    //**** ESTE METODDO LO QUE HACE ES DESCONTAR 1 SEGUN LA CANTIDAD DE POSTULACIONES VENCIDAS.*/
-    //DE TODAS LAS POSTULACIONES
+
     for(Postulacion P : listaPostulaciones)
     {
 
@@ -97,12 +96,12 @@ public class ControladorPostulaciones {
            P.getPostulante().setCantidadPostulaciones(cantidadPostulacionesActulizadasPorOfertasVencidas-1);
 
 
-           //SE ACTUALIZA LA CANTIDAD DE POSTULACIONES
+       
           servicioPostulantes.actualizarCantidad(usuarioLogueado.getName(), cantidadPostulacionesActulizadasPorOfertasVencidas);  
                      
-      /*   servicioPostulaciones.eliminar(P); */
+   
         }
-    }
+    } */
 
 
     //SI EL POSTULANTE LOGJUEADO TIENE 3 POSTULACIONES
@@ -221,8 +220,7 @@ public class ControladorPostulaciones {
 
             int cantidadNuevaPostulaciones = postulanteParaActualizacionCantidadPostulaciones.getCantidadPostulaciones()-1;
            
-             servicioPostulantes.actualizarCantidad(postulanteParaActualizacionCantidadPostulaciones.getUsuario(),cantidadNuevaPostulaciones);
-
+            servicioPostulantes.actualizarCantidad(postulanteParaActualizacionCantidadPostulaciones.getUsuario(),cantidadNuevaPostulaciones);
 
             attributes.addFlashAttribute("mensaje","Postulación eliminada con éxito.");
             return "redirect:/postulaciones/lista";

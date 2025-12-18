@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import com.bios.edu.uy.obligatorio2025.Dominio.Area;
 import com.bios.edu.uy.obligatorio2025.Dominio.Oferta;
 import com.bios.edu.uy.obligatorio2025.Dominio.Postulacion;
+import com.bios.edu.uy.obligatorio2025.Dominio.Postulante;
 import com.bios.edu.uy.obligatorio2025.Excepciones.ExcepcionBiosWork;
 import com.bios.edu.uy.obligatorio2025.Servicios.*;
 import jakarta.validation.Valid;
@@ -200,12 +201,20 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
     }   
 
 
+
+
+
+
+
     @GetMapping("/lista")    
     public String listarOfertas(String criterio, Model modelo, Principal usuarioLogueado) throws Exception {
        //ACA SE SACA LA LISTA DESDE LA BASE DE DATOS
 
         /* LocalDate fechaActual = LocalDate.now(); */
 
+       
+
+        //ESTO MUESTRA LAS VIGENTES
         List<Oferta> ofertas = servicioOfertas.listaOfertasVigentes();
 
         if(criterio!=null && !criterio.isEmpty())
@@ -221,8 +230,15 @@ public String procesarModificarOferta(@ModelAttribute("oferta") @Valid Oferta of
         modelo.addAttribute("ofertas", ofertas);
         modelo.addAttribute("usuarioLogueado", servicioClientes.obtener(usuarioLogueado.getName()));
 
-        return "ofertas/lista"; //nombre de la vista
-    } 
+       
+    
+
+     return "ofertas/lista"; //nombre de la vista
+ }
+
+
+
+
 
 
     @GetMapping("/listaPorCliente")

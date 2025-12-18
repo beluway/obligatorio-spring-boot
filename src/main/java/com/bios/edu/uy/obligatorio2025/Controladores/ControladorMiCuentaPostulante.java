@@ -63,26 +63,9 @@ public class ControladorMiCuentaPostulante {
             modelo.addAttribute("imagenDisponible", imagen.exists());
           }
 
-////???????
-
-    List<Postulacion> listaPostulaciones= servicioPostulaciones.listaPostulacionesPorPostulante(postulante);
-
-    for(Postulacion P: listaPostulaciones)
-    {
-        if(P.getOferta().getFechaCierre().isBefore(LocalDate.now()))
-        {
-          int cantidadPostulacionesActulizadasPorOfertasVencidas = P.getPostulante().getCantidadPostulaciones();
-
-          P.getPostulante().setCantidadPostulaciones(cantidadPostulacionesActulizadasPorOfertasVencidas - 1);
-
-          //SE ACTUALIZA LA CANTIDAD DE POSTULACIONES EN LA BASE DE DATOS
-          servicioPostulantes.actualizarCantidad(usuarioLogueado.getName(), cantidadPostulacionesActulizadasPorOfertasVencidas);
-
-        }
-    }
 
   //ACA LA CANTIDAD OBTENIDA DE LA BASE DE DATOS YA ACTUALIZADA, SE LE RESTA A 3 PARA SABER CUANTAS POSTULACIONES LE QUEDAN DISPONIBLES AL POSTULANTE
-     Integer cantidadPostulacionesActulizadasPorOfertasVencidas = 3 -servicioPostulantes.obtenerCantidad(usuarioLogueado.getName());  
+     Integer cantidadPostulacionesActulizadasPorOfertasVencidas = 3 -postulante.getCantidadPostulaciones();  
          
          modelo.addAttribute("mensajeCantidad", "cabeza, tenes "+cantidadPostulacionesActulizadasPorOfertasVencidas.toString()+" postulaciones permitidas");
 
